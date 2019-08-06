@@ -100,7 +100,7 @@ let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout
 ## Requirements
 
 - Swift 5.0+ or Objective-C
-- iOS 11.0+ (I want to support much earlier versions!)
+- iOS 11.0+ (I have a plan to support much earlier versions!)
 
 ## Installation
 
