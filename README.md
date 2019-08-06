@@ -112,6 +112,7 @@ let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout
 - [ ] RTL Support
 - [ ] Visual Debug Description
 - [ ] Perfomance Optimization
+- [ ] Improve Compatibility with iOS 13 (Achieve drop-in replacement)
 
 ## Requirements
 
