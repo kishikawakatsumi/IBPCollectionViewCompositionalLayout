@@ -1,0 +1,3 @@
+[submodule "Carthage/Checkouts/DifferenceKit"]
+	path = Carthage/Checkouts/DifferenceKit
+	url = https://github.com/ra1028/DifferenceKit.git

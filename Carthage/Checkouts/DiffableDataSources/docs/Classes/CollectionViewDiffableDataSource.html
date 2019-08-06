@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CollectionViewDiffableDataSource Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Class/CollectionViewDiffableDataSource" class="dashAnchor"></a>
+
+    <a title="CollectionViewDiffableDataSource Class Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          DiffableDataSources Docs
+        </a>
+         (100% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/ra1028/DiffableDataSources">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">DiffableDataSources Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      CollectionViewDiffableDataSource Class Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../DataSources.html">DataSources</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TableViewDiffableDataSource.html">TableViewDiffableDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CollectionViewDiffableDataSource.html">CollectionViewDiffableDataSource</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Snapshot.html">Snapshot</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DiffableDataSourceSnapshot.html">DiffableDataSourceSnapshot</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>CollectionViewDiffableDataSource</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">CollectionViewDiffableDataSource</span><span class="o">&lt;</span><span class="kt">SectionIdentifierType</span><span class="p">,</span> <span class="kt">ItemIdentifierType</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">UICollectionViewDataSource</span> <span class="k">where</span> <span class="kt">SectionIdentifierType</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">ItemIdentifierType</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+
+                </div>
+              </div>
+            <p>A class for backporting <code>UICollectionViewDiffableDataSource</code> introduced in iOS 13.0+, tvOS 13.0+.
+Represents the data model object for <code>UICollectionView</code> that can be applies the
+changes with automatic diffing.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19DiffableDataSources014CollectionViewaB6SourceC12CellProvidera"></a>
+                    <a name="//apple_ref/swift/Alias/CellProvider" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19DiffableDataSources014CollectionViewaB6SourceC12CellProvidera">CellProvider</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The type of closure providing the cell.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">CellProvider</span> <span class="o">=</span> <span class="p">(</span><span class="kt">UICollectionView</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">,</span> <span class="kt">ItemIdentifierType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UICollectionViewCell</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19DiffableDataSources014CollectionViewaB6SourceC013SupplementaryE8Providera"></a>
+                    <a name="//apple_ref/swift/Alias/SupplementaryViewProvider" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19DiffableDataSources014CollectionViewaB6SourceC013SupplementaryE8Providera">SupplementaryViewProvider</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The type of closure providing the supplementary view for element of kind.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">SupplementaryViewProvider</span> <span class="o">=</span> <span class="p">(</span><span class="kt">UICollectionView</span><span class="p">,</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UICollectionReusableView</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19DiffableDataSources014CollectionViewaB6SourceC013supplementaryE8ProviderSo020UICollectionReusableE0CSgSo0iE0C_SS10Foundation9IndexPathVtcSgvp"></a>
+                    <a name="//apple_ref/swift/Property/supplementaryViewProvider" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19DiffableDataSources014CollectionViewaB6SourceC013supplementaryE8ProviderSo020UICollectionReusableE0CSgSo0iE0C_SS10Foundation9IndexPathVtcSgvp">supplementaryViewProvider</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A closure to dequeue the views for element of kind.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">supplementaryViewProvider</span><span class="p">:</span> <span class="kt">CollectionViewDiffableDataSource</span><span class="o">&lt;</span><span class="kt">SectionIdentifierType</span><span class="p">,</span> <span class="kt">ItemIdentifierType</span><span class="o">&gt;.</span><span class="kt"><a href="../Classes/CollectionViewDiffableDataSource.html#/s:19DiffableDataSources014CollectionViewaB6SourceC013SupplementaryE8Providera">SupplementaryViewProvider</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19DiffableDataSources014CollectionViewaB6SourceC010collectionE012cellProviderACyxq_GSo012UICollectionE0C_So0jE4CellCSgAH_10Foundation9IndexPathVq_tctcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(collectionView:cellProvider:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19DiffableDataSources014CollectionViewaB6SourceC010collectionE012cellProviderACyxq_GSo012UICollectionE0C_So0jE4CellCSgAH_10Foundation9IndexPathVq_tctcfc">init(collectionView:cellProvider:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a new data source.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="nv">cellProvider</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/CollectionViewDiffableDataSource.html#/s:19DiffableDataSources014CollectionViewaB6SourceC12CellProvidera">CellProvider</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collectionView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A collection view instance to be managed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cellProvider</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure to dequeue the cell for items.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19DiffableDataSources014CollectionViewaB6SourceC5apply_20animatingDifferencesyAA0abF8SnapshotCyxq_G_SbtF"></a>
+                    <a name="//apple_ref/swift/Method/apply(_:animatingDifferences:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19DiffableDataSources014CollectionViewaB6SourceC5apply_20animatingDifferencesyAA0abF8SnapshotCyxq_G_SbtF">apply(_:animatingDifferences:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Applies given snapshot to perform automatic diffing update.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">apply</span><span class="p">(</span><span class="n">_</span> <span class="nv">snapshot</span><span class="p">:</span> <span class="kt"><a href="../Classes/DiffableDataSourceSnapshot.html">DiffableDataSourceSnapshot</a></span><span class="o">&lt;</span><span class="kt">SectionIdentifierType</span><span class="p">,</span> <span class="kt">ItemIdentifierType</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">animatingDifferences</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>snapshot</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A snapshot object to be applied to data model.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>animatingDifferences</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A Boolean value indicating whether to update with
+                  diffing animation.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19DiffableDataSources014CollectionViewaB6SourceC8snapshotAA0abF8SnapshotCyxq_GyF"></a>
+                    <a name="//apple_ref/swift/Method/snapshot()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19DiffableDataSources014CollectionViewaB6SourceC8snapshotAA0abF8SnapshotCyxq_GyF">snapshot()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a new snapshot object of current state.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">snapshot</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/DiffableDataSourceSnapshot.html">DiffableDataSourceSnapshot</a></span><span class="o">&lt;</span><span class="kt">SectionIdentifierType</span><span class="p">,</span> <span class="kt">ItemIdentifierType</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new snapshot object of current state.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19DiffableDataSources014CollectionViewaB6SourceC14itemIdentifier3forq_Sg10Foundation9IndexPathV_tF"></a>
+                    <a name="//apple_ref/swift/Method/itemIdentifier(for:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19DiffableDataSources014CollectionViewaB6SourceC14itemIdentifier3forq_Sg10Foundation9IndexPathV_tF">itemIdentifier(for:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns an item identifier for given index path.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">itemIdentifier</span><span class="p">(</span><span class="k">for</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ItemIdentifierType</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>indexPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An index path for the item identifier.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An item identifier for given index path.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19DiffableDataSources014CollectionViewaB6SourceC9indexPath3for10Foundation05IndexH0VSgq__tF"></a>
+                    <a name="//apple_ref/swift/Method/indexPath(for:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19DiffableDataSources014CollectionViewaB6SourceC9indexPath3for10Foundation05IndexH0VSgq__tF">indexPath(for:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns an index path for given item identifier.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">indexPath</span><span class="p">(</span><span class="k">for</span> <span class="nv">itemIdentifier</span><span class="p">:</span> <span class="kt">ItemIdentifierType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">IndexPath</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>itemIdentifier</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An identifier of item.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An index path for given item identifier.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19DiffableDataSources014CollectionViewaB6SourceC16numberOfSections2inSiSo012UICollectionE0C_tF"></a>
+                    <a name="//apple_ref/swift/Method/numberOfSections(in:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19DiffableDataSources014CollectionViewaB6SourceC16numberOfSections2inSiSo012UICollectionE0C_tF">numberOfSections(in:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the number of sections in the data source.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">numberOfSections</span><span class="p">(</span><span class="k">in</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collectionView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A collection view instance managed by <code>self</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The number of sections in the data source.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19DiffableDataSources014CollectionViewaB6SourceC010collectionE0_22numberOfItemsInSectionSiSo012UICollectionE0C_SitF"></a>
+                    <a name="//apple_ref/swift/Method/collectionView(_:numberOfItemsInSection:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19DiffableDataSources014CollectionViewaB6SourceC010collectionE0_22numberOfItemsInSectionSiSo012UICollectionE0C_SitF">collectionView(_:numberOfItemsInSection:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the number of items in the specified section.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">collectionView</span><span class="p">(</span><span class="n">_</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="n">numberOfItemsInSection</span> <span class="nv">section</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collectionView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A collection view instance managed by <code>self</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>section</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An index of section.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The number of items in the specified section.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19DiffableDataSources014CollectionViewaB6SourceC010collectionE0_13cellForItemAtSo012UICollectionE4CellCSo0lE0C_10Foundation9IndexPathVtF"></a>
+                    <a name="//apple_ref/swift/Method/collectionView(_:cellForItemAt:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19DiffableDataSources014CollectionViewaB6SourceC010collectionE0_13cellForItemAtSo012UICollectionE4CellCSo0lE0C_10Foundation9IndexPathVtF">collectionView(_:cellForItemAt:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a cell for item at specified index path.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">collectionView</span><span class="p">(</span><span class="n">_</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="n">cellForItemAt</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UICollectionViewCell</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collectionView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A collection view instance managed by <code>self</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>indexPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An index path for cell.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A cell for row at specified index path.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19DiffableDataSources014CollectionViewaB6SourceC010collectionE0_33viewForSupplementaryElementOfKind2atSo020UICollectionReusableE0CSo0oE0C_SS10Foundation9IndexPathVtF"></a>
+                    <a name="//apple_ref/swift/Method/collectionView(_:viewForSupplementaryElementOfKind:at:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19DiffableDataSources014CollectionViewaB6SourceC010collectionE0_33viewForSupplementaryElementOfKind2atSo020UICollectionReusableE0CSo0oE0C_SS10Foundation9IndexPathVtF">collectionView(_:viewForSupplementaryElementOfKind:at:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a supplementary view for element of kind at specified index path.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">collectionView</span><span class="p">(</span><span class="n">_</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="n">viewForSupplementaryElementOfKind</span> <span class="nv">kind</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UICollectionReusableView</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collectionView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A collection view instance managed by <code>self</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>kind</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The kind of element to be display.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>indexPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An index path for supplementary view.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A supplementary view for element of kind at specified index path.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2019 <a class="link" href="https://github.com/ra1028" target="_blank" rel="external">Ryo Aoyama</a>. All rights reserved. (Last updated: 2019-06-24)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>StagedChangeset Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Struct/StagedChangeset" class="dashAnchor"></a>
+
+    <a title="StagedChangeset Structure Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          DifferenceKit Docs
+        </a>
+         (100% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/ra1028/DifferenceKit">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">DifferenceKit Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      StagedChangeset Structure Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Diffing.html">Diffing</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ContentEquatable.html">ContentEquatable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Differentiable.html">Differentiable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/DifferentiableSection.html">DifferentiableSection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AnyDifferentiable.html">AnyDifferentiable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ArraySection.html">ArraySection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ElementPath.html">ElementPath</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Optional.html">Optional</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Changeset.html">Changeset</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/StagedChangeset.html">StagedChangeset</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Changeset.html">Changeset</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../UI Extensions.html">UI Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UITableView.html">UITableView</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UICollectionView.html">UICollectionView</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>StagedChangeset</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">StagedChangeset</span><span class="o">&lt;</span><span class="kt">Collection</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Collection</span> <span class="p">:</span> <span class="kt">Collection</span></code></pre>
+
+                </div>
+              </div>
+            <p>An ordered collection of <code><a href="../Structs/Changeset.html">Changeset</a></code> as staged set of changes in the sectioned collection.</p>
+
+<p>The order is representing the stages of changesets.</p>
+
+<p>We know that there are combination of changes that crash when applied simultaneously
+in batch-updates of UI such as UITableView or UICollectionView.
+The <code>StagedChangeset</code> created from the two collection is split at the minimal stages
+that can be perform batch-updates with no crashes.</p>
+
+<p>Example for calculating differences between the two linear collections.</p>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">String</span><span class="p">:</span> <span class="kt">Differentiable</span> <span class="p">{}</span>
+
+<span class="k">let</span> <span class="nv">source</span> <span class="o">=</span> <span class="p">[</span><span class="s">"A"</span><span class="p">,</span> <span class="s">"B"</span><span class="p">,</span> <span class="s">"C"</span><span class="p">]</span>
+<span class="k">let</span> <span class="nv">target</span> <span class="o">=</span> <span class="p">[</span><span class="s">"B"</span><span class="p">,</span> <span class="s">"C"</span><span class="p">,</span> <span class="s">"D"</span><span class="p">]</span>
+
+<span class="k">let</span> <span class="nv">changeset</span> <span class="o">=</span> <span class="kt">StagedChangeset</span><span class="p">(</span><span class="nv">source</span><span class="p">:</span> <span class="n">source</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="n">target</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">changeset</span><span class="o">.</span><span class="n">isEmpty</span><span class="p">)</span>  <span class="c1">// prints "false"</span>
+</code></pre>
+
+<p>Example for calculating differences between the two sectioned collections.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">source</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="kt">Section</span><span class="p">(</span><span class="nv">model</span><span class="p">:</span> <span class="s">"A"</span><span class="p">,</span> <span class="nv">elements</span><span class="p">:</span> <span class="p">[</span><span class="s">"😉"</span><span class="p">]),</span>
+<span class="p">]</span>
+<span class="k">let</span> <span class="nv">target</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="kt">Section</span><span class="p">(</span><span class="nv">model</span><span class="p">:</span> <span class="s">"A"</span><span class="p">,</span> <span class="nv">elements</span><span class="p">:</span> <span class="p">[</span><span class="s">"😉, 😺"</span><span class="p">]),</span>
+    <span class="kt">Section</span><span class="p">(</span><span class="nv">model</span><span class="p">:</span> <span class="s">"B"</span><span class="p">,</span> <span class="nv">elements</span><span class="p">:</span> <span class="p">[</span><span class="s">"😪"</span><span class="p">])</span>
+<span class="p">]</span>
+
+<span class="k">let</span> <span class="nv">changeset</span> <span class="o">=</span> <span class="kt">StagedChangeset</span><span class="p">(</span><span class="nv">source</span><span class="p">:</span> <span class="n">sectionedSource</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="n">sectionedTarget</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">changeset</span><span class="o">.</span><span class="n">isEmpty</span><span class="p">)</span>  <span class="c1">// prints "false"</span>
+</code></pre>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DifferenceKit15StagedChangesetVyACyxGqd__cSlRd__AA0D0VyxG7ElementRtd__lufc"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DifferenceKit15StagedChangesetVyACyxGqd__cSlRd__AA0D0VyxG7ElementRtd__lufc">init(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a new <code>StagedChangeset</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">init</span><span class="o">&lt;</span><span class="kt">C</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">changesets</span><span class="p">:</span> <span class="kt">C</span><span class="p">)</span> <span class="k">where</span> <span class="kt">C</span> <span class="p">:</span> <span class="kt">Collection</span><span class="p">,</span> <span class="kt">C</span><span class="o">.</span><span class="kt"><a href="../Structs/StagedChangeset.html#/s:ST7ElementQa">Element</a></span> <span class="o">==</span> <span class="kt"><a href="../Structs/Changeset.html">Changeset</a></span><span class="o">&lt;</span><span class="kt">Collection</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>changesets</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The collection of <code><a href="../Structs/Changeset.html">Changeset</a></code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DifferenceKit15StagedChangesetVAASmRzAA14Differentiable7ElementRpzrlE6source6targetACyxGx_xtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(source:target:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DifferenceKit15StagedChangesetVAASmRzAA14Differentiable7ElementRpzrlE6source6targetACyxGx_xtcfc">init(source:target:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a new <code>StagedChangeset</code> from the two collections.</p>
+
+<p>Calculate the differences between the collections using
+the algorithm optimized based on the Paul Heckel&rsquo;s diff algorithm.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This algorithm can compute the differences at high performance with O(n) complexity.
+    However, not always calculates the shortest differences.</p>
+
+</div>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>If the elements with the same identifier duplicated, the algorithm calculates
+    the moves at best effort, and rest of the duplicates as insertion or deletion.</p>
+
+</div>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>The data and changes each changeset contains are represents the middle of whole the changes.
+    Each changes are from the previous stage.</p>
+
+</div>
+<div class="aside aside-complexity">
+    <p class="aside-title">Complexity</p>
+    <p>O(n)</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="nf">init</span><span class="p">(</span><span class="nv">source</span><span class="p">:</span> <span class="kt">Collection</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">Collection</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>source</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A source collection to calculate differences.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>target</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A target collection to calculate differences.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DifferenceKit15StagedChangesetVAASmRzAA14Differentiable7ElementRpzrlE6source6target7sectionACyxGx_xSitcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(source:target:section:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DifferenceKit15StagedChangesetVAASmRzAA14Differentiable7ElementRpzrlE6source6target7sectionACyxGx_xSitcfc">init(source:target:section:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a new <code>StagedChangeset</code> from the two collections.</p>
+
+<p>Calculate the differences between the collections using
+the algorithm optimized based on the Paul Heckel&rsquo;s diff algorithm.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This algorithm can compute the differences at high performance with O(n) complexity.
+    However, not always calculates the shortest differences.</p>
+
+</div>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>If the elements with the same identifier duplicated, the algorithm calculates
+    the moves at best effort, and rest of the duplicates as insertion or deletion.</p>
+
+</div>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>The data and changes each changeset contains are represents the middle of whole the changes.
+    Each changes are from the previous stage.</p>
+
+</div>
+<div class="aside aside-complexity">
+    <p class="aside-title">Complexity</p>
+    <p>O(n)</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="nf">init</span><span class="p">(</span><span class="nv">source</span><span class="p">:</span> <span class="kt">Collection</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">Collection</span><span class="p">,</span> <span class="nv">section</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>source</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A source collection to calculate differences.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>target</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A target collection to calculate differences.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>section</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An Int value to use as section index (or offset) of element.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DifferenceKit15StagedChangesetVAASmRzAA21DifferentiableSection7ElementRpzrlE6source6targetACyxGx_xtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(source:target:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DifferenceKit15StagedChangesetVAASmRzAA21DifferentiableSection7ElementRpzrlE6source6targetACyxGx_xtcfc">init(source:target:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a new <code>StagedChangeset</code> from the two sectioned collections.</p>
+
+<p>Calculate the differences between the collections using
+the algorithm optimized based on the Paul Heckel&rsquo;s diff algorithm.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This algorithm can compute the differences at high performance with O(n) complexity.
+    However, not always calculates the shortest differences.</p>
+
+</div>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>If the elements with the same identifier duplicated, the algorithm calculates
+    the moves at best effort, and rest of the duplicates as insertion or deletion.</p>
+
+</div>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>The data and changes each changeset contains are represents the middle of whole the changes.
+    Each changes are from the previous stage.</p>
+
+</div>
+<div class="aside aside-complexity">
+    <p class="aside-title">Complexity</p>
+    <p>O(n)</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="nf">init</span><span class="p">(</span><span class="nv">source</span><span class="p">:</span> <span class="kt">Collection</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">Collection</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>source</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A source sectioned collection to calculate differences.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>target</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A target sectioned collection to calculate differences.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ST7ElementQa"></a>
+                    <a name="//apple_ref/swift/Alias/Element" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ST7ElementQa">Element</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Element</span> <span class="o">=</span> <span class="kt"><a href="../Structs/Changeset.html">Changeset</a></span><span class="o">&lt;</span><span class="kt">Collection</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Smxycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Smxycfc">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sl10startIndex0B0Qzvp"></a>
+                    <a name="//apple_ref/swift/Property/startIndex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sl10startIndex0B0Qzvp">startIndex</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">startIndex</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sl8endIndex0B0Qzvp"></a>
+                    <a name="//apple_ref/swift/Property/endIndex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sl8endIndex0B0Qzvp">endIndex</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">endIndex</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sk5index5after5IndexQzAD_tF"></a>
+                    <a name="//apple_ref/swift/Method/index(after:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sk5index5after5IndexQzAD_tF">index(after:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">index</span><span class="p">(</span><span class="n">after</span> <span class="nv">i</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SMy7ElementQz5IndexQzcip"></a>
+                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SMy7ElementQz5IndexQzcip">subscript(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="nf">subscript</span><span class="p">(</span><span class="nv">position</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Changeset.html">Changeset</a></span><span class="o">&lt;</span><span class="kt">Collection</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sm15replaceSubrange_4withySny5IndexQzG_qd__ntSlRd__7ElementQyd__AFRtzlF"></a>
+                    <a name="//apple_ref/swift/Method/replaceSubrange(_:with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sm15replaceSubrange_4withySny5IndexQzG_qd__ntSlRd__7ElementQyd__AFRtzlF">replaceSubrange(_:with:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="n">replaceSubrange</span><span class="o">&lt;</span><span class="kt">C</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">subrange</span><span class="p">:</span> <span class="kt">R</span><span class="p">,</span> <span class="n">with</span> <span class="nv">newElements</span><span class="p">:</span> <span class="kt">C</span><span class="p">)</span> <span class="k">where</span> <span class="kt">C</span> <span class="p">:</span> <span class="kt">Collection</span><span class="p">,</span> <span class="kt">R</span> <span class="p">:</span> <span class="kt">RangeExpression</span><span class="p">,</span> <span class="kt">C</span><span class="o">.</span><span class="kt"><a href="../Structs/StagedChangeset.html#/s:ST7ElementQa">Element</a></span> <span class="o">==</span> <span class="kt"><a href="../Structs/Changeset.html">Changeset</a></span><span class="o">&lt;</span><span class="kt">Collection</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">R</span><span class="o">.</span><span class="kt">Bound</span> <span class="o">==</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SQ2eeoiySbx_xtFZ"></a>
+                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SQ2eeoiySbx_xtFZ">==(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">StagedChangeset</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">StagedChangeset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:s25ExpressibleByArrayLiteralP05arrayD0x0cD7ElementQzd_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(arrayLiteral:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s25ExpressibleByArrayLiteralP05arrayD0x0cD7ElementQzd_tcfc">init(arrayLiteral:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">arrayLiteral</span> <span class="nv">elements</span><span class="p">:</span> <span class="kt"><a href="../Structs/Changeset.html">Changeset</a></span><span class="o">&lt;</span><span class="kt">Collection</span><span class="o">&gt;...</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:s28CustomDebugStringConvertibleP16debugDescriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/debugDescription" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s28CustomDebugStringConvertibleP16debugDescriptionSSvp">debugDescription</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">debugDescription</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2019 <a class="link" href="https://github.com/ra1028" target="_blank" rel="external">Ryo Aoyama</a>. All rights reserved. (Last updated: 2019-05-07)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

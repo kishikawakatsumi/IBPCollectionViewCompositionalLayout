@@ -1,0 +1,38 @@
+.DS_Store
+*/build/*
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+xcbaselines
+profile
+*.moved-aside
+DerivedData
+.idea/
+*.hmap
+*.xccheckout
+*.xcuserstate
+build/
+
+## Documentation
+docs/docsets/
+docs/undocumented.json
+
+## Gems
+.bundle
+vendor
+
+## CocoaPods
+Pods
+
+## Carthage
+Carthage/*
+!Carthage/Checkouts
+
+## Swift Package Manager
+.build

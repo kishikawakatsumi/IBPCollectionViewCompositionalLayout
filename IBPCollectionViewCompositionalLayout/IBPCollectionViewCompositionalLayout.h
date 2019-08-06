@@ -1,0 +1,26 @@
+#import <UIKit/UIKit.h>
+
+FOUNDATION_EXPORT double IBPCollectionViewCompositionalLayoutVersionNumber;
+FOUNDATION_EXPORT const unsigned char IBPCollectionViewCompositionalLayoutVersionString[];
+
+#import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutAnchor.h>
+#import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutBoundarySupplementaryItem.h>
+#import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutContainer_Protocol.h>
+#import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutDecorationItem.h>
+#import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutDimension.h>
+#import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutEdgeSpacing.h>
+#import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutEnvironment_Protocol.h>
+#import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutGroup.h>
+#import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutGroupCustomItem.h>
+#import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutItem.h>
+#import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutSection.h>
+#import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutSize.h>
+#import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutSpacing.h>
+#import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutSupplementaryItem.h>
+#import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutVisibleItem.h>
+#import <IBPCollectionViewCompositionalLayout/IBPUICollectionViewCompositionalLayout.h>
+#import <IBPCollectionViewCompositionalLayout/IBPUICollectionViewCompositionalLayoutConfiguration.h>
+#import <IBPCollectionViewCompositionalLayout/NSDirectionalEdgeInsets.h>
+#import <IBPCollectionViewCompositionalLayout/NSDirectionalRectEdge.h>
+#import <IBPCollectionViewCompositionalLayout/NSRectAlignment.h>
+#import <IBPCollectionViewCompositionalLayout/UICollectionLayoutSectionOrthogonalScrollingBehavior.h>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>DiffableDataSources  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+
+    <a title="DiffableDataSources  Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="index.html">
+          DiffableDataSources Docs
+        </a>
+         (100% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/ra1028/DiffableDataSources">
+            <img class="header-icon" src="img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="index.html">DiffableDataSources Reference</a>
+      <img class="carat" src="img/carat.png" />
+      DiffableDataSources  Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="DataSources.html">DataSources</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/TableViewDiffableDataSource.html">TableViewDiffableDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/CollectionViewDiffableDataSource.html">CollectionViewDiffableDataSource</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Snapshot.html">Snapshot</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/DiffableDataSourceSnapshot.html">DiffableDataSourceSnapshot</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            
+            <H1 align="center">
+DiffableDataSources
+</H1>
+
+<H4 align="center">
+💾 A library for backporting UITableView/UICollectionViewDiffableDataSource</br>
+powered by <a href="https://github.com/ra1028/DifferenceKit">DifferenceKit</a>.
+</H4>
+
+<p align="center">
+<a href="https://developer.apple.com/swift"><img alt="Swift5" src="https://img.shields.io/badge/language-Swift5-orange.svg"/></a>
+<a href="https://github.com/ra1028/DiffableDataSources/releases/latest"><img alt="Release" src="https://img.shields.io/github/release/ra1028/DiffableDataSources.svg"/></a>
+<a href="https://cocoapods.org/pods/DiffableDataSources"><img alt="CocoaPods" src="https://img.shields.io/cocoapods/v/DiffableDataSources.svg"/></a>
+<a href="https://github.com/Carthage/Carthage"><img alt="Carthage" src="https://img.shields.io/badge/carthage-compatible-yellow.svg"/></a>
+<a href="https://swift.org/package-manager"><img alt="Swift Package Manager" src="https://img.shields.io/badge/SwiftPM-compatible-yellowgreen.svg"/></a>
+</br>
+<a href="https://dev.azure.com/ra1028/GitHub/_build/latest?definitionId=3&branchName=master"><img alt="Build Status" src="https://dev.azure.com/ra1028/GitHub/_apis/build/status/ra1028.DiffableDataSources?branchName=master"/></a>
+<a href="https://developer.apple.com/"><img alt="Platform" src="https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20tvOS-green.svg"/></a>
+<a href="https://github.com/ra1028/DiffableDataSources/blob/master/LICENSE"><img alt="Lincense" src="https://img.shields.io/badge/License-Apache%202.0-black.svg"/></a>
+</p>
+
+<p align="center">
+Made with ❤️ by <a href="https://github.com/ra1028">Ryo Aoyama</a>
+</p>
+
+<hr>
+<h2 id='introduction' class='heading'>Introduction</h2>
+
+<p><img src="https://raw.githubusercontent.com/ra1028/DiffableDataSources/master/assets/insertion_sort.gif" height="400" align="right">
+<img src="https://raw.githubusercontent.com/ra1028/DiffableDataSources/master/assets/mountains.gif" height="400" align="right"></p>
+
+<p>Apple has announced a diffable data source at WWDC 2019.<br>
+It&rsquo;s a great API that easily updating our table view and collection view items using automatic diffing.<br>
+However, it&rsquo;s a little while before we can use it in a production service.<br>
+That because it requires the latest OS to use.<br>
+DiffableDataSources make it possible to introduce almost the same functionality from now on.  </p>
+
+<p>Uses a sophisticated open source <a href="https://github.com/ra1028/DifferenceKit">DifferenceKit</a> for the algorithm engine.<br>
+It&rsquo;s extremely fast and completely avoids synchronization bugs, exceptions, and crashes.  </p>
+
+<p><br clear="all"></p>
+
+<hr>
+<h2 id='difference-from-the-official' class='heading'>Difference from the Official</h2>
+<h4 id='spec' class='heading'>Spec</h4>
+
+<ul>
+<li>Supports iOS 9.0+ / macOS 10.11+ / tvOS 9.0+</li>
+<li>Open sourced algorithm.</li>
+<li>Duplicate sections or items are allowed.<br></li>
+<li>Using <code>performBatchUpdates</code> for diffing updates.</li>
+</ul>
+<h4 id='namings' class='heading'>Namings</h4>
+
+<p><code>DiffableDataSources</code> have different class names to avoid conflicts with the official API.<br>
+Correspondence table is below.  </p>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Official</th>
+<th style="text-align: left">Backported</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><a href="https://developer.apple.com/documentation/uikit/uitableviewdiffabledatasource">NSDiffableDataSourceSnapshot</a></td>
+<td style="text-align: left">DiffableDataSourceSnapshot</td>
+</tr>
+<tr>
+<td style="text-align: left"><a href="https://developer.apple.com/documentation/uikit/uitableviewdiffabledatasource">UITableViewDiffableDataSource</a></td>
+<td style="text-align: left">TableViewDiffableDataSource</td>
+</tr>
+<tr>
+<td style="text-align: left"><a href="https://developer.apple.com/documentation/uikit/uicollectionviewdiffabledatasource">UICollectionViewDiffableDataSource</a></td>
+<td style="text-align: left">CollectionViewDiffableDataSource</td>
+</tr>
+<tr>
+<td style="text-align: left"><a href="https://developer.apple.com/documentation/appkit/nscollectionviewdiffabledatasource">NSCollectionViewDiffableDataSource</a></td>
+<td style="text-align: left">CocoaCollectionViewDiffableDataSource</td>
+</tr>
+</tbody></table>
+
+<hr>
+<h2 id='getting-started' class='heading'>Getting Started</h2>
+
+<ul>
+<li><a href="https://ra1028.github.io/DiffableDataSources">API Documentation</a></li>
+<li><a href="https://github.com/ra1028/DiffableDataSources/tree/master/Examples">Example Apps</a></li>
+<li><a href="https://developer.apple.com/videos/play/wwdc2019/220">WWDC 2019 Session</a></li>
+</ul>
+<h4 id='build-project' class='heading'>Build Project</h4>
+<pre class="highlight shell"><code><span class="nv">$ </span>git clone https://github.com/ra1028/DiffableDataSources.git
+<span class="nv">$ </span><span class="nb">cd </span>DiffableDataSources/
+<span class="nv">$ </span>make setup
+<span class="nv">$ </span>open DiffableDataSources.xcworkspace
+</code></pre>
+
+<hr>
+<h2 id='basic-usage' class='heading'>Basic Usage</h2>
+
+<p>First, define the type representing section.<br>
+It should conforms to <code>Hashable</code> for identifies from the all sections.<br>
+Type of enum can used conveniently befause it conforms <code>Hashable</code> by default.  </p>
+<pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">Section</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">main</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Then, define the item type conforms to <code>Hashable</code>.  </p>
+<pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">User</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Create a data source object, it will be set to table view automatically.<br>
+You should dequeue the non nil cells via closure.  </p>
+<pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">class</span> <span class="kt">UsersViewController</span><span class="p">:</span> <span class="kt">UIViewController</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">tableView</span><span class="p">:</span> <span class="kt">UITableView</span> <span class="o">=</span> <span class="o">...</span>
+
+    <span class="kd">lazy</span> <span class="k">var</span> <span class="nv">dataSource</span> <span class="o">=</span> <span class="kt">TableViewDiffableDataSource</span><span class="o">&lt;</span><span class="kt">Section</span><span class="p">,</span> <span class="kt">User</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">tableView</span><span class="p">:</span> <span class="n">tableView</span><span class="p">)</span> <span class="p">{</span> <span class="n">tableView</span><span class="p">,</span> <span class="n">indexPath</span><span class="p">,</span> <span class="n">user</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="nv">cell</span> <span class="o">=</span> <span class="n">tableView</span><span class="o">.</span><span class="nf">dequeueReusableCell</span><span class="p">(</span><span class="nv">withIdentifier</span><span class="p">:</span> <span class="s">"Cell"</span><span class="p">,</span> <span class="nv">for</span><span class="p">:</span> <span class="n">indexPath</span><span class="p">)</span>
+        <span class="n">cell</span><span class="o">.</span><span class="n">textLabel</span><span class="p">?</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">return</span> <span class="n">cell</span>
+    <span class="p">}</span>
+
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">viewDidLoad</span><span class="p">()</span>
+
+        <span class="n">tableView</span><span class="o">.</span><span class="nf">register</span><span class="p">(</span><span class="kt">UITableViewCell</span><span class="o">.</span><span class="k">self</span><span class="p">,</span> <span class="nv">forCellReuseIdentifier</span><span class="p">:</span> <span class="s">"Cell"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Manages and updates the data sources intuitively by intermediating <code><a href="Classes/DiffableDataSourceSnapshot.html">DiffableDataSourceSnapshot</a></code>.<br>
+The UI isn&rsquo;t updated until you apply the edited snapshot object.<br>
+Update the UI with diffing animation automatically calculated by applying an edited snapshot.  </p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">users</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="kt">User</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Steve Jobs"</span><span class="p">),</span>
+    <span class="kt">User</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Stephen Wozniak"</span><span class="p">),</span>
+    <span class="kt">User</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Tim Cook"</span><span class="p">),</span>
+    <span class="kt">User</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Jonathan Ive"</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="k">let</span> <span class="nv">snapshot</span> <span class="o">=</span> <span class="kt">DiffableDataSourceSnapshot</span><span class="o">&lt;</span><span class="kt">Section</span><span class="p">,</span> <span class="kt">User</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="n">snapshot</span><span class="o">.</span><span class="nf">appendSections</span><span class="p">([</span><span class="o">.</span><span class="n">main</span><span class="p">])</span>
+<span class="n">snapshot</span><span class="o">.</span><span class="nf">appendItems</span><span class="p">(</span><span class="n">users</span><span class="p">)</span>
+
+<span class="n">dataSource</span><span class="o">.</span><span class="nf">apply</span><span class="p">(</span><span class="n">snapshot</span><span class="p">)</span>
+</code></pre>
+
+<p>Check the documentation for more detailed API.  </p>
+
+<H3 align="center">
+<a href="https://ra1028.github.io/DiffableDataSources">[See More Usage]</a>
+</H3>
+
+<hr>
+<h2 id='requirements' class='heading'>Requirements</h2>
+
+<ul>
+<li>Swift 5.0+</li>
+<li>iOS 9.0+</li>
+<li>macOS 10.11+</li>
+<li>tvOS 9.0+</li>
+</ul>
+
+<hr>
+<h2 id='installation' class='heading'>Installation</h2>
+<h3 id='a-href-https-cocoapods-org-cocoapods-a' class='heading'><a href="https://cocoapods.org">CocoaPods</a></h3>
+
+<p>Add the following to your <code>Podfile</code>:</p>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'DiffableDataSources'</span>
+</code></pre>
+<h3 id='a-href-https-github-com-carthage-carthage-carthage-a' class='heading'><a href="https://github.com/Carthage/Carthage">Carthage</a></h3>
+
+<p>Add the following to your <code>Cartfile</code>:</p>
+<pre class="highlight plaintext"><code>github "ra1028/DiffableDataSources"
+</code></pre>
+<h3 id='a-href-https-swift-org-package-manager-swift-package-manager-a' class='heading'><a href="https://swift.org/package-manager/">Swift Package Manager</a></h3>
+
+<p>Add the following to the dependencies of your <code>Package.swift</code>:</p>
+<pre class="highlight swift"><code><span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/ra1028/DiffableDataSources.git"</span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="s">"x.x.x"</span><span class="p">)</span>
+</code></pre>
+
+<hr>
+<h2 id='contributing' class='heading'>Contributing</h2>
+
+<p>Pull requests, bug reports and feature requests are welcome 🚀<br>
+Please see the <a href="https://github.com/ra1028/DiffableDataSources/blob/master/CONTRIBUTING.md">CONTRIBUTING</a> file for learn how to contribute to DiffableDataSources.  </p>
+
+<hr>
+<h2 id='relations' class='heading'>Relations</h2>
+<h4 id='a-href-https-github-com-ra1028-differencekit-differencekit-a' class='heading'><a href="https://github.com/ra1028/DifferenceKit">DifferenceKit</a></h4>
+
+<p>A fast and flexible O(n) difference algorithm framework for Swift collection.</p>
+<h4 id='a-href-https-github-com-ra1028-carbon-carbon-a' class='heading'><a href="https://github.com/ra1028/Carbon">Carbon</a></h4>
+
+<p>A declarative library for building component-based user interfaces in UITableView and UICollectionView.</p>
+
+<hr>
+<h2 id='license' class='heading'>License</h2>
+
+<p>DiffableDataSources is released under the <a href="https://github.com/ra1028/DiffableDataSources/blob/master/LICENSE">Apache 2.0 License</a>.  </p>
+
+          </div>
+        </section>
+
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2019 <a class="link" href="https://github.com/ra1028" target="_blank" rel="external">Ryo Aoyama</a>. All rights reserved. (Last updated: 2019-06-24)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

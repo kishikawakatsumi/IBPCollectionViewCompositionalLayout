@@ -1,0 +1,4 @@
+framework module DifferenceKit {
+  header "DifferenceKit-Swift.h"
+  requires objc
+}

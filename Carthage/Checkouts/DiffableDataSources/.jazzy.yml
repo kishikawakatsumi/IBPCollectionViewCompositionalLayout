@@ -1,0 +1,30 @@
+# https://github.com/realm/jazzy
+
+author: Ryo Aoyama
+author_url: https://github.com/ra1028
+github_url: https://github.com/ra1028/DiffableDataSources
+module: DiffableDataSources
+readme: README.md
+output: docs
+theme: fullwidth
+clean: true
+skip_undocumented: true
+xcodebuild_arguments:
+  - -workspace
+  - DiffableDataSources.xcworkspace
+  - -scheme
+  - DiffableDataSources
+  - -sdk
+  - iphonesimulator
+
+exclude:
+  - Sources/AppKit/CocoaCollectionViewDiffableDataSource.swift
+
+custom_categories:
+  - name: DataSources
+    children:
+    - TableViewDiffableDataSource
+    - CollectionViewDiffableDataSource
+  - name: Snapshot
+    children:
+    - DiffableDataSourceSnapshot

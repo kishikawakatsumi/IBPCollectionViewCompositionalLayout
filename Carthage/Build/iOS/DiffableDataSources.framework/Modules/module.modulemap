@@ -1,0 +1,4 @@
+framework module DiffableDataSources {
+  header "DiffableDataSources-Swift.h"
+  requires objc
+}

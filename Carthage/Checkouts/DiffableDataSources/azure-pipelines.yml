@@ -1,0 +1,41 @@
+trigger:
+- master
+
+jobs:
+- job: macOS
+  pool:
+    vmImage: 'macOS 10.14'
+  strategy:
+    maxParallel: 10
+    matrix:
+      xcode10_2:
+        DEVELOPER_DIR: /Applications/Xcode_10.2.app
+  steps:
+    - checkout: self
+      submodules: true
+    - script: xcodebuild -version
+      displayName: xcodebuild -version
+      condition: succeededOrFailed()
+    - script: |
+       set -o pipefail &&
+       xcodebuild build-for-testing test-without-building -workspace DiffableDataSources.xcworkspace -scheme DiffableDataSources -configuration Release ENABLE_TESTABILITY=YES |
+       xcpretty -c -r junit -o build/reports/xcodebuild-macOS.xml
+      displayName: xcodebuild test maxOS
+      condition: succeededOrFailed()
+    - script: |
+        set -o pipefail &&
+        xcodebuild build-for-testing test-without-building -workspace DiffableDataSources.xcworkspace -scheme DiffableDataSources -configuration Release -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone Xs' ENABLE_TESTABILITY=YES |
+        xcpretty -c -r junit -o build/reports/xcodebuild-iOS.xml
+      displayName: xcodebuild test iOS
+      condition: succeededOrFailed()
+    - script: |
+        set -o pipefail &&
+        xcodebuild build-for-testing test-without-building -workspace DiffableDataSources.xcworkspace -scheme DiffableDataSources -configuration Release -sdk appletvsimulator -destination 'platform=tvOS Simulator,name=Apple TV' ENABLE_TESTABILITY=YES |
+        xcpretty -c -r junit -o build/reports/xcodebuild-tvOS.xml
+      displayName: xcodebuild test tvOS
+      condition: succeededOrFailed()
+    - task: PublishTestResults@2
+      inputs:
+        testRunner: JUnit
+        testResultsFiles: build/reports/**
+      condition: succeededOrFailed()

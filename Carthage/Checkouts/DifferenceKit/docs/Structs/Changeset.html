@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Changeset Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Struct/Changeset" class="dashAnchor"></a>
+
+    <a title="Changeset Structure Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          DifferenceKit Docs
+        </a>
+         (100% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/ra1028/DifferenceKit">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">DifferenceKit Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      Changeset Structure Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Diffing.html">Diffing</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ContentEquatable.html">ContentEquatable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Differentiable.html">Differentiable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/DifferentiableSection.html">DifferentiableSection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AnyDifferentiable.html">AnyDifferentiable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ArraySection.html">ArraySection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ElementPath.html">ElementPath</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Optional.html">Optional</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Changeset.html">Changeset</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/StagedChangeset.html">StagedChangeset</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Changeset.html">Changeset</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../UI Extensions.html">UI Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UITableView.html">UITableView</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UICollectionView.html">UICollectionView</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>Changeset</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Changeset</span><span class="o">&lt;</span><span class="kt">Collection</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Collection</span> <span class="p">:</span> <span class="kt">Collection</span></code></pre>
+
+                </div>
+              </div>
+            <p>A set of changes in the sectioned collection.</p>
+
+<p>Changes to the section of the linear collection should be empty.</p>
+
+<p>Notice that the value of the changes represents offsets of collection not index.
+Since offsets are unordered, order is ignored when comparing two <code>Changeset</code>s.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DifferenceKit9ChangesetV4dataxvp"></a>
+                    <a name="//apple_ref/swift/Property/data" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DifferenceKit9ChangesetV4dataxvp">data</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The collection after changed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">Collection</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DifferenceKit9ChangesetV14sectionDeletedSaySiGvp"></a>
+                    <a name="//apple_ref/swift/Property/sectionDeleted" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DifferenceKit9ChangesetV14sectionDeletedSaySiGvp">sectionDeleted</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The offsets of deleted sections.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">sectionDeleted</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DifferenceKit9ChangesetV15sectionInsertedSaySiGvp"></a>
+                    <a name="//apple_ref/swift/Property/sectionInserted" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DifferenceKit9ChangesetV15sectionInsertedSaySiGvp">sectionInserted</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The offsets of inserted sections.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">sectionInserted</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DifferenceKit9ChangesetV14sectionUpdatedSaySiGvp"></a>
+                    <a name="//apple_ref/swift/Property/sectionUpdated" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DifferenceKit9ChangesetV14sectionUpdatedSaySiGvp">sectionUpdated</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The offsets of updated sections.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">sectionUpdated</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DifferenceKit9ChangesetV12sectionMovedSaySi6source_Si6targettGvp"></a>
+                    <a name="//apple_ref/swift/Property/sectionMoved" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DifferenceKit9ChangesetV12sectionMovedSaySi6source_Si6targettGvp">sectionMoved</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The pairs of source and target offset of moved sections.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">sectionMoved</span><span class="p">:</span> <span class="p">[(</span><span class="nv">source</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DifferenceKit9ChangesetV14elementDeletedSayAA11ElementPathVGvp"></a>
+                    <a name="//apple_ref/swift/Property/elementDeleted" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DifferenceKit9ChangesetV14elementDeletedSayAA11ElementPathVGvp">elementDeleted</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The paths of deleted elements.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">elementDeleted</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/ElementPath.html">ElementPath</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DifferenceKit9ChangesetV15elementInsertedSayAA11ElementPathVGvp"></a>
+                    <a name="//apple_ref/swift/Property/elementInserted" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DifferenceKit9ChangesetV15elementInsertedSayAA11ElementPathVGvp">elementInserted</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The paths of inserted elements.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">elementInserted</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/ElementPath.html">ElementPath</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DifferenceKit9ChangesetV14elementUpdatedSayAA11ElementPathVGvp"></a>
+                    <a name="//apple_ref/swift/Property/elementUpdated" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DifferenceKit9ChangesetV14elementUpdatedSayAA11ElementPathVGvp">elementUpdated</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The paths of updated elements.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">elementUpdated</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/ElementPath.html">ElementPath</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DifferenceKit9ChangesetV12elementMovedSayAA11ElementPathV6source_AF6targettGvp"></a>
+                    <a name="//apple_ref/swift/Property/elementMoved" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DifferenceKit9ChangesetV12elementMovedSayAA11ElementPathV6source_AF6targettGvp">elementMoved</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The pairs of source and target path of moved elements.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">elementMoved</span><span class="p">:</span> <span class="p">[(</span><span class="nv">source</span><span class="p">:</span> <span class="kt"><a href="../Structs/ElementPath.html">ElementPath</a></span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="kt"><a href="../Structs/ElementPath.html">ElementPath</a></span><span class="p">)]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DifferenceKit9ChangesetV4data14sectionDeleted0E8Inserted0E7Updated0E5Moved07elementF00jG00jH00jI0ACyxGx_SaySiGA2NSaySi6source_Si6targettGSayAA11ElementPathVGA2TSayAsO_AsPtGtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(data:sectionDeleted:sectionInserted:sectionUpdated:sectionMoved:elementDeleted:elementInserted:elementUpdated:elementMoved:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DifferenceKit9ChangesetV4data14sectionDeleted0E8Inserted0E7Updated0E5Moved07elementF00jG00jH00jI0ACyxGx_SaySiGA2NSaySi6source_Si6targettGSayAA11ElementPathVGA2TSayAsO_AsPtGtcfc">init(data:sectionDeleted:sectionInserted:sectionUpdated:sectionMoved:elementDeleted:elementInserted:elementUpdated:elementMoved:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a new <code>Changeset</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">data</span><span class="p">:</span> <span class="kt">Collection</span><span class="p">,</span>
+    <span class="nv">sectionDeleted</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="nv">sectionInserted</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="nv">sectionUpdated</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="nv">sectionMoved</span><span class="p">:</span> <span class="p">[(</span><span class="nv">source</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="nv">elementDeleted</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/ElementPath.html">ElementPath</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="nv">elementInserted</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/ElementPath.html">ElementPath</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="nv">elementUpdated</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/ElementPath.html">ElementPath</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="nv">elementMoved</span><span class="p">:</span> <span class="p">[(</span><span class="nv">source</span><span class="p">:</span> <span class="kt"><a href="../Structs/ElementPath.html">ElementPath</a></span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="kt"><a href="../Structs/ElementPath.html">ElementPath</a></span><span class="p">)]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The collection after changed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sectionDeleted</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The offsets of deleted sections.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sectionInserted</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The offsets of inserted sections.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sectionUpdated</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The offsets of updated sections.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sectionMoved</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The pairs of source and target offset of moved sections.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>elementDeleted</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The paths of deleted elements.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>elementInserted</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The paths of inserted elements.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>elementUpdated</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The paths of updated elements.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>elementMoved</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The pairs of source and target path of moved elements.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DifferenceKit9ChangesetV18sectionChangeCountSivp"></a>
+                    <a name="//apple_ref/swift/Property/sectionChangeCount" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DifferenceKit9ChangesetV18sectionChangeCountSivp">sectionChangeCount</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The number of section changes.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="k">var</span> <span class="nv">sectionChangeCount</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DifferenceKit9ChangesetV18elementChangeCountSivp"></a>
+                    <a name="//apple_ref/swift/Property/elementChangeCount" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DifferenceKit9ChangesetV18elementChangeCountSivp">elementChangeCount</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The number of element changes.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="k">var</span> <span class="nv">elementChangeCount</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DifferenceKit9ChangesetV11changeCountSivp"></a>
+                    <a name="//apple_ref/swift/Property/changeCount" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DifferenceKit9ChangesetV11changeCountSivp">changeCount</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The number of all changes.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="k">var</span> <span class="nv">changeCount</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DifferenceKit9ChangesetV17hasSectionChangesSbvp"></a>
+                    <a name="//apple_ref/swift/Property/hasSectionChanges" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DifferenceKit9ChangesetV17hasSectionChangesSbvp">hasSectionChanges</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A Boolean value indicating whether has section changes.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="k">var</span> <span class="nv">hasSectionChanges</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DifferenceKit9ChangesetV17hasElementChangesSbvp"></a>
+                    <a name="//apple_ref/swift/Property/hasElementChanges" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DifferenceKit9ChangesetV17hasElementChangesSbvp">hasElementChanges</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A Boolean value indicating whether has element changes.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="k">var</span> <span class="nv">hasElementChanges</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DifferenceKit9ChangesetV10hasChangesSbvp"></a>
+                    <a name="//apple_ref/swift/Property/hasChanges" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DifferenceKit9ChangesetV10hasChangesSbvp">hasChanges</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A Boolean value indicating whether has changes.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="k">var</span> <span class="nv">hasChanges</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SQ2eeoiySbx_xtFZ"></a>
+                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SQ2eeoiySbx_xtFZ">==(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">Changeset</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">Changeset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:s28CustomDebugStringConvertibleP16debugDescriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/debugDescription" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s28CustomDebugStringConvertibleP16debugDescriptionSSvp">debugDescription</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">debugDescription</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2019 <a class="link" href="https://github.com/ra1028" target="_blank" rel="external">Ryo Aoyama</a>. All rights reserved. (Last updated: 2019-05-07)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

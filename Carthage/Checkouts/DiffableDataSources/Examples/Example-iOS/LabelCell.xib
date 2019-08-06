@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="pYo-4D-KR8" customClass="LabelCell" customModule="Example_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="32"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="300" height="32"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qKi-9G-J20">
+                        <rect key="frame" x="10" y="0.0" width="280" height="32"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="qKi-9G-J20" firstAttribute="leading" secondItem="pYo-4D-KR8" secondAttribute="leading" constant="10" id="UJN-ZW-lz4"/>
+                <constraint firstAttribute="trailing" secondItem="qKi-9G-J20" secondAttribute="trailing" constant="10" id="VbK-qH-sMr"/>
+                <constraint firstItem="qKi-9G-J20" firstAttribute="top" secondItem="pYo-4D-KR8" secondAttribute="top" id="YkZ-vn-KK6"/>
+                <constraint firstAttribute="bottom" secondItem="qKi-9G-J20" secondAttribute="bottom" id="au1-M8-Hh2"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="wQ5-Q0-9Pt"/>
+            <connections>
+                <outlet property="label" destination="qKi-9G-J20" id="hp7-fh-rao"/>
+            </connections>
+            <point key="canvasLocation" x="-1" y="74"/>
+        </collectionViewCell>
+    </objects>
+</document>
