@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/40610/62567706-b9197700-b8c6-11e9-8a31-cae70c4d3756.png"  style="width: 600px;" width="600" />
+  <img src="https://user-images.githubusercontent.com/40610/62581181-54b8e080-b8e3-11e9-8315-778b4c8f2ddf.png"  style="width: 600px;" width="600" />
 </p>
 
 <p align="center">
@@ -15,10 +15,26 @@
 
 Backport of UICollectionViewCompositionalLayout to earlier iOS 12.
 
-A new UICollectionViewCompositionalLayout class has been added to UIKit to make it incredibly easier to create custom complex collection view layout.
+A new [UICollectionViewCompositionalLayout](https://developer.apple.com/documentation/uikit/views_and_controls/collection_views/using_collection_view_compositional_layouts_and_diffable_data_sources) class has been added to UIKit to make it incredibly easier to create custom complex collection view layout.
 You can use new excellent APIs immediately without maintaining two different code bases until iOS 13 would be widely adopted.
 
 _Note: that this library is still currently under active development. Please file all bugs, issues, and suggestions as an Issue in the GitHub repository._
+
+### What is Collection View Compositional Layouts?
+
+At the WWDC 2019, Apple introduced a new form of UICollectionViewLayout. A new [UICollectionViewCompositionalLayout](https://developer.apple.com/documentation/uikit/views_and_controls/collection_views/using_collection_view_compositional_layouts_and_diffable_data_sources) class has been added to UIKit to make it easier to create compositional layouts without requiring a custom UICollectionViewLayout.
+
+In iOS 12 and earlier, we need subclassing of `UICollectionViewLayout` to do that. We have to override lots of methods correctly, and it is error-prone.
+
+With Collection View Compositional Layouts, you can make very complex layout even nested collection views with independently scrolling sections just within few lines of code.
+
+See also:
+
+- [Advances in Collection View Layout](https://developer.apple.com/videos/play/wwdc2019/215/)
+- [Using CollectionView Compositional Layouts in Swift 5](https://dev.to/kevinmaarek/using-collectionview-compositional-layouts-in-swift-5-1nan)
+- [Move your cells left to right, up and down on iOS 13](https://medium.com/shopback-engineering/move-your-cells-left-to-right-up-and-down-on-ios-13-part-1-1a5e010f48f9)
+
+### Screenshots
 
 |Nested Group|Orthogonal Scroll|Orthogonal Scroll|
 |:-:|:-:|:-:|
