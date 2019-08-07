@@ -10,6 +10,8 @@ NS_ASSUME_NONNULL_BEGIN
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < 130000
 typedef IBPNSCollectionLayoutSection * _Nullable (^IBPUICollectionViewCompositionalLayoutSectionProvider)(NSInteger section, id<NSCollectionLayoutEnvironment>);
 typedef void (^NSCollectionLayoutSectionVisibleItemsInvalidationHandler)(NSArray<id<IBPNSCollectionLayoutVisibleItem>> *visibleItems, CGPoint contentOffset, id<NSCollectionLayoutEnvironment> layoutEnvironment);
+#else
+typedef UICollectionViewCompositionalLayoutSectionProvider IBPUICollectionViewCompositionalLayoutSectionProvider;
 #endif
 
 @interface IBPUICollectionViewCompositionalLayout : UICollectionViewLayout
