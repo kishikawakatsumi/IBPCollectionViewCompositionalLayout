@@ -73,7 +73,7 @@ let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout
 ...
 ```
 
-On Xcode 11 or later, add `IBP` prefix to related classes to avoid naming conflict.
+On Xcode 11 or later, add `IBP` prefix to related classes to avoid naming conflict. I want to fix it though...
 
 ```swift
 let itemSize = IBPNSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
