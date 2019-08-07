@@ -110,6 +110,7 @@ let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout
 - [ ] Flexible Spaces
 - [ ] Estimated Size (Autosizing)
 - [ ] RTL Support
+- [ ] Custom Group Item (Absolute Positions)
 - [ ] Visual Debug Description
 - [ ] Perfomance Optimization
 - [ ] Improve Compatibility with iOS 13 (Achieve drop-in replacement)
