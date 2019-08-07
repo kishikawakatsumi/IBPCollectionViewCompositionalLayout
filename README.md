@@ -30,7 +30,7 @@ With Collection View Compositional Layouts, you can make very complex layout eve
 
 See also:
 
-- [Advances in Collection View Layout](https://developer.apple.com/videos/play/wwdc2019/215/)
+- [Advances in Collection View Layout - WWDC 2019](https://developer.apple.com/videos/play/wwdc2019/215/)
 - [Using CollectionView Compositional Layouts in Swift 5](https://dev.to/kevinmaarek/using-collectionview-compositional-layouts-in-swift-5-1nan)
 - [Move your cells left to right, up and down on iOS 13](https://medium.com/shopback-engineering/move-your-cells-left-to-right-up-and-down-on-ios-13-part-1-1a5e010f48f9)
 
