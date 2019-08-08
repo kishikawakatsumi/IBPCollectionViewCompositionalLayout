@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic) CGFloat interGroupSpacing;
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < 130000
-@property (nonatomic) UICollectionLayoutSectionOrthogonalScrollingBehavior orthogonalScrollingBehavior;
+@property (nonatomic) IBPUICollectionLayoutSectionOrthogonalScrollingBehavior orthogonalScrollingBehavior;
 #else
 @property (nonatomic) IBPUICollectionLayoutSectionOrthogonalScrollingBehavior orthogonalScrollingBehavior;
 #endif

@@ -12,7 +12,7 @@
     self = [super init];
     if (self) {
         self.group = group;
-        self.orthogonalScrollingBehavior = UICollectionLayoutSectionOrthogonalScrollingBehaviorNone;
+        self.orthogonalScrollingBehavior = IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone;
     }
     return self;
 }
@@ -30,7 +30,7 @@
 }
 
 - (BOOL)scrollsOrthogonally {
-    return self.orthogonalScrollingBehavior != UICollectionLayoutSectionOrthogonalScrollingBehaviorNone;
+    return self.orthogonalScrollingBehavior != IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone;
 }
 
 @end

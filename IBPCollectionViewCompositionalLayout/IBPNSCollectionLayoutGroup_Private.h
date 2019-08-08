@@ -2,7 +2,7 @@
 #import "IBPNSCollectionLayoutGroup.h"
 #import "IBPNSCollectionLayoutSection.h"
 
-typedef NS_ENUM(NSInteger, LayoutDirection) {
+typedef NS_ENUM(NSInteger, IBPLayoutDirection) {
     LayoutDirectionHorizontal = 0,
     LayoutDirectionVertical = 1,
     LayoutDirectionCustom = 2,
@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface IBPNSCollectionLayoutGroup()
 
 @property (nonatomic, readwrite, copy) NSArray<IBPNSCollectionLayoutItem *> *subitems;
-@property (nonatomic, readwrite) LayoutDirection layoutDirection;
+@property (nonatomic, readwrite) IBPLayoutDirection layoutDirection;
 @property (nonatomic, readwrite) NSInteger count;
 @property (nonatomic, readwrite, copy) id visualFormats;
 @property (nonatomic, readwrite, copy) id itemsProvider;
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (IBPNSCollectionLayoutSize *)effectiveSizeForSize:(IBPNSCollectionLayoutSize *)size
                                            count:(NSInteger)count
-                                 layoutDirection:(LayoutDirection)layoutDirection;
+                                 layoutDirection:(IBPLayoutDirection)layoutDirection;
 - (BOOL)isHorizontalGroup;
 - (BOOL)isVerticalGroup;
 

@@ -1,15 +1,5 @@
 #import <UIKit/UIKit.h>
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 130000
-typedef NS_ENUM(NSInteger, UICollectionLayoutSectionOrthogonalScrollingBehavior) {
-    UICollectionLayoutSectionOrthogonalScrollingBehaviorNone,
-    UICollectionLayoutSectionOrthogonalScrollingBehaviorContinuous,
-    UICollectionLayoutSectionOrthogonalScrollingBehaviorContinuousGroupLeadingBoundary,
-    UICollectionLayoutSectionOrthogonalScrollingBehaviorPaging,
-    UICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPaging,
-    UICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPagingCentered,
-};
-#else
 typedef NS_ENUM(NSInteger, IBPUICollectionLayoutSectionOrthogonalScrollingBehavior) {
     IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone,
     IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuous,
@@ -18,4 +8,3 @@ typedef NS_ENUM(NSInteger, IBPUICollectionLayoutSectionOrthogonalScrollingBehavi
     IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPaging,
     IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPagingCentered,
 };
-#endif

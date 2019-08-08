@@ -215,7 +215,7 @@
 
                 IBPNSCollectionLayoutSection *orthogonalSection = section.copy;
                 orthogonalSection.boundarySupplementaryItems = @[];
-                orthogonalSection.orthogonalScrollingBehavior = UICollectionLayoutSectionOrthogonalScrollingBehaviorNone;
+                orthogonalSection.orthogonalScrollingBehavior = IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone;
                 IBPNSCollectionLayoutSize *orthogonalGroupSize = section.group.layoutSize;
 
                 IBPNSCollectionLayoutDimension *widthDimension = orthogonalGroupSize.widthDimension;
@@ -250,13 +250,13 @@
                 scrollView.showsHorizontalScrollIndicator = NO;
                 scrollView.showsVerticalScrollIndicator = NO;
                 // FIXME
-                if (section.orthogonalScrollingBehavior == UICollectionLayoutSectionOrthogonalScrollingBehaviorContinuous ||
-                    section.orthogonalScrollingBehavior == UICollectionLayoutSectionOrthogonalScrollingBehaviorContinuousGroupLeadingBoundary) {
+                if (section.orthogonalScrollingBehavior == IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuous ||
+                    section.orthogonalScrollingBehavior == IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuousGroupLeadingBoundary) {
                     scrollView.pagingEnabled = NO;
                 }
-                if (section.orthogonalScrollingBehavior == UICollectionLayoutSectionOrthogonalScrollingBehaviorPaging ||
-                    section.orthogonalScrollingBehavior == UICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPaging ||
-                    section.orthogonalScrollingBehavior == UICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPagingCentered) {
+                if (section.orthogonalScrollingBehavior == IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorPaging ||
+                    section.orthogonalScrollingBehavior == IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPaging ||
+                    section.orthogonalScrollingBehavior == IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPagingCentered) {
                     scrollView.pagingEnabled = YES;
                 }
                 controller = [[UICollectionViewOrthogonalScrollerSectionController alloc] initWithSectionIndex:sectionIndex collectionView:self.collectionView scrollView:scrollView];

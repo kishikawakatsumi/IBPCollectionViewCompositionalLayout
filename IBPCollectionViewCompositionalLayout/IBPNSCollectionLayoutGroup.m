@@ -35,14 +35,14 @@
 
 - (instancetype)initWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                           subitems:(NSArray<IBPNSCollectionLayoutItem *> *)subitems
-                   layoutDirection:(LayoutDirection)layoutDirection {
+                   layoutDirection:(IBPLayoutDirection)layoutDirection {
     return [self initWithSize:layoutSize subitems:subitems count:0 interItemSpacing:nil contentInsets:NSDirectionalEdgeInsetsZero edgeSpacing:nil layoutDirection:layoutDirection supplementaryItems:@[] visualFormats:nil itemsProvider:nil visualFormatItemProvider:nil customGroupItemProvider:nil options:0 name:nil identifier:nil];
 }
 
 - (instancetype)initWWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                             subitem:(IBPNSCollectionLayoutItem *)subitem
                               count:(NSInteger)count
-                    layoutDirection:(LayoutDirection)layoutDirection {
+                    layoutDirection:(IBPLayoutDirection)layoutDirection {
     return [self initWithSize:layoutSize subitems:@[subitem] count:count interItemSpacing:nil contentInsets:NSDirectionalEdgeInsetsZero edgeSpacing:nil layoutDirection:layoutDirection supplementaryItems:@[] visualFormats:nil itemsProvider:nil visualFormatItemProvider:nil customGroupItemProvider:nil options:0 name:nil identifier:nil];
 }
 
@@ -52,7 +52,7 @@
             interItemSpacing:(IBPNSCollectionLayoutSpacing *)interItemSpacing
                contentInsets:(NSDirectionalEdgeInsets)contentInsets
                  edgeSpacing:(IBPNSCollectionLayoutEdgeSpacing *)edgeSpacing
-             layoutDirection:(LayoutDirection)layoutDirection
+             layoutDirection:(IBPLayoutDirection)layoutDirection
           supplementaryItems:(NSArray<IBPNSCollectionLayoutSupplementaryItem *> *)supplementaryItems
                visualFormats:(id)visualFormats
                itemsProvider:(NSCollectionLayoutGroupCustomItemProvider)itemsProvider
@@ -128,7 +128,7 @@
 
 - (IBPNSCollectionLayoutSize *)effectiveSizeForSize:(IBPNSCollectionLayoutSize *)size
                                            count:(NSInteger)count
-                                 layoutDirection:(LayoutDirection)layoutDirection {
+                                 layoutDirection:(IBPLayoutDirection)layoutDirection {
     NSArray<IBPNSCollectionLayoutItem *> *subitems = self.subitems;
     for (IBPNSCollectionLayoutItem *item in subitems) {
         if (item.isGroup) {
