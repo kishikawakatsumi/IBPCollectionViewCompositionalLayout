@@ -1,17 +1,17 @@
 #import <UIKit/UIKit.h>
 #import "IBPNSCollectionLayoutVisibleItem.h"
-#import "UICollectionLayoutSectionOrthogonalScrollingBehavior.h"
+#import "IBPUICollectionLayoutSectionOrthogonalScrollingBehavior.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol IBPNSCollectionLayoutVisibleItem, NSCollectionLayoutEnvironment;
+@protocol IBPNSCollectionLayoutVisibleItem, NSCollectionLayoutEnvironment, IBPNSCollectionLayoutEnvironment;
 @class IBPUICollectionViewCompositionalLayoutConfiguration, IBPNSCollectionLayoutSection;
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < 130000
 typedef IBPNSCollectionLayoutSection * _Nullable (^IBPUICollectionViewCompositionalLayoutSectionProvider)(NSInteger section, id<NSCollectionLayoutEnvironment>);
 typedef void (^NSCollectionLayoutSectionVisibleItemsInvalidationHandler)(NSArray<id<IBPNSCollectionLayoutVisibleItem>> *visibleItems, CGPoint contentOffset, id<NSCollectionLayoutEnvironment> layoutEnvironment);
 #else
-typedef UICollectionViewCompositionalLayoutSectionProvider IBPUICollectionViewCompositionalLayoutSectionProvider;
+typedef IBPNSCollectionLayoutSection * _Nullable (^IBPUICollectionViewCompositionalLayoutSectionProvider)(NSInteger section, id<IBPNSCollectionLayoutEnvironment>);
 #endif
 
 @interface IBPUICollectionViewCompositionalLayout : UICollectionViewLayout
@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_END
 #import "NSDirectionalEdgeInsets.h"
 #import "NSDirectionalRectEdge.h"
 #import "NSRectAlignment.h"
-#import "UICollectionLayoutSectionOrthogonalScrollingBehavior.h"
+#import "IBPUICollectionLayoutSectionOrthogonalScrollingBehavior.h"
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < 130000
 @compatibility_alias NSCollectionLayoutAnchor IBPNSCollectionLayoutAnchor;

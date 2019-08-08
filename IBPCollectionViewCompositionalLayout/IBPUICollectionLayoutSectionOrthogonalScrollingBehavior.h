@@ -9,4 +9,13 @@ typedef NS_ENUM(NSInteger, UICollectionLayoutSectionOrthogonalScrollingBehavior)
     UICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPaging,
     UICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPagingCentered,
 };
+#else
+typedef NS_ENUM(NSInteger, IBPUICollectionLayoutSectionOrthogonalScrollingBehavior) {
+    IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone,
+    IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuous,
+    IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuousGroupLeadingBoundary,
+    IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorPaging,
+    IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPaging,
+    IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPagingCentered,
+};
 #endif
