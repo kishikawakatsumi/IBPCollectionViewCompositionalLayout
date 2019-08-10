@@ -9,8 +9,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     let viewControllers: [UIViewController.Type] = [
         ListViewController.self,
         GridViewController.self,
-        TwoColumnViewController.self,
         InsetItemsGridViewController.self,
+        TwoColumnViewController.self,
         DistinctSectionsViewController.self,
         AdaptiveSectionsViewController.self,
         ItemBadgeSupplementaryViewController.self,
