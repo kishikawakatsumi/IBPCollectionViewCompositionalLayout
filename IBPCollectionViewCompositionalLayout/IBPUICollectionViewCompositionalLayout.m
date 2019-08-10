@@ -132,6 +132,8 @@
     layoutFrame.origin.y += collectionContainer.effectiveContentInsets.top;
 
     for (NSInteger sectionIndex = 0; sectionIndex < numberOfSections; sectionIndex++) {
+        IBPNSCollectionLayoutSection *section = self.sectionProvider ? self.sectionProvider(sectionIndex, environment) : self.section;
+
         CGRect sectionFrame = CGRectZero;
         sectionFrame.origin.x = layoutFrame.origin.x;
 
@@ -141,8 +143,6 @@
         if (self.configuration.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
             sectionFrame.origin.x = CGRectGetMaxX(layoutFrame);
         }
-
-        IBPNSCollectionLayoutSection *section = self.sectionProvider ? self.sectionProvider(sectionIndex, environment) : self.section;
 
         NSArray<IBPNSCollectionLayoutBoundarySupplementaryItem *> *boundarySupplementaryItems = section.boundarySupplementaryItems;
         for (IBPNSCollectionLayoutBoundarySupplementaryItem *boundarySupplementaryItem in boundarySupplementaryItems) {
@@ -160,6 +160,11 @@
                 boundarySupplementaryViewFrame.origin.y = CGRectGetMinY(layoutFrame);
                 boundarySupplementaryViewFrame.origin.x += sectionFrame.origin.x;
                 boundarySupplementaryViewFrame.origin.y += sectionFrame.origin.y;
+
+                boundarySupplementaryViewFrame.origin.x += section.contentInsets.leading;
+                boundarySupplementaryViewFrame.origin.y += section.contentInsets.top;
+                boundarySupplementaryViewFrame.size.width -= section.contentInsets.leading + section.contentInsets.trailing;
+                boundarySupplementaryViewFrame.size.height -= section.contentInsets.top + section.contentInsets.bottom;
 
                 sectionFrame.origin.y += boundarySupplementaryItemEffectiveSize.height;
 
@@ -318,6 +323,11 @@
             if (alignment == NSRectAlignmentBottom) {
                 boundarySupplementaryViewFrame.origin.y = CGRectGetMaxY(layoutFrame);
                 boundarySupplementaryViewFrame.origin.x += sectionFrame.origin.x;
+
+                boundarySupplementaryViewFrame.origin.x += section.contentInsets.leading;
+                boundarySupplementaryViewFrame.origin.y += section.contentInsets.top;
+                boundarySupplementaryViewFrame.size.width -= section.contentInsets.leading + section.contentInsets.trailing;
+                boundarySupplementaryViewFrame.size.height -= section.contentInsets.top + section.contentInsets.bottom;
 
                 sectionFrame.origin.y += boundarySupplementaryItemEffectiveSize.height;
 
