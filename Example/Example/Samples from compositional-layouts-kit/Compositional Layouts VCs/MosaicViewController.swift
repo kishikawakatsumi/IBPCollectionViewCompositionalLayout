@@ -75,16 +75,16 @@ extension MosaicViewController {
                 subitem: trailingItem, count: 2)
             
             let fractionalHeight = isLandscape ? NSCollectionLayoutDimension.fractionalHeight(0.8) : NSCollectionLayoutDimension.fractionalHeight(0.4)
-            let groupDimentionHeight: NSCollectionLayoutDimension = fractionalHeight
+            let groupDimensionHeight: NSCollectionLayoutDimension = fractionalHeight
             
             let rightGroup = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                   heightDimension: groupDimentionHeight),
+                                                   heightDimension: groupDimensionHeight),
                 subitems: [leadingItem, trailingLeftGroup, trailingRightGroup])
             
             let leftGroup = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                   heightDimension: groupDimentionHeight),
+                                                   heightDimension: groupDimensionHeight),
                 subitems: [trailingRightGroup, trailingLeftGroup, leadingItem])
             
             let height = isLandscape ? size.height / 0.9 : size.height / 1.25
