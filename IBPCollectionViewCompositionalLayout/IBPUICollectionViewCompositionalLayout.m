@@ -21,7 +21,7 @@
     NSMutableDictionary<NSNumber *, UICollectionViewOrthogonalScrollerSectionController *> *orthogonalScrollerSectionControllers;
 }
 
-@property (nonatomic, copy) IBPNSCollectionLayoutSection *section;
+@property (nonatomic, copy) IBPNSCollectionLayoutSection *layoutSection;
 @property (nonatomic) IBPUICollectionViewCompositionalLayoutSectionProvider sectionProvider;
 
 @property (nonatomic) NSMutableArray<UICollectionViewLayoutAttributes *> *cachedAttributes;
@@ -53,7 +53,7 @@
     } else {
         self = [super init];
         if (self) {
-            self.section = section;
+            self.layoutSection = section;
             self.configuration = configuration;
         }
         return self;
@@ -132,7 +132,7 @@
     layoutFrame.origin.y += collectionContainer.effectiveContentInsets.top;
 
     for (NSInteger sectionIndex = 0; sectionIndex < numberOfSections; sectionIndex++) {
-        IBPNSCollectionLayoutSection *section = self.sectionProvider ? self.sectionProvider(sectionIndex, environment) : self.section;
+        IBPNSCollectionLayoutSection *section = self.sectionProvider ? self.sectionProvider(sectionIndex, environment) : self.layoutSection;
 
         CGRect sectionFrame = CGRectZero;
         sectionFrame.origin.x = layoutFrame.origin.x;
@@ -337,6 +337,31 @@
                 contentBounds = CGRectUnion(contentBounds, boundarySupplementaryViewFrame);
                 layoutFrame = CGRectUnion(layoutFrame, boundarySupplementaryViewFrame);
             }
+        }
+
+
+        NSArray<IBPNSCollectionLayoutDecorationItem *> *decorationItems = section.decorationItems;
+        for (IBPNSCollectionLayoutDecorationItem *decorationItem in decorationItems) {
+            UICollectionViewLayoutAttributes *decorationViewAttributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:decorationItem.elementKind withIndexPath:[NSIndexPath indexPathForItem:0 inSection:sectionIndex]];
+
+            CGRect decorationViewFrame = sectionFrame;
+
+            if (self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical) {
+                decorationViewFrame.size.width += CGRectGetWidth(layoutFrame) + section.contentInsets.leading;
+                decorationViewFrame.size.height = CGRectGetMaxY(layoutFrame) - CGRectGetMinY(sectionFrame) + section.contentInsets.top;
+            }
+            if (self.configuration.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+                decorationViewFrame.size.width = CGRectGetMaxX(layoutFrame) - CGRectGetMinX(sectionFrame);
+                decorationViewFrame.size.height += CGRectGetHeight(layoutFrame);
+            }
+
+            decorationViewFrame.origin.x += decorationItem.contentInsets.leading;
+            decorationViewFrame.origin.y += decorationItem.contentInsets.top;
+            decorationViewFrame.size.width -= decorationItem.contentInsets.leading + decorationItem.contentInsets.trailing;
+            decorationViewFrame.size.height -= decorationItem.contentInsets.top + decorationItem.contentInsets.bottom;
+
+            decorationViewAttributes.frame = decorationViewFrame;
+            [self.cachedAttributes addObject:decorationViewAttributes];
         }
 
         if (self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical) {

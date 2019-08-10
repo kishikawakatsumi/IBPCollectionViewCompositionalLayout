@@ -29,7 +29,10 @@
 }
 
 - (nonnull id)copyWithZone:(nullable NSZone *)zone {
-    return [IBPNSCollectionLayoutDecorationItem backgroundDecorationItemWithElementKind:self.elementKind];
+    IBPNSCollectionLayoutDecorationItem *item = [IBPNSCollectionLayoutDecorationItem backgroundDecorationItemWithElementKind:self.elementKind];
+    item.zIndex = self.zIndex;
+    item.contentInsets = self.contentInsets;
+    return item;
 }
 
 @end
