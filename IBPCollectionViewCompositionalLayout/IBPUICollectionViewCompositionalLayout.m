@@ -342,7 +342,7 @@
 - (CGSize)collectionViewContentSize {
     UIEdgeInsets insets = UIEdgeInsetsZero;
     if (@available(iOS 11, *)) {
-        insets = self.collectionView.safeAreaInsets;
+//        insets = self.collectionView.safeAreaInsets;
     }
     return UIEdgeInsetsInsetRect(contentBounds, insets).size;
 }
