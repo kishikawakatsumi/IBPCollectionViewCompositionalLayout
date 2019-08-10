@@ -214,10 +214,34 @@
                 configuration.scrollDirection = self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical ? UICollectionViewScrollDirectionHorizontal : UICollectionViewScrollDirectionVertical;
 
                 IBPNSCollectionLayoutSection *orthogonalSection = section.copy;
+                orthogonalSection.boundarySupplementaryItems = @[];
                 orthogonalSection.orthogonalScrollingBehavior = UICollectionLayoutSectionOrthogonalScrollingBehaviorNone;
                 IBPNSCollectionLayoutSize *orthogonalGroupSize = section.group.layoutSize;
-                orthogonalSection.group.layoutSize = [IBPNSCollectionLayoutSize sizeWithWidthDimension:self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical ? orthogonalGroupSize.widthDimension : [IBPNSCollectionLayoutDimension fractionalWidthDimension:MAX(1, orthogonalGroupSize.widthDimension.dimension)]
-                                                                                    heightDimension:self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical ? [IBPNSCollectionLayoutDimension fractionalHeightDimension:MAX(1, orthogonalGroupSize.heightDimension.dimension)] : orthogonalGroupSize.heightDimension];
+
+                IBPNSCollectionLayoutDimension *widthDimension = orthogonalGroupSize.widthDimension;
+                IBPNSCollectionLayoutDimension *heightDimension = orthogonalGroupSize.heightDimension;
+
+                if (widthDimension.isFractionalWidth) {
+                    widthDimension = self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical ? widthDimension : [IBPNSCollectionLayoutDimension fractionalWidthDimension:MAX(1, widthDimension.dimension)];
+                }
+                if (widthDimension.isFractionalHeight) {
+                    widthDimension = self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical ? widthDimension : [IBPNSCollectionLayoutDimension fractionalWidthDimension:MAX(1, widthDimension.dimension)];
+                }
+                if (widthDimension.isAbsolute) {
+                    widthDimension = [IBPNSCollectionLayoutDimension absoluteDimension:widthDimension.dimension];
+                }
+
+                if (heightDimension.isFractionalWidth) {
+                    heightDimension = self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical ? [IBPNSCollectionLayoutDimension fractionalHeightDimension:MAX(1, heightDimension.dimension)] : heightDimension;
+                }
+                if (heightDimension.isFractionalHeight) {
+                    heightDimension = self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical ? [IBPNSCollectionLayoutDimension fractionalHeightDimension:MAX(1, heightDimension.dimension)] : heightDimension;
+                }
+                if (heightDimension.isAbsolute) {
+                    heightDimension = [IBPNSCollectionLayoutDimension absoluteDimension:heightDimension.dimension];
+                }
+
+                orthogonalSection.group.layoutSize = [IBPNSCollectionLayoutSize sizeWithWidthDimension:widthDimension heightDimension:heightDimension];
                 IBPUICollectionViewCompositionalLayout *orthogonalScrollViewCollectionViewLayout = [[IBPUICollectionViewCompositionalLayout alloc] initWithSection:orthogonalSection configuration:configuration];
 
                 IBPCollectionViewOrthogonalScrollerEmbeddedScrollView *scrollView = [[IBPCollectionViewOrthogonalScrollerEmbeddedScrollView alloc] initWithFrame:scrollViewFrame collectionViewLayout:orthogonalScrollViewCollectionViewLayout];
