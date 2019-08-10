@@ -230,8 +230,8 @@
                 contentBounds = CGRectUnion(contentBounds, frame);
                 layoutFrame = CGRectUnion(layoutFrame, frame);
             } else {
-                contentBounds = CGRectUnion(contentBounds, cellFrame);
-                layoutFrame = CGRectUnion(layoutFrame, cellFrame);
+                contentBounds = CGRectUnion(contentBounds, CGRectInset(cellFrame, -layoutItem.contentInsets.trailing, -layoutItem.contentInsets.bottom));
+                layoutFrame = CGRectUnion(layoutFrame, CGRectInset(cellFrame, -layoutItem.contentInsets.trailing, -layoutItem.contentInsets.bottom));
             }
         }
 
