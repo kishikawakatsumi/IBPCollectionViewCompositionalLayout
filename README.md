@@ -80,6 +80,14 @@ let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout
 ...
 ```
 
+### IBPCollectionViewCompositionalLayoutInteroperability.swift
+
+This file silences the following compilation errors when building on Xcode 11 or higher environment.
+
+```
+'UICollectionViewCompositionalLayout' is only available in iOS 13.0 or newer
+```
+
 ## Features
 
 - [x] Inter Item Spacing  
@@ -89,6 +97,7 @@ let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout
 - [x] Nested Groups  
 - [x] Section Header/Footers (Partially supported)  
 - [x] Orthogonal Scrolling (Partially supported)  
+- [x] Drop-in replacement
 
 ## TODOs (Not yet supported)
 
@@ -101,7 +110,6 @@ let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout
 - [ ] Custom Group Item (Absolute Positions)
 - [ ] Visual Debug Description
 - [ ] Perfomance Optimization
-- [ ] Improve Compatibility with iOS 13 (Achieve drop-in replacement)
 
 ## Requirements
 
