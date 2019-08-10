@@ -78,4 +78,40 @@
     return effectiveSize;
 }
 
+- (NSString *)widthSemantic {
+    if (self.widthDimension.isFractionalWidth) {
+        return @".containerWidthFactor";
+    }
+    if (self.widthDimension.isFractionalHeight) {
+        return @".containerHeightFactor";
+    }
+    if (self.widthDimension.isAbsolute) {
+        return @".absolute";
+    }
+    if (self.widthDimension.isEstimated) {
+        return @".estimated";
+    }
+    return nil;
+}
+
+- (NSString *)heightSemantic {
+    if (self.heightDimension.isFractionalWidth) {
+        return @".containerWidthFactor";
+    }
+    if (self.heightDimension.isFractionalHeight) {
+        return @".containerHeightFactor";
+    }
+    if (self.heightDimension.isAbsolute) {
+        return @".absolute";
+    }
+    if (self.heightDimension.isEstimated) {
+        return @".estimated";
+    }
+    return nil;
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<size=%@; widthSemantic=%@; heightSemantic=%@>", NSStringFromCGSize(CGSizeMake(self.widthDimension.dimension, self.heightDimension.dimension)), self.widthSemantic, self.heightSemantic];
+}
+
 @end
