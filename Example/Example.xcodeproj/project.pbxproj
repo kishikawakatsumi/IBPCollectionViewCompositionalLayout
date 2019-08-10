@@ -242,8 +242,8 @@
 		143A2E0B22F9E11000F8904D /* App Samples View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				143A2E0D22F9E11B00F8904D /* ConferenceNewsFeedViewController.swift */,
 				143A2E0C22F9E11B00F8904D /* ConferenceVideoSessionsViewController.swift */,
+				143A2E0D22F9E11B00F8904D /* ConferenceNewsFeedViewController.swift */,
 			);
 			path = "App Samples View Controllers";
 			sourceTree = "<group>";
