@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
                                    subitems:(NSArray<IBPNSCollectionLayoutItem *> *)subitems NS_SWIFT_NAME(vertical(layoutSize:subitems:));
 
 + (instancetype)customGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
-                             itemProvider:(NSCollectionLayoutGroupCustomItemProvider)itemProvider NS_SWIFT_NAME(custom(layoutSize:itemProvider:));
+                             itemProvider:(IBPNSCollectionLayoutGroupCustomItemProvider)itemProvider NS_SWIFT_NAME(custom(layoutSize:itemProvider:));
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;

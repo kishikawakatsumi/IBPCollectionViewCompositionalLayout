@@ -29,7 +29,7 @@
     return [[self alloc] initWWithLayoutSize:layoutSize subitem:subitem count:count layoutDirection:LayoutDirectionVertical];
 }
 
-+ (instancetype)customGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize itemProvider:(NSCollectionLayoutGroupCustomItemProvider)itemProvider {
++ (instancetype)customGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize itemProvider:(IBPNSCollectionLayoutGroupCustomItemProvider)itemProvider {
     return nil;
 }
 
@@ -55,7 +55,7 @@
              layoutDirection:(IBPLayoutDirection)layoutDirection
           supplementaryItems:(NSArray<IBPNSCollectionLayoutSupplementaryItem *> *)supplementaryItems
                visualFormats:(id)visualFormats
-               itemsProvider:(NSCollectionLayoutGroupCustomItemProvider)itemsProvider
+               itemsProvider:(IBPNSCollectionLayoutGroupCustomItemProvider)itemsProvider
     visualFormatItemProvider:(id)visualFormatItemProvider
      customGroupItemProvider:(id)customGroupItemProvider
                      options:(NSInteger)options

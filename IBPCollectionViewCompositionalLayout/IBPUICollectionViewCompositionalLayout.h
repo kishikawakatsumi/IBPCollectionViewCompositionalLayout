@@ -7,12 +7,8 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol IBPNSCollectionLayoutVisibleItem, NSCollectionLayoutEnvironment, IBPNSCollectionLayoutEnvironment;
 @class IBPUICollectionViewCompositionalLayoutConfiguration, IBPNSCollectionLayoutSection;
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 130000
-typedef IBPNSCollectionLayoutSection * _Nullable (^IBPUICollectionViewCompositionalLayoutSectionProvider)(NSInteger section, id<NSCollectionLayoutEnvironment>);
-typedef void (^NSCollectionLayoutSectionVisibleItemsInvalidationHandler)(NSArray<id<IBPNSCollectionLayoutVisibleItem>> *visibleItems, CGPoint contentOffset, id<NSCollectionLayoutEnvironment> layoutEnvironment);
-#else
 typedef IBPNSCollectionLayoutSection * _Nullable (^IBPUICollectionViewCompositionalLayoutSectionProvider)(NSInteger section, id<IBPNSCollectionLayoutEnvironment>);
-#endif
+typedef void (^IBPNSCollectionLayoutSectionVisibleItemsInvalidationHandler)(NSArray<id<IBPNSCollectionLayoutVisibleItem>> *visibleItems, CGPoint contentOffset, id<IBPNSCollectionLayoutEnvironment> layoutEnvironment);
 
 @interface IBPUICollectionViewCompositionalLayout : UICollectionViewLayout
 

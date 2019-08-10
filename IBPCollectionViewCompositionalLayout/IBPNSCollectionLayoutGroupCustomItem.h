@@ -5,9 +5,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol IBPNSCollectionLayoutEnvironment;
 @class IBPNSCollectionLayoutGroupCustomItem;
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 130000
-typedef NSArray<IBPNSCollectionLayoutGroupCustomItem *> * _Nonnull (^NSCollectionLayoutGroupCustomItemProvider)(id<IBPNSCollectionLayoutEnvironment> layoutEnvironment);
-#endif
+typedef NSArray<IBPNSCollectionLayoutGroupCustomItem *> * _Nonnull (^IBPNSCollectionLayoutGroupCustomItemProvider)(id<IBPNSCollectionLayoutEnvironment> layoutEnvironment);
 
 @interface IBPNSCollectionLayoutGroupCustomItem : NSObject<NSCopying>
 

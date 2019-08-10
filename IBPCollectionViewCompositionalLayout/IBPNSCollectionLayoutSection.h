@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSArray<IBPNSCollectionLayoutBoundarySupplementaryItem *> *boundarySupplementaryItems;
 
 @property (nonatomic) BOOL supplementariesFollowContentInsets;
-@property (nonatomic, copy, nullable) NSCollectionLayoutSectionVisibleItemsInvalidationHandler visibleItemsInvalidationHandler;
+@property (nonatomic, copy, nullable) IBPNSCollectionLayoutSectionVisibleItemsInvalidationHandler visibleItemsInvalidationHandler;
 
 @property (nonatomic, copy) NSArray<IBPNSCollectionLayoutDecorationItem *> *decorationItems;
 
