@@ -322,6 +322,9 @@
                 layoutFrame = CGRectUnion(layoutFrame, boundarySupplementaryViewFrame);
             }
         }
+
+        layoutFrame.origin.y += section.contentInsets.bottom;
+        contentBounds = CGRectUnion(contentBounds, layoutFrame);
     }
 }
 
