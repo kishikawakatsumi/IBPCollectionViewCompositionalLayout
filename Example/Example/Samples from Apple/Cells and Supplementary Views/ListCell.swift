@@ -39,10 +39,10 @@ extension ListCell {
         selectedBackgroundView = UIView()
         selectedBackgroundView?.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
 
-//        let rtl = effectiveUserInterfaceLayoutDirection == .rightToLeft
-//        let chevronImageName = rtl ? "chevron.left" : "chevron.right"
-//        let chevronImage = UIImage(systemName: chevronImageName)
-//        accessoryImageView.image = chevronImage
+        let rtl = effectiveUserInterfaceLayoutDirection == .rightToLeft
+        let chevronImageName = rtl ? "chevron.left" : "chevron.right"
+        let chevronImage = UIImage(named: chevronImageName)
+        accessoryImageView.image = chevronImage
         accessoryImageView.tintColor = UIColor.lightGray.withAlphaComponent(0.7)
 
         let inset = CGFloat(10)
