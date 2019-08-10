@@ -134,7 +134,13 @@
     for (NSInteger sectionIndex = 0; sectionIndex < numberOfSections; sectionIndex++) {
         CGRect sectionFrame = CGRectZero;
         sectionFrame.origin.x = layoutFrame.origin.x;
-        sectionFrame.origin.y = CGRectGetMaxY(layoutFrame);
+
+        if (self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical) {
+            sectionFrame.origin.y = CGRectGetMaxY(layoutFrame);
+        }
+        if (self.configuration.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+            sectionFrame.origin.x = CGRectGetMaxX(layoutFrame);
+        }
 
         IBPNSCollectionLayoutSection *section = self.sectionProvider ? self.sectionProvider(sectionIndex, environment) : self.section;
 
@@ -323,13 +329,22 @@
             }
         }
 
-        layoutFrame.origin.y += section.contentInsets.bottom;
+        if (self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical) {
+            layoutFrame.origin.y += section.contentInsets.bottom;
+        }
+        if (self.configuration.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+            layoutFrame.origin.x += section.contentInsets.trailing;
+        }
         contentBounds = CGRectUnion(contentBounds, layoutFrame);
     }
 }
 
 - (CGSize)collectionViewContentSize {
-    return contentBounds.size;
+    UIEdgeInsets insets = UIEdgeInsetsZero;
+    if (@available(iOS 11, *)) {
+        insets = self.collectionView.safeAreaInsets;
+    }
+    return UIEdgeInsetsInsetRect(contentBounds, insets).size;
 }
 
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
