@@ -4,7 +4,11 @@
 
 - (instancetype)init {
     if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
         return [[UICollectionViewCompositionalLayoutConfiguration alloc] init];
+#else
+        return nil;
+#endif
     } else {
         self = [super init];
         if (self) {

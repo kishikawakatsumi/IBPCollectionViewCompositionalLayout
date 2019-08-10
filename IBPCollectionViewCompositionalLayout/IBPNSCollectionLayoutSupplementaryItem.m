@@ -11,7 +11,11 @@
                                     elementKind:(NSString *)elementKind
                                 containerAnchor:(IBPNSCollectionLayoutAnchor *)containerAnchor {
     if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
         return [NSCollectionLayoutSupplementaryItem supplementaryItemWithLayoutSize:layoutSize elementKind:elementKind containerAnchor:containerAnchor];
+#else
+        return nil;
+#endif
     } else {
         return [[self alloc] initWithLayoutSize:layoutSize elementKind:elementKind containerAnchor:containerAnchor itemAnchor:nil];
     }
@@ -22,7 +26,11 @@
                                 containerAnchor:(IBPNSCollectionLayoutAnchor *)containerAnchor
                                      itemAnchor:(IBPNSCollectionLayoutAnchor *)itemAnchor {
     if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
         return [NSCollectionLayoutSupplementaryItem supplementaryItemWithLayoutSize:layoutSize elementKind:elementKind containerAnchor:containerAnchor itemAnchor:itemAnchor];
+#else
+        return nil;
+#endif
     } else {
         return [[self alloc] initWithLayoutSize:layoutSize elementKind:elementKind containerAnchor:containerAnchor itemAnchor:itemAnchor];
     }

@@ -10,7 +10,11 @@
 + (instancetype)horizontalGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                      subitems:(NSArray<IBPNSCollectionLayoutItem *> *)subitems {
     if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
         return [NSCollectionLayoutGroup horizontalGroupWithLayoutSize:layoutSize subitems:subitems];
+#else
+        return nil;
+#endif
     } else {
         return [[self alloc] initWithLayoutSize:layoutSize subitems:subitems layoutDirection:LayoutDirectionHorizontal];
     }
@@ -20,7 +24,11 @@
                                       subitem:(IBPNSCollectionLayoutItem *)subitem
                                         count:(NSInteger)count {
     if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
         return [NSCollectionLayoutGroup horizontalGroupWithLayoutSize:layoutSize subitem:subitem count:count];
+#else
+        return nil;
+#endif
     } else {
         return [[self alloc] initWWithLayoutSize:layoutSize subitem:subitem count:count layoutDirection:LayoutDirectionHorizontal];
     }
@@ -29,7 +37,11 @@
 + (instancetype)verticalGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                    subitems:(NSArray<IBPNSCollectionLayoutItem *> *)subitems {
     if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
         return [NSCollectionLayoutGroup verticalGroupWithLayoutSize:layoutSize subitems:subitems];
+#else
+        return nil;
+#endif
     } else {
         return [[self alloc] initWithLayoutSize:layoutSize subitems:subitems layoutDirection:LayoutDirectionVertical];
     }
@@ -39,7 +51,11 @@
                                     subitem:(IBPNSCollectionLayoutItem *)subitem
                                       count:(NSInteger)count {
     if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
         return [NSCollectionLayoutGroup verticalGroupWithLayoutSize:layoutSize subitem:subitem count:count];
+#else
+        return nil;
+#endif
     } else {
         return [[self alloc] initWWithLayoutSize:layoutSize subitem:subitem count:count layoutDirection:LayoutDirectionVertical];
     }

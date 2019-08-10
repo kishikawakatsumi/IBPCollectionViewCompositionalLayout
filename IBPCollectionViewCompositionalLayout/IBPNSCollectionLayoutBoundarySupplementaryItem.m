@@ -15,10 +15,14 @@
                                             elementKind:(NSString *)elementKind
                                               alignment:(NSRectAlignment)alignment {
     if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
         return [NSCollectionLayoutBoundarySupplementaryItem boundarySupplementaryItemWithLayoutSize:layoutSize
                                                  elementKind:elementKind
                                                    alignment:alignment
                                               absoluteOffset:CGPointZero];
+#else
+        return nil;
+#endif
     } else {
         return [self boundarySupplementaryItemWithLayoutSize:layoutSize
                                                  elementKind:elementKind
@@ -32,10 +36,14 @@
                                               alignment:(NSRectAlignment)alignment
                                          absoluteOffset:(CGPoint)absoluteOffset {
     if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
         return [NSCollectionLayoutBoundarySupplementaryItem boundarySupplementaryItemWithLayoutSize:layoutSize
                                     elementKind:elementKind
                                       alignment:alignment
                                  absoluteOffset:absoluteOffset];
+#else
+        return nil;
+#endif
     } else {
         return [[self alloc] initWithLayoutSize:layoutSize
                                     elementKind:elementKind
