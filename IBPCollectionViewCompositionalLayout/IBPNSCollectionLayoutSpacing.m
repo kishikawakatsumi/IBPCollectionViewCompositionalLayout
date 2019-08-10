@@ -11,11 +11,19 @@
 @implementation IBPNSCollectionLayoutSpacing
 
 + (instancetype)flexibleSpacing:(CGFloat)flexibleSpacing {
-    return [[self alloc] initWithFlexibleSpacing:flexibleSpacing];
+    if (@available(iOS 13, *)) {
+        return [NSCollectionLayoutSpacing flexibleSpacing:flexibleSpacing];
+    } else {
+        return [[self alloc] initWithFlexibleSpacing:flexibleSpacing];
+    }
 }
 
 + (instancetype)fixedSpacing:(CGFloat)fixedSpacing {
-    return [[self alloc] initWithFixedSpacing:fixedSpacing];
+    if (@available(iOS 13, *)) {
+        return [NSCollectionLayoutSpacing fixedSpacing:fixedSpacing];
+    } else {
+        return [[self alloc] initWithFixedSpacing:fixedSpacing];
+    }
 }
 
 - (instancetype)initWithFlexibleSpacing:(CGFloat)flexibleSpacing {

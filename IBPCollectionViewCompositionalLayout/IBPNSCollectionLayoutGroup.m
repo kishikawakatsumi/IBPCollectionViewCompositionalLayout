@@ -9,24 +9,40 @@
 
 + (instancetype)horizontalGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                      subitems:(NSArray<IBPNSCollectionLayoutItem *> *)subitems {
-    return [[self alloc] initWithLayoutSize:layoutSize subitems:subitems layoutDirection:LayoutDirectionHorizontal];
+    if (@available(iOS 13, *)) {
+        return [NSCollectionLayoutGroup horizontalGroupWithLayoutSize:layoutSize subitems:subitems];
+    } else {
+        return [[self alloc] initWithLayoutSize:layoutSize subitems:subitems layoutDirection:LayoutDirectionHorizontal];
+    }
 }
 
 + (instancetype)horizontalGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                       subitem:(IBPNSCollectionLayoutItem *)subitem
                                         count:(NSInteger)count {
-    return [[self alloc] initWWithLayoutSize:layoutSize subitem:subitem count:count layoutDirection:LayoutDirectionHorizontal];
+    if (@available(iOS 13, *)) {
+        return [NSCollectionLayoutGroup horizontalGroupWithLayoutSize:layoutSize subitem:subitem count:count];
+    } else {
+        return [[self alloc] initWWithLayoutSize:layoutSize subitem:subitem count:count layoutDirection:LayoutDirectionHorizontal];
+    }
 }
 
 + (instancetype)verticalGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                    subitems:(NSArray<IBPNSCollectionLayoutItem *> *)subitems {
-    return [[self alloc] initWithLayoutSize:layoutSize subitems:subitems layoutDirection:LayoutDirectionVertical];
+    if (@available(iOS 13, *)) {
+        return [NSCollectionLayoutGroup verticalGroupWithLayoutSize:layoutSize subitems:subitems];
+    } else {
+        return [[self alloc] initWithLayoutSize:layoutSize subitems:subitems layoutDirection:LayoutDirectionVertical];
+    }
 }
 
 + (instancetype)verticalGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                     subitem:(IBPNSCollectionLayoutItem *)subitem
                                       count:(NSInteger)count {
-    return [[self alloc] initWWithLayoutSize:layoutSize subitem:subitem count:count layoutDirection:LayoutDirectionVertical];
+    if (@available(iOS 13, *)) {
+        return [NSCollectionLayoutGroup verticalGroupWithLayoutSize:layoutSize subitem:subitem count:count];
+    } else {
+        return [[self alloc] initWWithLayoutSize:layoutSize subitem:subitem count:count layoutDirection:LayoutDirectionVertical];
+    }
 }
 
 + (instancetype)customGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize itemProvider:(IBPNSCollectionLayoutGroupCustomItemProvider)itemProvider {

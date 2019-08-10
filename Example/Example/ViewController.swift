@@ -15,6 +15,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         AdaptiveSectionsViewController.self,
         ItemBadgeSupplementaryViewController.self,
         SectionHeadersFootersViewController.self,
+        PinnedSectionHeaderFooterViewController.self,
         NestedGroupsViewController.self,
         OrthogonalScrollingViewController.self,
         ConferenceVideoSessionsViewController.self,

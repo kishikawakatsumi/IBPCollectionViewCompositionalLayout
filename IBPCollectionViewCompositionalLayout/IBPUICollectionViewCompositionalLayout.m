@@ -31,31 +31,47 @@
 @implementation IBPUICollectionViewCompositionalLayout
 
 - (instancetype)initWithSection:(IBPNSCollectionLayoutSection *)section {
-    IBPUICollectionViewCompositionalLayoutConfiguration *configuration = [[IBPUICollectionViewCompositionalLayoutConfiguration alloc] init];
-    return [self initWithSection:section configuration:configuration];
+    if (@available(iOS 13, *)) {
+        return [[UICollectionViewCompositionalLayout alloc] initWithSection:section];
+    } else {
+        IBPUICollectionViewCompositionalLayoutConfiguration *configuration = [[IBPUICollectionViewCompositionalLayoutConfiguration alloc] init];
+        return [self initWithSection:section configuration:configuration];
+    }
 }
 
 - (instancetype)initWithSection:(IBPNSCollectionLayoutSection *)section configuration:(IBPUICollectionViewCompositionalLayoutConfiguration *)configuration {
-    self = [super init];
-    if (self) {
-        self.section = section;
-        self.configuration = configuration;
+    if (@available(iOS 13, *)) {
+        return [[UICollectionViewCompositionalLayout alloc] initWithSection:section configuration:configuration];
+    } else {
+        self = [super init];
+        if (self) {
+            self.section = section;
+            self.configuration = configuration;
+        }
+        return self;
     }
-    return self;
 }
 
 - (instancetype)initWithSectionProvider:(IBPUICollectionViewCompositionalLayoutSectionProvider)sectionProvider {
-    IBPUICollectionViewCompositionalLayoutConfiguration *configuration = [[IBPUICollectionViewCompositionalLayoutConfiguration alloc] init];
-    return [self initWithSectionProvider:sectionProvider configuration:configuration];
+    if (@available(iOS 13, *)) {
+        return [[UICollectionViewCompositionalLayout alloc] initWithSectionProvider:(UICollectionViewCompositionalLayoutSectionProvider)sectionProvider];
+    } else {
+        IBPUICollectionViewCompositionalLayoutConfiguration *configuration = [[IBPUICollectionViewCompositionalLayoutConfiguration alloc] init];
+        return [self initWithSectionProvider:sectionProvider configuration:configuration];
+    }
 }
 
 - (instancetype)initWithSectionProvider:(IBPUICollectionViewCompositionalLayoutSectionProvider)sectionProvider configuration:(IBPUICollectionViewCompositionalLayoutConfiguration *)configuration {
-    self = [super init];
-    if (self) {
-        self.sectionProvider = sectionProvider;
-        self.configuration = configuration;
+    if (@available(iOS 13, *)) {
+        return [[UICollectionViewCompositionalLayout alloc] initWithSectionProvider:(UICollectionViewCompositionalLayoutSectionProvider)sectionProvider configuration:configuration];
+    } else {
+        self = [super init];
+        if (self) {
+            self.sectionProvider = sectionProvider;
+            self.configuration = configuration;
+        }
+        return self;
     }
-    return self;
 }
 
 - (void)prepareLayout {

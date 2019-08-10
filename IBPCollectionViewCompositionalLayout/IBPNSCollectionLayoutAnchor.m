@@ -12,15 +12,27 @@
 @implementation IBPNSCollectionLayoutAnchor
 
 + (instancetype)layoutAnchorWithEdges:(NSDirectionalRectEdge)edges {
-    return [[self alloc] initWithEdges:edges];
+    if (@available(iOS 13, *)) {
+        return [NSCollectionLayoutAnchor layoutAnchorWithEdges:edges];
+    } else {
+        return [[self alloc] initWithEdges:edges];
+    }
 }
 
 + (instancetype)layoutAnchorWithEdges:(NSDirectionalRectEdge)edges absoluteOffset:(CGPoint)absoluteOffset {
-    return [[self alloc] initWithEdges:edges absoluteOffset:absoluteOffset];
+    if (@available(iOS 13, *)) {
+        return [NSCollectionLayoutAnchor layoutAnchorWithEdges:edges absoluteOffset:absoluteOffset];
+    } else {
+        return [[self alloc] initWithEdges:edges absoluteOffset:absoluteOffset];
+    }
 }
 
 + (instancetype)layoutAnchorWithEdges:(NSDirectionalRectEdge)edges fractionalOffset:(CGPoint)fractionalOffset {
-    return [[self alloc] initWithEdges:edges fractionalOffset:fractionalOffset];
+    if (@available(iOS 13, *)) {
+        return [NSCollectionLayoutAnchor layoutAnchorWithEdges:edges fractionalOffset:fractionalOffset];
+    } else {
+        return [[self alloc] initWithEdges:edges fractionalOffset:fractionalOffset];
+    }
 }
 
 - (instancetype)initWithEdges:(NSDirectionalRectEdge)edges {

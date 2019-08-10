@@ -3,13 +3,17 @@
 @implementation IBPUICollectionViewCompositionalLayoutConfiguration
 
 - (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.scrollDirection = UICollectionViewScrollDirectionVertical;
-        self.interSectionSpacing = 0;
-        self.boundarySupplementaryItems = [[NSArray<IBPNSCollectionLayoutBoundarySupplementaryItem *> alloc] init];
+    if (@available(iOS 13, *)) {
+        return [[UICollectionViewCompositionalLayoutConfiguration alloc] init];
+    } else {
+        self = [super init];
+        if (self) {
+            self.scrollDirection = UICollectionViewScrollDirectionVertical;
+            self.interSectionSpacing = 0;
+            self.boundarySupplementaryItems = [[NSArray<IBPNSCollectionLayoutBoundarySupplementaryItem *> alloc] init];
+        }
+        return self;
     }
-    return self;
 }
 
 - (nonnull id)copyWithZone:(nullable NSZone *)zone {
