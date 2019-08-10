@@ -9,40 +9,72 @@
 
 + (instancetype)horizontalGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                      subitems:(NSArray<IBPNSCollectionLayoutItem *> *)subitems {
-    return [[self alloc] initWithLayoutSize:layoutSize subitems:subitems layoutDirection:LayoutDirectionHorizontal];
+    if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        return [NSCollectionLayoutGroup horizontalGroupWithLayoutSize:layoutSize subitems:subitems];
+#else
+        return nil;
+#endif
+    } else {
+        return [[self alloc] initWithLayoutSize:layoutSize subitems:subitems layoutDirection:LayoutDirectionHorizontal];
+    }
 }
 
 + (instancetype)horizontalGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                       subitem:(IBPNSCollectionLayoutItem *)subitem
                                         count:(NSInteger)count {
-    return [[self alloc] initWWithLayoutSize:layoutSize subitem:subitem count:count layoutDirection:LayoutDirectionHorizontal];
+    if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        return [NSCollectionLayoutGroup horizontalGroupWithLayoutSize:layoutSize subitem:subitem count:count];
+#else
+        return nil;
+#endif
+    } else {
+        return [[self alloc] initWWithLayoutSize:layoutSize subitem:subitem count:count layoutDirection:LayoutDirectionHorizontal];
+    }
 }
 
 + (instancetype)verticalGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                    subitems:(NSArray<IBPNSCollectionLayoutItem *> *)subitems {
-    return [[self alloc] initWithLayoutSize:layoutSize subitems:subitems layoutDirection:LayoutDirectionVertical];
+    if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        return [NSCollectionLayoutGroup verticalGroupWithLayoutSize:layoutSize subitems:subitems];
+#else
+        return nil;
+#endif
+    } else {
+        return [[self alloc] initWithLayoutSize:layoutSize subitems:subitems layoutDirection:LayoutDirectionVertical];
+    }
 }
 
 + (instancetype)verticalGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                     subitem:(IBPNSCollectionLayoutItem *)subitem
                                       count:(NSInteger)count {
-    return [[self alloc] initWWithLayoutSize:layoutSize subitem:subitem count:count layoutDirection:LayoutDirectionVertical];
+    if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        return [NSCollectionLayoutGroup verticalGroupWithLayoutSize:layoutSize subitem:subitem count:count];
+#else
+        return nil;
+#endif
+    } else {
+        return [[self alloc] initWWithLayoutSize:layoutSize subitem:subitem count:count layoutDirection:LayoutDirectionVertical];
+    }
 }
 
-+ (instancetype)customGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize itemProvider:(NSCollectionLayoutGroupCustomItemProvider)itemProvider {
++ (instancetype)customGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize itemProvider:(IBPNSCollectionLayoutGroupCustomItemProvider)itemProvider {
     return nil;
 }
 
 - (instancetype)initWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                           subitems:(NSArray<IBPNSCollectionLayoutItem *> *)subitems
-                   layoutDirection:(LayoutDirection)layoutDirection {
+                   layoutDirection:(IBPLayoutDirection)layoutDirection {
     return [self initWithSize:layoutSize subitems:subitems count:0 interItemSpacing:nil contentInsets:NSDirectionalEdgeInsetsZero edgeSpacing:nil layoutDirection:layoutDirection supplementaryItems:@[] visualFormats:nil itemsProvider:nil visualFormatItemProvider:nil customGroupItemProvider:nil options:0 name:nil identifier:nil];
 }
 
 - (instancetype)initWWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                             subitem:(IBPNSCollectionLayoutItem *)subitem
                               count:(NSInteger)count
-                    layoutDirection:(LayoutDirection)layoutDirection {
+                    layoutDirection:(IBPLayoutDirection)layoutDirection {
     return [self initWithSize:layoutSize subitems:@[subitem] count:count interItemSpacing:nil contentInsets:NSDirectionalEdgeInsetsZero edgeSpacing:nil layoutDirection:layoutDirection supplementaryItems:@[] visualFormats:nil itemsProvider:nil visualFormatItemProvider:nil customGroupItemProvider:nil options:0 name:nil identifier:nil];
 }
 
@@ -52,10 +84,10 @@
             interItemSpacing:(IBPNSCollectionLayoutSpacing *)interItemSpacing
                contentInsets:(NSDirectionalEdgeInsets)contentInsets
                  edgeSpacing:(IBPNSCollectionLayoutEdgeSpacing *)edgeSpacing
-             layoutDirection:(LayoutDirection)layoutDirection
+             layoutDirection:(IBPLayoutDirection)layoutDirection
           supplementaryItems:(NSArray<IBPNSCollectionLayoutSupplementaryItem *> *)supplementaryItems
                visualFormats:(id)visualFormats
-               itemsProvider:(NSCollectionLayoutGroupCustomItemProvider)itemsProvider
+               itemsProvider:(IBPNSCollectionLayoutGroupCustomItemProvider)itemsProvider
     visualFormatItemProvider:(id)visualFormatItemProvider
      customGroupItemProvider:(id)customGroupItemProvider
                      options:(NSInteger)options
@@ -128,7 +160,7 @@
 
 - (IBPNSCollectionLayoutSize *)effectiveSizeForSize:(IBPNSCollectionLayoutSize *)size
                                            count:(NSInteger)count
-                                 layoutDirection:(LayoutDirection)layoutDirection {
+                                 layoutDirection:(IBPLayoutDirection)layoutDirection {
     NSArray<IBPNSCollectionLayoutItem *> *subitems = self.subitems;
     for (IBPNSCollectionLayoutItem *item in subitems) {
         if (item.isGroup) {

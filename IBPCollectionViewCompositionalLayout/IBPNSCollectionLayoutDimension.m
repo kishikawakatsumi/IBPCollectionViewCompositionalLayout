@@ -13,19 +13,51 @@
 @implementation IBPNSCollectionLayoutDimension
 
 + (instancetype)fractionalWidthDimension:(CGFloat)fractionalWidth {
-    return [[self alloc] initWithFractionalWidth:fractionalWidth];
+    if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        return [NSCollectionLayoutDimension fractionalWidthDimension:fractionalWidth];
+#else
+        return nil;
+#endif
+    } else {
+        return [[self alloc] initWithFractionalWidth:fractionalWidth];
+    }
 }
 
 + (instancetype)fractionalHeightDimension:(CGFloat)fractionalHeight {
-    return [[self alloc] initWithFractionalHeight:fractionalHeight];
+    if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        return [NSCollectionLayoutDimension fractionalHeightDimension:fractionalHeight];
+#else
+        return nil;
+#endif
+    } else {
+        return [[self alloc] initWithFractionalHeight:fractionalHeight];
+    }
 }
 
 + (instancetype)absoluteDimension:(CGFloat)absoluteDimension {
-    return [[self alloc] initWithAbsoluteDimension:absoluteDimension];
+    if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        return [NSCollectionLayoutDimension absoluteDimension:absoluteDimension];
+#else
+        return nil;
+#endif
+    } else {
+        return [[self alloc] initWithAbsoluteDimension:absoluteDimension];
+    }
 }
 
 + (instancetype)estimatedDimension:(CGFloat)estimatedDimension {
-    return [[self alloc] initWithEstimatedDimension:estimatedDimension];
+    if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        return [NSCollectionLayoutDimension estimatedDimension:estimatedDimension];
+#else
+        return nil;
+#endif
+    } else {
+        return [[self alloc] initWithEstimatedDimension:estimatedDimension];
+    }
 }
 
 - (instancetype)initWithFractionalWidth:(CGFloat)fractionalWidth {

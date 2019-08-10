@@ -10,14 +10,30 @@
 + (instancetype)supplementaryItemWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                     elementKind:(NSString *)elementKind
                                 containerAnchor:(IBPNSCollectionLayoutAnchor *)containerAnchor {
-    return [[self alloc] initWithLayoutSize:layoutSize elementKind:elementKind containerAnchor:containerAnchor itemAnchor:nil];
+    if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        return [NSCollectionLayoutSupplementaryItem supplementaryItemWithLayoutSize:layoutSize elementKind:elementKind containerAnchor:containerAnchor];
+#else
+        return nil;
+#endif
+    } else {
+        return [[self alloc] initWithLayoutSize:layoutSize elementKind:elementKind containerAnchor:containerAnchor itemAnchor:nil];
+    }
 }
 
 + (instancetype)supplementaryItemWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                     elementKind:(NSString *)elementKind
                                 containerAnchor:(IBPNSCollectionLayoutAnchor *)containerAnchor
                                      itemAnchor:(IBPNSCollectionLayoutAnchor *)itemAnchor {
-    return [[self alloc] initWithLayoutSize:layoutSize elementKind:elementKind containerAnchor:containerAnchor itemAnchor:itemAnchor];
+    if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        return [NSCollectionLayoutSupplementaryItem supplementaryItemWithLayoutSize:layoutSize elementKind:elementKind containerAnchor:containerAnchor itemAnchor:itemAnchor];
+#else
+        return nil;
+#endif
+    } else {
+        return [[self alloc] initWithLayoutSize:layoutSize elementKind:elementKind containerAnchor:containerAnchor itemAnchor:itemAnchor];
+    }
 }
 
 - (instancetype)initWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize

@@ -12,15 +12,39 @@
 @implementation IBPNSCollectionLayoutAnchor
 
 + (instancetype)layoutAnchorWithEdges:(NSDirectionalRectEdge)edges {
-    return [[self alloc] initWithEdges:edges];
+    if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        return [NSCollectionLayoutAnchor layoutAnchorWithEdges:edges];
+#else
+        return nil;
+#endif
+    } else {
+        return [[self alloc] initWithEdges:edges];
+    }
 }
 
 + (instancetype)layoutAnchorWithEdges:(NSDirectionalRectEdge)edges absoluteOffset:(CGPoint)absoluteOffset {
-    return [[self alloc] initWithEdges:edges absoluteOffset:absoluteOffset];
+    if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        return [NSCollectionLayoutAnchor layoutAnchorWithEdges:edges absoluteOffset:absoluteOffset];
+#else
+        return nil;
+#endif
+    } else {
+        return [[self alloc] initWithEdges:edges absoluteOffset:absoluteOffset];
+    }
 }
 
 + (instancetype)layoutAnchorWithEdges:(NSDirectionalRectEdge)edges fractionalOffset:(CGPoint)fractionalOffset {
-    return [[self alloc] initWithEdges:edges fractionalOffset:fractionalOffset];
+    if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        return [NSCollectionLayoutAnchor layoutAnchorWithEdges:edges fractionalOffset:fractionalOffset];
+#else
+        return nil;
+#endif
+    } else {
+        return [[self alloc] initWithEdges:edges fractionalOffset:fractionalOffset];
+    }
 }
 
 - (instancetype)initWithEdges:(NSDirectionalRectEdge)edges {

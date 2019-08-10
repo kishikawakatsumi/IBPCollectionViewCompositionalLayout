@@ -40,7 +40,7 @@
 		143A2D6722F9CBB300F8904D /* IBPNSCollectionLayoutDecorationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D3222F9CBB100F8904D /* IBPNSCollectionLayoutDecorationItem.m */; };
 		143A2D6822F9CBB300F8904D /* IBPNSCollectionLayoutEnvironment_Protocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D3322F9CBB100F8904D /* IBPNSCollectionLayoutEnvironment_Protocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		143A2D6922F9CBB300F8904D /* IBPNSCollectionLayoutItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D3422F9CBB100F8904D /* IBPNSCollectionLayoutItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		143A2D6A22F9CBB300F8904D /* UICollectionLayoutSectionOrthogonalScrollingBehavior.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D3522F9CBB200F8904D /* UICollectionLayoutSectionOrthogonalScrollingBehavior.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		143A2D6A22F9CBB300F8904D /* IBPUICollectionLayoutSectionOrthogonalScrollingBehavior.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D3522F9CBB200F8904D /* IBPUICollectionLayoutSectionOrthogonalScrollingBehavior.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		143A2D6B22F9CBB300F8904D /* IBPNSCollectionLayoutEdgeSpacing.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D3622F9CBB200F8904D /* IBPNSCollectionLayoutEdgeSpacing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		143A2D6C22F9CBB300F8904D /* IBPNSCollectionLayoutItem_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D3722F9CBB200F8904D /* IBPNSCollectionLayoutItem_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		143A2D6D22F9CBB300F8904D /* NSDirectionalRectEdge.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D3822F9CBB200F8904D /* NSDirectionalRectEdge.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -113,7 +113,7 @@
 		143A2D3222F9CBB100F8904D /* IBPNSCollectionLayoutDecorationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBPNSCollectionLayoutDecorationItem.m; sourceTree = "<group>"; };
 		143A2D3322F9CBB100F8904D /* IBPNSCollectionLayoutEnvironment_Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPNSCollectionLayoutEnvironment_Protocol.h; sourceTree = "<group>"; };
 		143A2D3422F9CBB100F8904D /* IBPNSCollectionLayoutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPNSCollectionLayoutItem.h; sourceTree = "<group>"; };
-		143A2D3522F9CBB200F8904D /* UICollectionLayoutSectionOrthogonalScrollingBehavior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICollectionLayoutSectionOrthogonalScrollingBehavior.h; sourceTree = "<group>"; };
+		143A2D3522F9CBB200F8904D /* IBPUICollectionLayoutSectionOrthogonalScrollingBehavior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPUICollectionLayoutSectionOrthogonalScrollingBehavior.h; sourceTree = "<group>"; };
 		143A2D3622F9CBB200F8904D /* IBPNSCollectionLayoutEdgeSpacing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPNSCollectionLayoutEdgeSpacing.h; sourceTree = "<group>"; };
 		143A2D3722F9CBB200F8904D /* IBPNSCollectionLayoutItem_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPNSCollectionLayoutItem_Private.h; sourceTree = "<group>"; };
 		143A2D3822F9CBB200F8904D /* NSDirectionalRectEdge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDirectionalRectEdge.h; sourceTree = "<group>"; };
@@ -180,16 +180,6 @@
 			isa = PBXGroup;
 			children = (
 				143A2D0022F9C81D00F8904D /* IBPCollectionViewCompositionalLayout.h */,
-				143A2D2722F9CBB100F8904D /* IBPCollectionViewLayoutBuilder.h */,
-				143A2D1F22F9CBB100F8904D /* IBPCollectionViewLayoutBuilder.m */,
-				143A2D2422F9CBB100F8904D /* IBPCollectionViewLayoutBuilderResult.h */,
-				143A2D4322F9CBB200F8904D /* IBPCollectionViewLayoutBuilderResult.m */,
-				143A2D2822F9CBB100F8904D /* IBPCollectionViewLayoutBuilderState.h */,
-				143A2D3D22F9CBB200F8904D /* IBPCollectionViewLayoutBuilderState.m */,
-				143A2D3022F9CBB100F8904D /* IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.h */,
-				143A2D2222F9CBB100F8904D /* IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.m */,
-				143A2D2C22F9CBB100F8904D /* IBPCollectionViewOrthogonalScrollerSectionController.h */,
-				143A2D1C22F9CBB000F8904D /* IBPCollectionViewOrthogonalScrollerSectionController.m */,
 				143A2D1D22F9CBB000F8904D /* IBPNSCollectionLayoutAnchor.h */,
 				143A2D4422F9CBB300F8904D /* IBPNSCollectionLayoutAnchor.m */,
 				143A2D2622F9CBB100F8904D /* IBPNSCollectionLayoutBoundarySupplementaryItem.h */,
@@ -226,6 +216,7 @@
 				143A2D2322F9CBB100F8904D /* IBPNSCollectionLayoutSupplementaryItem.h */,
 				143A2D4B22F9CBB300F8904D /* IBPNSCollectionLayoutSupplementaryItem.m */,
 				143A2D4122F9CBB200F8904D /* IBPNSCollectionLayoutVisibleItem.h */,
+				143A2D3522F9CBB200F8904D /* IBPUICollectionLayoutSectionOrthogonalScrollingBehavior.h */,
 				143A2D2D22F9CBB100F8904D /* IBPUICollectionViewCompositionalLayout.h */,
 				143A2D2E22F9CBB100F8904D /* IBPUICollectionViewCompositionalLayout.m */,
 				143A2D3E22F9CBB200F8904D /* IBPUICollectionViewCompositionalLayoutConfiguration.h */,
@@ -233,7 +224,16 @@
 				143A2D8122F9CCF900F8904D /* NSDirectionalEdgeInsets.h */,
 				143A2D3822F9CBB200F8904D /* NSDirectionalRectEdge.h */,
 				143A2D1922F9CBB000F8904D /* NSRectAlignment.h */,
-				143A2D3522F9CBB200F8904D /* UICollectionLayoutSectionOrthogonalScrollingBehavior.h */,
+				143A2D2722F9CBB100F8904D /* IBPCollectionViewLayoutBuilder.h */,
+				143A2D1F22F9CBB100F8904D /* IBPCollectionViewLayoutBuilder.m */,
+				143A2D2422F9CBB100F8904D /* IBPCollectionViewLayoutBuilderResult.h */,
+				143A2D4322F9CBB200F8904D /* IBPCollectionViewLayoutBuilderResult.m */,
+				143A2D2822F9CBB100F8904D /* IBPCollectionViewLayoutBuilderState.h */,
+				143A2D3D22F9CBB200F8904D /* IBPCollectionViewLayoutBuilderState.m */,
+				143A2D3022F9CBB100F8904D /* IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.h */,
+				143A2D2222F9CBB100F8904D /* IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.m */,
+				143A2D2C22F9CBB100F8904D /* IBPCollectionViewOrthogonalScrollerSectionController.h */,
+				143A2D1C22F9CBB000F8904D /* IBPCollectionViewOrthogonalScrollerSectionController.m */,
 				143A2D0122F9C81D00F8904D /* Info.plist */,
 			);
 			path = IBPCollectionViewCompositionalLayout;
@@ -281,7 +281,7 @@
 				143A2D5022F9CBB300F8904D /* IBPNSCollectionLayoutGroup_Private.h in Headers */,
 				143A2D6822F9CBB300F8904D /* IBPNSCollectionLayoutEnvironment_Protocol.h in Headers */,
 				143A2D6922F9CBB300F8904D /* IBPNSCollectionLayoutItem.h in Headers */,
-				143A2D6A22F9CBB300F8904D /* UICollectionLayoutSectionOrthogonalScrollingBehavior.h in Headers */,
+				143A2D6A22F9CBB300F8904D /* IBPUICollectionLayoutSectionOrthogonalScrollingBehavior.h in Headers */,
 				143A2D0E22F9C81D00F8904D /* IBPCollectionViewCompositionalLayout.h in Headers */,
 				143A2D5922F9CBB300F8904D /* IBPCollectionViewLayoutBuilderResult.h in Headers */,
 				143A2D6222F9CBB300F8904D /* IBPUICollectionViewCompositionalLayout.h in Headers */,

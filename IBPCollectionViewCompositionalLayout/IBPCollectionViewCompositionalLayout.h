@@ -18,9 +18,9 @@ FOUNDATION_EXPORT const unsigned char IBPCollectionViewCompositionalLayoutVersio
 #import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutSpacing.h>
 #import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutSupplementaryItem.h>
 #import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutVisibleItem.h>
+#import <IBPCollectionViewCompositionalLayout/IBPUICollectionLayoutSectionOrthogonalScrollingBehavior.h>
 #import <IBPCollectionViewCompositionalLayout/IBPUICollectionViewCompositionalLayout.h>
 #import <IBPCollectionViewCompositionalLayout/IBPUICollectionViewCompositionalLayoutConfiguration.h>
 #import <IBPCollectionViewCompositionalLayout/NSDirectionalEdgeInsets.h>
 #import <IBPCollectionViewCompositionalLayout/NSDirectionalRectEdge.h>
 #import <IBPCollectionViewCompositionalLayout/NSRectAlignment.h>
-#import <IBPCollectionViewCompositionalLayout/UICollectionLayoutSectionOrthogonalScrollingBehavior.h>

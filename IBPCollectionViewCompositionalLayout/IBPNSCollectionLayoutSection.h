@@ -15,11 +15,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic) NSDirectionalEdgeInsets contentInsets;
 @property(nonatomic) CGFloat interGroupSpacing;
 
-@property (nonatomic) UICollectionLayoutSectionOrthogonalScrollingBehavior orthogonalScrollingBehavior;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 130000
+@property (nonatomic) IBPUICollectionLayoutSectionOrthogonalScrollingBehavior orthogonalScrollingBehavior;
+#else
+@property (nonatomic) IBPUICollectionLayoutSectionOrthogonalScrollingBehavior orthogonalScrollingBehavior;
+#endif
 @property (nonatomic, copy) NSArray<IBPNSCollectionLayoutBoundarySupplementaryItem *> *boundarySupplementaryItems;
 
 @property (nonatomic) BOOL supplementariesFollowContentInsets;
-@property (nonatomic, copy, nullable) NSCollectionLayoutSectionVisibleItemsInvalidationHandler visibleItemsInvalidationHandler;
+@property (nonatomic, copy, nullable) IBPNSCollectionLayoutSectionVisibleItemsInvalidationHandler visibleItemsInvalidationHandler;
 
 @property (nonatomic, copy) NSArray<IBPNSCollectionLayoutDecorationItem *> *decorationItems;
 

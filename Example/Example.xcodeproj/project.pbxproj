@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1428D81C22FEF8F0000BE7BB /* IBPCollectionViewCompositionalLayoutInteroperability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1428D81B22FEF8EF000BE7BB /* IBPCollectionViewCompositionalLayoutInteroperability.swift */; };
 		143A2D9222F9D00200F8904D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D9122F9D00200F8904D /* AppDelegate.swift */; };
 		143A2D9422F9D00200F8904D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D9322F9D00200F8904D /* ViewController.swift */; };
 		143A2D9722F9D00200F8904D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 143A2D9522F9D00200F8904D /* Main.storyboard */; };
@@ -77,6 +78,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1428D81B22FEF8EF000BE7BB /* IBPCollectionViewCompositionalLayoutInteroperability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBPCollectionViewCompositionalLayoutInteroperability.swift; sourceTree = "<group>"; };
 		143A2D8E22F9D00200F8904D /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		143A2D9122F9D00200F8904D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		143A2D9322F9D00200F8904D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			children = (
 				143A2D9122F9D00200F8904D /* AppDelegate.swift */,
 				143A2D9322F9D00200F8904D /* ViewController.swift */,
+				1428D81B22FEF8EF000BE7BB /* IBPCollectionViewCompositionalLayoutInteroperability.swift */,
 				143A2D9522F9D00200F8904D /* Main.storyboard */,
 				143A2D9A22F9D00300F8904D /* LaunchScreen.storyboard */,
 				143A2D9822F9D00300F8904D /* Assets.xcassets */,
@@ -392,6 +395,7 @@
 				143A2DDF22F9D73700F8904D /* GridViewController.swift in Sources */,
 				143A2E3622F9E2B100F8904D /* BannerTileGridViewController.swift in Sources */,
 				143A2E1822F9E1FB00F8904D /* ImageCell.swift in Sources */,
+				1428D81C22FEF8F0000BE7BB /* IBPCollectionViewCompositionalLayoutInteroperability.swift in Sources */,
 				143A2E3122F9E2B100F8904D /* MosaicViewController.swift in Sources */,
 				143A2DF022F9D82300F8904D /* TextCell.swift in Sources */,
 				143A2DFB22F9DE4900F8904D /* OrthogonalScrollingViewController.swift in Sources */,

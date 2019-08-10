@@ -1,0 +1,10 @@
+#import <UIKit/UIKit.h>
+
+typedef NS_ENUM(NSInteger, IBPUICollectionLayoutSectionOrthogonalScrollingBehavior) {
+    IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone,
+    IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuous,
+    IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuousGroupLeadingBoundary,
+    IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorPaging,
+    IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPaging,
+    IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPagingCentered,
+};

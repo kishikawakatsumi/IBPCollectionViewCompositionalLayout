@@ -31,31 +31,63 @@
 @implementation IBPUICollectionViewCompositionalLayout
 
 - (instancetype)initWithSection:(IBPNSCollectionLayoutSection *)section {
-    IBPUICollectionViewCompositionalLayoutConfiguration *configuration = [[IBPUICollectionViewCompositionalLayoutConfiguration alloc] init];
-    return [self initWithSection:section configuration:configuration];
+    if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        return [[UICollectionViewCompositionalLayout alloc] initWithSection:section];
+#else
+        return nil;
+#endif
+    } else {
+        IBPUICollectionViewCompositionalLayoutConfiguration *configuration = [[IBPUICollectionViewCompositionalLayoutConfiguration alloc] init];
+        return [self initWithSection:section configuration:configuration];
+    }
 }
 
 - (instancetype)initWithSection:(IBPNSCollectionLayoutSection *)section configuration:(IBPUICollectionViewCompositionalLayoutConfiguration *)configuration {
-    self = [super init];
-    if (self) {
-        self.section = section;
-        self.configuration = configuration;
+    if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        return [[UICollectionViewCompositionalLayout alloc] initWithSection:section configuration:configuration];
+#else
+        return nil;
+#endif
+    } else {
+        self = [super init];
+        if (self) {
+            self.section = section;
+            self.configuration = configuration;
+        }
+        return self;
     }
-    return self;
 }
 
 - (instancetype)initWithSectionProvider:(IBPUICollectionViewCompositionalLayoutSectionProvider)sectionProvider {
-    IBPUICollectionViewCompositionalLayoutConfiguration *configuration = [[IBPUICollectionViewCompositionalLayoutConfiguration alloc] init];
-    return [self initWithSectionProvider:sectionProvider configuration:configuration];
+    if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        return [[UICollectionViewCompositionalLayout alloc] initWithSectionProvider:(UICollectionViewCompositionalLayoutSectionProvider)sectionProvider];
+#else
+        return nil;
+#endif
+    } else {
+        IBPUICollectionViewCompositionalLayoutConfiguration *configuration = [[IBPUICollectionViewCompositionalLayoutConfiguration alloc] init];
+        return [self initWithSectionProvider:sectionProvider configuration:configuration];
+    }
 }
 
 - (instancetype)initWithSectionProvider:(IBPUICollectionViewCompositionalLayoutSectionProvider)sectionProvider configuration:(IBPUICollectionViewCompositionalLayoutConfiguration *)configuration {
-    self = [super init];
-    if (self) {
-        self.sectionProvider = sectionProvider;
-        self.configuration = configuration;
+    if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        return [[UICollectionViewCompositionalLayout alloc] initWithSectionProvider:(UICollectionViewCompositionalLayoutSectionProvider)sectionProvider configuration:configuration];
+#else
+        return nil;
+#endif
+    } else {
+        self = [super init];
+        if (self) {
+            self.sectionProvider = sectionProvider;
+            self.configuration = configuration;
+        }
+        return self;
     }
-    return self;
 }
 
 - (void)prepareLayout {
@@ -215,7 +247,7 @@
 
                 IBPNSCollectionLayoutSection *orthogonalSection = section.copy;
                 orthogonalSection.boundarySupplementaryItems = @[];
-                orthogonalSection.orthogonalScrollingBehavior = UICollectionLayoutSectionOrthogonalScrollingBehaviorNone;
+                orthogonalSection.orthogonalScrollingBehavior = IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone;
                 IBPNSCollectionLayoutSize *orthogonalGroupSize = section.group.layoutSize;
 
                 IBPNSCollectionLayoutDimension *widthDimension = orthogonalGroupSize.widthDimension;
@@ -250,13 +282,13 @@
                 scrollView.showsHorizontalScrollIndicator = NO;
                 scrollView.showsVerticalScrollIndicator = NO;
                 // FIXME
-                if (section.orthogonalScrollingBehavior == UICollectionLayoutSectionOrthogonalScrollingBehaviorContinuous ||
-                    section.orthogonalScrollingBehavior == UICollectionLayoutSectionOrthogonalScrollingBehaviorContinuousGroupLeadingBoundary) {
+                if (section.orthogonalScrollingBehavior == IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuous ||
+                    section.orthogonalScrollingBehavior == IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuousGroupLeadingBoundary) {
                     scrollView.pagingEnabled = NO;
                 }
-                if (section.orthogonalScrollingBehavior == UICollectionLayoutSectionOrthogonalScrollingBehaviorPaging ||
-                    section.orthogonalScrollingBehavior == UICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPaging ||
-                    section.orthogonalScrollingBehavior == UICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPagingCentered) {
+                if (section.orthogonalScrollingBehavior == IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorPaging ||
+                    section.orthogonalScrollingBehavior == IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPaging ||
+                    section.orthogonalScrollingBehavior == IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPagingCentered) {
                     scrollView.pagingEnabled = YES;
                 }
                 controller = [[UICollectionViewOrthogonalScrollerSectionController alloc] initWithSectionIndex:sectionIndex collectionView:self.collectionView scrollView:scrollView];

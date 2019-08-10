@@ -5,14 +5,22 @@
 @implementation IBPNSCollectionLayoutSection
 
 + (instancetype)sectionWithGroup:(IBPNSCollectionLayoutGroup *)group {
-    return [[self alloc] initWithGroup:group];
+    if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        return [NSCollectionLayoutSection sectionWithGroup:group];
+#else
+        return nil;
+#endif
+    } else {
+        return [[self alloc] initWithGroup:group];
+    }
 }
 
 - (instancetype)initWithGroup:(IBPNSCollectionLayoutGroup *)group {
     self = [super init];
     if (self) {
         self.group = group;
-        self.orthogonalScrollingBehavior = UICollectionLayoutSectionOrthogonalScrollingBehaviorNone;
+        self.orthogonalScrollingBehavior = IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone;
     }
     return self;
 }
@@ -30,7 +38,7 @@
 }
 
 - (BOOL)scrollsOrthogonally {
-    return self.orthogonalScrollingBehavior != UICollectionLayoutSectionOrthogonalScrollingBehaviorNone;
+    return self.orthogonalScrollingBehavior != IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone;
 }
 
 @end

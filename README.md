@@ -54,9 +54,16 @@ See also:
 
 ## Usage
 
-On Xcode 10.x, you can use the code as-is (drop-in replacement).
+Copy `IBPCollectionViewCompositionalLayout/IBPCollectionViewCompositionalLayoutInteroperability.swift` file to your project.
+It tricks the compiler to make the same code base available for iOS 13 and earlier than iOS 12.
+
+Import `IBPCollectionViewCompositionalLayout`.
+
+Then you can use Collection View Compositonal Layouts API as-is.
 
 ```swift
+import IBPCollectionViewCompositionalLayout
+
 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                      heightDimension: .fractionalHeight(1))
 let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -68,25 +75,6 @@ let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: 
 let section = NSCollectionLayoutSection(group: group)
 
 let layout = UICollectionViewCompositionalLayout(section: section)
-
-let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-...
-```
-
-On Xcode 11 or later, add `IBP` prefix to related classes to avoid naming conflict. I want to fix it though...
-
-```swift
-let itemSize = IBPNSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                        heightDimension: .fractionalHeight(1))
-let item = IBPNSCollectionLayoutItem(layoutSize: itemSize)
-
-let groupSize = IBPNSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                         heightDimension: .absolute(44))
-let group = IBPNSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-
-let section = IBPNSCollectionLayoutSection(group: group)
-
-let layout = IBPUICollectionViewCompositionalLayout(section: section)
 
 let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 ...

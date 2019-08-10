@@ -15,7 +15,15 @@
                               top:(IBPNSCollectionLayoutSpacing *)top
                          trailing:(IBPNSCollectionLayoutSpacing *)trailing
                            bottom:(IBPNSCollectionLayoutSpacing *)bottom {
-    return [[self alloc] initForLeading:leading top:top trailing:trailing bottom:bottom];
+    if (@available(iOS 13, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        return [NSCollectionLayoutEdgeSpacing spacingForLeading:leading top:top trailing:trailing bottom:bottom];
+#else
+        return nil;
+#endif
+    } else {
+        return [[self alloc] initForLeading:leading top:top trailing:trailing bottom:bottom];
+    }
 }
 
 - (instancetype)initForLeading:(IBPNSCollectionLayoutSpacing *)leading
