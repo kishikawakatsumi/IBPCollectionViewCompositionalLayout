@@ -12,11 +12,7 @@
 
 + (instancetype)flexibleSpacing:(CGFloat)flexibleSpacing {
     if (@available(iOS 13, *)) {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-        return [NSCollectionLayoutSpacing flexibleSpacing:flexibleSpacing];
-#else
-        return nil;
-#endif
+        return [NSClassFromString(@"NSCollectionLayoutSpacing") flexibleSpacing:flexibleSpacing];
     } else {
         return [[self alloc] initWithFlexibleSpacing:flexibleSpacing];
     }
@@ -24,11 +20,7 @@
 
 + (instancetype)fixedSpacing:(CGFloat)fixedSpacing {
     if (@available(iOS 13, *)) {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-        return [NSCollectionLayoutSpacing fixedSpacing:fixedSpacing];
-#else
-        return nil;
-#endif
+        return [NSClassFromString(@"NSCollectionLayoutSpacing") fixedSpacing:fixedSpacing];
     } else {
         return [[self alloc] initWithFixedSpacing:fixedSpacing];
     }

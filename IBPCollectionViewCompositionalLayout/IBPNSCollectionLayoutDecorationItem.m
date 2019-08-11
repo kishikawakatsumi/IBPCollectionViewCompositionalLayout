@@ -10,11 +10,7 @@
 
 + (instancetype)backgroundDecorationItemWithElementKind:(NSString *)elementKind {
     if (@available(iOS 13, *)) {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-        return [NSCollectionLayoutDecorationItem backgroundDecorationItemWithElementKind:elementKind];
-#else
-        return nil;
-#endif
+        return [NSClassFromString(@"NSCollectionLayoutDecorationItem") backgroundDecorationItemWithElementKind:elementKind];
     } else {
         return [[self alloc] initWithElementKind:elementKind];
     }
