@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutDimension.h',
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutEdgeSpacing.h',
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutEnvironment_Protocol.h',
+                              'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutForwardCompatibility.h',
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutGroup.h',
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutGroupCustomItem.h',
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutItem.h',

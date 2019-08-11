@@ -64,6 +64,7 @@
 		143A2D7F22F9CBB300F8904D /* IBPNSCollectionLayoutSpacing.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D4A22F9CBB300F8904D /* IBPNSCollectionLayoutSpacing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		143A2D8022F9CBB300F8904D /* IBPNSCollectionLayoutSupplementaryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D4B22F9CBB300F8904D /* IBPNSCollectionLayoutSupplementaryItem.m */; };
 		143A2D8322F9CCF900F8904D /* NSDirectionalEdgeInsets.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D8122F9CCF900F8904D /* NSDirectionalEdgeInsets.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14F3F7972300542B0096D032 /* IBPNSCollectionLayoutForwardCompatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 14F3F7952300542B0096D032 /* IBPNSCollectionLayoutForwardCompatibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +138,7 @@
 		143A2D4A22F9CBB300F8904D /* IBPNSCollectionLayoutSpacing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPNSCollectionLayoutSpacing.h; sourceTree = "<group>"; };
 		143A2D4B22F9CBB300F8904D /* IBPNSCollectionLayoutSupplementaryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBPNSCollectionLayoutSupplementaryItem.m; sourceTree = "<group>"; };
 		143A2D8122F9CCF900F8904D /* NSDirectionalEdgeInsets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSDirectionalEdgeInsets.h; sourceTree = "<group>"; };
+		14F3F7952300542B0096D032 /* IBPNSCollectionLayoutForwardCompatibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IBPNSCollectionLayoutForwardCompatibility.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +198,7 @@
 				143A2D3322F9CBB100F8904D /* IBPNSCollectionLayoutEnvironment_Protocol.h */,
 				143A2D2522F9CBB100F8904D /* IBPNSCollectionLayoutEnvironment.h */,
 				143A2D2A22F9CBB100F8904D /* IBPNSCollectionLayoutEnvironment.m */,
+				14F3F7952300542B0096D032 /* IBPNSCollectionLayoutForwardCompatibility.h */,
 				143A2D1B22F9CBB000F8904D /* IBPNSCollectionLayoutGroup_Private.h */,
 				143A2D2922F9CBB100F8904D /* IBPNSCollectionLayoutGroup.h */,
 				143A2D2022F9CBB100F8904D /* IBPNSCollectionLayoutGroup.m */,
@@ -282,6 +285,7 @@
 				143A2D6822F9CBB300F8904D /* IBPNSCollectionLayoutEnvironment_Protocol.h in Headers */,
 				143A2D6922F9CBB300F8904D /* IBPNSCollectionLayoutItem.h in Headers */,
 				143A2D6A22F9CBB300F8904D /* IBPUICollectionLayoutSectionOrthogonalScrollingBehavior.h in Headers */,
+				14F3F7972300542B0096D032 /* IBPNSCollectionLayoutForwardCompatibility.h in Headers */,
 				143A2D0E22F9C81D00F8904D /* IBPCollectionViewCompositionalLayout.h in Headers */,
 				143A2D5922F9CBB300F8904D /* IBPCollectionViewLayoutBuilderResult.h in Headers */,
 				143A2D6222F9CBB300F8904D /* IBPUICollectionViewCompositionalLayout.h in Headers */,
