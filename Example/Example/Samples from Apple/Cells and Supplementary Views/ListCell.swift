@@ -11,7 +11,7 @@ class ListCell: UICollectionViewCell {
     static let reuseIdentifier = "list-cell-reuse-identifier"
     let label = UILabel()
     let accessoryImageView = UIImageView()
-    let seperatorView = UIView()
+    let separatorView = UIView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,9 +24,9 @@ class ListCell: UICollectionViewCell {
 
 extension ListCell {
     func configure() {
-        seperatorView.translatesAutoresizingMaskIntoConstraints = false
-        seperatorView.backgroundColor = .lightGray
-        contentView.addSubview(seperatorView)
+        separatorView.translatesAutoresizingMaskIntoConstraints = false
+        separatorView.backgroundColor = .lightGray
+        contentView.addSubview(separatorView)
 
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
@@ -57,10 +57,10 @@ extension ListCell {
             accessoryImageView.heightAnchor.constraint(equalToConstant: 20),
             accessoryImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
 
-            seperatorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-            seperatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            seperatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
-            seperatorView.heightAnchor.constraint(equalToConstant: 0.5)
+            separatorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
+            separatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            separatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
+            separatorView.heightAnchor.constraint(equalToConstant: 0.5)
             ])
     }
 }

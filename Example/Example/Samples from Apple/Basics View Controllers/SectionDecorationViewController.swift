@@ -78,7 +78,7 @@ extension SectionDecorationViewController {
 
                 // Populate the cell with our item description.
                 cell.label.text = "\(indexPath.section),\(indexPath.item)"
-                cell.seperatorView.isHidden = isLastCell
+                cell.separatorView.isHidden = isLastCell
 
                 // Return the cell.
                 return cell
