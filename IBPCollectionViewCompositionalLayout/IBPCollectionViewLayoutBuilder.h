@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithLayoutSection:(IBPNSCollectionLayoutSection *)section;
 - (instancetype)initWithLayoutSection:(IBPNSCollectionLayoutSection *)section
-                        configuration:(IBPUICollectionViewCompositionalLayoutConfiguration *)configutation;
+                        configuration:(IBPUICollectionViewCompositionalLayoutConfiguration *)configuration;
 
 - (void)buildLayoutForContainer:(IBPNSCollectionLayoutContainer *)container
           traitCollection:(UITraitCollection *)traitCollection;

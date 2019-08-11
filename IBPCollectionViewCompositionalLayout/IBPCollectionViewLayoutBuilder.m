@@ -15,7 +15,7 @@
 @interface IBPCollectionViewLayoutBuilder()
 
 @property (nonatomic, readwrite, copy) IBPNSCollectionLayoutSection *section;
-@property (nonatomic, readwrite, copy) IBPUICollectionViewCompositionalLayoutConfiguration *configutation;
+@property (nonatomic, readwrite, copy) IBPUICollectionViewCompositionalLayoutConfiguration *configuration;
 @property (nonatomic) IBPCollectionViewLayoutBuilderState *state;
 
 @end
@@ -27,13 +27,13 @@
 }
 
 - (instancetype)initWithLayoutSection:(IBPNSCollectionLayoutSection *)section
-                        configuration:(IBPUICollectionViewCompositionalLayoutConfiguration *)configutation {
+                        configuration:(IBPUICollectionViewCompositionalLayoutConfiguration *)configuration {
     self = [super init];
     if (self) {
         self.section = section;
-        self.configutation = configutation;
+        self.configuration = configuration;
         self.state = [[IBPCollectionViewLayoutBuilderState alloc] init];
-        self.state.scrollDirection = configutation.scrollDirection;
+        self.state.scrollDirection = configuration.scrollDirection;
     }
     return self;
 }
@@ -189,12 +189,12 @@
                 }
 
                 if (group == self.section.group) {
-                    if (self.configutation.scrollDirection == UICollectionViewScrollDirectionVertical && self.section.group.layoutSize.heightDimension.isEstimated) {
+                    if (self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical && self.section.group.layoutSize.heightDimension.isEstimated) {
                         CGRect rootGroupFrame = self.state.rootGroupFrame;
                         rootGroupFrame.size.height = CGRectGetMaxY(currentItemFrame);
                         self.state.rootGroupFrame = rootGroupFrame;
                     }
-                    if (self.configutation.scrollDirection == UICollectionViewScrollDirectionHorizontal && self.section.group.layoutSize.widthDimension.isEstimated) {
+                    if (self.configuration.scrollDirection == UICollectionViewScrollDirectionHorizontal && self.section.group.layoutSize.widthDimension.isEstimated) {
                         CGRect rootGroupFrame = self.state.rootGroupFrame;
                         rootGroupFrame.size.width = CGRectGetMaxY(currentItemFrame);
                         self.state.rootGroupFrame = rootGroupFrame;
