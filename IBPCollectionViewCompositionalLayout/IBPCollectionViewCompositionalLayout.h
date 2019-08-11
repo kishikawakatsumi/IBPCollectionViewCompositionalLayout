@@ -10,6 +10,7 @@ FOUNDATION_EXPORT const unsigned char IBPCollectionViewCompositionalLayoutVersio
 #import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutDimension.h>
 #import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutEdgeSpacing.h>
 #import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutEnvironment_Protocol.h>
+#import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutForwardCompatibility.h>
 #import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutGroup.h>
 #import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutGroupCustomItem.h>
 #import <IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutItem.h>
