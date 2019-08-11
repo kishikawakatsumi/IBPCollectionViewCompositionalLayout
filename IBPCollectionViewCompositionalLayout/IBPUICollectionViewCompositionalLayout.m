@@ -3,6 +3,7 @@
 #import "IBPNSCollectionLayoutAnchor.h"
 #import "IBPNSCollectionLayoutBoundarySupplementaryItem.h"
 #import "IBPNSCollectionLayoutContainer.h"
+#import "IBPNSCollectionLayoutDecorationItem.h"
 #import "IBPNSCollectionLayoutSection_Private.h"
 #import "IBPNSCollectionLayoutGroup_Private.h"
 #import "IBPNSCollectionLayoutItem_Private.h"
@@ -32,24 +33,17 @@
 
 - (instancetype)initWithSection:(IBPNSCollectionLayoutSection *)section {
     if (@available(iOS 13, *)) {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-        return [[UICollectionViewCompositionalLayout alloc] initWithSection:section];
-#else
-        return nil;
-#endif
+        return [[NSClassFromString(@"UICollectionViewCompositionalLayout") alloc] initWithSection:section];
     } else {
         IBPUICollectionViewCompositionalLayoutConfiguration *configuration = [[IBPUICollectionViewCompositionalLayoutConfiguration alloc] init];
         return [self initWithSection:section configuration:configuration];
     }
 }
 
-- (instancetype)initWithSection:(IBPNSCollectionLayoutSection *)section configuration:(IBPUICollectionViewCompositionalLayoutConfiguration *)configuration {
+- (instancetype)initWithSection:(IBPNSCollectionLayoutSection *)section
+                  configuration:(IBPUICollectionViewCompositionalLayoutConfiguration *)configuration {
     if (@available(iOS 13, *)) {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-        return [[UICollectionViewCompositionalLayout alloc] initWithSection:section configuration:configuration];
-#else
-        return nil;
-#endif
+        return [[NSClassFromString(@"UICollectionViewCompositionalLayout") alloc] initWithSection:section configuration:configuration];
     } else {
         self = [super init];
         if (self) {
@@ -62,24 +56,17 @@
 
 - (instancetype)initWithSectionProvider:(IBPUICollectionViewCompositionalLayoutSectionProvider)sectionProvider {
     if (@available(iOS 13, *)) {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-        return [[UICollectionViewCompositionalLayout alloc] initWithSectionProvider:(UICollectionViewCompositionalLayoutSectionProvider)sectionProvider];
-#else
-        return nil;
-#endif
+        return [[NSClassFromString(@"UICollectionViewCompositionalLayout") alloc] initWithSectionProvider:sectionProvider];
     } else {
         IBPUICollectionViewCompositionalLayoutConfiguration *configuration = [[IBPUICollectionViewCompositionalLayoutConfiguration alloc] init];
         return [self initWithSectionProvider:sectionProvider configuration:configuration];
     }
 }
 
-- (instancetype)initWithSectionProvider:(IBPUICollectionViewCompositionalLayoutSectionProvider)sectionProvider configuration:(IBPUICollectionViewCompositionalLayoutConfiguration *)configuration {
+- (instancetype)initWithSectionProvider:(IBPUICollectionViewCompositionalLayoutSectionProvider)sectionProvider
+                          configuration:(IBPUICollectionViewCompositionalLayoutConfiguration *)configuration {
     if (@available(iOS 13, *)) {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-        return [[UICollectionViewCompositionalLayout alloc] initWithSectionProvider:(UICollectionViewCompositionalLayoutSectionProvider)sectionProvider configuration:configuration];
-#else
-        return nil;
-#endif
+        return [[NSClassFromString(@"UICollectionViewCompositionalLayout") alloc] initWithSectionProvider:sectionProvider configuration:configuration];
     } else {
         self = [super init];
         if (self) {

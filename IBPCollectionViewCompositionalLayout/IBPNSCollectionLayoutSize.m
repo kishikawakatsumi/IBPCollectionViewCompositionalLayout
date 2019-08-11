@@ -14,11 +14,7 @@
 + (instancetype)sizeWithWidthDimension:(IBPNSCollectionLayoutDimension *)width
                        heightDimension:(IBPNSCollectionLayoutDimension *)height {
     if (@available(iOS 13, *)) {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-        return [NSCollectionLayoutSize sizeWithWidthDimension:width heightDimension:height];
-#else
-        return nil;
-#endif
+        return [NSClassFromString(@"NSCollectionLayoutSize") sizeWithWidthDimension:width heightDimension:height];
     } else {
         return [[self alloc] initWithWidthDimension:width heightDimension:height];
     }

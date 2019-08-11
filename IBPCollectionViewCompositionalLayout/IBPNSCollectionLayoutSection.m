@@ -6,11 +6,7 @@
 
 + (instancetype)sectionWithGroup:(IBPNSCollectionLayoutGroup *)group {
     if (@available(iOS 13, *)) {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-        return [NSCollectionLayoutSection sectionWithGroup:group];
-#else
-        return nil;
-#endif
+        return [NSClassFromString(@"NSCollectionLayoutSection") sectionWithGroup:group];
     } else {
         return [[self alloc] initWithGroup:group];
     }
