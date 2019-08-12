@@ -97,15 +97,15 @@ This file silences the following compilation errors when building on Xcode 11 or
 - [x] Nested Groups  
 - [x] Section Header/Footers (Partially supported)  
 - [x] Decoration Views
-- [x] Orthogonal Scrolling (Partially supported)  
+- [x] Orthogonal Scrolling
+- [x] Orthogonal Scrolling Behavior
+- [x] Estimated Size (Autosizing)
 - [x] Drop-in replacement
 
 ## TODOs (Not yet supported)
 
-- [ ] Orthogonal Scrolling Behavior
 - [ ] Pinned Section Header/Footers
 - [ ] Flexible Spaces
-- [ ] Estimated Size (Autosizing)
 - [ ] RTL Support
 - [ ] Custom Group Item (Absolute Positions)
 - [ ] Visual Debug Description
