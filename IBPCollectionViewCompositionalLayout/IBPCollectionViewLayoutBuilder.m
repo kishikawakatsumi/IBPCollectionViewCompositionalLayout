@@ -272,4 +272,89 @@
     return self.state.rootGroupFrame;
 }
 
+- (CGPoint)continuousGroupLeadingBoundaryTargetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset
+                                                                   scrollingVelocity:(CGPoint)velocity
+                                                                         translation:(CGPoint)translation {
+    CGPoint targetContentOffset = CGPointZero;
+
+    CGRect rootGroupFrame = self.state.rootGroupFrame;
+    CGFloat interGroupSpacing = self.section.interGroupSpacing;
+
+    BOOL scrollsOrthogonally = self.section.scrollsOrthogonally;
+    UICollectionViewScrollDirection scrollDirection = self.state.scrollDirection;
+    if (scrollsOrthogonally) {
+        scrollDirection = scrollDirection == UICollectionViewScrollDirectionVertical ? UICollectionViewScrollDirectionHorizontal : UICollectionViewScrollDirectionVertical;
+    }
+    if (scrollDirection == UICollectionViewScrollDirectionVertical) {
+        targetContentOffset.y += rootGroupFrame.size.height * floor(proposedContentOffset.y / rootGroupFrame.size.height) + interGroupSpacing * floor(proposedContentOffset.y / rootGroupFrame.size.height) + rootGroupFrame.size.height * (translation.y < 0 ? 1 : 0);
+    }
+    if (scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+        targetContentOffset.x += rootGroupFrame.size.width * floor(proposedContentOffset.x / rootGroupFrame.size.width) + interGroupSpacing * floor(proposedContentOffset.x / rootGroupFrame.size.width) + rootGroupFrame.size.width * (translation.x < 0 ? 1 : 0);
+    }
+
+    return targetContentOffset;
+}
+
+- (CGPoint)groupPagingTargetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset
+                                                scrollingVelocity:(CGPoint)velocity
+                                                      translation:(CGPoint)translation {
+    CGPoint targetContentOffset = CGPointZero;
+
+    CGRect rootGroupFrame = self.state.rootGroupFrame;
+    CGFloat interGroupSpacing = self.section.interGroupSpacing;
+
+    if (fabs(velocity.x) > 0.2) {
+        translation.x = rootGroupFrame.size.width / 2 * (translation.x < 0 ? -1 : 1);
+    }
+
+    targetContentOffset.x += rootGroupFrame.size.width * round((proposedContentOffset.x + translation.x) / rootGroupFrame.size.width);
+    targetContentOffset.y += rootGroupFrame.size.height * round((proposedContentOffset.y + translation.y) / rootGroupFrame.size.height);
+
+    BOOL scrollsOrthogonally = self.section.scrollsOrthogonally;
+    UICollectionViewScrollDirection scrollDirection = self.state.scrollDirection;
+    if (scrollsOrthogonally) {
+        scrollDirection = scrollDirection == UICollectionViewScrollDirectionVertical ? UICollectionViewScrollDirectionHorizontal : UICollectionViewScrollDirectionVertical;
+    }
+    if (scrollDirection == UICollectionViewScrollDirectionVertical) {
+        targetContentOffset.y += rootGroupFrame.size.height * round(-translation.y / (rootGroupFrame.size.height / 2)) + interGroupSpacing * round(-translation.y / (rootGroupFrame.size.height / 2));
+    }
+    if (scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+        targetContentOffset.x += rootGroupFrame.size.width * round(-translation.x / (rootGroupFrame.size.width / 2)) + interGroupSpacing * round(-translation.x / (rootGroupFrame.size.width / 2));
+    }
+
+    return targetContentOffset;
+}
+
+
+- (CGPoint)groupPagingCenteredTargetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset
+                                                        scrollingVelocity:(CGPoint)velocity
+                                                              translation:(CGPoint)translation
+                                                            containerSize:(CGSize)containerSize {
+    CGPoint targetContentOffset = CGPointZero;
+
+    CGRect rootGroupFrame = self.state.rootGroupFrame;
+    CGFloat interGroupSpacing = self.section.interGroupSpacing;
+
+    if (fabs(velocity.x) > 0.2) {
+        translation.x = rootGroupFrame.size.width / 2 * (translation.x < 0 ? -1 : 1);
+    }
+
+    targetContentOffset.x += rootGroupFrame.size.width * round((proposedContentOffset.x + translation.x) / rootGroupFrame.size.width);
+    targetContentOffset.y += rootGroupFrame.size.height * round((proposedContentOffset.y + translation.y) / rootGroupFrame.size.height);
+
+    BOOL scrollsOrthogonally = self.section.scrollsOrthogonally;
+    UICollectionViewScrollDirection scrollDirection = self.state.scrollDirection;
+    if (scrollsOrthogonally) {
+        scrollDirection = scrollDirection == UICollectionViewScrollDirectionVertical ? UICollectionViewScrollDirectionHorizontal : UICollectionViewScrollDirectionVertical;
+    }
+    if (scrollDirection == UICollectionViewScrollDirectionVertical) {
+        targetContentOffset.y += rootGroupFrame.size.height * round(-translation.y / (rootGroupFrame.size.height / 2)) + interGroupSpacing * round(-translation.y / (rootGroupFrame.size.height / 2)) - (containerSize.height - rootGroupFrame.size.height) / 2;
+    }
+    if (scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+        targetContentOffset.x += rootGroupFrame.size.width * round(-translation.x / (rootGroupFrame.size.width / 2)) + interGroupSpacing * round(-translation.x / (rootGroupFrame.size.width / 2)) - (containerSize.width - rootGroupFrame.size.width) / 2;
+    }
+
+    return targetContentOffset;
+}
+
 @end

@@ -19,6 +19,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath;
 - (IBPNSCollectionLayoutItem *)layoutItemAtIndexPath:(NSIndexPath *)indexPath;
 
+- (CGPoint)continuousGroupLeadingBoundaryTargetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset
+                                                                   scrollingVelocity:(CGPoint)velocity
+                                                                         translation:(CGPoint)translation;
+- (CGPoint)groupPagingTargetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset
+                                                scrollingVelocity:(CGPoint)velocity
+                                                      translation:(CGPoint)translation;
+- (CGPoint)groupPagingCenteredTargetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset
+                                                        scrollingVelocity:(CGPoint)velocity
+                                                              translation:(CGPoint)translation
+                                                            containerSize:(CGSize)containerSize;
 
 @end
 

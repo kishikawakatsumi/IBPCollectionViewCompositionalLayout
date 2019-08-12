@@ -29,6 +29,8 @@
 
 @property (nonatomic) NSMutableArray<UICollectionViewLayoutAttributes *> *cachedAttributes;
 
+@property (nonatomic) IBPUICollectionLayoutSectionOrthogonalScrollingBehavior parentCollectionViewOrthogonalScrollingBehavior;
+
 @end
 
 @implementation IBPUICollectionViewCompositionalLayout
@@ -275,21 +277,40 @@
 
                 orthogonalSection.group.layoutSize = [IBPNSCollectionLayoutSize sizeWithWidthDimension:widthDimension heightDimension:heightDimension];
                 IBPUICollectionViewCompositionalLayout *orthogonalScrollViewCollectionViewLayout = [[IBPUICollectionViewCompositionalLayout alloc] initWithSection:orthogonalSection configuration:configuration];
+                orthogonalScrollViewCollectionViewLayout.parentCollectionViewOrthogonalScrollingBehavior = section.orthogonalScrollingBehavior;
 
                 IBPCollectionViewOrthogonalScrollerEmbeddedScrollView *scrollView = [[IBPCollectionViewOrthogonalScrollerEmbeddedScrollView alloc] initWithFrame:scrollViewFrame collectionViewLayout:orthogonalScrollViewCollectionViewLayout];
                 scrollView.backgroundColor = [UIColor clearColor];
                 scrollView.directionalLockEnabled = YES;
                 scrollView.showsHorizontalScrollIndicator = NO;
                 scrollView.showsVerticalScrollIndicator = NO;
-                // FIXME
-                if (section.orthogonalScrollingBehavior == IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuous ||
-                    section.orthogonalScrollingBehavior == IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuousGroupLeadingBoundary) {
-                    scrollView.pagingEnabled = NO;
-                }
-                if (section.orthogonalScrollingBehavior == IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorPaging ||
-                    section.orthogonalScrollingBehavior == IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPaging ||
-                    section.orthogonalScrollingBehavior == IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPagingCentered) {
-                    scrollView.pagingEnabled = YES;
+
+                switch (section.orthogonalScrollingBehavior) {
+                    case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone:
+                    case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuous:
+                    case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuousGroupLeadingBoundary:
+                        scrollView.pagingEnabled = NO;
+                        break;
+                    case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorPaging:
+                        scrollView.pagingEnabled = YES;
+                        break;
+                    case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPaging:
+                        scrollView.pagingEnabled = NO;
+                        scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
+                        break;
+                    case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPagingCentered:
+                        scrollView.pagingEnabled = NO;
+                        scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
+                        CGSize groupSize = [orthogonalGroupSize effectiveSizeForContainer:collectionContainer];
+                        if (self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical) {
+                            CGFloat inset = (collectionContainer.contentSize.width - groupSize.width) / 2;
+                            scrollView.contentInset = UIEdgeInsetsMake(0, inset, 0, 0);
+                        }
+                        if (self.configuration.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+                            CGFloat inset = (collectionContainer.contentSize.height - groupSize.height) / 2;
+                            scrollView.contentInset = UIEdgeInsetsMake(inset, 0, 0, 0);
+                        }
+                        break;
                 }
                 controller = [[UICollectionViewOrthogonalScrollerSectionController alloc] initWithSectionIndex:sectionIndex collectionView:self.collectionView scrollView:scrollView];
 
@@ -453,6 +474,27 @@
     }
 
     return !CGSizeEqualToSize(newBounds.size, self.collectionView.bounds.size);
+}
+
+- (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity {
+    switch (self.parentCollectionViewOrthogonalScrollingBehavior) {
+        case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuousGroupLeadingBoundary: {
+            CGPoint translation = [self.collectionView.panGestureRecognizer translationInView:self.collectionView.superview];
+            return [layoutBuilder continuousGroupLeadingBoundaryTargetContentOffsetForProposedContentOffset:proposedContentOffset scrollingVelocity:velocity translation:translation];
+        }
+        case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPaging: {
+            CGPoint translation = [self.collectionView.panGestureRecognizer translationInView:self.collectionView.superview];
+            return [layoutBuilder groupPagingTargetContentOffsetForProposedContentOffset:self.collectionView.contentOffset scrollingVelocity:velocity translation:translation];
+        }
+        case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPagingCentered:{
+            CGPoint translation = [self.collectionView.panGestureRecognizer translationInView:self.collectionView.superview];
+            return [layoutBuilder groupPagingCenteredTargetContentOffsetForProposedContentOffset:self.collectionView.contentOffset scrollingVelocity:velocity translation:translation containerSize:self.collectionView.bounds.size];
+        }
+        case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone:
+        case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuous:
+        case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorPaging:
+            return [super targetContentOffsetForProposedContentOffset:proposedContentOffset withScrollingVelocity:velocity];
+    }
 }
 
 @end
