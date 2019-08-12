@@ -20,6 +20,8 @@
 @interface IBPUICollectionViewCompositionalLayout() {
     CGRect contentBounds;
     NSMutableDictionary<NSNumber *, UICollectionViewOrthogonalScrollerSectionController *> *orthogonalScrollerSectionControllers;
+
+    IBPCollectionViewLayoutBuilder *layoutBuilder;
 }
 
 @property (nonatomic, copy) IBPNSCollectionLayoutSection *layoutSection;
@@ -184,13 +186,13 @@
             }
         }
 
-        IBPCollectionViewLayoutBuilder *builder = [[IBPCollectionViewLayoutBuilder alloc] initWithLayoutSection:section configuration:self.configuration];
-        [builder buildLayoutForContainer:collectionContainer traitCollection:environment.traitCollection];
+        layoutBuilder = [[IBPCollectionViewLayoutBuilder alloc] initWithLayoutSection:section configuration:self.configuration];
+        [layoutBuilder buildLayoutForContainer:collectionContainer traitCollection:environment.traitCollection];
 
         NSInteger numberOfItems = [self.collectionView numberOfItemsInSection:sectionIndex];
         for (NSInteger itemIndex = 0; itemIndex < numberOfItems; itemIndex++) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:itemIndex inSection:sectionIndex];
-            UICollectionViewLayoutAttributes *cellAttributes = [builder layoutAttributesForItemAtIndexPath:indexPath];
+            UICollectionViewLayoutAttributes *cellAttributes = [layoutBuilder layoutAttributesForItemAtIndexPath:indexPath];
 
             CGRect cellFrame = cellAttributes.frame;
             cellFrame.origin.x += sectionFrame.origin.x;
@@ -201,7 +203,7 @@
                 [self.cachedAttributes addObject:cellAttributes];
             }
 
-            IBPNSCollectionLayoutItem *layoutItem = [builder layoutItemAtIndexPath:indexPath];
+            IBPNSCollectionLayoutItem *layoutItem = [layoutBuilder layoutItemAtIndexPath:indexPath];
             [layoutItem enumerateSupplementaryItemsWithHandler:^(IBPNSCollectionLayoutSupplementaryItem * _Nonnull supplementaryItem, BOOL * _Nonnull stop) {
                 UICollectionViewLayoutAttributes *supplementaryViewAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:supplementaryItem.elementKind withIndexPath:indexPath];
                 supplementaryViewAttributes.frame = [supplementaryItem frameInContainerFrame:cellFrame];
@@ -236,7 +238,7 @@
         if (section.scrollsOrthogonally) {
             UICollectionViewOrthogonalScrollerSectionController *controller = orthogonalScrollerSectionControllers[@(sectionIndex)];
             if (!controller) {
-                CGRect scrollViewFrame = builder.containerFrame;
+                CGRect scrollViewFrame = layoutBuilder.containerFrame;
                 scrollViewFrame.origin = sectionFrame.origin;
                 scrollViewFrame.size.width = collectionContainer.contentSize.width;
 
@@ -370,7 +372,71 @@
 }
 
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
-    return self.cachedAttributes;
+    NSMutableArray<UICollectionViewLayoutAttributes *> *layoutAttributes = [[NSMutableArray alloc] init];
+    NSArray<UICollectionViewLayoutAttributes *> *cachedAttributes = self.cachedAttributes;
+
+    for (NSInteger i = 0; i < cachedAttributes.count; i++) {
+        UICollectionViewLayoutAttributes *attributes = cachedAttributes[i];
+
+        NSIndexPath *indexPath = attributes.indexPath;
+        IBPNSCollectionLayoutItem *layoutItem = [layoutBuilder layoutItemAtIndexPath:indexPath];
+        IBPNSCollectionLayoutSize *layoutSize = layoutItem.layoutSize;
+        if (layoutSize.widthDimension.isEstimated || layoutSize.heightDimension.isEstimated) {
+            if (attributes.representedElementCategory == UICollectionElementCategoryCell) {
+                UICollectionViewCell *cell = [self.collectionView.dataSource collectionView:self.collectionView cellForItemAtIndexPath:attributes.indexPath];
+                if (cell) {
+                    CGSize containerSize = self.collectionViewContentSize;
+                    if (!layoutSize.widthDimension.isEstimated) {
+                        containerSize.width = attributes.frame.size.width;
+                    }
+                    if (!layoutSize.heightDimension.isEstimated) {
+                        containerSize.height = attributes.frame.size.height;
+                    }
+
+                    CGFloat containerWidth = containerSize.width;
+                    CGFloat containerHeight = containerSize.height;
+
+                    CGRect frame = cell.frame;
+                    frame.size = containerSize;
+                    cell.frame = frame;
+                    [cell setNeedsLayout];
+                    [cell layoutIfNeeded];
+
+                    CGSize fitSize = [cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+                    if (!layoutSize.widthDimension.isEstimated) {
+                        fitSize.width = containerWidth;
+                    }
+                    if (!layoutSize.heightDimension.isEstimated) {
+                        fitSize.height = containerHeight;
+                    }
+
+                    CGRect f = attributes.frame;
+                    if (f.size.height != fitSize.height) {
+                        for (NSInteger j = i + 1; j < cachedAttributes.count; j++) {
+                            UICollectionViewLayoutAttributes *attributes = cachedAttributes[j];
+                            CGRect frame = attributes.frame;
+                            frame.origin.y += fitSize.height - f.size.height;
+                            attributes.frame = frame;
+                        }
+                    }
+                    f.size = fitSize;
+                    attributes.frame = f;
+
+                    contentBounds = CGRectUnion(contentBounds, f);
+
+                    [layoutAttributes addObject:attributes];
+                } else {
+                    [layoutAttributes addObject:attributes];
+                }
+            } else {
+                [layoutAttributes addObject:attributes];
+            }
+        } else {
+            [layoutAttributes addObject:attributes];
+        }
+    }
+
+    return layoutAttributes;
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
