@@ -1,9 +1,9 @@
 #import "IBPNSCollectionLayoutSupplementaryItem.h"
 #import "IBPNSCollectionLayoutSupplementaryItem_Private.h"
-#import "IBPNSCollectionLayoutItem_Private.h"
-#import "IBPNSCollectionLayoutSize_Private.h"
 #import "IBPNSCollectionLayoutAnchor.h"
 #import "IBPNSCollectionLayoutContainer.h"
+#import "IBPNSCollectionLayoutItem_Private.h"
+#import "IBPNSCollectionLayoutSize_Private.h"
 
 @implementation IBPNSCollectionLayoutSupplementaryItem
 

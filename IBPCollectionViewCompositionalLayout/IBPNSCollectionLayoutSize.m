@@ -1,6 +1,6 @@
 #import "IBPNSCollectionLayoutSize_Private.h"
-#import "IBPNSCollectionLayoutDimension.h"
 #import "IBPNSCollectionLayoutContainer.h"
+#import "IBPNSCollectionLayoutDimension.h"
 
 @interface IBPNSCollectionLayoutSize()
 

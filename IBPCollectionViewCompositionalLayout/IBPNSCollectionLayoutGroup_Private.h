@@ -1,6 +1,5 @@
 #import <UIKit/UIKit.h>
 #import "IBPNSCollectionLayoutGroup.h"
-#import "IBPNSCollectionLayoutSection.h"
 
 typedef NS_ENUM(NSInteger, IBPLayoutDirection) {
     LayoutDirectionHorizontal = 0,
