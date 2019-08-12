@@ -353,13 +353,15 @@
             [self.cachedAttributes addObject:decorationViewAttributes];
         }
 
+        CGRect insetsLayoutFrame = layoutFrame;
         if (self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical) {
-            layoutFrame.origin.y += section.contentInsets.bottom;
+            insetsLayoutFrame.origin.y += section.contentInsets.bottom;
         }
         if (self.configuration.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-            layoutFrame.origin.x += section.contentInsets.trailing;
+            insetsLayoutFrame.origin.x += section.contentInsets.trailing;
         }
         contentBounds = CGRectUnion(contentBounds, layoutFrame);
+        contentBounds = CGRectUnion(contentBounds, insetsLayoutFrame);
     }
 }
 
