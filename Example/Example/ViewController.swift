@@ -19,6 +19,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         SectionDecorationViewController.self,
         NestedGroupsViewController.self,
         OrthogonalScrollingViewController.self,
+        OrthogonalScrollBehaviorViewController.self,
         ConferenceVideoSessionsViewController.self,
         ConferenceNewsFeedViewController.self,
         WaterfallViewController.self,
