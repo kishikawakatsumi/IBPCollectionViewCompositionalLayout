@@ -415,7 +415,13 @@
                         for (NSInteger j = i + 1; j < cachedAttributes.count; j++) {
                             UICollectionViewLayoutAttributes *attributes = cachedAttributes[j];
                             CGRect frame = attributes.frame;
-                            frame.origin.y += fitSize.height - f.size.height;
+
+                            if (self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical) {
+                                frame.origin.y += fitSize.height - f.size.height;
+                            }
+                            if (self.configuration.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+                                frame.origin.x += fitSize.width - f.size.width;
+                            }
                             attributes.frame = frame;
                         }
                     }
