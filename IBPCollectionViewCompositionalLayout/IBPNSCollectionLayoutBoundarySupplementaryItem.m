@@ -1,6 +1,6 @@
 #import "IBPNSCollectionLayoutBoundarySupplementaryItem.h"
-#import "IBPNSCollectionLayoutSupplementaryItem_Private.h"
 #import "IBPNSCollectionLayoutItem_Private.h"
+#import "IBPNSCollectionLayoutSupplementaryItem_Private.h"
 
 @interface IBPNSCollectionLayoutBoundarySupplementaryItem()
 

@@ -1,5 +1,4 @@
 #import <UIKit/UIKit.h>
-#import "IBPUICollectionViewCompositionalLayout.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
