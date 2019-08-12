@@ -13,6 +13,10 @@
         self.scrollView = scrollView;
 
         scrollView.dataSource = self;
+        if (@available(iOS 10, *)) {
+            scrollView.prefetchingEnabled = collectionView.prefetchingEnabled;
+            scrollView.prefetchDataSource = collectionView.prefetchDataSource;
+        }
         scrollView.delegate = collectionView.delegate;
     }
     return self;
