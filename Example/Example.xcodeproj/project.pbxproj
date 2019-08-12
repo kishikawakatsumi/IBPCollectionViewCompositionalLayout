@@ -201,11 +201,11 @@
 			isa = PBXGroup;
 			children = (
 				143A2DEB22F9D82300F8904D /* ListCell.swift */,
+				143A2DE922F9D82300F8904D /* TextCell.swift */,
 				143A2DEA22F9D82300F8904D /* ConferenceVideoCell.swift */,
 				143A2DE722F9D82200F8904D /* ConferenceNewsFeedCell.swift */,
-				143A2DE622F9D82200F8904D /* TitleSupplementaryView.swift */,
-				143A2DE922F9D82300F8904D /* TextCell.swift */,
 				143A2DE522F9D82200F8904D /* BadgeSupplementrayView.swift */,
+				143A2DE622F9D82200F8904D /* TitleSupplementaryView.swift */,
 				143A2DE822F9D82200F8904D /* SectionBackgroundDecorationView.swift */,
 			);
 			path = "Cells and Supplementary Views";
@@ -224,8 +224,8 @@
 		143A2E0122F9DF3400F8904D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				143A2E0222F9DF3E00F8904D /* ConferenceNewsController.swift */,
 				143A2E0322F9DF3F00F8904D /* ConferenceVideoController.swift */,
+				143A2E0222F9DF3E00F8904D /* ConferenceNewsController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
