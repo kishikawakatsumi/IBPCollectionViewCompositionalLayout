@@ -1,6 +1,20 @@
-#import "IBPUICollectionViewCompositionalLayoutConfiguration.h"
+#import "IBPUICollectionViewCompositionalLayoutConfiguration_Private.h"
 
 @implementation IBPUICollectionViewCompositionalLayoutConfiguration
+
++ (instancetype)defaultConfiguration {
+    return [[self alloc] init];
+}
+
+- (instancetype)initWithScrollDirection:(UICollectionViewScrollDirection)scrollDirection
+                    interSectionSpacing:(CGFloat)interSectionSpacing
+             boundarySupplementaryItems:(NSArray<IBPNSCollectionLayoutBoundarySupplementaryItem *> *)boundarySupplementaryItems {
+    IBPUICollectionViewCompositionalLayoutConfiguration *configuration = [self.class defaultConfiguration];
+    configuration.scrollDirection = scrollDirection;
+    configuration.interSectionSpacing = interSectionSpacing;
+    configuration.boundarySupplementaryItems = boundarySupplementaryItems;
+    return configuration;
+}
 
 - (instancetype)init {
     if (@available(iOS 13, *)) {
@@ -17,11 +31,9 @@
 }
 
 - (nonnull id)copyWithZone:(nullable NSZone *)zone {
-    IBPUICollectionViewCompositionalLayoutConfiguration *configuration = [[IBPUICollectionViewCompositionalLayoutConfiguration allocWithZone:zone] init];
-    configuration.scrollDirection = self.scrollDirection;
-    configuration.interSectionSpacing = self.interSectionSpacing;
-    configuration.boundarySupplementaryItems = self.boundarySupplementaryItems;
-    return configuration;
+    return [[self.class alloc] initWithScrollDirection:self.scrollDirection
+                                   interSectionSpacing:self.interSectionSpacing
+                            boundarySupplementaryItems:self.boundarySupplementaryItems];
 }
 
 @end
