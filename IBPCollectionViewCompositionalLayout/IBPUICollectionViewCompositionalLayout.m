@@ -105,8 +105,6 @@
     [[orthogonalScrollerSectionControllers allValues] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [orthogonalScrollerSectionControllers removeAllObjects];
 
-    contentFrame = CGRectZero;
-
     UIEdgeInsets collectionContentInset = UIEdgeInsetsZero;
     if (@available(iOS 11, *)) {
         collectionContentInset = collectionView.safeAreaInsets;
@@ -118,29 +116,24 @@
     environment.container = collectionContainer;
     environment.traitCollection = collectionView.traitCollection;
 
-    CGRect layoutFrame = CGRectZero;
-    layoutFrame.origin.x += collectionContainer.effectiveContentInsets.leading;
-    layoutFrame.origin.y += collectionContainer.effectiveContentInsets.top;
+    contentFrame = CGRectZero;
+    contentFrame.origin.x = collectionContainer.effectiveContentInsets.leading;
+    contentFrame.origin.y = collectionContainer.effectiveContentInsets.top;
 
     NSInteger numberOfSections = collectionView.numberOfSections;
     for (NSInteger sectionIndex = 0; sectionIndex < numberOfSections; sectionIndex++) {
         IBPNSCollectionLayoutSection *layoutSection = self.layoutSectionProvider ? self.layoutSectionProvider(sectionIndex, environment) : self.layoutSection;
 
-        CGRect sectionFrame = CGRectZero;
-        sectionFrame.origin.x = layoutFrame.origin.x;
-
+        CGPoint sectionOrigin = contentFrame.origin;
         if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
-            sectionFrame.origin.y = CGRectGetMaxY(layoutFrame);
-        }
-        if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-            sectionFrame.origin.x = CGRectGetMaxX(layoutFrame);
+            sectionOrigin.y = CGRectGetMaxY(contentFrame);
         }
 
         NSArray<IBPNSCollectionLayoutBoundarySupplementaryItem *> *boundarySupplementaryItems = layoutSection.boundarySupplementaryItems;
         for (IBPNSCollectionLayoutBoundarySupplementaryItem *boundarySupplementaryItem in boundarySupplementaryItems) {
             UICollectionViewLayoutAttributes *boundarySupplementaryViewAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:boundarySupplementaryItem.elementKind
                                                                                                                                                    withIndexPath:[NSIndexPath indexPathForItem:0 inSection:sectionIndex]];
-            CGRect boundarySupplementaryViewFrame = layoutFrame;
+            CGRect boundarySupplementaryViewFrame = contentFrame;
 
             IBPNSCollectionLayoutSize *boundarySupplementaryItemLayoutSize = boundarySupplementaryItem.layoutSize;
 
@@ -149,22 +142,21 @@
 
             NSRectAlignment alignment = boundarySupplementaryItem.alignment;
             if (alignment == NSRectAlignmentTop) {
-                boundarySupplementaryViewFrame.origin.y = CGRectGetMinY(layoutFrame);
-                boundarySupplementaryViewFrame.origin.x += sectionFrame.origin.x;
-                boundarySupplementaryViewFrame.origin.y += sectionFrame.origin.y;
+                boundarySupplementaryViewFrame.origin.y = CGRectGetMinY(contentFrame);
+                boundarySupplementaryViewFrame.origin.x += sectionOrigin.x;
+                boundarySupplementaryViewFrame.origin.y += sectionOrigin.y;
 
                 boundarySupplementaryViewFrame.origin.x += layoutSection.contentInsets.leading;
                 boundarySupplementaryViewFrame.origin.y += layoutSection.contentInsets.top;
                 boundarySupplementaryViewFrame.size.width -= layoutSection.contentInsets.leading + layoutSection.contentInsets.trailing;
                 boundarySupplementaryViewFrame.size.height -= layoutSection.contentInsets.top + layoutSection.contentInsets.bottom;
 
-                sectionFrame.origin.y += boundarySupplementaryItemEffectiveSize.height;
+                sectionOrigin.y += boundarySupplementaryItemEffectiveSize.height;
 
                 boundarySupplementaryViewAttributes.frame = boundarySupplementaryViewFrame;
                 [cachedItemAttributes addObject:boundarySupplementaryViewAttributes];
 
                 contentFrame = CGRectUnion(contentFrame, boundarySupplementaryViewFrame);
-                layoutFrame = CGRectUnion(layoutFrame, boundarySupplementaryViewFrame);
             }
             if (alignment == NSRectAlignmentTopLeading) {
                 // Not implemented yet
@@ -198,8 +190,8 @@
             UICollectionViewLayoutAttributes *cellAttributes = [layoutBuilder layoutAttributesForItemAtIndexPath:indexPath];
 
             CGRect cellFrame = cellAttributes.frame;
-            cellFrame.origin.x += sectionFrame.origin.x;
-            cellFrame.origin.y += sectionFrame.origin.y;
+            cellFrame.origin.x += sectionOrigin.x;
+            cellFrame.origin.y += sectionOrigin.y;
 
             cellAttributes.frame = cellFrame;
             if (!layoutSection.scrollsOrthogonally) {
@@ -216,7 +208,7 @@
 
             if (layoutSection.scrollsOrthogonally) {
                 CGRect frame = CGRectZero;
-                switch (self.configuration.scrollDirection) {
+                switch (self.scrollDirection) {
                     case UICollectionViewScrollDirectionVertical:
                         frame.origin.x = 0;
                         frame.origin.y = cellFrame.origin.y;
@@ -232,10 +224,8 @@
                 }
 
                 contentFrame = CGRectUnion(contentFrame, frame);
-                layoutFrame = CGRectUnion(layoutFrame, frame);
             } else {
                 contentFrame = CGRectUnion(contentFrame, CGRectInset(cellFrame, -layoutItem.contentInsets.trailing, -layoutItem.contentInsets.bottom));
-                layoutFrame = CGRectUnion(layoutFrame, CGRectInset(cellFrame, -layoutItem.contentInsets.trailing, -layoutItem.contentInsets.bottom));
             }
         }
 
@@ -243,11 +233,11 @@
             UICollectionViewOrthogonalScrollerSectionController *controller = orthogonalScrollerSectionControllers[@(sectionIndex)];
             if (!controller) {
                 CGRect scrollViewFrame = layoutBuilder.containerFrame;
-                scrollViewFrame.origin = sectionFrame.origin;
+                scrollViewFrame.origin = sectionOrigin;
                 scrollViewFrame.size.width = collectionContainer.contentSize.width;
 
                 IBPUICollectionViewCompositionalLayoutConfiguration *configuration = [IBPUICollectionViewCompositionalLayoutConfiguration defaultConfiguration];
-                configuration.scrollDirection = self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical ? UICollectionViewScrollDirectionHorizontal : UICollectionViewScrollDirectionVertical;
+                configuration.scrollDirection = self.scrollDirection == UICollectionViewScrollDirectionVertical ? UICollectionViewScrollDirectionHorizontal : UICollectionViewScrollDirectionVertical;
 
                 IBPNSCollectionLayoutSection *orthogonalSection = layoutSection.copy;
                 orthogonalSection.boundarySupplementaryItems = @[];
@@ -258,20 +248,20 @@
                 IBPNSCollectionLayoutDimension *heightDimension = orthogonalGroupSize.heightDimension;
 
                 if (widthDimension.isFractionalWidth) {
-                    widthDimension = self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical ? widthDimension : [IBPNSCollectionLayoutDimension fractionalWidthDimension:MAX(1, widthDimension.dimension)];
+                    widthDimension = self.scrollDirection == UICollectionViewScrollDirectionVertical ? widthDimension : [IBPNSCollectionLayoutDimension fractionalWidthDimension:MAX(1, widthDimension.dimension)];
                 }
                 if (widthDimension.isFractionalHeight) {
-                    widthDimension = self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical ? widthDimension : [IBPNSCollectionLayoutDimension fractionalWidthDimension:MAX(1, widthDimension.dimension)];
+                    widthDimension = self.scrollDirection == UICollectionViewScrollDirectionVertical ? widthDimension : [IBPNSCollectionLayoutDimension fractionalWidthDimension:MAX(1, widthDimension.dimension)];
                 }
                 if (widthDimension.isAbsolute) {
                     widthDimension = [IBPNSCollectionLayoutDimension absoluteDimension:widthDimension.dimension];
                 }
 
                 if (heightDimension.isFractionalWidth) {
-                    heightDimension = self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical ? [IBPNSCollectionLayoutDimension fractionalHeightDimension:MAX(1, heightDimension.dimension)] : heightDimension;
+                    heightDimension = self.scrollDirection == UICollectionViewScrollDirectionVertical ? [IBPNSCollectionLayoutDimension fractionalHeightDimension:MAX(1, heightDimension.dimension)] : heightDimension;
                 }
                 if (heightDimension.isFractionalHeight) {
-                    heightDimension = self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical ? [IBPNSCollectionLayoutDimension fractionalHeightDimension:MAX(1, heightDimension.dimension)] : heightDimension;
+                    heightDimension = self.scrollDirection == UICollectionViewScrollDirectionVertical ? [IBPNSCollectionLayoutDimension fractionalHeightDimension:MAX(1, heightDimension.dimension)] : heightDimension;
                 }
                 if (heightDimension.isAbsolute) {
                     heightDimension = [IBPNSCollectionLayoutDimension absoluteDimension:heightDimension.dimension];
@@ -304,27 +294,27 @@
                         scrollView.pagingEnabled = NO;
                         scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
                         CGSize groupSize = [orthogonalGroupSize effectiveSizeForContainer:collectionContainer];
-                        if (self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical) {
+                        if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
                             CGFloat inset = (collectionContainer.contentSize.width - groupSize.width) / 2;
                             scrollView.contentInset = UIEdgeInsetsMake(0, inset, 0, 0);
                         }
-                        if (self.configuration.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+                        if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
                             CGFloat inset = (collectionContainer.contentSize.height - groupSize.height) / 2;
                             scrollView.contentInset = UIEdgeInsetsMake(inset, 0, 0, 0);
                         }
                         break;
                 }
                 controller = [[UICollectionViewOrthogonalScrollerSectionController alloc] initWithSectionIndex:sectionIndex collectionView:self.collectionView scrollView:scrollView];
+                orthogonalScrollerSectionControllers[@(sectionIndex)] = controller;
 
-                [self.collectionView addSubview:scrollView];
+                [collectionView addSubview:scrollView];
             }
-            orthogonalScrollerSectionControllers[@(sectionIndex)] = controller;
         }
 
         for (IBPNSCollectionLayoutBoundarySupplementaryItem *boundarySupplementaryItem in boundarySupplementaryItems) {
             UICollectionViewLayoutAttributes *boundarySupplementaryViewAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:boundarySupplementaryItem.elementKind
                                                                                                                                                    withIndexPath:[NSIndexPath indexPathForItem:0 inSection:sectionIndex]];
-            CGRect boundarySupplementaryViewFrame = layoutFrame;
+            CGRect boundarySupplementaryViewFrame = contentFrame;
 
             IBPNSCollectionLayoutSize *boundarySupplementaryItemLayoutSize = boundarySupplementaryItem.layoutSize;
 
@@ -333,21 +323,20 @@
 
             NSRectAlignment alignment = boundarySupplementaryItem.alignment;
             if (alignment == NSRectAlignmentBottom) {
-                boundarySupplementaryViewFrame.origin.y = CGRectGetMaxY(layoutFrame);
-                boundarySupplementaryViewFrame.origin.x += sectionFrame.origin.x;
+                boundarySupplementaryViewFrame.origin.y = CGRectGetMaxY(contentFrame);
+                boundarySupplementaryViewFrame.origin.x += sectionOrigin.x;
 
                 boundarySupplementaryViewFrame.origin.x += layoutSection.contentInsets.leading;
                 boundarySupplementaryViewFrame.origin.y += layoutSection.contentInsets.top;
                 boundarySupplementaryViewFrame.size.width -= layoutSection.contentInsets.leading + layoutSection.contentInsets.trailing;
                 boundarySupplementaryViewFrame.size.height -= layoutSection.contentInsets.top + layoutSection.contentInsets.bottom;
 
-                sectionFrame.origin.y += boundarySupplementaryItemEffectiveSize.height;
+                sectionOrigin.y += boundarySupplementaryItemEffectiveSize.height;
 
                 boundarySupplementaryViewAttributes.frame = boundarySupplementaryViewFrame;
                 [cachedItemAttributes addObject:boundarySupplementaryViewAttributes];
 
                 contentFrame = CGRectUnion(contentFrame, boundarySupplementaryViewFrame);
-                layoutFrame = CGRectUnion(layoutFrame, boundarySupplementaryViewFrame);
             }
         }
 
@@ -356,15 +345,16 @@
         for (IBPNSCollectionLayoutDecorationItem *decorationItem in decorationItems) {
             UICollectionViewLayoutAttributes *decorationViewAttributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:decorationItem.elementKind withIndexPath:[NSIndexPath indexPathForItem:0 inSection:sectionIndex]];
 
-            CGRect decorationViewFrame = sectionFrame;
+            CGRect decorationViewFrame = CGRectZero;
+            decorationViewFrame.origin = sectionOrigin;
 
-            if (self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical) {
-                decorationViewFrame.size.width += CGRectGetWidth(layoutFrame) + layoutSection.contentInsets.leading;
-                decorationViewFrame.size.height = CGRectGetMaxY(layoutFrame) - CGRectGetMinY(sectionFrame) + layoutSection.contentInsets.top;
+            if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
+                decorationViewFrame.size.width += CGRectGetWidth(contentFrame) + layoutSection.contentInsets.leading;
+                decorationViewFrame.size.height = CGRectGetMaxY(contentFrame) - sectionOrigin.y + layoutSection.contentInsets.top;
             }
-            if (self.configuration.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-                decorationViewFrame.size.width = CGRectGetMaxX(layoutFrame) - CGRectGetMinX(sectionFrame);
-                decorationViewFrame.size.height += CGRectGetHeight(layoutFrame);
+            if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+                decorationViewFrame.size.width = CGRectGetMaxX(contentFrame) - sectionOrigin.x;
+                decorationViewFrame.size.height += CGRectGetHeight(contentFrame);
             }
 
             decorationViewFrame.origin.x += decorationItem.contentInsets.leading;
@@ -376,15 +366,15 @@
             [cachedItemAttributes addObject:decorationViewAttributes];
         }
 
-        CGRect insetsLayoutFrame = layoutFrame;
-        if (self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical) {
-            insetsLayoutFrame.origin.y += layoutSection.contentInsets.bottom;
+        CGRect insetsContentFrame = contentFrame;
+        if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
+            insetsContentFrame.origin.y += layoutSection.contentInsets.bottom;
         }
-        if (self.configuration.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-            insetsLayoutFrame.origin.x += layoutSection.contentInsets.trailing;
+        if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+            insetsContentFrame.origin.x += layoutSection.contentInsets.trailing;
         }
-        contentFrame = CGRectUnion(contentFrame, layoutFrame);
-        contentFrame = CGRectUnion(contentFrame, insetsLayoutFrame);
+        contentFrame = CGRectUnion(contentFrame, insetsContentFrame);
+        contentFrame = CGRectUnion(contentFrame, contentFrame);
     }
 }
 
@@ -440,10 +430,10 @@
                             UICollectionViewLayoutAttributes *attributes = cachedItemAttributes[j];
                             CGRect frame = attributes.frame;
 
-                            if (self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical) {
+                            if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
                                 frame.origin.y += fitSize.height - f.size.height;
                             }
-                            if (self.configuration.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+                            if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
                                 frame.origin.x += fitSize.width - f.size.width;
                             }
                             attributes.frame = frame;
