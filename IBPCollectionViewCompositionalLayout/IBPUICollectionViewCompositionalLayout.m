@@ -51,6 +51,7 @@
     } else {
         self = [super init];
         if (self) {
+            [self commonInit];
             self.layoutSection = section;
             self.configuration = configuration;
         }
@@ -74,6 +75,7 @@
     } else {
         self = [super init];
         if (self) {
+            [self commonInit];
             self.sectionProvider = sectionProvider;
             self.configuration = configuration;
         }
