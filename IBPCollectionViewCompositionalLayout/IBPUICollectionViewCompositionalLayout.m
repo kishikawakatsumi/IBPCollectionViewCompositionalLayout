@@ -18,8 +18,6 @@
 #import "IBPUICollectionViewCompositionalLayoutConfiguration.h"
 
 @interface IBPUICollectionViewCompositionalLayout() {
-    NSMutableArray<UICollectionViewLayoutAttributes *> *cachedItemAttributes;
-
     CGRect contentBounds;
     NSMutableDictionary<NSNumber *, UICollectionViewOrthogonalScrollerSectionController *> *orthogonalScrollerSectionControllers;
 
@@ -28,6 +26,8 @@
 
 @property (nonatomic, copy) IBPNSCollectionLayoutSection *layoutSection;
 @property (nonatomic) IBPUICollectionViewCompositionalLayoutSectionProvider sectionProvider;
+
+@property (nonatomic) NSMutableArray<UICollectionViewLayoutAttributes *> *cachedAttributes;
 
 @property (nonatomic) IBPUICollectionLayoutSectionOrthogonalScrollingBehavior parentCollectionViewOrthogonalScrollingBehavior;
 
@@ -81,11 +81,6 @@
     }
 }
 
-- (void)commonInit {
-    cachedItemAttributes = [[NSMutableArray alloc] init];
-    orthogonalScrollerSectionControllers = [[NSMutableDictionary alloc] init];
-}
-
 - (void)prepareLayout {
     [super prepareLayout];
 
@@ -96,8 +91,14 @@
         return;
     }
 
-    [cachedItemAttributes removeAllObjects];
+    if (!self.cachedAttributes) {
+        self.cachedAttributes = [[NSMutableArray alloc] init];
+    }
+    [self.cachedAttributes removeAllObjects];
 
+    if (!orthogonalScrollerSectionControllers) {
+        orthogonalScrollerSectionControllers = [[NSMutableDictionary alloc] init];
+    }
     [[orthogonalScrollerSectionControllers allValues] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [orthogonalScrollerSectionControllers removeAllObjects];
 
@@ -159,7 +160,7 @@
                 sectionFrame.origin.y += boundarySupplementaryItemEffectiveSize.height;
 
                 boundarySupplementaryViewAttributes.frame = boundarySupplementaryViewFrame;
-                [cachedItemAttributes addObject:boundarySupplementaryViewAttributes];
+                [self.cachedAttributes addObject:boundarySupplementaryViewAttributes];
 
                 contentBounds = CGRectUnion(contentBounds, boundarySupplementaryViewFrame);
                 layoutFrame = CGRectUnion(layoutFrame, boundarySupplementaryViewFrame);
@@ -201,15 +202,14 @@
 
             cellAttributes.frame = cellFrame;
             if (!section.scrollsOrthogonally) {
-                [cachedItemAttributes addObject:cellAttributes];
+                [self.cachedAttributes addObject:cellAttributes];
             }
 
             IBPNSCollectionLayoutItem *layoutItem = [layoutBuilder layoutItemAtIndexPath:indexPath];
-            NSMutableArray<UICollectionViewLayoutAttributes *> *itemAttributes = cachedItemAttributes;
             [layoutItem enumerateSupplementaryItemsWithHandler:^(IBPNSCollectionLayoutSupplementaryItem * _Nonnull supplementaryItem, BOOL * _Nonnull stop) {
                 UICollectionViewLayoutAttributes *supplementaryViewAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:supplementaryItem.elementKind withIndexPath:indexPath];
                 supplementaryViewAttributes.frame = [supplementaryItem frameInContainerFrame:cellFrame];
-                [itemAttributes addObject:supplementaryViewAttributes];
+                [self.cachedAttributes addObject:supplementaryViewAttributes];
             }];
 
             if (section.scrollsOrthogonally) {
@@ -342,7 +342,7 @@
                 sectionFrame.origin.y += boundarySupplementaryItemEffectiveSize.height;
 
                 boundarySupplementaryViewAttributes.frame = boundarySupplementaryViewFrame;
-                [cachedItemAttributes addObject:boundarySupplementaryViewAttributes];
+                [self.cachedAttributes addObject:boundarySupplementaryViewAttributes];
 
                 contentBounds = CGRectUnion(contentBounds, boundarySupplementaryViewFrame);
                 layoutFrame = CGRectUnion(layoutFrame, boundarySupplementaryViewFrame);
@@ -371,7 +371,7 @@
             decorationViewFrame.size.height -= decorationItem.contentInsets.top + decorationItem.contentInsets.bottom;
 
             decorationViewAttributes.frame = decorationViewFrame;
-            [cachedItemAttributes addObject:decorationViewAttributes];
+            [self.cachedAttributes addObject:decorationViewAttributes];
         }
 
         CGRect insetsLayoutFrame = layoutFrame;
@@ -396,9 +396,10 @@
 
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
     NSMutableArray<UICollectionViewLayoutAttributes *> *layoutAttributes = [[NSMutableArray alloc] init];
-    
-    for (NSInteger i = 0; i < cachedItemAttributes.count; i++) {
-        UICollectionViewLayoutAttributes *attributes = cachedItemAttributes[i];
+    NSArray<UICollectionViewLayoutAttributes *> *cachedAttributes = self.cachedAttributes;
+
+    for (NSInteger i = 0; i < cachedAttributes.count; i++) {
+        UICollectionViewLayoutAttributes *attributes = cachedAttributes[i];
 
         NSIndexPath *indexPath = attributes.indexPath;
         IBPNSCollectionLayoutItem *layoutItem = [layoutBuilder layoutItemAtIndexPath:indexPath];
@@ -434,8 +435,8 @@
 
                     CGRect f = attributes.frame;
                     if (f.size.height != fitSize.height) {
-                        for (NSInteger j = i + 1; j < cachedItemAttributes.count; j++) {
-                            UICollectionViewLayoutAttributes *attributes = cachedItemAttributes[j];
+                        for (NSInteger j = i + 1; j < cachedAttributes.count; j++) {
+                            UICollectionViewLayoutAttributes *attributes = cachedAttributes[j];
                             CGRect frame = attributes.frame;
 
                             if (self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical) {
