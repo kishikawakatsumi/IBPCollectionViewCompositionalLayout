@@ -366,6 +366,8 @@
             decorationViewFrame.size.width -= decorationItem.contentInsets.leading + decorationItem.contentInsets.trailing;
             decorationViewFrame.size.height -= decorationItem.contentInsets.top + decorationItem.contentInsets.bottom;
 
+            decorationViewAttributes.zIndex = decorationItem.zIndex;
+
             decorationViewAttributes.frame = decorationViewFrame;
             [cachedItemAttributes addObject:decorationViewAttributes];
         }
