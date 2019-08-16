@@ -146,10 +146,12 @@
                 boundarySupplementaryViewFrame.origin.x += sectionOrigin.x;
                 boundarySupplementaryViewFrame.origin.y += sectionOrigin.y;
 
-                boundarySupplementaryViewFrame.origin.x += layoutSection.contentInsets.leading;
-                boundarySupplementaryViewFrame.origin.y += layoutSection.contentInsets.top;
-                boundarySupplementaryViewFrame.size.width -= layoutSection.contentInsets.leading + layoutSection.contentInsets.trailing;
-                boundarySupplementaryViewFrame.size.height -= layoutSection.contentInsets.top + layoutSection.contentInsets.bottom;
+                if (layoutSection.supplementariesFollowContentInsets) {
+                    boundarySupplementaryViewFrame.origin.x += layoutSection.contentInsets.leading;
+                    boundarySupplementaryViewFrame.origin.y += layoutSection.contentInsets.top;
+                    boundarySupplementaryViewFrame.size.width -= layoutSection.contentInsets.leading + layoutSection.contentInsets.trailing;
+                    boundarySupplementaryViewFrame.size.height -= layoutSection.contentInsets.top + layoutSection.contentInsets.bottom;
+                }
 
                 sectionOrigin.y += boundarySupplementaryItemEffectiveSize.height;
 
@@ -326,10 +328,12 @@
                 boundarySupplementaryViewFrame.origin.y = CGRectGetMaxY(contentFrame);
                 boundarySupplementaryViewFrame.origin.x += sectionOrigin.x;
 
-                boundarySupplementaryViewFrame.origin.x += layoutSection.contentInsets.leading;
-                boundarySupplementaryViewFrame.origin.y += layoutSection.contentInsets.top;
-                boundarySupplementaryViewFrame.size.width -= layoutSection.contentInsets.leading + layoutSection.contentInsets.trailing;
-                boundarySupplementaryViewFrame.size.height -= layoutSection.contentInsets.top + layoutSection.contentInsets.bottom;
+                if (layoutSection.supplementariesFollowContentInsets) {
+                    boundarySupplementaryViewFrame.origin.x += layoutSection.contentInsets.leading;
+                    boundarySupplementaryViewFrame.origin.y += layoutSection.contentInsets.top;
+                    boundarySupplementaryViewFrame.size.width -= layoutSection.contentInsets.leading + layoutSection.contentInsets.trailing;
+                    boundarySupplementaryViewFrame.size.height -= layoutSection.contentInsets.top + layoutSection.contentInsets.bottom;
+                }
 
                 sectionOrigin.y += boundarySupplementaryItemEffectiveSize.height;
 
