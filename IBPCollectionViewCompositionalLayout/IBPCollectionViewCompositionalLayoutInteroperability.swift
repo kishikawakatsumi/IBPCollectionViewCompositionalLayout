@@ -17,3 +17,9 @@ typealias NSDirectionalEdgeInsets = IBPNSDirectionalEdgeInsets
 typealias UICollectionLayoutSectionOrthogonalScrollingBehavior = IBPUICollectionLayoutSectionOrthogonalScrollingBehavior
 typealias UICollectionViewCompositionalLayout = IBPUICollectionViewCompositionalLayout
 typealias UICollectionViewCompositionalLayoutConfiguration = IBPUICollectionViewCompositionalLayoutConfiguration
+
+extension IBPNSDirectionalEdgeInsets {
+    public static var zero: IBPNSDirectionalEdgeInsets {
+        return IBPNSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+    }
+}
