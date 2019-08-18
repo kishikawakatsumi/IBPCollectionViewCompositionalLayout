@@ -106,7 +106,7 @@
     [orthogonalScrollerSectionControllers removeAllObjects];
 
     UIEdgeInsets collectionContentInset = UIEdgeInsetsZero;
-    if (@available(iOS 11, *)) {
+    if ([collectionView respondsToSelector:@selector(safeAreaInsets)]) {
         collectionContentInset = collectionView.safeAreaInsets;
     }
     IBPNSCollectionLayoutContainer *collectionContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:collectionViewBounds.size
@@ -386,9 +386,6 @@
 
 - (CGSize)collectionViewContentSize {
     UIEdgeInsets insets = UIEdgeInsetsZero;
-    if (@available(iOS 11, *)) {
-//        insets = self.collectionView.safeAreaInsets;
-    }
     return UIEdgeInsetsInsetRect(contentFrame, insets).size;
 }
 
