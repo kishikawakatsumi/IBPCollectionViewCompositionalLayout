@@ -15,11 +15,13 @@ Pod::Spec.new do |s|
                               'IBPCollectionViewCompositionalLayout/IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.h',
                               'IBPCollectionViewCompositionalLayout/IBPCollectionViewOrthogonalScrollerSectionController.h',
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutContainer.h',
+                              'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutEdgeSpacing_Private.h',
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutGroup_Private.h',
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutEnvironment.h',
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutItem_Private.h',
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutSection_Private.h',
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutSize_Private.h',
+                              'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutSpacing_Private.h',
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutSupplementaryItem_Private.h',
                               'IBPCollectionViewCompositionalLayout/IBPUICollectionViewCompositionalLayoutConfiguration_Private.h',
                             ]

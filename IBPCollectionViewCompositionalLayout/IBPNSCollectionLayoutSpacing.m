@@ -1,4 +1,4 @@
-#import "IBPNSCollectionLayoutSpacing.h"
+#import "IBPNSCollectionLayoutSpacing_Private.h"
 
 @interface IBPNSCollectionLayoutSpacing()
 
@@ -14,7 +14,7 @@
     if (@available(iOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutSpacing") flexibleSpacing:flexibleSpacing];
     } else {
-        return [[self alloc] initWithFlexibleSpacing:flexibleSpacing];
+        return [[self alloc] initWithSpacing:flexibleSpacing isFlexible:YES];
     }
 }
 
@@ -22,26 +22,26 @@
     if (@available(iOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutSpacing") fixedSpacing:fixedSpacing];
     } else {
-        return [[self alloc] initWithFixedSpacing:fixedSpacing];
+        return [[self alloc] initWithSpacing:fixedSpacing isFlexible:NO];
     }
 }
 
-- (instancetype)initWithFlexibleSpacing:(CGFloat)flexibleSpacing {
++ (instancetype)defaultSpacing {
+    return [[self alloc] initWithSpacing:0 isFlexible:NO];
+}
+
+- (instancetype)initWithSpacing:(CGFloat)spacing isFlexible:(BOOL)isFlexible {
     self = [super init];
     if (self) {
-        self.spacing = flexibleSpacing;
-        self.isFlexibleSpacing = YES;
+        self.spacing = spacing;
+        self.isFlexibleSpacing = isFlexible;
+        self.isFixedSpacing = !isFlexible;
     }
     return self;
 }
 
-- (instancetype)initWithFixedSpacing:(CGFloat)fixedSpacing {
-    self = [super init];
-    if (self) {
-        self.spacing = fixedSpacing;
-        self.isFixedSpacing = YES;
-    }
-    return self;
+- (BOOL)hasSpacing {
+    return self.isFlexibleSpacing || self.spacing > 0;
 }
 
 - (nonnull id)copyWithZone:(nullable NSZone *)zone {
@@ -52,6 +52,17 @@
         return [IBPNSCollectionLayoutSpacing fixedSpacing:self.spacing];
     }
     return nil;
+}
+
+- (NSString *)description {
+    NSString *kind = @"";
+    if (self.isFlexibleSpacing) {
+        kind = @"flexible";
+    }
+    if (self.isFixedSpacing) {
+        kind = @"fixed";
+    }
+    return [NSString stringWithFormat:@"<NSCollectionLayoutSpacing - %p: %@:%g>", self, kind, self.spacing];
 }
 
 @end

@@ -10,3 +10,4 @@ UIKIT_STATIC_INLINE IBPNSDirectionalEdgeInsets IBPNSDirectionalEdgeInsetsMake(CG
 }
 
 UIKIT_EXTERN const IBPNSDirectionalEdgeInsets IBPNSDirectionalEdgeInsetsZero;
+UIKIT_EXTERN NSString *IBPNSStringFromDirectionalEdgeInsets(IBPNSDirectionalEdgeInsets insets);
