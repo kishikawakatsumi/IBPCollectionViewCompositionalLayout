@@ -1,6 +1,6 @@
 #import <UIKit/UIKit.h>
 #import "IBPNSCollectionLayoutSupplementaryItem.h"
-#import "NSRectAlignment.h"
+#import "IBPNSRectAlignment.h"
 
 @class IBPNSCollectionLayoutSize;
 
@@ -10,10 +10,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)boundarySupplementaryItemWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                             elementKind:(NSString *)elementKind
-                                              alignment:(NSRectAlignment)alignment;
+                                              alignment:(IBPNSRectAlignment)alignment;
 + (instancetype)boundarySupplementaryItemWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                             elementKind:(NSString *)elementKind
-                                              alignment:(NSRectAlignment)alignment
+                                              alignment:(IBPNSRectAlignment)alignment
                                          absoluteOffset:(CGPoint)absoluteOffset;
 
 - (instancetype)init NS_UNAVAILABLE;
@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL extendsBoundary;
 @property (nonatomic) BOOL pinToVisibleBounds;
 
-@property (nonatomic, readonly) NSRectAlignment alignment;
+@property (nonatomic, readonly) IBPNSRectAlignment alignment;
 @property (nonatomic, readonly) CGPoint offset;
 
 @end

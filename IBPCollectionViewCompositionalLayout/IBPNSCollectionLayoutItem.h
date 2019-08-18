@@ -1,5 +1,5 @@
 #import <UIKit/UIKit.h>
-#import "NSRectAlignment.h"
+#import "IBPNSDirectionalEdgeInsets.h"
 
 @protocol IBPNSCollectionLayoutEnvironment;
 @class IBPNSCollectionLayoutSize, IBPNSCollectionLayoutSupplementaryItem, IBPNSCollectionLayoutEdgeSpacing, IBPNSCollectionLayoutAnchor, IBPNSCollectionLayoutSpacing;
@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 
-@property (nonatomic) NSDirectionalEdgeInsets contentInsets;
+@property (nonatomic) IBPNSDirectionalEdgeInsets contentInsets;
 @property (nonatomic, copy, nullable) IBPNSCollectionLayoutEdgeSpacing *edgeSpacing;
 
 @property (nonatomic, readonly) IBPNSCollectionLayoutSize *layoutSize;

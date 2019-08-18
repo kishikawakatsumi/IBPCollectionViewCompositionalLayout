@@ -42,7 +42,7 @@
           traitCollection:(UITraitCollection *)traitCollection {
     CGSize collectionContentSize = container.effectiveContentSize;
 
-    NSDirectionalEdgeInsets sectionContentInsets = self.section.contentInsets;
+    IBPNSDirectionalEdgeInsets sectionContentInsets = self.section.contentInsets;
 
     IBPNSCollectionLayoutContainer *sectionContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:collectionContentSize contentInsets:sectionContentInsets];
 
@@ -75,7 +75,7 @@
 
     if (group.count > 0) {
         IBPNSCollectionLayoutItem *item = group.subitems[0];
-        NSDirectionalEdgeInsets contentInsets = item.contentInsets;
+        IBPNSDirectionalEdgeInsets contentInsets = item.contentInsets;
 
         CGSize itemSize = [item.layoutSize effectiveSizeForContainer:groupContainer];
         IBPNSCollectionLayoutContainer *itemContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:itemSize contentInsets:contentInsets];
@@ -145,7 +145,7 @@
         }
     } else {
         [group enumerateItemsWithHandler:^(IBPNSCollectionLayoutItem * _Nonnull item, BOOL * _Nonnull stop) {
-            NSDirectionalEdgeInsets contentInsets = item.contentInsets;
+            IBPNSDirectionalEdgeInsets contentInsets = item.contentInsets;
 
             CGSize itemSize = [item.layoutSize effectiveSizeForContainer:groupContainer];
             IBPNSCollectionLayoutContainer *itemContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:itemSize contentInsets:item.contentInsets];

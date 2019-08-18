@@ -110,7 +110,7 @@
         collectionContentInset = collectionView.safeAreaInsets;
     }
     IBPNSCollectionLayoutContainer *collectionContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:collectionViewBounds.size
-                                                                                                        contentInsets:NSDirectionalEdgeInsetsMake(0, collectionContentInset.left, 0, collectionContentInset.right)];
+                                                                                                        contentInsets:IBPNSDirectionalEdgeInsetsMake(0, collectionContentInset.left, 0, collectionContentInset.right)];
 
     IBPNSCollectionLayoutEnvironment *environment = [[IBPNSCollectionLayoutEnvironment alloc] init];
     environment.container = collectionContainer;
@@ -140,8 +140,8 @@
             CGSize boundarySupplementaryItemEffectiveSize = [boundarySupplementaryItemLayoutSize effectiveSizeForContainer:collectionContainer ignoringInsets:NO];
             boundarySupplementaryViewFrame.size = boundarySupplementaryItemEffectiveSize;
 
-            NSRectAlignment alignment = boundarySupplementaryItem.alignment;
-            if (alignment == NSRectAlignmentTop) {
+            IBPNSRectAlignment alignment = boundarySupplementaryItem.alignment;
+            if (alignment == IBPNSRectAlignmentTop) {
                 boundarySupplementaryViewFrame.origin.y = CGRectGetMinY(contentFrame);
                 boundarySupplementaryViewFrame.origin.x += sectionOrigin.x;
                 boundarySupplementaryViewFrame.origin.y += sectionOrigin.y;
@@ -160,25 +160,25 @@
 
                 contentFrame = CGRectUnion(contentFrame, boundarySupplementaryViewFrame);
             }
-            if (alignment == NSRectAlignmentTopLeading) {
+            if (alignment == IBPNSRectAlignmentTopLeading) {
                 // Not implemented yet
             }
-            if (alignment == NSRectAlignmentLeading) {
+            if (alignment == IBPNSRectAlignmentLeading) {
                 // Not implemented yet
             }
-            if (alignment == NSRectAlignmentBottomLeading) {
+            if (alignment == IBPNSRectAlignmentBottomLeading) {
                 // Not implemented yet
             }
-            if (alignment == NSRectAlignmentBottom) {
+            if (alignment == IBPNSRectAlignmentBottom) {
                 // Not implemented yet
             }
-            if (alignment == NSRectAlignmentBottomTrailing) {
+            if (alignment == IBPNSRectAlignmentBottomTrailing) {
                 // Not implemented yet
             }
-            if (alignment == NSRectAlignmentTrailing) {
+            if (alignment == IBPNSRectAlignmentTrailing) {
                 // Not implemented yet
             }
-            if (alignment == NSRectAlignmentTopTrailing) {
+            if (alignment == IBPNSRectAlignmentTopTrailing) {
                 // Not implemented yet
             }
         }
@@ -323,8 +323,8 @@
             CGSize boundarySupplementaryItemEffectiveSize = [boundarySupplementaryItemLayoutSize effectiveSizeForContainer:collectionContainer ignoringInsets:NO];
             boundarySupplementaryViewFrame.size = boundarySupplementaryItemEffectiveSize;
 
-            NSRectAlignment alignment = boundarySupplementaryItem.alignment;
-            if (alignment == NSRectAlignmentBottom) {
+            IBPNSRectAlignment alignment = boundarySupplementaryItem.alignment;
+            if (alignment == IBPNSRectAlignmentBottom) {
                 boundarySupplementaryViewFrame.origin.y = CGRectGetMaxY(contentFrame);
                 boundarySupplementaryViewFrame.origin.x += sectionOrigin.x;
 
