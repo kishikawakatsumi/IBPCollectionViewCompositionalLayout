@@ -1,4 +1,5 @@
 #import <UIKit/UIKit.h>
+#import "IBPNSDirectionalEdgeInsets.h"
 #import "IBPUICollectionViewCompositionalLayout.h"
 
 @class IBPNSCollectionLayoutGroup, IBPNSCollectionLayoutBoundarySupplementaryItem, IBPNSCollectionLayoutDecorationItem;
@@ -12,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 
-@property(nonatomic) NSDirectionalEdgeInsets contentInsets;
+@property(nonatomic) IBPNSDirectionalEdgeInsets contentInsets;
 @property(nonatomic) CGFloat interGroupSpacing;
 
 @property (nonatomic) IBPUICollectionLayoutSectionOrthogonalScrollingBehavior orthogonalScrollingBehavior;

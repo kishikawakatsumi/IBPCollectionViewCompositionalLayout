@@ -52,27 +52,27 @@
     IBPNSCollectionLayoutSize *supplementaryItemLayoutSize = self.layoutSize;
 
     IBPNSCollectionLayoutContainer *itemContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:containerFrame.size
-                                                                                            contentInsets:NSDirectionalEdgeInsetsZero];
+                                                                                            contentInsets:IBPNSDirectionalEdgeInsetsZero];
     CGSize supplementaryItemEffectiveSize = [supplementaryItemLayoutSize effectiveSizeForContainer:itemContainer];
     frame.size = supplementaryItemEffectiveSize;
 
     IBPNSCollectionLayoutAnchor *containerAnchor = self.containerAnchor;
     CGPoint offset = containerAnchor.offset;
-    NSDirectionalRectEdge edges = containerAnchor.edges;
+    IBPNSDirectionalRectEdge edges = containerAnchor.edges;
 
-    if ((edges & NSDirectionalRectEdgeTop) == NSDirectionalRectEdgeTop) {
+    if ((edges & IBPNSDirectionalRectEdgeTop) == IBPNSDirectionalRectEdgeTop) {
         frame.origin.y = CGRectGetMinY(containerFrame);
         frame.origin.y += containerAnchor.isAbsoluteOffset ? offset.y : supplementaryItemEffectiveSize.height * offset.y;
     }
-    if ((edges & NSDirectionalRectEdgeLeading) == NSDirectionalRectEdgeLeading) {
+    if ((edges & IBPNSDirectionalRectEdgeLeading) == IBPNSDirectionalRectEdgeLeading) {
         frame.origin.x = CGRectGetMinX(containerFrame);
         frame.origin.x += containerAnchor.isAbsoluteOffset ? offset.x : supplementaryItemEffectiveSize.width * offset.x;
     }
-    if ((edges & NSDirectionalRectEdgeBottom) == NSDirectionalRectEdgeBottom) {
+    if ((edges & IBPNSDirectionalRectEdgeBottom) == IBPNSDirectionalRectEdgeBottom) {
         frame.origin.y = CGRectGetMaxY(containerFrame) - supplementaryItemEffectiveSize.height;
         frame.origin.y += containerAnchor.isAbsoluteOffset ? offset.y : supplementaryItemEffectiveSize.height * offset.y;
     }
-    if ((edges & NSDirectionalRectEdgeTrailing) == NSDirectionalRectEdgeTrailing) {
+    if ((edges & IBPNSDirectionalRectEdgeTrailing) == IBPNSDirectionalRectEdgeTrailing) {
         frame.origin.x = CGRectGetMaxX(containerFrame) - supplementaryItemEffectiveSize.width;
         frame.origin.x += containerAnchor.isAbsoluteOffset ? offset.x : supplementaryItemEffectiveSize.width * offset.x;
     }

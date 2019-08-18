@@ -2,7 +2,7 @@
 
 @interface IBPNSCollectionLayoutAnchor()
 
-@property (nonatomic, readwrite) NSDirectionalRectEdge edges;
+@property (nonatomic, readwrite) IBPNSDirectionalRectEdge edges;
 @property (nonatomic, readwrite) CGPoint offset;
 @property (nonatomic, readwrite) BOOL isAbsoluteOffset;
 @property (nonatomic, readwrite) BOOL isFractionalOffset;
@@ -11,7 +11,7 @@
 
 @implementation IBPNSCollectionLayoutAnchor
 
-+ (instancetype)layoutAnchorWithEdges:(NSDirectionalRectEdge)edges {
++ (instancetype)layoutAnchorWithEdges:(IBPNSDirectionalRectEdge)edges {
     if (@available(iOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutAnchor") layoutAnchorWithEdges:edges];
     } else {
@@ -19,7 +19,7 @@
     }
 }
 
-+ (instancetype)layoutAnchorWithEdges:(NSDirectionalRectEdge)edges absoluteOffset:(CGPoint)absoluteOffset {
++ (instancetype)layoutAnchorWithEdges:(IBPNSDirectionalRectEdge)edges absoluteOffset:(CGPoint)absoluteOffset {
     if (@available(iOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutAnchor") layoutAnchorWithEdges:edges absoluteOffset:absoluteOffset];
     } else {
@@ -27,7 +27,7 @@
     }
 }
 
-+ (instancetype)layoutAnchorWithEdges:(NSDirectionalRectEdge)edges fractionalOffset:(CGPoint)fractionalOffset {
++ (instancetype)layoutAnchorWithEdges:(IBPNSDirectionalRectEdge)edges fractionalOffset:(CGPoint)fractionalOffset {
     if (@available(iOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutAnchor") layoutAnchorWithEdges:edges fractionalOffset:fractionalOffset];
     } else {
@@ -35,7 +35,7 @@
     }
 }
 
-- (instancetype)initWithEdges:(NSDirectionalRectEdge)edges {
+- (instancetype)initWithEdges:(IBPNSDirectionalRectEdge)edges {
     self = [super init];
     if (self) {
         self.edges = edges;
@@ -46,7 +46,7 @@
     return self;
 }
 
-- (instancetype)initWithEdges:(NSDirectionalRectEdge)edges absoluteOffset:(CGPoint)absoluteOffset {
+- (instancetype)initWithEdges:(IBPNSDirectionalRectEdge)edges absoluteOffset:(CGPoint)absoluteOffset {
     self = [super init];
     if (self) {
         self.edges = edges;
@@ -57,7 +57,7 @@
     return self;
 }
 
-- (instancetype)initWithEdges:(NSDirectionalRectEdge)edges fractionalOffset:(CGPoint)fractionalOffset {
+- (instancetype)initWithEdges:(IBPNSDirectionalRectEdge)edges fractionalOffset:(CGPoint)fractionalOffset {
     self = [super init];
     if (self) {
         self.edges = edges;

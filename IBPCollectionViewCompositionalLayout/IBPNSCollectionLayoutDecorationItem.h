@@ -1,4 +1,5 @@
 #import <UIKit/UIKit.h>
+#import "IBPNSDirectionalEdgeInsets.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -11,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) NSInteger zIndex;
 @property (nonatomic, readonly) NSString *elementKind;
-@property (nonatomic) NSDirectionalEdgeInsets contentInsets;
+@property (nonatomic) IBPNSDirectionalEdgeInsets contentInsets;
 
 @end
 

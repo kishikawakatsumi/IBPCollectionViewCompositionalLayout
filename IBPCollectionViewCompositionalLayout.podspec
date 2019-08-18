@@ -26,11 +26,11 @@ Pod::Spec.new do |s|
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutSpacing.h',
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutSupplementaryItem.h',
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutVisibleItem.h',
+                              'IBPCollectionViewCompositionalLayout/IBPNSDirectionalEdgeInsets.h',
+                              'IBPCollectionViewCompositionalLayout/IBPNSDirectionalRectEdge.h',
+                              'IBPCollectionViewCompositionalLayout/IBPNSRectAlignment.h',
                               'IBPCollectionViewCompositionalLayout/IBPUICollectionViewCompositionalLayout.h',
                               'IBPCollectionViewCompositionalLayout/IBPUICollectionViewCompositionalLayoutConfiguration.h',
-                              'IBPCollectionViewCompositionalLayout/NSDirectionalEdgeInsets.h',
-                              'IBPCollectionViewCompositionalLayout/NSDirectionalRectEdge.h',
-                              'IBPCollectionViewCompositionalLayout/NSRectAlignment.h',
                             ]
   s.frameworks            = 'UIKit'
   s.source                = { :git => 'https://github.com/kishikawakatsumi/IBPCollectionViewCompositionalLayout.git', :tag => "v#{s.version}" }

@@ -4,7 +4,7 @@
 
 @interface IBPNSCollectionLayoutBoundarySupplementaryItem()
 
-@property (nonatomic, readwrite) NSRectAlignment alignment;
+@property (nonatomic, readwrite) IBPNSRectAlignment alignment;
 @property (nonatomic, readwrite) CGPoint offset;
 
 @end
@@ -13,7 +13,7 @@
 
 + (instancetype)boundarySupplementaryItemWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                             elementKind:(NSString *)elementKind
-                                              alignment:(NSRectAlignment)alignment {
+                                              alignment:(IBPNSRectAlignment)alignment {
     if (@available(iOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutBoundarySupplementaryItem") boundarySupplementaryItemWithLayoutSize:layoutSize
                                                                                                               elementKind:elementKind
@@ -29,7 +29,7 @@
 
 + (instancetype)boundarySupplementaryItemWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                             elementKind:(NSString *)elementKind
-                                              alignment:(NSRectAlignment)alignment
+                                              alignment:(IBPNSRectAlignment)alignment
                                          absoluteOffset:(CGPoint)absoluteOffset {
     if (@available(iOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutBoundarySupplementaryItem") boundarySupplementaryItemWithLayoutSize:layoutSize
@@ -46,7 +46,7 @@
 
 - (instancetype)initWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                        elementKind:(NSString *)elementKind
-                         alignment:(NSRectAlignment)alignment
+                         alignment:(IBPNSRectAlignment)alignment
                     absoluteOffset:(CGPoint)absoluteOffset {
     self = [super initWithLayoutSize:layoutSize supplementaryItems:@[]];
     if (self) {

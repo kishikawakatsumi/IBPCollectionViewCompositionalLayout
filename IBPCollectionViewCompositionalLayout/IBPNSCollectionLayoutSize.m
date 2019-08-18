@@ -42,7 +42,7 @@
                      ignoringInsets:(BOOL)ignoringInsets {
     CGSize effectiveSize = CGSizeZero;
     CGSize contentSize = container.effectiveContentSize;
-    NSDirectionalEdgeInsets contentInsets = container.effectiveContentInsets;
+    IBPNSDirectionalEdgeInsets contentInsets = container.effectiveContentInsets;
 
     IBPNSCollectionLayoutDimension *widthDimension = self.widthDimension;
     IBPNSCollectionLayoutDimension *heightDimension = self.heightDimension;

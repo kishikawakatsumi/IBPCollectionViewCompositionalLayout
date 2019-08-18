@@ -5,12 +5,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IBPNSCollectionLayoutContainer : NSObject<IBPNSCollectionLayoutContainer>
 
-@property (nonatomic, readonly) NSDirectionalEdgeInsets contentInsets;
+@property (nonatomic, readonly) IBPNSDirectionalEdgeInsets contentInsets;
 @property (nonatomic, readonly) CGSize contentSize;
-@property (nonatomic, readonly) NSDirectionalEdgeInsets effectiveContentInsets;
+@property (nonatomic, readonly) IBPNSDirectionalEdgeInsets effectiveContentInsets;
 @property (nonatomic, readonly) CGSize effectiveContentSize;
 
-- (id)initWithContentSize:(CGSize)contentSize contentInsets:(NSDirectionalEdgeInsets)contentInsets;
+- (id)initWithContentSize:(CGSize)contentSize contentInsets:(IBPNSDirectionalEdgeInsets)contentInsets;
 
 @end
 

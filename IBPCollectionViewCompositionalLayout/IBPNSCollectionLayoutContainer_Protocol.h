@@ -1,4 +1,5 @@
 #import <UIKit/UIKit.h>
+#import "IBPNSDirectionalEdgeInsets.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -6,8 +7,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) CGSize contentSize;
 @property (nonatomic, readonly) CGSize effectiveContentSize;
-@property (nonatomic, readonly) NSDirectionalEdgeInsets contentInsets;
-@property (nonatomic, readonly) NSDirectionalEdgeInsets effectiveContentInsets;
+@property (nonatomic, readonly) IBPNSDirectionalEdgeInsets contentInsets;
+@property (nonatomic, readonly) IBPNSDirectionalEdgeInsets effectiveContentInsets;
 
 @end
 

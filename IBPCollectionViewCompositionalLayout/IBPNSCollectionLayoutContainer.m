@@ -2,14 +2,14 @@
 
 @interface IBPNSCollectionLayoutContainer()
 
-@property (nonatomic, readwrite) NSDirectionalEdgeInsets contentInsets;
+@property (nonatomic, readwrite) IBPNSDirectionalEdgeInsets contentInsets;
 @property (nonatomic, readwrite) CGSize contentSize;
 
 @end
 
 @implementation IBPNSCollectionLayoutContainer
 
-- (id)initWithContentSize:(CGSize)contentSize contentInsets:(NSDirectionalEdgeInsets)contentInsets {
+- (id)initWithContentSize:(CGSize)contentSize contentInsets:(IBPNSDirectionalEdgeInsets)contentInsets {
     self = [super init];
     if (self) {
         self.contentSize = contentSize;
@@ -18,8 +18,8 @@
     return self;
 }
 
-- (NSDirectionalEdgeInsets)effectiveContentInsets {
-    NSDirectionalEdgeInsets effectiveContentInsets = self.contentInsets;
+- (IBPNSDirectionalEdgeInsets)effectiveContentInsets {
+    IBPNSDirectionalEdgeInsets effectiveContentInsets = self.contentInsets;
     if (self.contentInsets.top < 1.0) {
         effectiveContentInsets.top = self.contentSize.height * self.contentInsets.top;
     }
