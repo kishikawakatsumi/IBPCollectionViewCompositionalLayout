@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
                               You can use new excellent APIs immediately without maintaining two different code bases until iOS 13 would be widely adopted.
                             DESC
   s.homepage              = 'https://github.com/kishikawakatsumi/IBPCollectionViewCompositionalLayout'
-  s.ios.deployment_target = '11.0'
+  s.ios.deployment_target = '10.0'
   s.source_files          = 'IBPCollectionViewCompositionalLayout/*.{h,m}'
   s.public_header_files   = [ 'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutAnchor.h',
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutBoundarySupplementaryItem.h',
