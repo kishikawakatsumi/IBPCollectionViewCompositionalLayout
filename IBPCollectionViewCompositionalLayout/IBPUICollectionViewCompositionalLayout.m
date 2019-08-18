@@ -106,8 +106,10 @@
     [orthogonalScrollerSectionControllers removeAllObjects];
 
     UIEdgeInsets collectionContentInset = UIEdgeInsetsZero;
-    if ([collectionView respondsToSelector:@selector(safeAreaInsets)]) {
-        collectionContentInset = collectionView.safeAreaInsets;
+    if (@available(iOS 11.0, *)) {
+        if ([collectionView respondsToSelector:@selector(safeAreaInsets)]) {
+            collectionContentInset = collectionView.safeAreaInsets;
+        }
     }
     IBPNSCollectionLayoutContainer *collectionContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:collectionViewBounds.size
                                                                                                         contentInsets:IBPNSDirectionalEdgeInsetsMake(0, collectionContentInset.left, 0, collectionContentInset.right)];
