@@ -24,7 +24,7 @@
         if (self) {
             self.scrollDirection = UICollectionViewScrollDirectionVertical;
             self.interSectionSpacing = 0;
-            self.boundarySupplementaryItems = [[NSArray<IBPNSCollectionLayoutBoundarySupplementaryItem *> alloc] init];
+            self.boundarySupplementaryItems = @[];
         }
         return self;
     }
