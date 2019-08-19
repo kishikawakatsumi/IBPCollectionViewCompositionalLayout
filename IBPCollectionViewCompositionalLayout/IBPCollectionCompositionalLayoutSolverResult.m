@@ -1,9 +1,9 @@
-#import "IBPCollectionViewLayoutBuilderResult.h"
+#import "IBPCollectionCompositionalLayoutSolverResult.h"
 
-@implementation IBPCollectionViewLayoutBuilderResult
+@implementation IBPCollectionCompositionalLayoutSolverResult
 
 + (instancetype)resultWithLayoutItem:(IBPNSCollectionLayoutItem *)layoutItem frame:(CGRect)frame {
-    return  [[IBPCollectionViewLayoutBuilderResult alloc] initWithLayoutItem:layoutItem frame:frame];
+    return  [[IBPCollectionCompositionalLayoutSolverResult alloc] initWithLayoutItem:layoutItem frame:frame];
 }
 
 - (instancetype)initWithLayoutItem:(IBPNSCollectionLayoutItem *)layoutItem frame:(CGRect)frame {

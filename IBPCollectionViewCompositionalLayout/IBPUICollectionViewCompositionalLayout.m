@@ -1,5 +1,5 @@
 #import "IBPUICollectionViewCompositionalLayout.h"
-#import "IBPCollectionViewLayoutBuilder.h"
+#import "IBPCollectionCompositionalLayoutSolver.h"
 #import "IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.h"
 #import "IBPCollectionViewOrthogonalScrollerSectionController.h"
 #import "IBPNSCollectionLayoutAnchor_Private.h"
@@ -23,7 +23,7 @@
     CGRect contentFrame;
     NSMutableDictionary<NSNumber *, IBPCollectionViewOrthogonalScrollerSectionController *> *orthogonalScrollerSectionControllers;
 
-    IBPCollectionViewLayoutBuilder *layoutBuilder;
+    IBPCollectionCompositionalLayoutSolver *solver;
 }
 
 @property (nonatomic, copy) IBPNSCollectionLayoutSection *layoutSection;
@@ -149,13 +149,13 @@
             sectionOrigin.x = CGRectGetMaxX(contentFrame);
         }
 
-        layoutBuilder = [[IBPCollectionViewLayoutBuilder alloc] initWithLayoutSection:layoutSection configuration:self.configuration];
-        [layoutBuilder buildLayoutForContainer:collectionContainer traitCollection:environment.traitCollection];
+        solver = [[IBPCollectionCompositionalLayoutSolver alloc] initWithLayoutSection:layoutSection configuration:self.configuration];
+        [solver solveLayoutForContainer:collectionContainer traitCollection:environment.traitCollection];
 
         NSInteger numberOfItems = [collectionView numberOfItemsInSection:sectionIndex];
         for (NSInteger itemIndex = 0; itemIndex < numberOfItems; itemIndex++) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:itemIndex inSection:sectionIndex];
-            UICollectionViewLayoutAttributes *cellAttributes = [layoutBuilder layoutAttributesForItemAtIndexPath:indexPath];
+            UICollectionViewLayoutAttributes *cellAttributes = [solver layoutAttributesForItemAtIndexPath:indexPath];
 
             CGRect cellFrame = cellAttributes.frame;
             cellFrame.origin.x += sectionOrigin.x;
@@ -165,7 +165,7 @@
                 [cachedItemAttributes addObject:cellAttributes];
             }
 
-            IBPNSCollectionLayoutItem *layoutItem = [layoutBuilder layoutItemAtIndexPath:indexPath];
+            IBPNSCollectionLayoutItem *layoutItem = [solver layoutItemAtIndexPath:indexPath];
             NSMutableArray<UICollectionViewLayoutAttributes *> *itemAttributes = cachedItemAttributes;
             [layoutItem enumerateSupplementaryItemsWithHandler:^(IBPNSCollectionLayoutSupplementaryItem * _Nonnull supplementaryItem, BOOL * _Nonnull stop) {
                 UICollectionViewLayoutAttributes *supplementaryViewAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:supplementaryItem.elementKind withIndexPath:indexPath];
@@ -206,7 +206,7 @@
         if (layoutSection.scrollsOrthogonally) {
             IBPCollectionViewOrthogonalScrollerSectionController *controller = orthogonalScrollerSectionControllers[@(sectionIndex)];
             if (!controller) {
-                CGRect scrollViewFrame = layoutBuilder.containerFrame;
+                CGRect scrollViewFrame = solver.containerFrame;
                 scrollViewFrame.origin = sectionOrigin;
                 scrollViewFrame.size.width = collectionContainer.contentSize.width;
 
@@ -322,7 +322,7 @@
 
         CGSize extendedBoundary = CGSizeZero;
         for (IBPNSCollectionLayoutBoundarySupplementaryItem *boundaryItem in layoutSection.boundarySupplementaryItems) {
-            CGRect containerFrame = layoutBuilder.containerFrame;
+            CGRect containerFrame = solver.containerFrame;
             if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
                 containerFrame.origin.y = contentFrame.origin.y;
                 containerFrame.size.height = contentFrame.size.height;
@@ -483,7 +483,7 @@
         UICollectionViewLayoutAttributes *attributes = cachedItemAttributes[i];
 
         NSIndexPath *indexPath = attributes.indexPath;
-        IBPNSCollectionLayoutItem *layoutItem = [layoutBuilder layoutItemAtIndexPath:indexPath];
+        IBPNSCollectionLayoutItem *layoutItem = [solver layoutItemAtIndexPath:indexPath];
         IBPNSCollectionLayoutSize *layoutSize = layoutItem.layoutSize;
         if (layoutSize.widthDimension.isEstimated || layoutSize.heightDimension.isEstimated) {
             if (attributes.representedElementCategory == UICollectionElementCategoryCell) {
@@ -561,15 +561,15 @@
     switch (self.parentCollectionViewOrthogonalScrollingBehavior) {
         case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuousGroupLeadingBoundary: {
             CGPoint translation = [self.collectionView.panGestureRecognizer translationInView:self.collectionView.superview];
-            return [layoutBuilder continuousGroupLeadingBoundaryTargetContentOffsetForProposedContentOffset:proposedContentOffset scrollingVelocity:velocity translation:translation];
+            return [solver continuousGroupLeadingBoundaryTargetContentOffsetForProposedContentOffset:proposedContentOffset scrollingVelocity:velocity translation:translation];
         }
         case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPaging: {
             CGPoint translation = [self.collectionView.panGestureRecognizer translationInView:self.collectionView.superview];
-            return [layoutBuilder groupPagingTargetContentOffsetForProposedContentOffset:self.collectionView.contentOffset scrollingVelocity:velocity translation:translation];
+            return [solver groupPagingTargetContentOffsetForProposedContentOffset:self.collectionView.contentOffset scrollingVelocity:velocity translation:translation];
         }
         case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPagingCentered:{
             CGPoint translation = [self.collectionView.panGestureRecognizer translationInView:self.collectionView.superview];
-            return [layoutBuilder groupPagingCenteredTargetContentOffsetForProposedContentOffset:self.collectionView.contentOffset scrollingVelocity:velocity translation:translation containerSize:self.collectionView.bounds.size];
+            return [solver groupPagingCenteredTargetContentOffsetForProposedContentOffset:self.collectionView.contentOffset scrollingVelocity:velocity translation:translation containerSize:self.collectionView.bounds.size];
         }
         case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone:
         case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuous:

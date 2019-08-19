@@ -1,6 +1,6 @@
-#import "IBPCollectionViewLayoutBuilderState.h"
+#import "IBPCollectionCompositionalLayoutSolverState.h"
 
-@implementation IBPCollectionViewLayoutBuilderState
+@implementation IBPCollectionCompositionalLayoutSolverState
 
 - (instancetype)init {
     self = [super init];

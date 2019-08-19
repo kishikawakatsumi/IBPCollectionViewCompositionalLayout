@@ -7,7 +7,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface IBPCollectionViewLayoutBuilder : NSObject
+@interface IBPCollectionCompositionalLayoutSolver : NSObject
 
 @property (nonatomic, readonly, copy) IBPNSCollectionLayoutSection *section;
 @property (nonatomic, readonly) CGRect containerFrame;
@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithLayoutSection:(IBPNSCollectionLayoutSection *)section
                         configuration:(IBPUICollectionViewCompositionalLayoutConfiguration *)configuration;
 
-- (void)buildLayoutForContainer:(IBPNSCollectionLayoutContainer *)container
+- (void)solveLayoutForContainer:(IBPNSCollectionLayoutContainer *)container
           traitCollection:(UITraitCollection *)traitCollection;
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath;
