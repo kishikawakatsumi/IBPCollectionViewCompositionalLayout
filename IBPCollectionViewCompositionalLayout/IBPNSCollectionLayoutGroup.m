@@ -2,8 +2,10 @@
 #import "IBPNSCollectionLayoutGroup_Private.h"
 #import "IBPNSCollectionLayoutContainer.h"
 #import "IBPNSCollectionLayoutDimension.h"
+#import "IBPNSCollectionLayoutEdgeSpacing_Private.h"
 #import "IBPNSCollectionLayoutItem_Private.h"
 #import "IBPNSCollectionLayoutSize_Private.h"
+#import "IBPNSCollectionLayoutSpacing_Private.h"
 
 @implementation IBPNSCollectionLayoutGroup
 
@@ -12,7 +14,7 @@
     if (@available(iOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutGroup") horizontalGroupWithLayoutSize:layoutSize subitems:subitems];
     } else {
-        return [[self alloc] initWithLayoutSize:layoutSize subitems:subitems layoutDirection:LayoutDirectionHorizontal];
+        return [[self alloc] initWithLayoutSize:layoutSize subitems:subitems layoutDirection:IBPLayoutDirectionHorizontal];
     }
 }
 
@@ -22,7 +24,7 @@
     if (@available(iOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutGroup") horizontalGroupWithLayoutSize:layoutSize subitem:subitem count:count];
     } else {
-        return [[self alloc] initWWithLayoutSize:layoutSize subitem:subitem count:count layoutDirection:LayoutDirectionHorizontal];
+        return [[self alloc] initWWithLayoutSize:layoutSize subitem:subitem count:count layoutDirection:IBPLayoutDirectionHorizontal];
     }
 }
 
@@ -31,7 +33,7 @@
     if (@available(iOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutGroup") verticalGroupWithLayoutSize:layoutSize subitems:subitems];
     } else {
-        return [[self alloc] initWithLayoutSize:layoutSize subitems:subitems layoutDirection:LayoutDirectionVertical];
+        return [[self alloc] initWithLayoutSize:layoutSize subitems:subitems layoutDirection:IBPLayoutDirectionVertical];
     }
 }
 
@@ -41,7 +43,7 @@
     if (@available(iOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutGroup") verticalGroupWithLayoutSize:layoutSize subitem:subitem count:count];
     } else {
-        return [[self alloc] initWWithLayoutSize:layoutSize subitem:subitem count:count layoutDirection:LayoutDirectionVertical];
+        return [[self alloc] initWWithLayoutSize:layoutSize subitem:subitem count:count layoutDirection:IBPLayoutDirectionVertical];
     }
 }
 
@@ -56,14 +58,33 @@
 - (instancetype)initWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                           subitems:(NSArray<IBPNSCollectionLayoutItem *> *)subitems
                    layoutDirection:(IBPLayoutDirection)layoutDirection {
-    return [self initWithSize:layoutSize subitems:subitems count:0 interItemSpacing:nil contentInsets:IBPNSDirectionalEdgeInsetsZero edgeSpacing:nil layoutDirection:layoutDirection supplementaryItems:@[] visualFormats:nil itemsProvider:nil visualFormatItemProvider:nil customGroupItemProvider:nil options:0 name:nil identifier:nil];
+    return [self initWithSize:layoutSize
+                     subitems:subitems
+                        count:0
+             interItemSpacing:[IBPNSCollectionLayoutSpacing defaultSpacing]
+                contentInsets:IBPNSDirectionalEdgeInsetsZero
+                  edgeSpacing:[IBPNSCollectionLayoutEdgeSpacing defaultSpacing]
+              layoutDirection:layoutDirection
+           supplementaryItems:@[]
+      customGroupItemProvider:nil
+                         name:nil
+                   identifier:[NSUUID UUID]];
 }
 
 - (instancetype)initWWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                             subitem:(IBPNSCollectionLayoutItem *)subitem
                               count:(NSInteger)count
                     layoutDirection:(IBPLayoutDirection)layoutDirection {
-    return [self initWithSize:layoutSize subitems:@[subitem] count:count interItemSpacing:nil contentInsets:IBPNSDirectionalEdgeInsetsZero edgeSpacing:nil layoutDirection:layoutDirection supplementaryItems:@[] visualFormats:nil itemsProvider:nil visualFormatItemProvider:nil customGroupItemProvider:nil options:0 name:nil identifier:nil];
+    return [self initWithSize:layoutSize subitems:@[subitem]
+                        count:count
+             interItemSpacing:[IBPNSCollectionLayoutSpacing defaultSpacing]
+                contentInsets:IBPNSDirectionalEdgeInsetsZero
+                  edgeSpacing:[IBPNSCollectionLayoutEdgeSpacing defaultSpacing]
+              layoutDirection:layoutDirection
+           supplementaryItems:@[]
+      customGroupItemProvider:nil
+                         name:nil
+                   identifier:[NSUUID UUID]];
 }
 
 - (instancetype)initWithSize:(IBPNSCollectionLayoutSize *)size
@@ -74,13 +95,9 @@
                  edgeSpacing:(IBPNSCollectionLayoutEdgeSpacing *)edgeSpacing
              layoutDirection:(IBPLayoutDirection)layoutDirection
           supplementaryItems:(NSArray<IBPNSCollectionLayoutSupplementaryItem *> *)supplementaryItems
-               visualFormats:(id)visualFormats
-               itemsProvider:(IBPNSCollectionLayoutGroupCustomItemProvider)itemsProvider
-    visualFormatItemProvider:(id)visualFormatItemProvider
-     customGroupItemProvider:(id)customGroupItemProvider
-                     options:(NSInteger)options
-                        name:(id)name
-                  identifier:(id)identifier {
+     customGroupItemProvider:(IBPNSCollectionLayoutGroupCustomItemProvider)customGroupItemProvider
+                        name:(NSString *)name
+                  identifier:(NSUUID *)identifier {
     self = [super initWithLayoutSize:size supplementaryItems:supplementaryItems];
     if (self) {
         self.layoutSize = size;
@@ -91,11 +108,7 @@
         self.edgeSpacing = edgeSpacing;
         self.layoutDirection = layoutDirection;
         self.supplementaryItems = supplementaryItems;
-        self.visualFormats = visualFormats;
-        self.itemsProvider = itemsProvider;
-        self.visualFormatItemProvider = visualFormatItemProvider;
         self.customGroupItemProvider = customGroupItemProvider;
-        self.options = options;
         self.name = name;
         self.identifier = identifier;
     }
@@ -103,7 +116,17 @@
 }
 
 - (nonnull id)copyWithZone:(nullable NSZone *)zone {
-    IBPNSCollectionLayoutGroup *group = [[IBPNSCollectionLayoutGroup alloc] initWithSize:self.layoutSize subitems:self.subitems count:self.count interItemSpacing:self.interItemSpacing contentInsets:self.contentInsets edgeSpacing:self.edgeSpacing layoutDirection:self.layoutDirection supplementaryItems:self.supplementaryItems visualFormats:nil itemsProvider:nil visualFormatItemProvider:nil customGroupItemProvider:nil options:0 name:nil identifier:nil];
+    IBPNSCollectionLayoutGroup *group = [[IBPNSCollectionLayoutGroup alloc] initWithSize:self.layoutSize
+                                                                                subitems:self.subitems
+                                                                                   count:self.count
+                                                                        interItemSpacing:self.interItemSpacing
+                                                                           contentInsets:self.contentInsets
+                                                                             edgeSpacing:self.edgeSpacing
+                                                                         layoutDirection:self.layoutDirection
+                                                                      supplementaryItems:self.supplementaryItems
+                                                                 customGroupItemProvider:self.customGroupItemProvider
+                                                                                    name:self.name
+                                                                              identifier:self.identifier];
     return group;
 }
 
@@ -112,11 +135,11 @@
 }
 
 - (BOOL)isHorizontalGroup {
-    return self.layoutDirection == LayoutDirectionHorizontal;
+    return self.layoutDirection == IBPLayoutDirectionHorizontal;
 }
 
 - (BOOL)isVerticalGroup {
-    return self.layoutDirection == LayoutDirectionVertical;
+    return self.layoutDirection == IBPLayoutDirectionVertical;
 }
 
 - (BOOL)isGroup {
@@ -159,6 +182,23 @@
         }
     }
     return [IBPNSCollectionLayoutSize sizeWithWidthDimension:[IBPNSCollectionLayoutDimension absoluteDimension:0] heightDimension:[IBPNSCollectionLayoutDimension absoluteDimension:0]];
+}
+
+- (NSString *)description {
+    return [self descriptionAtIndent:0];
+}
+
+- (NSString *)descriptionAtIndent:(NSUInteger)indent {
+    NSMutableString *description = [NSMutableString stringWithFormat:@"%@\n", [super descriptionAtIndent:indent]];
+    NSString *tabs = [@"" stringByPaddingToLength:indent + 1 withString:@"\t" startingAtIndex:0];
+    [description appendFormat:@"%@ group: subitems=\n", tabs];
+    for (IBPNSCollectionLayoutItem *subitem in self.subitems) {
+        NSString *tabs = [@"" stringByPaddingToLength:indent + 2 withString:@"\t" startingAtIndex:0];
+        [description appendFormat:@"%@ %@\n", tabs, [subitem descriptionAtIndent:indent + 1]];
+    }
+    [description appendFormat:@"%@ interItemSpacing=%@\n", tabs, self.interItemSpacing];
+    [description appendFormat:@"%@ layoutDirection=%@>", tabs, self.isHorizontalGroup ? @".horizontal" : @".vertical"];
+    return description.copy;
 }
 
 @end
