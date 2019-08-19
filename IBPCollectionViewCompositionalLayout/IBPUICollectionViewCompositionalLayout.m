@@ -2,7 +2,7 @@
 #import "IBPCollectionViewLayoutBuilder.h"
 #import "IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.h"
 #import "IBPCollectionViewOrthogonalScrollerSectionController.h"
-#import "IBPNSCollectionLayoutAnchor.h"
+#import "IBPNSCollectionLayoutAnchor_Private.h"
 #import "IBPNSCollectionLayoutBoundarySupplementaryItem.h"
 #import "IBPNSCollectionLayoutContainer.h"
 #import "IBPNSCollectionLayoutDecorationItem.h"
@@ -211,7 +211,13 @@
             NSMutableArray<UICollectionViewLayoutAttributes *> *itemAttributes = cachedItemAttributes;
             [layoutItem enumerateSupplementaryItemsWithHandler:^(IBPNSCollectionLayoutSupplementaryItem * _Nonnull supplementaryItem, BOOL * _Nonnull stop) {
                 UICollectionViewLayoutAttributes *supplementaryViewAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:supplementaryItem.elementKind withIndexPath:indexPath];
-                supplementaryViewAttributes.frame = [supplementaryItem frameInContainerFrame:cellFrame];
+
+                IBPNSCollectionLayoutContainer *itemContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:cellFrame.size
+                                                                                                              contentInsets:IBPNSDirectionalEdgeInsetsZero];
+                CGSize itemSize = [supplementaryItem.layoutSize effectiveSizeForContainer:itemContainer];
+                CGRect itemFrame = [supplementaryItem.containerAnchor itemFrameForContainerRect:cellFrame itemSize:itemSize itemLayoutAnchor:supplementaryItem.itemAnchor];
+                supplementaryViewAttributes.frame = itemFrame;
+
                 [itemAttributes addObject:supplementaryViewAttributes];
             }];
 
