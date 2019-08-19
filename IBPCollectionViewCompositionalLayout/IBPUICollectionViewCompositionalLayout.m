@@ -109,11 +109,16 @@
     if (@available(iOS 11.0, *)) {
         if ([collectionView respondsToSelector:@selector(safeAreaInsets)]) {
             collectionContentInset = collectionView.safeAreaInsets;
+
+            CGPoint contentOffset = CGPointZero;
+            contentOffset.x = -collectionContentInset.left;
+            contentOffset.y = -collectionContentInset.top;
+            collectionView.contentOffset = contentOffset;
         }
     }
+
     IBPNSCollectionLayoutContainer *collectionContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:collectionViewBounds.size
                                                                                                         contentInsets:IBPNSDirectionalEdgeInsetsMake(0, collectionContentInset.left, 0, collectionContentInset.right)];
-
     IBPNSCollectionLayoutEnvironment *environment = [[IBPNSCollectionLayoutEnvironment alloc] init];
     environment.container = collectionContainer;
     environment.traitCollection = collectionView.traitCollection;
