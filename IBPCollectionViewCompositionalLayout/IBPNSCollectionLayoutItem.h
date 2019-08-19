@@ -1,10 +1,8 @@
 #import <UIKit/UIKit.h>
 #import "IBPNSDirectionalEdgeInsets.h"
 
-@class IBPNSCollectionLayoutAnchor;
 @class IBPNSCollectionLayoutEdgeSpacing;
 @class IBPNSCollectionLayoutSize;
-@class IBPNSCollectionLayoutSpacing;
 @class IBPNSCollectionLayoutSupplementaryItem;
 
 @protocol IBPNSCollectionLayoutEnvironment;
@@ -16,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)itemWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize;
 + (instancetype)itemWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                 supplementaryItems:(NSArray<IBPNSCollectionLayoutSupplementaryItem *> *)supplementaryItems;
+
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 

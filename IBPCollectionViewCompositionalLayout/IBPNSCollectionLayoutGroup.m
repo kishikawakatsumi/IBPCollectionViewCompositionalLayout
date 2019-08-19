@@ -9,6 +9,8 @@
 
 @implementation IBPNSCollectionLayoutGroup
 
+@synthesize supplementaryItems;
+
 + (instancetype)horizontalGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                      subitems:(NSArray<IBPNSCollectionLayoutItem *> *)subitems {
     if (@available(iOS 13, *)) {

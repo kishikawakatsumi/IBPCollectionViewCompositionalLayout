@@ -14,6 +14,7 @@ Pod::Spec.new do |s|
                               'IBPCollectionViewCompositionalLayout/IBPCollectionViewLayoutBuilderState.h',
                               'IBPCollectionViewCompositionalLayout/IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.h',
                               'IBPCollectionViewCompositionalLayout/IBPCollectionViewOrthogonalScrollerSectionController.h',
+                              'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutAnchor_Private.h',
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutContainer.h',
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutEdgeSpacing_Private.h',
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutGroup_Private.h',

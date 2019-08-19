@@ -2,6 +2,7 @@
 #import "IBPNSCollectionLayoutItem.h"
 #import "IBPNSCollectionLayoutGroupCustomItem.h"
 
+@class IBPNSCollectionLayoutSpacing;
 @class IBPNSCollectionLayoutSupplementaryItem;
 
 NS_ASSUME_NONNULL_BEGIN

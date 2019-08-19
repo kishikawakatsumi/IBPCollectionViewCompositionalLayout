@@ -1,9 +1,16 @@
-#import "IBPNSCollectionLayoutSupplementaryItem.h"
 #import "IBPNSCollectionLayoutSupplementaryItem_Private.h"
-#import "IBPNSCollectionLayoutAnchor.h"
-#import "IBPNSCollectionLayoutContainer.h"
 #import "IBPNSCollectionLayoutItem_Private.h"
-#import "IBPNSCollectionLayoutSize_Private.h"
+
+@interface IBPNSCollectionLayoutSupplementaryItem()
+
+- (instancetype)initWithSize:(IBPNSCollectionLayoutSize *)size
+               contentInsets:(IBPNSDirectionalEdgeInsets)contentInsets
+                 elementKind:(NSString *)elementKind
+             containerAnchor:(IBPNSCollectionLayoutAnchor *)containerAnchor
+                  itemAnchor:(IBPNSCollectionLayoutAnchor *)itemAnchor
+                      zIndex:(NSInteger)zIndex;
+
+@end
 
 @implementation IBPNSCollectionLayoutSupplementaryItem
 
@@ -15,7 +22,12 @@
                                                                                               elementKind:elementKind
                                                                                           containerAnchor:containerAnchor];
     } else {
-        return [[self alloc] initWithLayoutSize:layoutSize elementKind:elementKind containerAnchor:containerAnchor itemAnchor:nil];
+        return [[self alloc] initWithSize:layoutSize
+                            contentInsets:IBPNSDirectionalEdgeInsetsZero
+                              elementKind:elementKind
+                          containerAnchor:containerAnchor
+                               itemAnchor:nil
+                                   zIndex:1];
     }
 }
 
@@ -29,55 +41,30 @@
                                                                                           containerAnchor:containerAnchor
                                                                                                itemAnchor:itemAnchor];
     } else {
-        return [[self alloc] initWithLayoutSize:layoutSize elementKind:elementKind containerAnchor:containerAnchor itemAnchor:itemAnchor];
+        return [[self alloc] initWithSize:layoutSize
+                            contentInsets:IBPNSDirectionalEdgeInsetsZero
+                              elementKind:elementKind
+                          containerAnchor:containerAnchor
+                               itemAnchor:itemAnchor
+                                   zIndex:1];
     }
 }
 
-- (instancetype)initWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
-                       elementKind:(NSString *)elementKind
-                   containerAnchor:(IBPNSCollectionLayoutAnchor *)containerAnchor
-                        itemAnchor:(nullable IBPNSCollectionLayoutAnchor *)itemAnchor {
-    self = [super initWithLayoutSize:layoutSize supplementaryItems:@[self]];
+- (instancetype)initWithSize:(IBPNSCollectionLayoutSize *)size
+               contentInsets:(IBPNSDirectionalEdgeInsets)contentInsets
+                 elementKind:(NSString *)elementKind
+             containerAnchor:(IBPNSCollectionLayoutAnchor *)containerAnchor
+                  itemAnchor:(IBPNSCollectionLayoutAnchor *)itemAnchor
+                      zIndex:(NSInteger)zIndex {
+    self = [super initWithLayoutSize:size supplementaryItems:@[]];
     if (self) {
         self.elementKind = elementKind;
+        self.contentInsets = contentInsets;
         self.containerAnchor = containerAnchor;
         self.itemAnchor = itemAnchor;
+        self.zIndex = zIndex;
     }
     return self;
-}
-
-- (CGRect)frameInContainerFrame:(CGRect)containerFrame {
-    CGRect frame = containerFrame;
-
-    IBPNSCollectionLayoutSize *supplementaryItemLayoutSize = self.layoutSize;
-
-    IBPNSCollectionLayoutContainer *itemContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:containerFrame.size
-                                                                                            contentInsets:IBPNSDirectionalEdgeInsetsZero];
-    CGSize supplementaryItemEffectiveSize = [supplementaryItemLayoutSize effectiveSizeForContainer:itemContainer];
-    frame.size = supplementaryItemEffectiveSize;
-
-    IBPNSCollectionLayoutAnchor *containerAnchor = self.containerAnchor;
-    CGPoint offset = containerAnchor.offset;
-    IBPNSDirectionalRectEdge edges = containerAnchor.edges;
-
-    if ((edges & IBPNSDirectionalRectEdgeTop) == IBPNSDirectionalRectEdgeTop) {
-        frame.origin.y = CGRectGetMinY(containerFrame);
-        frame.origin.y += containerAnchor.isAbsoluteOffset ? offset.y : supplementaryItemEffectiveSize.height * offset.y;
-    }
-    if ((edges & IBPNSDirectionalRectEdgeLeading) == IBPNSDirectionalRectEdgeLeading) {
-        frame.origin.x = CGRectGetMinX(containerFrame);
-        frame.origin.x += containerAnchor.isAbsoluteOffset ? offset.x : supplementaryItemEffectiveSize.width * offset.x;
-    }
-    if ((edges & IBPNSDirectionalRectEdgeBottom) == IBPNSDirectionalRectEdgeBottom) {
-        frame.origin.y = CGRectGetMaxY(containerFrame) - supplementaryItemEffectiveSize.height;
-        frame.origin.y += containerAnchor.isAbsoluteOffset ? offset.y : supplementaryItemEffectiveSize.height * offset.y;
-    }
-    if ((edges & IBPNSDirectionalRectEdgeTrailing) == IBPNSDirectionalRectEdgeTrailing) {
-        frame.origin.x = CGRectGetMaxX(containerFrame) - supplementaryItemEffectiveSize.width;
-        frame.origin.x += containerAnchor.isAbsoluteOffset ? offset.x : supplementaryItemEffectiveSize.width * offset.x;
-    }
-
-    return frame;
 }
 
 @end
