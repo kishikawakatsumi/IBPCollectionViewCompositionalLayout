@@ -2,8 +2,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol IBPNSCollectionLayoutEnvironment;
 @class IBPNSCollectionLayoutGroupCustomItem;
+@protocol IBPNSCollectionLayoutEnvironment;
 
 typedef NSArray<IBPNSCollectionLayoutGroupCustomItem *> * _Nonnull (^IBPNSCollectionLayoutGroupCustomItemProvider)(id<IBPNSCollectionLayoutEnvironment> layoutEnvironment);
 

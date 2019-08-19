@@ -1,6 +1,8 @@
 #import <UIKit/UIKit.h>
 
-@class IBPNSCollectionLayoutGroup, IBPNSCollectionLayoutItem, IBPCollectionViewLayoutBuilderResult;
+@class IBPCollectionViewLayoutBuilderResult;
+@class IBPNSCollectionLayoutGroup;
+@class IBPNSCollectionLayoutItem;
 
 NS_ASSUME_NONNULL_BEGIN
 

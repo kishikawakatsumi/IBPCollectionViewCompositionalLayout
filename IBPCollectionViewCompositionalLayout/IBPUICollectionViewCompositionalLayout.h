@@ -4,11 +4,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol IBPNSCollectionLayoutVisibleItem, NSCollectionLayoutEnvironment, IBPNSCollectionLayoutEnvironment;
-@class IBPUICollectionViewCompositionalLayoutConfiguration, IBPNSCollectionLayoutSection;
+@class IBPNSCollectionLayoutSection;
+@class IBPUICollectionViewCompositionalLayoutConfiguration;
+
+@protocol IBPNSCollectionLayoutEnvironment;
+@protocol IBPNSCollectionLayoutVisibleItem;
 
 typedef IBPNSCollectionLayoutSection * _Nullable (^IBPUICollectionViewCompositionalLayoutSectionProvider)(NSInteger section, id<IBPNSCollectionLayoutEnvironment>);
-typedef void (^IBPNSCollectionLayoutSectionVisibleItemsInvalidationHandler)(NSArray<id<IBPNSCollectionLayoutVisibleItem>> *visibleItems, CGPoint contentOffset, id<IBPNSCollectionLayoutEnvironment> layoutEnvironment);
 
 @interface IBPUICollectionViewCompositionalLayout : UICollectionViewLayout
 
@@ -23,6 +25,8 @@ typedef void (^IBPNSCollectionLayoutSectionVisibleItemsInvalidationHandler)(NSAr
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 
+// Setting this property will invalidate the layout immediately to affect any changes
+//    Note: any changes made to properites directly will have no effect.
 @property (nonatomic, copy) IBPUICollectionViewCompositionalLayoutConfiguration *configuration;
 
 @end

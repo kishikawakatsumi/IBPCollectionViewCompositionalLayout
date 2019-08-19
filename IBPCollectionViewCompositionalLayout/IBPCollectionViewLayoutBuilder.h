@@ -1,6 +1,9 @@
 #import <UIKit/UIKit.h>
 
-@class IBPNSCollectionLayoutSection, IBPNSCollectionLayoutItem, IBPNSCollectionLayoutContainer, IBPUICollectionViewCompositionalLayoutConfiguration;
+@class IBPNSCollectionLayoutContainer;
+@class IBPNSCollectionLayoutItem;
+@class IBPNSCollectionLayoutSection;
+@class IBPUICollectionViewCompositionalLayoutConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 
