@@ -217,6 +217,7 @@
                 CGSize itemSize = [supplementaryItem.layoutSize effectiveSizeForContainer:itemContainer];
                 CGRect itemFrame = [supplementaryItem.containerAnchor itemFrameForContainerRect:cellFrame itemSize:itemSize itemLayoutAnchor:supplementaryItem.itemAnchor];
                 supplementaryViewAttributes.frame = itemFrame;
+                supplementaryViewAttributes.zIndex = supplementaryItem.zIndex;
 
                 [itemAttributes addObject:supplementaryViewAttributes];
             }];

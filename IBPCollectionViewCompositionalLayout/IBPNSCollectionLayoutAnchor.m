@@ -83,24 +83,20 @@ IBPNSDirectionalRectEdge EdgesFromAnchorPoint(CGPoint anchorPoint);
     itemFrame.size = itemSize;
 
     CGPoint offset = self.offset;
-    IBPNSDirectionalRectEdge edges = self.edges;
+    CGPoint anchorPoint = self.anchorPoint;
+    BOOL isUnitOffset = self.offsetIsUnitOffset;
 
-    if ((edges & IBPNSDirectionalRectEdgeTop) == IBPNSDirectionalRectEdgeTop) {
-        itemFrame.origin.y = CGRectGetMinY(containerRect);
-        itemFrame.origin.y += self.isAbsoluteOffset ? offset.y : itemSize.height * offset.y;
-    }
-    if ((edges & IBPNSDirectionalRectEdgeLeading) == IBPNSDirectionalRectEdgeLeading) {
-        itemFrame.origin.x = CGRectGetMinX(containerRect);
-        itemFrame.origin.x += self.isAbsoluteOffset ? offset.x : itemSize.width * offset.x;
-    }
-    if ((edges & IBPNSDirectionalRectEdgeBottom) == IBPNSDirectionalRectEdgeBottom) {
-        itemFrame.origin.y = CGRectGetMaxY(containerRect) - itemSize.height;
-        itemFrame.origin.y += self.isAbsoluteOffset ? offset.y : itemSize.height * offset.y;
-    }
-    if ((edges & IBPNSDirectionalRectEdgeTrailing) == IBPNSDirectionalRectEdgeTrailing) {
-        itemFrame.origin.x = CGRectGetMaxX(containerRect) - itemSize.width;
-        itemFrame.origin.x += self.isAbsoluteOffset ? offset.x : itemSize.width * offset.x;
-    }
+    CGFloat containerWidth = CGRectGetWidth(containerRect);
+    CGFloat containerHeight = CGRectGetHeight(containerRect);
+
+    CGFloat anchorX = anchorPoint.x;
+    CGFloat anchorY = anchorPoint.y;
+
+    CGFloat offsetX = isUnitOffset ? itemSize.width * offset.x : offset.x;
+    CGFloat offsetY = isUnitOffset ? itemSize.height * offset.y : offset.y;
+
+    itemFrame.origin.x = CGRectGetMinX(containerRect) + (containerWidth * anchorX - itemSize.width * anchorX) + offsetX;
+    itemFrame.origin.y = CGRectGetMinY(containerRect) + (containerHeight * anchorY - itemSize.height * anchorY) + offsetY;
 
     return itemFrame;
 }
