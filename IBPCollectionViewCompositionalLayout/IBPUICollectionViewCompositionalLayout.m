@@ -397,9 +397,11 @@
         CGRect insetsContentFrame = contentFrame;
         if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
             insetsContentFrame.origin.y += layoutSection.contentInsets.bottom;
+            insetsContentFrame.origin.y += self.configuration.interSectionSpacing;
         }
         if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
             insetsContentFrame.origin.x += layoutSection.contentInsets.trailing;
+            insetsContentFrame.origin.y += self.configuration.interSectionSpacing;
         }
         contentFrame = CGRectUnion(contentFrame, insetsContentFrame);
         contentFrame = CGRectUnion(contentFrame, contentFrame);
