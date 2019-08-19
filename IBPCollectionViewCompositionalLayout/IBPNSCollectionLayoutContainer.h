@@ -10,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) IBPNSDirectionalEdgeInsets effectiveContentInsets;
 @property (nonatomic, readonly) CGSize effectiveContentSize;
 
-- (id)initWithContentSize:(CGSize)contentSize contentInsets:(IBPNSDirectionalEdgeInsets)contentInsets;
+- (instancetype)initWithContentSize:(CGSize)contentSize contentInsets:(IBPNSDirectionalEdgeInsets)contentInsets;
 
 @end
 

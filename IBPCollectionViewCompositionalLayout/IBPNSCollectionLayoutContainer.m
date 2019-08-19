@@ -9,7 +9,7 @@
 
 @implementation IBPNSCollectionLayoutContainer
 
-- (id)initWithContentSize:(CGSize)contentSize contentInsets:(IBPNSDirectionalEdgeInsets)contentInsets {
+- (instancetype)initWithContentSize:(CGSize)contentSize contentInsets:(IBPNSDirectionalEdgeInsets)contentInsets {
     self = [super init];
     if (self) {
         self.contentSize = contentSize;
@@ -41,6 +41,11 @@
     effectiveContentSize.height -= self.effectiveContentInsets.top + self.effectiveContentInsets.bottom;
 
     return effectiveContentSize;
+}
+
+- (NSString *)description {
+    IBPNSDirectionalEdgeInsets contentInsets = self.contentInsets;
+    return [NSString stringWithFormat:@"<NSCollectionLayoutContainer: %p contentSize=%@; contentInsets:{%g,%g,%g,%g}>", self, NSStringFromCGSize(self.contentSize), contentInsets.top, contentInsets.leading, contentInsets.bottom, contentInsets.trailing];
 }
 
 @end
