@@ -110,10 +110,12 @@
         if ([collectionView respondsToSelector:@selector(safeAreaInsets)]) {
             collectionContentInset = collectionView.safeAreaInsets;
 
-            CGPoint contentOffset = CGPointZero;
-            contentOffset.x = -collectionContentInset.left;
-            contentOffset.y = -collectionContentInset.top;
-            collectionView.contentOffset = contentOffset;
+            if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
+                CGPoint contentOffset = CGPointZero;
+                contentOffset.x = -collectionContentInset.left;
+                contentOffset.y = -collectionContentInset.top;
+                collectionView.contentOffset = contentOffset;
+            }
         }
     }
 
