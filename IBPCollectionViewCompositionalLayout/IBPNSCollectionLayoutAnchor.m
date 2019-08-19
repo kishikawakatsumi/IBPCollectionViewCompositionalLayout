@@ -119,45 +119,17 @@ IBPNSDirectionalRectEdge EdgesFromAnchorPoint(CGPoint anchorPoint);
 
 CGPoint AnchorPointFromEdges(IBPNSDirectionalRectEdge edges) {
     CGPoint anchorPoint = CGPointMake(0.5, 0.5);
-    if (edges == IBPNSDirectionalRectEdgeTop) {
-        anchorPoint.y = 0;
+    if ((edges & IBPNSDirectionalRectEdgeTop) == IBPNSDirectionalRectEdgeTop) {
+        anchorPoint.y -= 0.5;
     }
-    if (edges == IBPNSDirectionalRectEdgeLeading) {
-        anchorPoint.x = 0;
+    if ((edges & IBPNSDirectionalRectEdgeLeading) == IBPNSDirectionalRectEdgeLeading) {
+        anchorPoint.x -= 0.5;
     }
-    if (edges == IBPNSDirectionalRectEdgeTrailing) {
-        anchorPoint.x = 1;
+    if ((edges & IBPNSDirectionalRectEdgeTrailing) == IBPNSDirectionalRectEdgeTrailing) {
+        anchorPoint.x += 0.5;
     }
-    if (edges == IBPNSDirectionalRectEdgeBottom) {
-        anchorPoint.y = 1;
-    }
-    if (edges == (IBPNSDirectionalRectEdgeTop | IBPNSDirectionalRectEdgeLeading)) {
-        anchorPoint.x = 0;
-        anchorPoint.y = 0;
-    }
-    if (edges == (IBPNSDirectionalRectEdgeTop | IBPNSDirectionalRectEdgeTrailing)) {
-        anchorPoint.x = 1;
-        anchorPoint.y = 0;
-    }
-    if (edges == (IBPNSDirectionalRectEdgeBottom | IBPNSDirectionalRectEdgeLeading)) {
-        anchorPoint.x = 0;
-        anchorPoint.y = 1;
-    }
-    if (edges == (IBPNSDirectionalRectEdgeBottom | IBPNSDirectionalRectEdgeTrailing)) {
-        anchorPoint.x = 1;
-        anchorPoint.y = 1;
-    }
-    if (edges == (IBPNSDirectionalRectEdgeTop | IBPNSDirectionalRectEdgeLeading | IBPNSDirectionalRectEdgeTrailing)) {
-        anchorPoint.y = 0;
-    }
-    if (edges == (IBPNSDirectionalRectEdgeBottom | IBPNSDirectionalRectEdgeLeading | IBPNSDirectionalRectEdgeTrailing)) {
-        anchorPoint.y = 1;
-    }
-    if (edges == (IBPNSDirectionalRectEdgeTop | IBPNSDirectionalRectEdgeBottom | IBPNSDirectionalRectEdgeLeading)) {
-        anchorPoint.x = 0;
-    }
-    if (edges == (IBPNSDirectionalRectEdgeTop | IBPNSDirectionalRectEdgeBottom | IBPNSDirectionalRectEdgeTrailing)) {
-        anchorPoint.x = 1;
+    if ((edges & IBPNSDirectionalRectEdgeBottom) == IBPNSDirectionalRectEdgeBottom) {
+        anchorPoint.y += 0.5;
     }
     return anchorPoint;
 }
