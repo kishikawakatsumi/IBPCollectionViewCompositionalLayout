@@ -4,8 +4,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IBPNSCollectionLayoutSpacing : NSObject<NSCopying>
 
-+ (instancetype)flexibleSpacing:(CGFloat)flexibleSpacing NS_SWIFT_NAME(flexible(_:));
-+ (instancetype)fixedSpacing:(CGFloat)fixedSpacing NS_SWIFT_NAME(fixed(_:));
++ (instancetype)flexibleSpacing:(CGFloat)flexibleSpacing NS_SWIFT_NAME(flexible(_:)); // i.e. >=
++ (instancetype)fixedSpacing:(CGFloat)fixedSpacing NS_SWIFT_NAME(fixed(_:));          // i.e. ==
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;

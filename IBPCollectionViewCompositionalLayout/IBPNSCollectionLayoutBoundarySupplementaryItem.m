@@ -53,6 +53,8 @@
         self.elementKind = elementKind;
         self.alignment = alignment;
         self.offset = absoluteOffset;
+        self.extendsBoundary = YES;
+        self.pinToVisibleBounds = NO;
     }
     return self;
 }
