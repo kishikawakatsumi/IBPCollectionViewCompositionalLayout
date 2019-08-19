@@ -43,7 +43,6 @@
     CGSize collectionContentSize = container.effectiveContentSize;
 
     IBPNSDirectionalEdgeInsets sectionContentInsets = self.section.contentInsets;
-
     IBPNSCollectionLayoutContainer *sectionContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:collectionContentSize contentInsets:sectionContentInsets];
 
     IBPNSCollectionLayoutSection *section = self.section;
