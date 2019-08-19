@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
                contentInsets:(IBPNSDirectionalEdgeInsets)contentInsets
                  elementKind:(NSString *)elementKind
              containerAnchor:(IBPNSCollectionLayoutAnchor *)containerAnchor
-                  itemAnchor:(IBPNSCollectionLayoutAnchor *)itemAnchor
+                  itemAnchor:(nullable IBPNSCollectionLayoutAnchor *)itemAnchor
                       zIndex:(NSInteger)zIndex;
 
 @end
