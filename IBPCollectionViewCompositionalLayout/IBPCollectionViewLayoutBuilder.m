@@ -87,13 +87,13 @@
                 if (floor(CGRectGetMaxX(currentItemFrame)) > floor(CGRectGetMaxX(containerFrame))) {
                     return;
                 }
-                itemSize.width = (containerFrame.size.width - interItemSpacing * (group.count - 1)) / group.count;
+                itemSize.width = (CGRectGetWidth(containerFrame) - interItemSpacing * (group.count - 1)) / group.count;
             }
             if (group.isVerticalGroup) {
                 if (floor(CGRectGetMaxX(currentItemFrame)) > floor(CGRectGetMaxX(containerFrame))) {
                     return;
                 }
-                itemSize.height = (containerFrame.size.height - interItemSpacing * (group.count - 1)) / group.count;
+                itemSize.height = (CGRectGetHeight(containerFrame) - interItemSpacing * (group.count - 1)) / group.count;
             }
 
             CGRect nestedContainerFrame = containerFrame;
@@ -120,13 +120,13 @@
                 return;
             }
 
-            itemSize.width = (containerFrame.size.width - interItemSpacing * (group.count - 1)) / group.count;
+            itemSize.width = (CGRectGetWidth(containerFrame) - interItemSpacing * (group.count - 1)) / group.count;
             currentItemFrame.size = itemSize;
 
             for (NSInteger i = 0; i < group.count; i++) {
                 CGRect cellFrame = UIEdgeInsetsInsetRect(currentItemFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.trailing, contentInsets.bottom));
                 [self.state.itemResults addObject:[IBPCollectionViewLayoutBuilderResult resultWithLayoutItem:item frame:cellFrame]];
-                currentItemFrame.origin.x += interItemSpacing + currentItemFrame.size.width;
+                currentItemFrame.origin.x += interItemSpacing + CGRectGetWidth(currentItemFrame);
             }
         }
         if (group.isVerticalGroup) {
@@ -134,13 +134,13 @@
                 return;
             }
 
-            itemSize.height = (containerFrame.size.height - interItemSpacing * (group.count - 1)) / group.count;
+            itemSize.height = (CGRectGetHeight(containerFrame) - interItemSpacing * (group.count - 1)) / group.count;
             currentItemFrame.size = itemSize;
 
             for (NSInteger i = 0; i < group.count; i++) {
                 CGRect cellFrame = UIEdgeInsetsInsetRect(currentItemFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.trailing, contentInsets.bottom));
                 [self.state.itemResults addObject:[IBPCollectionViewLayoutBuilderResult resultWithLayoutItem:item frame:cellFrame]];
-                currentItemFrame.origin.y += interItemSpacing + currentItemFrame.size.height;
+                currentItemFrame.origin.y += interItemSpacing + CGRectGetHeight(currentItemFrame);
             }
         }
     } else {
@@ -213,7 +213,7 @@
 
                 CGRect cellFrame = UIEdgeInsetsInsetRect(currentItemFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.trailing, contentInsets.bottom));
                 [self.state.itemResults addObject:[IBPCollectionViewLayoutBuilderResult resultWithLayoutItem:item frame:cellFrame]];
-                currentItemFrame.origin.x += currentItemFrame.size.width;
+                currentItemFrame.origin.x += CGRectGetWidth(currentItemFrame);
             }
             if (group.isVerticalGroup) {
                 if (floor(CGRectGetMaxY(currentItemFrame)) > floor(CGRectGetMaxY(containerFrame))) {
@@ -223,7 +223,7 @@
 
                 CGRect cellFrame = UIEdgeInsetsInsetRect(currentItemFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.trailing, contentInsets.bottom));
                 [self.state.itemResults addObject:[IBPCollectionViewLayoutBuilderResult resultWithLayoutItem:item frame:cellFrame]];
-                currentItemFrame.origin.y += currentItemFrame.size.height;
+                currentItemFrame.origin.y += CGRectGetHeight(currentItemFrame);
             }
         }];
     }
@@ -242,10 +242,10 @@
         scrollDirection = scrollDirection == UICollectionViewScrollDirectionVertical ? UICollectionViewScrollDirectionHorizontal : UICollectionViewScrollDirectionVertical;
     }
     if (scrollDirection == UICollectionViewScrollDirectionVertical) {
-        offset.y += self.state.rootGroupFrame.size.height * (indexPath.item / itemCount) + interGroupSpacing * (indexPath.row / itemCount);
+        offset.y += CGRectGetHeight(self.state.rootGroupFrame) * (indexPath.item / itemCount) + interGroupSpacing * (indexPath.row / itemCount);
     }
     if (scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-        offset.x += self.state.rootGroupFrame.size.width * (indexPath.item / itemCount) + interGroupSpacing * (indexPath.row / itemCount);
+        offset.x += CGRectGetWidth(self.state.rootGroupFrame) * (indexPath.item / itemCount) + interGroupSpacing * (indexPath.row / itemCount);
     }
 
     UICollectionViewLayoutAttributes *layoutAttributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
@@ -280,16 +280,19 @@
     CGRect rootGroupFrame = self.state.rootGroupFrame;
     CGFloat interGroupSpacing = self.section.interGroupSpacing;
 
+    CGFloat groupWidth = CGRectGetWidth(rootGroupFrame);
+    CGFloat groupHeight = CGRectGetHeight(rootGroupFrame);
+
     BOOL scrollsOrthogonally = self.section.scrollsOrthogonally;
     UICollectionViewScrollDirection scrollDirection = self.state.scrollDirection;
     if (scrollsOrthogonally) {
         scrollDirection = scrollDirection == UICollectionViewScrollDirectionVertical ? UICollectionViewScrollDirectionHorizontal : UICollectionViewScrollDirectionVertical;
     }
     if (scrollDirection == UICollectionViewScrollDirectionVertical) {
-        targetContentOffset.y += rootGroupFrame.size.height * floor(proposedContentOffset.y / rootGroupFrame.size.height) + interGroupSpacing * floor(proposedContentOffset.y / rootGroupFrame.size.height) + rootGroupFrame.size.height * (translation.y < 0 ? 1 : 0);
+        targetContentOffset.y += groupHeight * floor(proposedContentOffset.y / groupHeight) + interGroupSpacing * floor(proposedContentOffset.y / groupHeight) + groupHeight * (translation.y < 0 ? 1 : 0);
     }
     if (scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-        targetContentOffset.x += rootGroupFrame.size.width * floor(proposedContentOffset.x / rootGroupFrame.size.width) + interGroupSpacing * floor(proposedContentOffset.x / rootGroupFrame.size.width) + rootGroupFrame.size.width * (translation.x < 0 ? 1 : 0);
+        targetContentOffset.x += groupWidth * floor(proposedContentOffset.x / groupWidth) + interGroupSpacing * floor(proposedContentOffset.x / groupWidth) + groupWidth * (translation.x < 0 ? 1 : 0);
     }
 
     return targetContentOffset;
@@ -303,12 +306,15 @@
     CGRect rootGroupFrame = self.state.rootGroupFrame;
     CGFloat interGroupSpacing = self.section.interGroupSpacing;
 
+    CGFloat groupWidth = CGRectGetWidth(rootGroupFrame);
+    CGFloat groupHeight = CGRectGetHeight(rootGroupFrame);
+
     if (fabs(velocity.x) > 0.2) {
-        translation.x = rootGroupFrame.size.width / 2 * (translation.x < 0 ? -1 : 1);
+        translation.x = groupWidth / 2 * (translation.x < 0 ? -1 : 1);
     }
 
-    targetContentOffset.x += rootGroupFrame.size.width * round((proposedContentOffset.x + translation.x) / rootGroupFrame.size.width);
-    targetContentOffset.y += rootGroupFrame.size.height * round((proposedContentOffset.y + translation.y) / rootGroupFrame.size.height);
+    targetContentOffset.x += groupWidth * round((proposedContentOffset.x + translation.x) / groupWidth);
+    targetContentOffset.y += groupHeight * round((proposedContentOffset.y + translation.y) / groupHeight);
 
     BOOL scrollsOrthogonally = self.section.scrollsOrthogonally;
     UICollectionViewScrollDirection scrollDirection = self.state.scrollDirection;
@@ -316,10 +322,10 @@
         scrollDirection = scrollDirection == UICollectionViewScrollDirectionVertical ? UICollectionViewScrollDirectionHorizontal : UICollectionViewScrollDirectionVertical;
     }
     if (scrollDirection == UICollectionViewScrollDirectionVertical) {
-        targetContentOffset.y += rootGroupFrame.size.height * round(-translation.y / (rootGroupFrame.size.height / 2)) + interGroupSpacing * round(-translation.y / (rootGroupFrame.size.height / 2));
+        targetContentOffset.y += groupHeight * round(-translation.y / (groupHeight / 2)) + interGroupSpacing * round(-translation.y / (groupHeight / 2));
     }
     if (scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-        targetContentOffset.x += rootGroupFrame.size.width * round(-translation.x / (rootGroupFrame.size.width / 2)) + interGroupSpacing * round(-translation.x / (rootGroupFrame.size.width / 2));
+        targetContentOffset.x += groupWidth * round(-translation.x / (groupWidth / 2)) + interGroupSpacing * round(-translation.x / (groupWidth / 2));
     }
 
     return targetContentOffset;
@@ -335,12 +341,15 @@
     CGRect rootGroupFrame = self.state.rootGroupFrame;
     CGFloat interGroupSpacing = self.section.interGroupSpacing;
 
+    CGFloat groupWidth = CGRectGetWidth(rootGroupFrame);
+    CGFloat groupHeight = CGRectGetHeight(rootGroupFrame);
+
     if (fabs(velocity.x) > 0.2) {
-        translation.x = rootGroupFrame.size.width / 2 * (translation.x < 0 ? -1 : 1);
+        translation.x = groupWidth / 2 * (translation.x < 0 ? -1 : 1);
     }
 
-    targetContentOffset.x += rootGroupFrame.size.width * round((proposedContentOffset.x + translation.x) / rootGroupFrame.size.width);
-    targetContentOffset.y += rootGroupFrame.size.height * round((proposedContentOffset.y + translation.y) / rootGroupFrame.size.height);
+    targetContentOffset.x += groupWidth * round((proposedContentOffset.x + translation.x) / groupWidth);
+    targetContentOffset.y += groupHeight * round((proposedContentOffset.y + translation.y) / groupHeight);
 
     BOOL scrollsOrthogonally = self.section.scrollsOrthogonally;
     UICollectionViewScrollDirection scrollDirection = self.state.scrollDirection;
@@ -348,10 +357,10 @@
         scrollDirection = scrollDirection == UICollectionViewScrollDirectionVertical ? UICollectionViewScrollDirectionHorizontal : UICollectionViewScrollDirectionVertical;
     }
     if (scrollDirection == UICollectionViewScrollDirectionVertical) {
-        targetContentOffset.y += rootGroupFrame.size.height * round(-translation.y / (rootGroupFrame.size.height / 2)) + interGroupSpacing * round(-translation.y / (rootGroupFrame.size.height / 2)) - (containerSize.height - rootGroupFrame.size.height) / 2;
+        targetContentOffset.y += groupHeight * round(-translation.y / (groupHeight / 2)) + interGroupSpacing * round(-translation.y / (groupHeight / 2)) - (containerSize.height - groupHeight) / 2;
     }
     if (scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-        targetContentOffset.x += rootGroupFrame.size.width * round(-translation.x / (rootGroupFrame.size.width / 2)) + interGroupSpacing * round(-translation.x / (rootGroupFrame.size.width / 2)) - (containerSize.width - rootGroupFrame.size.width) / 2;
+        targetContentOffset.x += groupWidth * round(-translation.x / (groupWidth / 2)) + interGroupSpacing * round(-translation.x / (groupWidth / 2)) - (containerSize.width - groupWidth) / 2;
     }
 
     return targetContentOffset;

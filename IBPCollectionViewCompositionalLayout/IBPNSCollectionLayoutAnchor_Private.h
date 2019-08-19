@@ -10,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (CGRect)itemFrameForContainerRect:(CGRect)containerRect
                            itemSize:(CGSize)itemSize
-                   itemLayoutAnchor:(IBPNSCollectionLayoutAnchor *)itemLayoutAnchor;
+                   itemLayoutAnchor:(nullable IBPNSCollectionLayoutAnchor *)itemLayoutAnchor;
 
 @end
 

@@ -1,17 +1,6 @@
 #import "IBPNSCollectionLayoutSupplementaryItem_Private.h"
 #import "IBPNSCollectionLayoutItem_Private.h"
 
-@interface IBPNSCollectionLayoutSupplementaryItem()
-
-- (instancetype)initWithSize:(IBPNSCollectionLayoutSize *)size
-               contentInsets:(IBPNSDirectionalEdgeInsets)contentInsets
-                 elementKind:(NSString *)elementKind
-             containerAnchor:(IBPNSCollectionLayoutAnchor *)containerAnchor
-                  itemAnchor:(IBPNSCollectionLayoutAnchor *)itemAnchor
-                      zIndex:(NSInteger)zIndex;
-
-@end
-
 @implementation IBPNSCollectionLayoutSupplementaryItem
 
 + (instancetype)supplementaryItemWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
