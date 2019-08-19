@@ -1,7 +1,7 @@
 #import "IBPCollectionViewOrthogonalScrollerSectionController.h"
 #import "IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.h"
 
-@implementation UICollectionViewOrthogonalScrollerSectionController
+@implementation IBPCollectionViewOrthogonalScrollerSectionController
 
 - (instancetype)initWithSectionIndex:(NSInteger)sectionIndex
                       collectionView:(UICollectionView *)collectionView

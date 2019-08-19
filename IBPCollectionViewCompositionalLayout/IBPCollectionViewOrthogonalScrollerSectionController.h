@@ -4,7 +4,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UICollectionViewOrthogonalScrollerSectionController: NSObject<UICollectionViewDataSource>
+@interface IBPCollectionViewOrthogonalScrollerSectionController: NSObject<UICollectionViewDataSource>
 
 @property (nonatomic, weak) UICollectionView *collectionView;
 @property (nonatomic) IBPCollectionViewOrthogonalScrollerEmbeddedScrollView *scrollView;
