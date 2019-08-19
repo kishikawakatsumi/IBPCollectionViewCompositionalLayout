@@ -18,16 +18,16 @@
 		143A2D5122F9CBB300F8904D /* IBPCollectionViewOrthogonalScrollerSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D1C22F9CBB000F8904D /* IBPCollectionViewOrthogonalScrollerSectionController.m */; };
 		143A2D5222F9CBB300F8904D /* IBPNSCollectionLayoutAnchor.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D1D22F9CBB000F8904D /* IBPNSCollectionLayoutAnchor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		143A2D5322F9CBB300F8904D /* IBPNSCollectionLayoutSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D1E22F9CBB000F8904D /* IBPNSCollectionLayoutSection.m */; };
-		143A2D5422F9CBB300F8904D /* IBPCollectionViewLayoutBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D1F22F9CBB100F8904D /* IBPCollectionViewLayoutBuilder.m */; };
+		143A2D5422F9CBB300F8904D /* IBPCollectionCompositionalLayoutSolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D1F22F9CBB100F8904D /* IBPCollectionCompositionalLayoutSolver.m */; };
 		143A2D5522F9CBB300F8904D /* IBPNSCollectionLayoutGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D2022F9CBB100F8904D /* IBPNSCollectionLayoutGroup.m */; };
 		143A2D5622F9CBB300F8904D /* IBPNSCollectionLayoutSpacing.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D2122F9CBB100F8904D /* IBPNSCollectionLayoutSpacing.m */; };
 		143A2D5722F9CBB300F8904D /* IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D2222F9CBB100F8904D /* IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.m */; };
 		143A2D5822F9CBB300F8904D /* IBPNSCollectionLayoutSupplementaryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D2322F9CBB100F8904D /* IBPNSCollectionLayoutSupplementaryItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		143A2D5922F9CBB300F8904D /* IBPCollectionViewLayoutBuilderResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D2422F9CBB100F8904D /* IBPCollectionViewLayoutBuilderResult.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		143A2D5922F9CBB300F8904D /* IBPCollectionCompositionalLayoutSolverResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D2422F9CBB100F8904D /* IBPCollectionCompositionalLayoutSolverResult.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		143A2D5A22F9CBB300F8904D /* IBPNSCollectionLayoutEnvironment.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D2522F9CBB100F8904D /* IBPNSCollectionLayoutEnvironment.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		143A2D5B22F9CBB300F8904D /* IBPNSCollectionLayoutBoundarySupplementaryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D2622F9CBB100F8904D /* IBPNSCollectionLayoutBoundarySupplementaryItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		143A2D5C22F9CBB300F8904D /* IBPCollectionViewLayoutBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D2722F9CBB100F8904D /* IBPCollectionViewLayoutBuilder.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		143A2D5D22F9CBB300F8904D /* IBPCollectionViewLayoutBuilderState.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D2822F9CBB100F8904D /* IBPCollectionViewLayoutBuilderState.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		143A2D5C22F9CBB300F8904D /* IBPCollectionCompositionalLayoutSolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D2722F9CBB100F8904D /* IBPCollectionCompositionalLayoutSolver.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		143A2D5D22F9CBB300F8904D /* IBPCollectionCompositionalLayoutSolverState.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D2822F9CBB100F8904D /* IBPCollectionCompositionalLayoutSolverState.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		143A2D5E22F9CBB300F8904D /* IBPNSCollectionLayoutGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D2922F9CBB100F8904D /* IBPNSCollectionLayoutGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		143A2D5F22F9CBB300F8904D /* IBPNSCollectionLayoutEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D2A22F9CBB100F8904D /* IBPNSCollectionLayoutEnvironment.m */; };
 		143A2D6022F9CBB300F8904D /* IBPNSCollectionLayoutDimension.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D2B22F9CBB100F8904D /* IBPNSCollectionLayoutDimension.m */; };
@@ -48,13 +48,13 @@
 		143A2D6F22F9CBB300F8904D /* IBPNSCollectionLayoutGroupCustomItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D3A22F9CBB200F8904D /* IBPNSCollectionLayoutGroupCustomItem.m */; };
 		143A2D7022F9CBB300F8904D /* IBPNSCollectionLayoutSection.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D3B22F9CBB200F8904D /* IBPNSCollectionLayoutSection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		143A2D7122F9CBB300F8904D /* IBPNSCollectionLayoutContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D3C22F9CBB200F8904D /* IBPNSCollectionLayoutContainer.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		143A2D7222F9CBB300F8904D /* IBPCollectionViewLayoutBuilderState.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D3D22F9CBB200F8904D /* IBPCollectionViewLayoutBuilderState.m */; };
+		143A2D7222F9CBB300F8904D /* IBPCollectionCompositionalLayoutSolverState.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D3D22F9CBB200F8904D /* IBPCollectionCompositionalLayoutSolverState.m */; };
 		143A2D7322F9CBB300F8904D /* IBPUICollectionViewCompositionalLayoutConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D3E22F9CBB200F8904D /* IBPUICollectionViewCompositionalLayoutConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		143A2D7422F9CBB300F8904D /* IBPUICollectionViewCompositionalLayoutConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D3F22F9CBB200F8904D /* IBPUICollectionViewCompositionalLayoutConfiguration.m */; };
 		143A2D7522F9CBB300F8904D /* IBPNSCollectionLayoutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D4022F9CBB200F8904D /* IBPNSCollectionLayoutItem.m */; };
 		143A2D7622F9CBB300F8904D /* IBPNSCollectionLayoutVisibleItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D4122F9CBB200F8904D /* IBPNSCollectionLayoutVisibleItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		143A2D7722F9CBB300F8904D /* IBPNSCollectionLayoutDimension.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D4222F9CBB200F8904D /* IBPNSCollectionLayoutDimension.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		143A2D7822F9CBB300F8904D /* IBPCollectionViewLayoutBuilderResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D4322F9CBB200F8904D /* IBPCollectionViewLayoutBuilderResult.m */; };
+		143A2D7822F9CBB300F8904D /* IBPCollectionCompositionalLayoutSolverResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D4322F9CBB200F8904D /* IBPCollectionCompositionalLayoutSolverResult.m */; };
 		143A2D7922F9CBB300F8904D /* IBPNSCollectionLayoutAnchor.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D4422F9CBB300F8904D /* IBPNSCollectionLayoutAnchor.m */; };
 		143A2D7A22F9CBB300F8904D /* IBPNSCollectionLayoutSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D4522F9CBB300F8904D /* IBPNSCollectionLayoutSize.m */; };
 		143A2D7B22F9CBB300F8904D /* IBPNSCollectionLayoutContainer_Protocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 143A2D4622F9CBB300F8904D /* IBPNSCollectionLayoutContainer_Protocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -97,16 +97,16 @@
 		143A2D1C22F9CBB000F8904D /* IBPCollectionViewOrthogonalScrollerSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBPCollectionViewOrthogonalScrollerSectionController.m; sourceTree = "<group>"; };
 		143A2D1D22F9CBB000F8904D /* IBPNSCollectionLayoutAnchor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPNSCollectionLayoutAnchor.h; sourceTree = "<group>"; };
 		143A2D1E22F9CBB000F8904D /* IBPNSCollectionLayoutSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBPNSCollectionLayoutSection.m; sourceTree = "<group>"; };
-		143A2D1F22F9CBB100F8904D /* IBPCollectionViewLayoutBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBPCollectionViewLayoutBuilder.m; sourceTree = "<group>"; };
+		143A2D1F22F9CBB100F8904D /* IBPCollectionCompositionalLayoutSolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBPCollectionCompositionalLayoutSolver.m; sourceTree = "<group>"; };
 		143A2D2022F9CBB100F8904D /* IBPNSCollectionLayoutGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBPNSCollectionLayoutGroup.m; sourceTree = "<group>"; };
 		143A2D2122F9CBB100F8904D /* IBPNSCollectionLayoutSpacing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBPNSCollectionLayoutSpacing.m; sourceTree = "<group>"; };
 		143A2D2222F9CBB100F8904D /* IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.m; sourceTree = "<group>"; };
 		143A2D2322F9CBB100F8904D /* IBPNSCollectionLayoutSupplementaryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPNSCollectionLayoutSupplementaryItem.h; sourceTree = "<group>"; };
-		143A2D2422F9CBB100F8904D /* IBPCollectionViewLayoutBuilderResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPCollectionViewLayoutBuilderResult.h; sourceTree = "<group>"; };
+		143A2D2422F9CBB100F8904D /* IBPCollectionCompositionalLayoutSolverResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPCollectionCompositionalLayoutSolverResult.h; sourceTree = "<group>"; };
 		143A2D2522F9CBB100F8904D /* IBPNSCollectionLayoutEnvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPNSCollectionLayoutEnvironment.h; sourceTree = "<group>"; };
 		143A2D2622F9CBB100F8904D /* IBPNSCollectionLayoutBoundarySupplementaryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPNSCollectionLayoutBoundarySupplementaryItem.h; sourceTree = "<group>"; };
-		143A2D2722F9CBB100F8904D /* IBPCollectionViewLayoutBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPCollectionViewLayoutBuilder.h; sourceTree = "<group>"; };
-		143A2D2822F9CBB100F8904D /* IBPCollectionViewLayoutBuilderState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPCollectionViewLayoutBuilderState.h; sourceTree = "<group>"; };
+		143A2D2722F9CBB100F8904D /* IBPCollectionCompositionalLayoutSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPCollectionCompositionalLayoutSolver.h; sourceTree = "<group>"; };
+		143A2D2822F9CBB100F8904D /* IBPCollectionCompositionalLayoutSolverState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPCollectionCompositionalLayoutSolverState.h; sourceTree = "<group>"; };
 		143A2D2922F9CBB100F8904D /* IBPNSCollectionLayoutGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPNSCollectionLayoutGroup.h; sourceTree = "<group>"; };
 		143A2D2A22F9CBB100F8904D /* IBPNSCollectionLayoutEnvironment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBPNSCollectionLayoutEnvironment.m; sourceTree = "<group>"; };
 		143A2D2B22F9CBB100F8904D /* IBPNSCollectionLayoutDimension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBPNSCollectionLayoutDimension.m; sourceTree = "<group>"; };
@@ -127,13 +127,13 @@
 		143A2D3A22F9CBB200F8904D /* IBPNSCollectionLayoutGroupCustomItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBPNSCollectionLayoutGroupCustomItem.m; sourceTree = "<group>"; };
 		143A2D3B22F9CBB200F8904D /* IBPNSCollectionLayoutSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPNSCollectionLayoutSection.h; sourceTree = "<group>"; };
 		143A2D3C22F9CBB200F8904D /* IBPNSCollectionLayoutContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPNSCollectionLayoutContainer.h; sourceTree = "<group>"; };
-		143A2D3D22F9CBB200F8904D /* IBPCollectionViewLayoutBuilderState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBPCollectionViewLayoutBuilderState.m; sourceTree = "<group>"; };
+		143A2D3D22F9CBB200F8904D /* IBPCollectionCompositionalLayoutSolverState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBPCollectionCompositionalLayoutSolverState.m; sourceTree = "<group>"; };
 		143A2D3E22F9CBB200F8904D /* IBPUICollectionViewCompositionalLayoutConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPUICollectionViewCompositionalLayoutConfiguration.h; sourceTree = "<group>"; };
 		143A2D3F22F9CBB200F8904D /* IBPUICollectionViewCompositionalLayoutConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBPUICollectionViewCompositionalLayoutConfiguration.m; sourceTree = "<group>"; };
 		143A2D4022F9CBB200F8904D /* IBPNSCollectionLayoutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBPNSCollectionLayoutItem.m; sourceTree = "<group>"; };
 		143A2D4122F9CBB200F8904D /* IBPNSCollectionLayoutVisibleItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPNSCollectionLayoutVisibleItem.h; sourceTree = "<group>"; };
 		143A2D4222F9CBB200F8904D /* IBPNSCollectionLayoutDimension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPNSCollectionLayoutDimension.h; sourceTree = "<group>"; };
-		143A2D4322F9CBB200F8904D /* IBPCollectionViewLayoutBuilderResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBPCollectionViewLayoutBuilderResult.m; sourceTree = "<group>"; };
+		143A2D4322F9CBB200F8904D /* IBPCollectionCompositionalLayoutSolverResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBPCollectionCompositionalLayoutSolverResult.m; sourceTree = "<group>"; };
 		143A2D4422F9CBB300F8904D /* IBPNSCollectionLayoutAnchor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBPNSCollectionLayoutAnchor.m; sourceTree = "<group>"; };
 		143A2D4522F9CBB300F8904D /* IBPNSCollectionLayoutSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBPNSCollectionLayoutSize.m; sourceTree = "<group>"; };
 		143A2D4622F9CBB300F8904D /* IBPNSCollectionLayoutContainer_Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBPNSCollectionLayoutContainer_Protocol.h; sourceTree = "<group>"; };
@@ -242,12 +242,12 @@
 				143A2D3E22F9CBB200F8904D /* IBPUICollectionViewCompositionalLayoutConfiguration.h */,
 				145DA018230479C700A044D2 /* IBPUICollectionViewCompositionalLayoutConfiguration_Private.h */,
 				143A2D3F22F9CBB200F8904D /* IBPUICollectionViewCompositionalLayoutConfiguration.m */,
-				143A2D2722F9CBB100F8904D /* IBPCollectionViewLayoutBuilder.h */,
-				143A2D1F22F9CBB100F8904D /* IBPCollectionViewLayoutBuilder.m */,
-				143A2D2422F9CBB100F8904D /* IBPCollectionViewLayoutBuilderResult.h */,
-				143A2D4322F9CBB200F8904D /* IBPCollectionViewLayoutBuilderResult.m */,
-				143A2D2822F9CBB100F8904D /* IBPCollectionViewLayoutBuilderState.h */,
-				143A2D3D22F9CBB200F8904D /* IBPCollectionViewLayoutBuilderState.m */,
+				143A2D2722F9CBB100F8904D /* IBPCollectionCompositionalLayoutSolver.h */,
+				143A2D1F22F9CBB100F8904D /* IBPCollectionCompositionalLayoutSolver.m */,
+				143A2D2422F9CBB100F8904D /* IBPCollectionCompositionalLayoutSolverResult.h */,
+				143A2D4322F9CBB200F8904D /* IBPCollectionCompositionalLayoutSolverResult.m */,
+				143A2D2822F9CBB100F8904D /* IBPCollectionCompositionalLayoutSolverState.h */,
+				143A2D3D22F9CBB200F8904D /* IBPCollectionCompositionalLayoutSolverState.m */,
 				143A2D3022F9CBB100F8904D /* IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.h */,
 				143A2D2222F9CBB100F8904D /* IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.m */,
 				143A2D2C22F9CBB100F8904D /* IBPCollectionViewOrthogonalScrollerSectionController.h */,
@@ -275,10 +275,10 @@
 			files = (
 				143A2D4D22F9CBB300F8904D /* IBPNSCollectionLayoutGroupCustomItem.h in Headers */,
 				143A2D5A22F9CBB300F8904D /* IBPNSCollectionLayoutEnvironment.h in Headers */,
-				143A2D5C22F9CBB300F8904D /* IBPCollectionViewLayoutBuilder.h in Headers */,
+				143A2D5C22F9CBB300F8904D /* IBPCollectionCompositionalLayoutSolver.h in Headers */,
 				143A2D5222F9CBB300F8904D /* IBPNSCollectionLayoutAnchor.h in Headers */,
 				143A2D6522F9CBB300F8904D /* IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.h in Headers */,
-				143A2D5D22F9CBB300F8904D /* IBPCollectionViewLayoutBuilderState.h in Headers */,
+				143A2D5D22F9CBB300F8904D /* IBPCollectionCompositionalLayoutSolverState.h in Headers */,
 				143A2D7722F9CBB300F8904D /* IBPNSCollectionLayoutDimension.h in Headers */,
 				143A2D5E22F9CBB300F8904D /* IBPNSCollectionLayoutGroup.h in Headers */,
 				143A2D6622F9CBB300F8904D /* IBPNSCollectionLayoutDecorationItem.h in Headers */,
@@ -305,7 +305,7 @@
 				143A2D6A22F9CBB300F8904D /* IBPUICollectionLayoutSectionOrthogonalScrollingBehavior.h in Headers */,
 				14F3F7972300542B0096D032 /* IBPNSCollectionLayoutForwardCompatibility.h in Headers */,
 				143A2D0E22F9C81D00F8904D /* IBPCollectionViewCompositionalLayout.h in Headers */,
-				143A2D5922F9CBB300F8904D /* IBPCollectionViewLayoutBuilderResult.h in Headers */,
+				143A2D5922F9CBB300F8904D /* IBPCollectionCompositionalLayoutSolverResult.h in Headers */,
 				143A2D6222F9CBB300F8904D /* IBPUICollectionViewCompositionalLayout.h in Headers */,
 				143A2D5B22F9CBB300F8904D /* IBPNSCollectionLayoutBoundarySupplementaryItem.h in Headers */,
 				147537C7230A6A1300337C1B /* IBPNSCollectionLayoutAnchor_Private.h in Headers */,
@@ -413,7 +413,7 @@
 			files = (
 				143A2D7D22F9CBB300F8904D /* IBPNSCollectionLayoutContainer.m in Sources */,
 				143A2D7922F9CBB300F8904D /* IBPNSCollectionLayoutAnchor.m in Sources */,
-				143A2D7222F9CBB300F8904D /* IBPCollectionViewLayoutBuilderState.m in Sources */,
+				143A2D7222F9CBB300F8904D /* IBPCollectionCompositionalLayoutSolverState.m in Sources */,
 				143A2D5622F9CBB300F8904D /* IBPNSCollectionLayoutSpacing.m in Sources */,
 				143A2D6722F9CBB300F8904D /* IBPNSCollectionLayoutDecorationItem.m in Sources */,
 				143A2D8022F9CBB300F8904D /* IBPNSCollectionLayoutSupplementaryItem.m in Sources */,
@@ -423,8 +423,8 @@
 				143A2D5722F9CBB300F8904D /* IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.m in Sources */,
 				143A2D6322F9CBB300F8904D /* IBPUICollectionViewCompositionalLayout.m in Sources */,
 				143A2D6E22F9CBB300F8904D /* IBPNSCollectionLayoutBoundarySupplementaryItem.m in Sources */,
-				143A2D7822F9CBB300F8904D /* IBPCollectionViewLayoutBuilderResult.m in Sources */,
-				143A2D5422F9CBB300F8904D /* IBPCollectionViewLayoutBuilder.m in Sources */,
+				143A2D7822F9CBB300F8904D /* IBPCollectionCompositionalLayoutSolverResult.m in Sources */,
+				143A2D5422F9CBB300F8904D /* IBPCollectionCompositionalLayoutSolver.m in Sources */,
 				143A2D5322F9CBB300F8904D /* IBPNSCollectionLayoutSection.m in Sources */,
 				143A2D5522F9CBB300F8904D /* IBPNSCollectionLayoutGroup.m in Sources */,
 				143A2D5122F9CBB300F8904D /* IBPCollectionViewOrthogonalScrollerSectionController.m in Sources */,

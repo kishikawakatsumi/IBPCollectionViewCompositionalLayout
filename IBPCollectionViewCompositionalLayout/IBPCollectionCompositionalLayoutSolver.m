@@ -1,6 +1,6 @@
-#import "IBPCollectionViewLayoutBuilder.h"
-#import "IBPCollectionViewLayoutBuilderState.h"
-#import "IBPCollectionViewLayoutBuilderResult.h"
+#import "IBPCollectionCompositionalLayoutSolver.h"
+#import "IBPCollectionCompositionalLayoutSolverState.h"
+#import "IBPCollectionCompositionalLayoutSolverResult.h"
 #import "IBPNSCollectionLayoutAnchor.h"
 #import "IBPNSCollectionLayoutContainer.h"
 #import "IBPNSCollectionLayoutDimension.h"
@@ -12,15 +12,15 @@
 #import "IBPNSCollectionLayoutSupplementaryItem.h"
 #import "IBPUICollectionViewCompositionalLayoutConfiguration.h"
 
-@interface IBPCollectionViewLayoutBuilder()
+@interface IBPCollectionCompositionalLayoutSolver()
 
 @property (nonatomic, readwrite, copy) IBPNSCollectionLayoutSection *section;
 @property (nonatomic, readwrite, copy) IBPUICollectionViewCompositionalLayoutConfiguration *configuration;
-@property (nonatomic) IBPCollectionViewLayoutBuilderState *state;
+@property (nonatomic) IBPCollectionCompositionalLayoutSolverState *state;
 
 @end
 
-@implementation IBPCollectionViewLayoutBuilder
+@implementation IBPCollectionCompositionalLayoutSolver
 
 - (instancetype)initWithLayoutSection:(IBPNSCollectionLayoutSection *)section {
     return [self initWithLayoutSection:section configuration:[[IBPUICollectionViewCompositionalLayoutConfiguration alloc] init]];
@@ -32,13 +32,13 @@
     if (self) {
         self.section = section;
         self.configuration = configuration;
-        self.state = [[IBPCollectionViewLayoutBuilderState alloc] init];
+        self.state = [[IBPCollectionCompositionalLayoutSolverState alloc] init];
         self.state.scrollDirection = configuration.scrollDirection;
     }
     return self;
 }
 
-- (void)buildLayoutForContainer:(IBPNSCollectionLayoutContainer *)container
+- (void)solveLayoutForContainer:(IBPNSCollectionLayoutContainer *)container
           traitCollection:(UITraitCollection *)traitCollection {
     CGSize collectionContentSize = container.effectiveContentSize;
 
@@ -61,10 +61,10 @@
     itemFrame.origin = rootGroupFrame.origin;
     self.state.currentItemFrame = itemFrame;
 
-    [self buildLayoutForGroup:group inContainer:groupContainer containerFrame:rootGroupFrame state:self.state];
+    [self solveLayoutForGroup:group inContainer:groupContainer containerFrame:rootGroupFrame state:self.state];
 }
 
-- (void)buildLayoutForGroup:(IBPNSCollectionLayoutGroup *)group inContainer:(IBPNSCollectionLayoutContainer *)groupContainer containerFrame:(CGRect)containerFrame state:(IBPCollectionViewLayoutBuilderState *)state {
+- (void)solveLayoutForGroup:(IBPNSCollectionLayoutGroup *)group inContainer:(IBPNSCollectionLayoutContainer *)groupContainer containerFrame:(CGRect)containerFrame state:(IBPCollectionCompositionalLayoutSolverState *)state {
     __block CGRect currentItemFrame = state.currentItemFrame;
 
     CGFloat interItemSpacing = 0;
@@ -101,7 +101,7 @@
 
             for (NSInteger i = 0; i < group.count; i++) {
                 state.currentItemFrame = currentItemFrame;
-                [self buildLayoutForGroup:nestedGroup inContainer:itemContainer containerFrame:nestedContainerFrame state:state];
+                [self solveLayoutForGroup:nestedGroup inContainer:itemContainer containerFrame:nestedContainerFrame state:state];
 
                 if (group.isHorizontalGroup) {
                     currentItemFrame.origin.x += interItemSpacing + itemSize.width;
@@ -124,7 +124,7 @@
 
             for (NSInteger i = 0; i < group.count; i++) {
                 CGRect cellFrame = UIEdgeInsetsInsetRect(currentItemFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.trailing, contentInsets.bottom));
-                [self.state.itemResults addObject:[IBPCollectionViewLayoutBuilderResult resultWithLayoutItem:item frame:cellFrame]];
+                [self.state.itemResults addObject:[IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:item frame:cellFrame]];
                 currentItemFrame.origin.x += interItemSpacing + CGRectGetWidth(currentItemFrame);
             }
         }
@@ -138,7 +138,7 @@
 
             for (NSInteger i = 0; i < group.count; i++) {
                 CGRect cellFrame = UIEdgeInsetsInsetRect(currentItemFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.trailing, contentInsets.bottom));
-                [self.state.itemResults addObject:[IBPCollectionViewLayoutBuilderResult resultWithLayoutItem:item frame:cellFrame]];
+                [self.state.itemResults addObject:[IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:item frame:cellFrame]];
                 currentItemFrame.origin.y += interItemSpacing + CGRectGetHeight(currentItemFrame);
             }
         }
@@ -170,7 +170,7 @@
                 }
                 state.currentItemFrame = currentItemFrame;
 
-                [self buildLayoutForGroup:nestedGroup inContainer:itemContainer containerFrame:nestedContainerFrame state:state];
+                [self solveLayoutForGroup:nestedGroup inContainer:itemContainer containerFrame:nestedContainerFrame state:state];
 
                 if (group.isHorizontalGroup) {
                     if (floor(CGRectGetMaxX(currentItemFrame)) > floor(CGRectGetMaxX(containerFrame))) {
@@ -211,7 +211,7 @@
                 }
 
                 CGRect cellFrame = UIEdgeInsetsInsetRect(currentItemFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.trailing, contentInsets.bottom));
-                [self.state.itemResults addObject:[IBPCollectionViewLayoutBuilderResult resultWithLayoutItem:item frame:cellFrame]];
+                [self.state.itemResults addObject:[IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:item frame:cellFrame]];
                 currentItemFrame.origin.x += CGRectGetWidth(currentItemFrame);
             }
             if (group.isVerticalGroup) {
@@ -221,7 +221,7 @@
                 }
 
                 CGRect cellFrame = UIEdgeInsetsInsetRect(currentItemFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.trailing, contentInsets.bottom));
-                [self.state.itemResults addObject:[IBPCollectionViewLayoutBuilderResult resultWithLayoutItem:item frame:cellFrame]];
+                [self.state.itemResults addObject:[IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:item frame:cellFrame]];
                 currentItemFrame.origin.y += CGRectGetHeight(currentItemFrame);
             }
         }];
@@ -229,7 +229,7 @@
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray<IBPCollectionViewLayoutBuilderResult *> *itemResults = self.state.itemResults;
+    NSArray<IBPCollectionCompositionalLayoutSolverResult *> *itemResults = self.state.itemResults;
     NSInteger itemCount = itemResults.count;
 
     CGFloat interGroupSpacing = self.section.interGroupSpacing;
@@ -248,7 +248,7 @@
     }
 
     UICollectionViewLayoutAttributes *layoutAttributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
-    IBPCollectionViewLayoutBuilderResult *result = [itemResults objectAtIndex:indexPath.row % itemCount];
+    IBPCollectionCompositionalLayoutSolverResult *result = [itemResults objectAtIndex:indexPath.row % itemCount];
 
     CGRect itemFrame = result.frame;
     itemFrame.origin.x += offset.x;
@@ -260,10 +260,10 @@
 }
 
 - (IBPNSCollectionLayoutItem *)layoutItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray<IBPCollectionViewLayoutBuilderResult *> *itemResults = self.state.itemResults;
+    NSArray<IBPCollectionCompositionalLayoutSolverResult *> *itemResults = self.state.itemResults;
     NSInteger itemCount = itemResults.count;
 
-    IBPCollectionViewLayoutBuilderResult *result = [itemResults objectAtIndex:indexPath.row % itemCount];
+    IBPCollectionCompositionalLayoutSolverResult *result = [itemResults objectAtIndex:indexPath.row % itemCount];
     return result.layoutItem;
 }
 

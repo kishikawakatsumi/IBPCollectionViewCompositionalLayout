@@ -4,7 +4,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface IBPCollectionViewLayoutBuilderResult : NSObject
+@interface IBPCollectionCompositionalLayoutSolverResult : NSObject
 
 @property (nonatomic) IBPNSCollectionLayoutItem *layoutItem;
 @property (nonatomic) CGRect frame;

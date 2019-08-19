@@ -1,17 +1,17 @@
 #import <UIKit/UIKit.h>
 
-@class IBPCollectionViewLayoutBuilderResult;
+@class IBPCollectionCompositionalLayoutSolverResult;
 @class IBPNSCollectionLayoutGroup;
 @class IBPNSCollectionLayoutItem;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface IBPCollectionViewLayoutBuilderState : NSObject
+@interface IBPCollectionCompositionalLayoutSolverState : NSObject
 
 @property (nonatomic) UICollectionViewScrollDirection scrollDirection;
 @property (nonatomic) CGRect rootGroupFrame;
 @property (nonatomic) CGRect currentItemFrame;
-@property (nonatomic) NSMutableArray<IBPCollectionViewLayoutBuilderResult *> *itemResults;
+@property (nonatomic) NSMutableArray<IBPCollectionCompositionalLayoutSolverResult *> *itemResults;
 
 @end
 
