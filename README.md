@@ -96,7 +96,8 @@ This file silences the following compilation errors when building on Xcode 11 or
 - [x] Inter Section Spacing  
 - [x] Scroll Direction  
 - [x] Nested Groups  
-- [x] Section Header/Footers (Partially supported)  
+- [x] Section Header/Footers
+- [x] Pinned Section Header/Footers
 - [x] Decoration Views
 - [x] Orthogonal Scrolling
 - [x] Orthogonal Scrolling Behavior
@@ -105,7 +106,6 @@ This file silences the following compilation errors when building on Xcode 11 or
 
 ## TODOs (Not yet supported)
 
-- [ ] Pinned Section Header/Footers
 - [ ] Flexible Spaces
 - [ ] RTL Support
 - [ ] Custom Group Item (Absolute Positions)

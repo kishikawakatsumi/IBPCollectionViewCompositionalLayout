@@ -19,6 +19,9 @@
 
 @interface IBPUICollectionViewCompositionalLayout() {
     NSMutableArray<UICollectionViewLayoutAttributes *> *cachedItemAttributes;
+    NSMutableDictionary *cachedSupplementaryAttributes;
+    NSMutableDictionary *cachedDecorationAttributes;
+    NSMutableArray<UICollectionViewLayoutAttributes *> *layoutAttributesForPinnedSupplementaryItems;
 
     CGRect contentFrame;
     NSMutableDictionary<NSNumber *, IBPCollectionViewOrthogonalScrollerSectionController *> *orthogonalScrollerSectionControllers;
@@ -30,6 +33,8 @@
 @property (nonatomic) IBPUICollectionViewCompositionalLayoutSectionProvider layoutSectionProvider;
 
 @property (nonatomic) IBPUICollectionLayoutSectionOrthogonalScrollingBehavior parentCollectionViewOrthogonalScrollingBehavior;
+
+@property (nonatomic) BOOL hasPinnedSupplementaryItems;
 
 @end
 
@@ -85,6 +90,7 @@
 
 - (void)commonInit {
     cachedItemAttributes = [[NSMutableArray alloc] init];
+    layoutAttributesForPinnedSupplementaryItems = [[NSMutableArray alloc] init];
     orthogonalScrollerSectionControllers = [[NSMutableDictionary alloc] init];
 }
 
@@ -101,6 +107,8 @@
     }
 
     [cachedItemAttributes removeAllObjects];
+    [layoutAttributesForPinnedSupplementaryItems removeAllObjects];
+    self.hasPinnedSupplementaryItems = NO;
 
     [[orthogonalScrollerSectionControllers allValues] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [orthogonalScrollerSectionControllers removeAllObjects];
@@ -109,13 +117,6 @@
     if (@available(iOS 11.0, *)) {
         if ([collectionView respondsToSelector:@selector(safeAreaInsets)]) {
             collectionContentInset = collectionView.safeAreaInsets;
-
-            if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
-                CGPoint contentOffset = CGPointZero;
-                contentOffset.x = -collectionContentInset.left;
-                contentOffset.y = -collectionContentInset.top;
-                collectionView.contentOffset = contentOffset;
-            }
         }
     }
 
@@ -411,6 +412,11 @@
                     contentFrame = CGRectUnion(contentFrame, layoutAttributes.frame);
                 }
             }
+
+            if (boundaryItem.pinToVisibleBounds) {
+                self.hasPinnedSupplementaryItems = YES;
+                [layoutAttributesForPinnedSupplementaryItems addObject:layoutAttributes];
+            }
         }
     }
 }
@@ -466,7 +472,7 @@
     }
 
     layoutAttributes.frame = itemFrame;
-    layoutAttributes.zIndex = layoutAttributes.zIndex;
+    layoutAttributes.zIndex = boundaryItem.zIndex;
 
     return layoutAttributes;
 }
@@ -481,6 +487,9 @@
 
     for (NSInteger i = 0; i < cachedItemAttributes.count; i++) {
         UICollectionViewLayoutAttributes *attributes = cachedItemAttributes[i];
+        if (!CGRectIntersectsRect(attributes.frame, rect)) {
+            continue;
+        }
 
         NSIndexPath *indexPath = attributes.indexPath;
         IBPNSCollectionLayoutItem *layoutItem = [solver layoutItemAtIndexPath:indexPath];
@@ -535,15 +544,48 @@
                     contentFrame = CGRectUnion(contentFrame, f);
 
                     [layoutAttributes addObject:attributes];
-                } else {
-                    [layoutAttributes addObject:attributes];
+                    continue;
                 }
-            } else {
-                [layoutAttributes addObject:attributes];
             }
-        } else {
-            [layoutAttributes addObject:attributes];
         }
+
+        [layoutAttributes addObject:attributes];
+    }
+
+    for (NSInteger i = 0; i < layoutAttributesForPinnedSupplementaryItems.count; i++) {
+        CGPoint contentOffset = self.collectionView.contentOffset;
+        UICollectionViewLayoutAttributes *attributes = layoutAttributesForPinnedSupplementaryItems[i];
+        if (!CGRectIntersectsRect(attributes.frame, rect)) {
+            continue;
+        }
+
+        if (@available(iOS 11.0, *)) {
+            if ([self.collectionView respondsToSelector:@selector(safeAreaInsets)]) {
+                if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
+                    contentOffset.y += self.collectionView.safeAreaInsets.top;
+                }
+                if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+                    contentOffset.x += self.collectionView.safeAreaInsets.left;
+                }
+            }
+        }
+
+        CGPoint nextHeaderOrigin = CGPointMake(INFINITY, INFINITY);
+
+        if (i + 1 < layoutAttributesForPinnedSupplementaryItems.count) {
+            UICollectionViewLayoutAttributes *nextHeaderAttributes = layoutAttributesForPinnedSupplementaryItems[i + 1];
+            nextHeaderOrigin = nextHeaderAttributes.frame.origin;
+        }
+
+        CGRect frame = attributes.frame;
+        if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
+            frame.origin.y = MIN(MAX(contentOffset.y, frame.origin.y), nextHeaderOrigin.y - CGRectGetHeight(frame));
+        }
+        if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+            frame.origin.x = MIN(MAX(contentOffset.x, frame.origin.x), nextHeaderOrigin.x - CGRectGetWidth(frame));
+        }
+
+        attributes.frame = frame;
     }
 
     return layoutAttributes;
@@ -552,6 +594,9 @@
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
     if (!self.collectionView) {
         return NO;
+    }
+    if (self.hasPinnedSupplementaryItems) {
+        return YES;
     }
 
     return !CGSizeEqualToSize(newBounds.size, self.collectionView.bounds.size);
