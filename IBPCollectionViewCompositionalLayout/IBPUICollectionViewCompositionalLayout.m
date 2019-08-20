@@ -54,13 +54,7 @@
     if (@available(iOS 13, *)) {
         return [[NSClassFromString(@"UICollectionViewCompositionalLayout") alloc] initWithSection:section configuration:configuration];
     } else {
-        self = [super init];
-        if (self) {
-            [self commonInit];
-            self.layoutSection = section;
-            self.configuration = configuration;
-        }
-        return self;
+        return [self initWithSection:section sectionProvider:nil configuration:configuration];
     }
 }
 
@@ -78,23 +72,27 @@
     if (@available(iOS 13, *)) {
         return [[NSClassFromString(@"UICollectionViewCompositionalLayout") alloc] initWithSectionProvider:sectionProvider configuration:configuration];
     } else {
-        self = [super init];
-        if (self) {
-            [self commonInit];
-            self.layoutSectionProvider = sectionProvider;
-            self.configuration = configuration;
-        }
-        return self;
+        return [self initWithSection:nil sectionProvider:sectionProvider configuration:configuration];
     }
 }
 
-- (void)commonInit {
-    cachedItemAttributes = [[NSMutableDictionary alloc] init];
-    cachedSupplementaryAttributes = [[NSMutableDictionary alloc] init];
-    cachedDecorationAttributes = [[NSMutableDictionary alloc] init];
-    globalSupplementaryItems = [[NSMutableArray alloc] init];
-    layoutAttributesForPinnedSupplementaryItems = [[NSMutableArray alloc] init];
-    orthogonalScrollerSectionControllers = [[NSMutableDictionary alloc] init];
+- (instancetype)initWithSection:(IBPNSCollectionLayoutSection *)section
+                sectionProvider:(IBPUICollectionViewCompositionalLayoutSectionProvider)sectionProvider
+                  configuration:(IBPUICollectionViewCompositionalLayoutConfiguration *)configuration {
+    self = [super init];
+    if (self) {
+        self.layoutSection = section;
+        self.layoutSectionProvider = sectionProvider;
+        self.configuration = configuration;
+
+        cachedItemAttributes = [[NSMutableDictionary alloc] init];
+        cachedSupplementaryAttributes = [[NSMutableDictionary alloc] init];
+        cachedDecorationAttributes = [[NSMutableDictionary alloc] init];
+        globalSupplementaryItems = [[NSMutableArray alloc] init];
+        layoutAttributesForPinnedSupplementaryItems = [[NSMutableArray alloc] init];
+        orthogonalScrollerSectionControllers = [[NSMutableDictionary alloc] init];
+    }
+    return self;
 }
 
 - (void)setConfiguration:(IBPUICollectionViewCompositionalLayoutConfiguration *)configuration {
