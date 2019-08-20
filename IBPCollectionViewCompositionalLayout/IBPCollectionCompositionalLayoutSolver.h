@@ -9,29 +9,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IBPCollectionCompositionalLayoutSolver : NSObject
 
-@property (nonatomic, readonly, copy) IBPNSCollectionLayoutSection *section;
-@property (nonatomic, readonly) CGRect containerFrame;
+@property (nonatomic, readonly, copy) IBPNSCollectionLayoutSection *layoutSection;
+@property (nonatomic, readonly) CGRect layoutFrame;
 
-- (instancetype)initWithLayoutSection:(IBPNSCollectionLayoutSection *)section;
-- (instancetype)initWithLayoutSection:(IBPNSCollectionLayoutSection *)section
-                        configuration:(IBPUICollectionViewCompositionalLayoutConfiguration *)configuration;
++ (instancetype)solverWithLayoutSection:(IBPNSCollectionLayoutSection *)section
+                        scrollDirection:(UICollectionViewScrollDirection)scrollDirection;
 
-- (void)solveLayoutForContainer:(IBPNSCollectionLayoutContainer *)container
+- (void)solveForContainer:(IBPNSCollectionLayoutContainer *)container
           traitCollection:(UITraitCollection *)traitCollection;
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath;
 - (IBPNSCollectionLayoutItem *)layoutItemAtIndexPath:(NSIndexPath *)indexPath;
-
-- (CGPoint)continuousGroupLeadingBoundaryTargetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset
-                                                                   scrollingVelocity:(CGPoint)velocity
-                                                                         translation:(CGPoint)translation;
-- (CGPoint)groupPagingTargetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset
-                                                scrollingVelocity:(CGPoint)velocity
-                                                      translation:(CGPoint)translation;
-- (CGPoint)groupPagingCenteredTargetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset
-                                                        scrollingVelocity:(CGPoint)velocity
-                                                              translation:(CGPoint)translation
-                                                            containerSize:(CGSize)containerSize;
 
 @end
 

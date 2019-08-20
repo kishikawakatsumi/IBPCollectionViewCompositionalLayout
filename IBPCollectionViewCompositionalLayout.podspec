@@ -11,7 +11,6 @@ Pod::Spec.new do |s|
   s.source_files          = 'IBPCollectionViewCompositionalLayout/*.{h,m}'
   s.private_header_files  = [ 'IBPCollectionViewCompositionalLayout/IBPCollectionCompositionalLayoutSolver.h',
                               'IBPCollectionViewCompositionalLayout/IBPCollectionCompositionalLayoutSolverResult.h',
-                              'IBPCollectionViewCompositionalLayout/IBPCollectionCompositionalLayoutSolverState.h',
                               'IBPCollectionViewCompositionalLayout/IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.h',
                               'IBPCollectionViewCompositionalLayout/IBPCollectionViewOrthogonalScrollerSectionController.h',
                               'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutAnchor_Private.h',
