@@ -416,7 +416,7 @@
             }
 
             contentFrame = CGRectUnion(contentFrame, layoutAttributes.frame);
-            cachedSupplementaryAttributes[[NSString stringWithFormat:@"%@-%ld-%ld", boundaryItem.elementKind, (long)sectionIndex, 0]] = layoutAttributes;
+            cachedSupplementaryAttributes[[NSString stringWithFormat:@"%@-%ld-%d", boundaryItem.elementKind, (long)sectionIndex, 0]] = layoutAttributes;
             [globalSupplementaryItems addObject:boundaryItem];
 
             if (boundaryItem.pinToVisibleBounds) {
