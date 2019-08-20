@@ -1,71 +1,74 @@
 #import "IBPCollectionCompositionalLayoutSolver.h"
-#import "IBPCollectionCompositionalLayoutSolverState.h"
 #import "IBPCollectionCompositionalLayoutSolverResult.h"
-#import "IBPNSCollectionLayoutAnchor.h"
 #import "IBPNSCollectionLayoutContainer.h"
 #import "IBPNSCollectionLayoutDimension.h"
 #import "IBPNSCollectionLayoutGroup_Private.h"
 #import "IBPNSCollectionLayoutItem_Private.h"
-#import "IBPNSCollectionLayoutSize_Private.h"
 #import "IBPNSCollectionLayoutSection_Private.h"
+#import "IBPNSCollectionLayoutSize_Private.h"
 #import "IBPNSCollectionLayoutSpacing.h"
-#import "IBPNSCollectionLayoutSupplementaryItem.h"
-#import "IBPUICollectionViewCompositionalLayoutConfiguration.h"
+#import "IBPUICollectionViewCompositionalLayoutConfiguration_Private.h"
 
 @interface IBPCollectionCompositionalLayoutSolver()
 
-@property (nonatomic, readwrite, copy) IBPNSCollectionLayoutSection *section;
-@property (nonatomic, readwrite, copy) IBPUICollectionViewCompositionalLayoutConfiguration *configuration;
-@property (nonatomic) IBPCollectionCompositionalLayoutSolverState *state;
+@property (nonatomic, readwrite, copy) IBPNSCollectionLayoutSection *layoutSection;
+@property (nonatomic) UICollectionViewScrollDirection scrollDirection;
+
+@property (nonatomic) CGRect layoutFrame;
+@property (nonatomic) CGRect contentFrame;
+@property (nonatomic) NSMutableArray<IBPCollectionCompositionalLayoutSolverResult *> *results;
 
 @end
 
 @implementation IBPCollectionCompositionalLayoutSolver
 
-- (instancetype)initWithLayoutSection:(IBPNSCollectionLayoutSection *)section {
-    return [self initWithLayoutSection:section configuration:[[IBPUICollectionViewCompositionalLayoutConfiguration alloc] init]];
++ (instancetype)solverWithLayoutSection:(IBPNSCollectionLayoutSection *)section
+                        scrollDirection:(UICollectionViewScrollDirection)scrollDirection {
+    return [[self alloc] initWithLayoutSection:section scrollDirection:scrollDirection];
 }
 
 - (instancetype)initWithLayoutSection:(IBPNSCollectionLayoutSection *)section
-                        configuration:(IBPUICollectionViewCompositionalLayoutConfiguration *)configuration {
+                      scrollDirection:(UICollectionViewScrollDirection)scrollDirection {
     self = [super init];
     if (self) {
-        self.section = section;
-        self.configuration = configuration;
-        self.state = [[IBPCollectionCompositionalLayoutSolverState alloc] init];
-        self.state.scrollDirection = configuration.scrollDirection;
+        self.layoutSection = section;
+        self.scrollDirection = scrollDirection;
+
+        self.layoutFrame = CGRectZero;
+        self.contentFrame = CGRectZero;
+        self.results = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
-- (void)solveLayoutForContainer:(IBPNSCollectionLayoutContainer *)container
-          traitCollection:(UITraitCollection *)traitCollection {
+- (void)solveForContainer:(IBPNSCollectionLayoutContainer *)container traitCollection:(UITraitCollection *)traitCollection {
     CGSize collectionContentSize = container.effectiveContentSize;
 
-    IBPNSDirectionalEdgeInsets sectionContentInsets = self.section.contentInsets;
+    IBPNSDirectionalEdgeInsets sectionContentInsets = self.layoutSection.contentInsets;
     IBPNSCollectionLayoutContainer *sectionContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:collectionContentSize contentInsets:sectionContentInsets];
 
-    IBPNSCollectionLayoutSection *section = self.section;
+    IBPNSCollectionLayoutSection *section = self.layoutSection;
     IBPNSCollectionLayoutGroup *group = section.group;
 
     CGSize groupContentSize = [group.layoutSize effectiveSizeForContainer:sectionContainer];
     IBPNSCollectionLayoutContainer *groupContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:groupContentSize contentInsets:group.contentInsets];
 
-    CGRect rootGroupFrame = self.state.rootGroupFrame;
-    rootGroupFrame.origin.x += sectionContentInsets.leading;
-    rootGroupFrame.origin.y += sectionContentInsets.top;
-    rootGroupFrame.size = groupContentSize;
-    self.state.rootGroupFrame = rootGroupFrame;
+    CGRect layoutFrame = self.layoutFrame;
+    layoutFrame.origin.x += sectionContentInsets.leading;
+    layoutFrame.origin.y += sectionContentInsets.top;
+    layoutFrame.size = groupContentSize;
+    self.layoutFrame = layoutFrame;
 
-    CGRect itemFrame = CGRectZero;
-    itemFrame.origin = rootGroupFrame.origin;
-    self.state.currentItemFrame = itemFrame;
+    CGRect contentFrame = self.contentFrame;
+    contentFrame.origin = layoutFrame.origin;
+    self.contentFrame = contentFrame;
 
-    [self solveLayoutForGroup:group inContainer:groupContainer containerFrame:rootGroupFrame state:self.state];
+    [self solveGroup:group forContainer:groupContainer];
 }
 
-- (void)solveLayoutForGroup:(IBPNSCollectionLayoutGroup *)group inContainer:(IBPNSCollectionLayoutContainer *)groupContainer containerFrame:(CGRect)containerFrame state:(IBPCollectionCompositionalLayoutSolverState *)state {
-    __block CGRect currentItemFrame = state.currentItemFrame;
+- (void)solveGroup:(IBPNSCollectionLayoutGroup *)group forContainer:(IBPNSCollectionLayoutContainer *)groupContainer {
+    CGRect layoutFrame = self.layoutFrame;
+    __block CGRect contentFrame = self.contentFrame;
 
     CGFloat interItemSpacing = 0;
     if (group.interItemSpacing.isFixedSpacing) {
@@ -83,31 +86,31 @@
             IBPNSCollectionLayoutGroup *nestedGroup = (IBPNSCollectionLayoutGroup *)item;
 
             if (group.isHorizontalGroup) {
-                if (floor(CGRectGetMaxX(currentItemFrame)) > floor(CGRectGetMaxX(containerFrame))) {
+                if (floor(CGRectGetMaxX(contentFrame)) > floor(CGRectGetMaxX(layoutFrame))) {
                     return;
                 }
-                itemSize.width = (CGRectGetWidth(containerFrame) - interItemSpacing * (group.count - 1)) / group.count;
+                itemSize.width = (CGRectGetWidth(layoutFrame) - interItemSpacing * (group.count - 1)) / group.count;
             }
             if (group.isVerticalGroup) {
-                if (floor(CGRectGetMaxX(currentItemFrame)) > floor(CGRectGetMaxX(containerFrame))) {
+                if (floor(CGRectGetMaxX(contentFrame)) > floor(CGRectGetMaxX(layoutFrame))) {
                     return;
                 }
-                itemSize.height = (CGRectGetHeight(containerFrame) - interItemSpacing * (group.count - 1)) / group.count;
+                itemSize.height = (CGRectGetHeight(layoutFrame) - interItemSpacing * (group.count - 1)) / group.count;
             }
 
-            CGRect nestedContainerFrame = containerFrame;
-            nestedContainerFrame.origin = currentItemFrame.origin;
+            CGRect nestedContainerFrame = layoutFrame;
+            nestedContainerFrame.origin = contentFrame.origin;
             nestedContainerFrame.size = itemSize;
 
             for (NSInteger i = 0; i < group.count; i++) {
-                state.currentItemFrame = currentItemFrame;
-                [self solveLayoutForGroup:nestedGroup inContainer:itemContainer containerFrame:nestedContainerFrame state:state];
+                self.contentFrame = contentFrame;
+                [self solveGroup:nestedGroup forContainer:itemContainer];
 
                 if (group.isHorizontalGroup) {
-                    currentItemFrame.origin.x += interItemSpacing + itemSize.width;
+                    contentFrame.origin.x += interItemSpacing + itemSize.width;
                 }
                 if (group.isVerticalGroup) {
-                    currentItemFrame.origin.y += interItemSpacing + itemSize.height;
+                    contentFrame.origin.y += interItemSpacing + itemSize.height;
                 }
             }
 
@@ -115,31 +118,31 @@
         }
 
         if (group.isHorizontalGroup) {
-            if (floor(CGRectGetMaxX(currentItemFrame)) > floor(CGRectGetMaxX(containerFrame))) {
+            if (floor(CGRectGetMaxX(contentFrame)) > floor(CGRectGetMaxX(layoutFrame))) {
                 return;
             }
 
-            itemSize.width = (CGRectGetWidth(containerFrame) - interItemSpacing * (group.count - 1)) / group.count;
-            currentItemFrame.size = itemSize;
+            itemSize.width = (CGRectGetWidth(layoutFrame) - interItemSpacing * (group.count - 1)) / group.count;
+            contentFrame.size = itemSize;
 
             for (NSInteger i = 0; i < group.count; i++) {
-                CGRect cellFrame = UIEdgeInsetsInsetRect(currentItemFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.trailing, contentInsets.bottom));
-                [self.state.itemResults addObject:[IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:item frame:cellFrame]];
-                currentItemFrame.origin.x += interItemSpacing + CGRectGetWidth(currentItemFrame);
+                CGRect cellFrame = UIEdgeInsetsInsetRect(contentFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.trailing, contentInsets.bottom));
+                [self.results addObject:[IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:item frame:cellFrame]];
+                contentFrame.origin.x += interItemSpacing + CGRectGetWidth(contentFrame);
             }
         }
         if (group.isVerticalGroup) {
-            if (floor(CGRectGetMaxY(currentItemFrame)) > floor(CGRectGetMaxY(containerFrame))) {
+            if (floor(CGRectGetMaxY(contentFrame)) > floor(CGRectGetMaxY(layoutFrame))) {
                 return;
             }
 
-            itemSize.height = (CGRectGetHeight(containerFrame) - interItemSpacing * (group.count - 1)) / group.count;
-            currentItemFrame.size = itemSize;
+            itemSize.height = (CGRectGetHeight(layoutFrame) - interItemSpacing * (group.count - 1)) / group.count;
+            contentFrame.size = itemSize;
 
             for (NSInteger i = 0; i < group.count; i++) {
-                CGRect cellFrame = UIEdgeInsetsInsetRect(currentItemFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.trailing, contentInsets.bottom));
-                [self.state.itemResults addObject:[IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:item frame:cellFrame]];
-                currentItemFrame.origin.y += interItemSpacing + CGRectGetHeight(currentItemFrame);
+                CGRect cellFrame = UIEdgeInsetsInsetRect(contentFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.trailing, contentInsets.bottom));
+                [self.results addObject:[IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:item frame:cellFrame]];
+                contentFrame.origin.y += interItemSpacing + CGRectGetHeight(contentFrame);
             }
         }
     } else {
@@ -152,217 +155,116 @@
             if (item.isGroup) {
                 IBPNSCollectionLayoutGroup *nestedGroup = (IBPNSCollectionLayoutGroup *)item;
 
-                CGRect nestedContainerFrame = containerFrame;
-                nestedContainerFrame.origin = currentItemFrame.origin;
+                CGRect nestedContainerFrame = layoutFrame;
+                nestedContainerFrame.origin = contentFrame.origin;
                 nestedContainerFrame.size = [nestedGroup.layoutSize effectiveSizeForContainer:groupContainer];
 
                 if (group.isHorizontalGroup) {
-                    if (floor(CGRectGetMaxX(nestedContainerFrame)) > floor(CGRectGetMaxX(containerFrame))) {
+                    if (floor(CGRectGetMaxX(nestedContainerFrame)) > floor(CGRectGetMaxX(layoutFrame))) {
                         *stop = YES;
                         return;
                     }
                 }
                 if (group.isVerticalGroup) {
-                    if (floor(CGRectGetMaxY(nestedContainerFrame)) > floor(CGRectGetMaxY(containerFrame))) {
+                    if (floor(CGRectGetMaxY(nestedContainerFrame)) > floor(CGRectGetMaxY(layoutFrame))) {
                         *stop = YES;
                         return;
                     }
                 }
-                state.currentItemFrame = currentItemFrame;
+                self.contentFrame = contentFrame;
 
-                [self solveLayoutForGroup:nestedGroup inContainer:itemContainer containerFrame:nestedContainerFrame state:state];
+                [self solveGroup:nestedGroup forContainer:itemContainer];
 
                 if (group.isHorizontalGroup) {
-                    if (floor(CGRectGetMaxX(currentItemFrame)) > floor(CGRectGetMaxX(containerFrame))) {
+                    if (floor(CGRectGetMaxX(contentFrame)) > floor(CGRectGetMaxX(layoutFrame))) {
                         *stop = YES;
                         return;
                     }
-                    currentItemFrame.origin.x += itemSize.width;
+                    contentFrame.origin.x += itemSize.width;
                 }
                 if (group.isVerticalGroup) {
-                    if (floor(CGRectGetMaxY(currentItemFrame)) > floor(CGRectGetMaxY(containerFrame))) {
+                    if (floor(CGRectGetMaxY(contentFrame)) > floor(CGRectGetMaxY(layoutFrame))) {
                         *stop = YES;
                         return;
                     }
-                    currentItemFrame.origin.y += itemSize.height;
+                    contentFrame.origin.y += itemSize.height;
                 }
 
-                if (group == self.section.group) {
-                    if (self.configuration.scrollDirection == UICollectionViewScrollDirectionVertical && self.section.group.layoutSize.heightDimension.isEstimated) {
-                        CGRect rootGroupFrame = self.state.rootGroupFrame;
-                        rootGroupFrame.size.height = CGRectGetMaxY(currentItemFrame);
-                        self.state.rootGroupFrame = rootGroupFrame;
+                if (group == self.layoutSection.group) {
+                    if (self.scrollDirection == UICollectionViewScrollDirectionVertical && group.layoutSize.heightDimension.isEstimated) {
+                        CGRect layoutFrame = self.layoutFrame;
+                        layoutFrame.size.height = CGRectGetMaxY(contentFrame);
+                        self.layoutFrame = layoutFrame;
                     }
-                    if (self.configuration.scrollDirection == UICollectionViewScrollDirectionHorizontal && self.section.group.layoutSize.widthDimension.isEstimated) {
-                        CGRect rootGroupFrame = self.state.rootGroupFrame;
-                        rootGroupFrame.size.width = CGRectGetMaxY(currentItemFrame);
-                        self.state.rootGroupFrame = rootGroupFrame;
+                    if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal && group.layoutSize.widthDimension.isEstimated) {
+                        CGRect layoutFrame = self.layoutFrame;
+                        layoutFrame.size.width = CGRectGetMaxY(contentFrame);
+                        self.layoutFrame = layoutFrame;
                     }
                 }
 
                 return;
             }
 
-            currentItemFrame.size = itemSize;
+            contentFrame.size = itemSize;
             if (group.isHorizontalGroup) {
-                if (floor(CGRectGetMaxX(currentItemFrame)) > floor(CGRectGetMaxX(containerFrame))) {
+                if (floor(CGRectGetMaxX(contentFrame)) > floor(CGRectGetMaxX(layoutFrame))) {
                     *stop = YES;
                     return;
                 }
 
-                CGRect cellFrame = UIEdgeInsetsInsetRect(currentItemFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.trailing, contentInsets.bottom));
-                [self.state.itemResults addObject:[IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:item frame:cellFrame]];
-                currentItemFrame.origin.x += CGRectGetWidth(currentItemFrame);
+                CGRect cellFrame = UIEdgeInsetsInsetRect(contentFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.trailing, contentInsets.bottom));
+                [self.results addObject:[IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:item frame:cellFrame]];
+                contentFrame.origin.x += CGRectGetWidth(contentFrame);
             }
             if (group.isVerticalGroup) {
-                if (floor(CGRectGetMaxY(currentItemFrame)) > floor(CGRectGetMaxY(containerFrame))) {
+                if (floor(CGRectGetMaxY(contentFrame)) > floor(CGRectGetMaxY(layoutFrame))) {
                     *stop = YES;
                     return;
                 }
 
-                CGRect cellFrame = UIEdgeInsetsInsetRect(currentItemFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.trailing, contentInsets.bottom));
-                [self.state.itemResults addObject:[IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:item frame:cellFrame]];
-                currentItemFrame.origin.y += CGRectGetHeight(currentItemFrame);
+                CGRect cellFrame = UIEdgeInsetsInsetRect(contentFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.trailing, contentInsets.bottom));
+                [self.results addObject:[IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:item frame:cellFrame]];
+                contentFrame.origin.y += CGRectGetHeight(contentFrame);
             }
         }];
     }
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray<IBPCollectionCompositionalLayoutSolverResult *> *itemResults = self.state.itemResults;
-    NSInteger itemCount = itemResults.count;
+    NSArray<IBPCollectionCompositionalLayoutSolverResult *> *results = self.results;
+    NSInteger count = results.count;
 
-    CGFloat interGroupSpacing = self.section.interGroupSpacing;
+    CGFloat interGroupSpacing = self.layoutSection.interGroupSpacing;
     CGPoint offset = CGPointZero;
 
-    BOOL scrollsOrthogonally = self.section.scrollsOrthogonally;
-    UICollectionViewScrollDirection scrollDirection = self.state.scrollDirection;
+    BOOL scrollsOrthogonally = self.layoutSection.scrollsOrthogonally;
+    UICollectionViewScrollDirection scrollDirection = self.scrollDirection;
     if (scrollsOrthogonally) {
         scrollDirection = scrollDirection == UICollectionViewScrollDirectionVertical ? UICollectionViewScrollDirectionHorizontal : UICollectionViewScrollDirectionVertical;
     }
     if (scrollDirection == UICollectionViewScrollDirectionVertical) {
-        offset.y += CGRectGetHeight(self.state.rootGroupFrame) * (indexPath.item / itemCount) + interGroupSpacing * (indexPath.row / itemCount);
+        offset.y += CGRectGetHeight(self.layoutFrame) * (indexPath.item / count) + interGroupSpacing * (indexPath.section / count);
     }
     if (scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-        offset.x += CGRectGetWidth(self.state.rootGroupFrame) * (indexPath.item / itemCount) + interGroupSpacing * (indexPath.row / itemCount);
+        offset.x += CGRectGetWidth(self.layoutFrame) * (indexPath.item / count) + interGroupSpacing * (indexPath.section / count);
     }
 
     UICollectionViewLayoutAttributes *layoutAttributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
-    IBPCollectionCompositionalLayoutSolverResult *result = [itemResults objectAtIndex:indexPath.row % itemCount];
+    IBPCollectionCompositionalLayoutSolverResult *result = [results objectAtIndex:indexPath.item % count];
 
-    CGRect itemFrame = result.frame;
-    itemFrame.origin.x += offset.x;
-    itemFrame.origin.y += offset.y;
-
-    layoutAttributes.frame = itemFrame;
+    CGRect frame = result.frame;
+    frame.origin.x += offset.x;
+    frame.origin.y += offset.y;
+    layoutAttributes.frame = frame;
 
     return layoutAttributes;
 }
 
 - (IBPNSCollectionLayoutItem *)layoutItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray<IBPCollectionCompositionalLayoutSolverResult *> *itemResults = self.state.itemResults;
-    NSInteger itemCount = itemResults.count;
-
-    IBPCollectionCompositionalLayoutSolverResult *result = [itemResults objectAtIndex:indexPath.row % itemCount];
+    NSArray<IBPCollectionCompositionalLayoutSolverResult *> *results = self.results;
+    IBPCollectionCompositionalLayoutSolverResult *result = [results objectAtIndex:indexPath.item % results.count];
     return result.layoutItem;
-}
-
-- (CGRect)containerFrame {
-    return self.state.rootGroupFrame;
-}
-
-- (CGPoint)continuousGroupLeadingBoundaryTargetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset
-                                                                   scrollingVelocity:(CGPoint)velocity
-                                                                         translation:(CGPoint)translation {
-    CGPoint targetContentOffset = CGPointZero;
-
-    CGRect rootGroupFrame = self.state.rootGroupFrame;
-    CGFloat interGroupSpacing = self.section.interGroupSpacing;
-
-    CGFloat groupWidth = CGRectGetWidth(rootGroupFrame);
-    CGFloat groupHeight = CGRectGetHeight(rootGroupFrame);
-
-    BOOL scrollsOrthogonally = self.section.scrollsOrthogonally;
-    UICollectionViewScrollDirection scrollDirection = self.state.scrollDirection;
-    if (scrollsOrthogonally) {
-        scrollDirection = scrollDirection == UICollectionViewScrollDirectionVertical ? UICollectionViewScrollDirectionHorizontal : UICollectionViewScrollDirectionVertical;
-    }
-    if (scrollDirection == UICollectionViewScrollDirectionVertical) {
-        targetContentOffset.y += groupHeight * floor(proposedContentOffset.y / groupHeight) + interGroupSpacing * floor(proposedContentOffset.y / groupHeight) + groupHeight * (translation.y < 0 ? 1 : 0);
-    }
-    if (scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-        targetContentOffset.x += groupWidth * floor(proposedContentOffset.x / groupWidth) + interGroupSpacing * floor(proposedContentOffset.x / groupWidth) + groupWidth * (translation.x < 0 ? 1 : 0);
-    }
-
-    return targetContentOffset;
-}
-
-- (CGPoint)groupPagingTargetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset
-                                                scrollingVelocity:(CGPoint)velocity
-                                                      translation:(CGPoint)translation {
-    CGPoint targetContentOffset = CGPointZero;
-
-    CGRect rootGroupFrame = self.state.rootGroupFrame;
-    CGFloat interGroupSpacing = self.section.interGroupSpacing;
-
-    CGFloat groupWidth = CGRectGetWidth(rootGroupFrame);
-    CGFloat groupHeight = CGRectGetHeight(rootGroupFrame);
-
-    if (fabs(velocity.x) > 0.2) {
-        translation.x = groupWidth / 2 * (translation.x < 0 ? -1 : 1);
-    }
-
-    targetContentOffset.x += groupWidth * round((proposedContentOffset.x + translation.x) / groupWidth);
-    targetContentOffset.y += groupHeight * round((proposedContentOffset.y + translation.y) / groupHeight);
-
-    BOOL scrollsOrthogonally = self.section.scrollsOrthogonally;
-    UICollectionViewScrollDirection scrollDirection = self.state.scrollDirection;
-    if (scrollsOrthogonally) {
-        scrollDirection = scrollDirection == UICollectionViewScrollDirectionVertical ? UICollectionViewScrollDirectionHorizontal : UICollectionViewScrollDirectionVertical;
-    }
-    if (scrollDirection == UICollectionViewScrollDirectionVertical) {
-        targetContentOffset.y += groupHeight * round(-translation.y / (groupHeight / 2)) + interGroupSpacing * round(-translation.y / (groupHeight / 2));
-    }
-    if (scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-        targetContentOffset.x += groupWidth * round(-translation.x / (groupWidth / 2)) + interGroupSpacing * round(-translation.x / (groupWidth / 2));
-    }
-
-    return targetContentOffset;
-}
-
-
-- (CGPoint)groupPagingCenteredTargetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset
-                                                        scrollingVelocity:(CGPoint)velocity
-                                                              translation:(CGPoint)translation
-                                                            containerSize:(CGSize)containerSize {
-    CGPoint targetContentOffset = CGPointZero;
-
-    CGRect rootGroupFrame = self.state.rootGroupFrame;
-    CGFloat interGroupSpacing = self.section.interGroupSpacing;
-
-    CGFloat groupWidth = CGRectGetWidth(rootGroupFrame);
-    CGFloat groupHeight = CGRectGetHeight(rootGroupFrame);
-
-    if (fabs(velocity.x) > 0.2) {
-        translation.x = groupWidth / 2 * (translation.x < 0 ? -1 : 1);
-    }
-
-    targetContentOffset.x += groupWidth * round((proposedContentOffset.x + translation.x) / groupWidth);
-    targetContentOffset.y += groupHeight * round((proposedContentOffset.y + translation.y) / groupHeight);
-
-    BOOL scrollsOrthogonally = self.section.scrollsOrthogonally;
-    UICollectionViewScrollDirection scrollDirection = self.state.scrollDirection;
-    if (scrollsOrthogonally) {
-        scrollDirection = scrollDirection == UICollectionViewScrollDirectionVertical ? UICollectionViewScrollDirectionHorizontal : UICollectionViewScrollDirectionVertical;
-    }
-    if (scrollDirection == UICollectionViewScrollDirectionVertical) {
-        targetContentOffset.y += groupHeight * round(-translation.y / (groupHeight / 2)) + interGroupSpacing * round(-translation.y / (groupHeight / 2)) - (containerSize.height - groupHeight) / 2;
-    }
-    if (scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-        targetContentOffset.x += groupWidth * round(-translation.x / (groupWidth / 2)) + interGroupSpacing * round(-translation.x / (groupWidth / 2)) - (containerSize.width - groupWidth) / 2;
-    }
-
-    return targetContentOffset;
 }
 
 @end
