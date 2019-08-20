@@ -38,7 +38,7 @@
 }
 
 - (void)removeFromSuperview {
-    [self.collectionView removeFromSuperview];
+    [self.scrollView removeFromSuperview];
 }
 
 @end
