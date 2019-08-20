@@ -294,11 +294,11 @@
             decorationViewFrame.origin = sectionOrigin;
 
             if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
-                decorationViewFrame.size.width += CGRectGetWidth(contentFrame) + layoutSection.contentInsets.leading;
-                decorationViewFrame.size.height = CGRectGetMaxY(contentFrame) - sectionOrigin.y + layoutSection.contentInsets.top;
+                decorationViewFrame.size.width += CGRectGetWidth(contentFrame);
+                decorationViewFrame.size.height = CGRectGetMaxY(contentFrame) - sectionOrigin.y + layoutSection.contentInsets.bottom;
             }
             if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-                decorationViewFrame.size.width = CGRectGetMaxX(contentFrame) - sectionOrigin.x;
+                decorationViewFrame.size.width = CGRectGetMaxX(contentFrame) - sectionOrigin.x + layoutSection.contentInsets.trailing;
                 decorationViewFrame.size.height += CGRectGetHeight(contentFrame);
             }
 
