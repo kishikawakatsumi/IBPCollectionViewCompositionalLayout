@@ -17,9 +17,10 @@
 #import "IBPUICollectionViewCompositionalLayoutConfiguration_Private.h"
 
 @interface IBPUICollectionViewCompositionalLayout() {
-    NSMutableArray<UICollectionViewLayoutAttributes *> *cachedItemAttributes;
-    NSMutableDictionary *cachedSupplementaryAttributes;
-    NSMutableDictionary *cachedDecorationAttributes;
+    NSMutableDictionary<NSIndexPath *, UICollectionViewLayoutAttributes *> *cachedItemAttributes;
+    NSMutableDictionary<NSString *, UICollectionViewLayoutAttributes *> *cachedSupplementaryAttributes;
+    NSMutableDictionary<NSString *, UICollectionViewLayoutAttributes *> *cachedDecorationAttributes;
+    NSMutableArray<IBPNSCollectionLayoutSupplementaryItem *> *globalSupplementaryItems;
     NSMutableArray<UICollectionViewLayoutAttributes *> *layoutAttributesForPinnedSupplementaryItems;
 
     CGRect contentFrame;
@@ -88,7 +89,10 @@
 }
 
 - (void)commonInit {
-    cachedItemAttributes = [[NSMutableArray alloc] init];
+    cachedItemAttributes = [[NSMutableDictionary alloc] init];
+    cachedSupplementaryAttributes = [[NSMutableDictionary alloc] init];
+    cachedDecorationAttributes = [[NSMutableDictionary alloc] init];
+    globalSupplementaryItems = [[NSMutableArray alloc] init];
     layoutAttributesForPinnedSupplementaryItems = [[NSMutableArray alloc] init];
     orthogonalScrollerSectionControllers = [[NSMutableDictionary alloc] init];
 }
@@ -115,6 +119,9 @@
     }
 
     [cachedItemAttributes removeAllObjects];
+    [cachedSupplementaryAttributes removeAllObjects];
+    [cachedDecorationAttributes removeAllObjects];
+    [globalSupplementaryItems removeAllObjects];
     [layoutAttributesForPinnedSupplementaryItems removeAllObjects];
     self.hasPinnedSupplementaryItems = NO;
 
@@ -171,22 +178,22 @@
             cellFrame.origin.y += sectionOrigin.y;
             cellAttributes.frame = cellFrame;
             if (!layoutSection.scrollsOrthogonally) {
-                [cachedItemAttributes addObject:cellAttributes];
+                cachedItemAttributes[indexPath] = cellAttributes;
             }
 
             IBPNSCollectionLayoutItem *layoutItem = [solver layoutItemAtIndexPath:indexPath];
-            NSMutableArray<UICollectionViewLayoutAttributes *> *itemAttributes = cachedItemAttributes;
+            NSMutableDictionary<NSString *, UICollectionViewLayoutAttributes *> *supplementaryAttributes = cachedSupplementaryAttributes;
             [layoutItem enumerateSupplementaryItemsWithHandler:^(IBPNSCollectionLayoutSupplementaryItem * _Nonnull supplementaryItem, BOOL * _Nonnull stop) {
-                UICollectionViewLayoutAttributes *supplementaryViewAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:supplementaryItem.elementKind withIndexPath:indexPath];
+                UICollectionViewLayoutAttributes *layoutAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:supplementaryItem.elementKind withIndexPath:indexPath];
 
                 IBPNSCollectionLayoutContainer *itemContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:cellFrame.size
                                                                                                               contentInsets:IBPNSDirectionalEdgeInsetsZero];
                 CGSize itemSize = [supplementaryItem.layoutSize effectiveSizeForContainer:itemContainer];
                 CGRect itemFrame = [supplementaryItem.containerAnchor itemFrameForContainerRect:cellFrame itemSize:itemSize itemLayoutAnchor:supplementaryItem.itemAnchor];
-                supplementaryViewAttributes.frame = itemFrame;
-                supplementaryViewAttributes.zIndex = supplementaryItem.zIndex;
+                layoutAttributes.frame = itemFrame;
+                layoutAttributes.zIndex = supplementaryItem.zIndex;
 
-                [itemAttributes addObject:supplementaryViewAttributes];
+                supplementaryAttributes[[NSString stringWithFormat:@"%@-%ld-%ld", supplementaryItem.elementKind, (long)indexPath.section, (long)indexPath.item]] = layoutAttributes;
             }];
 
             if (layoutSection.scrollsOrthogonally) {
@@ -295,28 +302,29 @@
         }
 
         for (IBPNSCollectionLayoutDecorationItem *decorationItem in layoutSection.decorationItems) {
-            UICollectionViewLayoutAttributes *decorationViewAttributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:decorationItem.elementKind withIndexPath:[NSIndexPath indexPathForItem:0 inSection:sectionIndex]];
+            UICollectionViewLayoutAttributes *layoutAttributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:decorationItem.elementKind withIndexPath:[NSIndexPath indexPathForItem:0 inSection:sectionIndex]];
 
-            CGRect decorationViewFrame = CGRectZero;
-            decorationViewFrame.origin = sectionOrigin;
-            decorationViewFrame.size = collectionContainer.effectiveContentSize;
+            CGRect frame = CGRectZero;
+            frame.origin = sectionOrigin;
+            frame.size = collectionContainer.effectiveContentSize;
 
             if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
-                decorationViewFrame.size.height = CGRectGetMaxY(contentFrame) - sectionOrigin.y + layoutSection.contentInsets.bottom;
+                frame.size.height = CGRectGetMaxY(contentFrame) - sectionOrigin.y + layoutSection.contentInsets.bottom;
             }
             if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-                decorationViewFrame.size.width = CGRectGetMaxX(contentFrame) - sectionOrigin.x;
+                frame.size.width = CGRectGetMaxX(contentFrame) - sectionOrigin.x;
             }
 
-            decorationViewFrame.origin.x += decorationItem.contentInsets.leading;
-            decorationViewFrame.origin.y += decorationItem.contentInsets.top;
-            decorationViewFrame.size.width -= decorationItem.contentInsets.leading + decorationItem.contentInsets.trailing;
-            decorationViewFrame.size.height -= decorationItem.contentInsets.top + decorationItem.contentInsets.bottom;
+            frame.origin.x += decorationItem.contentInsets.leading;
+            frame.origin.y += decorationItem.contentInsets.top;
+            frame.size.width -= decorationItem.contentInsets.leading + decorationItem.contentInsets.trailing;
+            frame.size.height -= decorationItem.contentInsets.top + decorationItem.contentInsets.bottom;
 
-            decorationViewAttributes.zIndex = decorationItem.zIndex;
+            layoutAttributes.zIndex = decorationItem.zIndex;
 
-            decorationViewAttributes.frame = decorationViewFrame;
-            [cachedItemAttributes addObject:decorationViewAttributes];
+            layoutAttributes.frame = frame;
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:sectionIndex];
+            cachedDecorationAttributes[indexPath] = layoutAttributes;
         }
 
         CGRect insetsContentFrame = contentFrame;
@@ -351,12 +359,9 @@
                     itemFrame.origin.y += sectionOrigin.y;
                     layoutAttributes.frame = itemFrame;
 
-                    [cachedItemAttributes addObject:layoutAttributes];
-                    contentFrame = CGRectUnion(contentFrame, itemFrame);
-
                     if (boundaryItem.extendsBoundary && extendedBoundary.height < CGRectGetHeight(itemFrame)) {
                         CGFloat extendHeight = CGRectGetHeight(itemFrame) - extendedBoundary.height;
-                        for (UICollectionViewLayoutAttributes *attributes in cachedItemAttributes) {
+                        for (UICollectionViewLayoutAttributes *attributes in cachedItemAttributes.allValues) {
                             if (attributes.representedElementCategory == UICollectionElementCategoryCell ||
                                 attributes.representedElementCategory == UICollectionElementCategoryDecorationView) {
                                 CGRect frame = attributes.frame;
@@ -386,9 +391,6 @@
                     CGRect itemFrame = layoutAttributes.frame;
                     itemFrame.origin.x += sectionOrigin.x;
                     layoutAttributes.frame = itemFrame;
-
-                    [cachedItemAttributes addObject:layoutAttributes];
-                    contentFrame = CGRectUnion(contentFrame, itemFrame);
                 }
             }
             if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
@@ -401,9 +403,6 @@
                     }
                     itemFrame.origin.y += layoutSection.contentInsets.bottom;
                     layoutAttributes.frame = itemFrame;
-
-                    [cachedItemAttributes addObject:layoutAttributes];
-                    contentFrame = CGRectUnion(contentFrame, layoutAttributes.frame);
                 }
             }
             if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
@@ -413,11 +412,12 @@
                     CGRect itemFrame = layoutAttributes.frame;
                     itemFrame.origin.x += layoutSection.contentInsets.trailing;
                     layoutAttributes.frame = itemFrame;
-
-                    [cachedItemAttributes addObject:layoutAttributes];
-                    contentFrame = CGRectUnion(contentFrame, layoutAttributes.frame);
                 }
             }
+
+            contentFrame = CGRectUnion(contentFrame, layoutAttributes.frame);
+            cachedSupplementaryAttributes[[NSString stringWithFormat:@"%@-%ld-%ld", boundaryItem.elementKind, (long)sectionIndex, 0]] = layoutAttributes;
+            [globalSupplementaryItems addObject:boundaryItem];
 
             if (boundaryItem.pinToVisibleBounds) {
                 self.hasPinnedSupplementaryItems = YES;
@@ -487,7 +487,7 @@
     NSMutableArray<UICollectionViewLayoutAttributes *> *layoutAttributes = [[NSMutableArray alloc] init];
 
     for (NSInteger i = 0; i < cachedItemAttributes.count; i++) {
-        UICollectionViewLayoutAttributes *attributes = cachedItemAttributes[i];
+        UICollectionViewLayoutAttributes *attributes = cachedItemAttributes.allValues[i];
         if (!CGRectIntersectsRect(attributes.frame, rect)) {
             continue;
         }
@@ -496,60 +496,71 @@
         IBPNSCollectionLayoutItem *layoutItem = [solver layoutItemAtIndexPath:indexPath];
         IBPNSCollectionLayoutSize *layoutSize = layoutItem.layoutSize;
         if (layoutSize.widthDimension.isEstimated || layoutSize.heightDimension.isEstimated) {
-            if (attributes.representedElementCategory == UICollectionElementCategoryCell) {
-                UICollectionViewCell *cell = [self.collectionView.dataSource collectionView:self.collectionView cellForItemAtIndexPath:attributes.indexPath];
-                if (cell) {
-                    CGSize containerSize = self.collectionViewContentSize;
-                    if (!layoutSize.widthDimension.isEstimated) {
-                        containerSize.width = CGRectGetWidth(attributes.frame);
-                    }
-                    if (!layoutSize.heightDimension.isEstimated) {
-                        containerSize.height = CGRectGetHeight(attributes.frame);
-                    }
-
-                    CGFloat containerWidth = containerSize.width;
-                    CGFloat containerHeight = containerSize.height;
-
-                    CGRect frame = cell.frame;
-                    frame.size = containerSize;
-                    cell.frame = frame;
-                    [cell setNeedsLayout];
-                    [cell layoutIfNeeded];
-
-                    CGSize fitSize = [cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-                    if (!layoutSize.widthDimension.isEstimated) {
-                        fitSize.width = containerWidth;
-                    }
-                    if (!layoutSize.heightDimension.isEstimated) {
-                        fitSize.height = containerHeight;
-                    }
-
-                    CGRect f = attributes.frame;
-                    if (CGRectGetWidth(f) != fitSize.width || CGRectGetHeight(f) != fitSize.height) {
-                        for (NSInteger j = i + 1; j < cachedItemAttributes.count; j++) {
-                            UICollectionViewLayoutAttributes *attributes = cachedItemAttributes[j];
-                            CGRect frame = attributes.frame;
-
-                            if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
-                                frame.origin.y += fitSize.height - CGRectGetHeight(f);
-                            }
-                            if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-                                frame.origin.x += fitSize.width - CGRectGetWidth(f);
-                            }
-                            attributes.frame = frame;
-                        }
-                    }
-                    f.size = fitSize;
-                    attributes.frame = f;
-
-                    contentFrame = CGRectUnion(contentFrame, f);
-
-                    [layoutAttributes addObject:attributes];
-                    continue;
+            UICollectionViewCell *cell = [self.collectionView.dataSource collectionView:self.collectionView cellForItemAtIndexPath:attributes.indexPath];
+            if (cell) {
+                CGSize containerSize = self.collectionViewContentSize;
+                if (!layoutSize.widthDimension.isEstimated) {
+                    containerSize.width = CGRectGetWidth(attributes.frame);
                 }
+                if (!layoutSize.heightDimension.isEstimated) {
+                    containerSize.height = CGRectGetHeight(attributes.frame);
+                }
+
+                CGFloat containerWidth = containerSize.width;
+                CGFloat containerHeight = containerSize.height;
+
+                CGRect frame = cell.frame;
+                frame.size = containerSize;
+                cell.frame = frame;
+                [cell setNeedsLayout];
+                [cell layoutIfNeeded];
+
+                CGSize fitSize = [cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+                if (!layoutSize.widthDimension.isEstimated) {
+                    fitSize.width = containerWidth;
+                }
+                if (!layoutSize.heightDimension.isEstimated) {
+                    fitSize.height = containerHeight;
+                }
+
+                CGRect f = attributes.frame;
+                if (CGRectGetWidth(f) != fitSize.width || CGRectGetHeight(f) != fitSize.height) {
+                    for (NSInteger j = i + 1; j < cachedItemAttributes.count; j++) {
+                        UICollectionViewLayoutAttributes *attributes = cachedItemAttributes.allValues[j];
+                        CGRect frame = attributes.frame;
+
+                        if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
+                            frame.origin.y += fitSize.height - CGRectGetHeight(f);
+                        }
+                        if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+                            frame.origin.x += fitSize.width - CGRectGetWidth(f);
+                        }
+                        attributes.frame = frame;
+                    }
+                }
+                f.size = fitSize;
+                attributes.frame = f;
+
+                contentFrame = CGRectUnion(contentFrame, f);
+
+                [layoutAttributes addObject:attributes];
+                continue;
             }
         }
 
+        [layoutAttributes addObject:attributes];
+    }
+
+    for (UICollectionViewLayoutAttributes *attributes in cachedSupplementaryAttributes.allValues) {
+        if (!CGRectIntersectsRect(attributes.frame, rect)) {
+            continue;
+        }
+        [layoutAttributes addObject:attributes];
+    }
+    for (UICollectionViewLayoutAttributes *attributes in cachedDecorationAttributes.allValues) {
+        if (!CGRectIntersectsRect(attributes.frame, rect)) {
+            continue;
+        }
         [layoutAttributes addObject:attributes];
     }
 
@@ -590,6 +601,18 @@
     }
 
     return layoutAttributes;
+}
+
+- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return cachedItemAttributes[indexPath];
+}
+
+- (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
+    return cachedSupplementaryAttributes[[NSString stringWithFormat:@"%@-%ld-%ld", elementKind, (long)indexPath.section, (long)indexPath.item]];
+}
+
+- (UICollectionViewLayoutAttributes *)layoutAttributesForDecorationViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
+    return cachedDecorationAttributes[[NSString stringWithFormat:@"%@-%ld-%ld", elementKind, (long)indexPath.section, (long)indexPath.item]];
 }
 
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity {
