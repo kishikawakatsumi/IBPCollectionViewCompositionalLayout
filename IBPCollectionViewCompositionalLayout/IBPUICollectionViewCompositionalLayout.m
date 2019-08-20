@@ -11,7 +11,6 @@
 #import "IBPNSCollectionLayoutGroup_Private.h"
 #import "IBPNSCollectionLayoutItem_Private.h"
 #import "IBPNSCollectionLayoutSection_Private.h"
-#import "IBPNSCollectionLayoutSize.h"
 #import "IBPNSCollectionLayoutSize_Private.h"
 #import "IBPNSCollectionLayoutSpacing.h"
 #import "IBPNSCollectionLayoutSupplementaryItem_Private.h"
@@ -92,6 +91,15 @@
     cachedItemAttributes = [[NSMutableArray alloc] init];
     layoutAttributesForPinnedSupplementaryItems = [[NSMutableArray alloc] init];
     orthogonalScrollerSectionControllers = [[NSMutableDictionary alloc] init];
+}
+
+- (void)setConfiguration:(IBPUICollectionViewCompositionalLayoutConfiguration *)configuration {
+    _configuration = configuration;
+    [self invalidateLayout];
+}
+
+- (UICollectionViewScrollDirection)scrollDirection {
+    return self.configuration.scrollDirection;
 }
 
 - (void)prepareLayout {
@@ -475,11 +483,6 @@
     return layoutAttributes;
 }
 
-- (CGSize)collectionViewContentSize {
-    UIEdgeInsets insets = UIEdgeInsetsZero;
-    return UIEdgeInsetsInsetRect(contentFrame, insets).size;
-}
-
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
     NSMutableArray<UICollectionViewLayoutAttributes *> *layoutAttributes = [[NSMutableArray alloc] init];
 
@@ -589,17 +592,6 @@
     return layoutAttributes;
 }
 
-- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
-    if (!self.collectionView) {
-        return NO;
-    }
-    if (self.hasPinnedSupplementaryItems) {
-        return YES;
-    }
-
-    return !CGSizeEqualToSize(newBounds.size, self.collectionView.bounds.size);
-}
-
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity {
     switch (self.parentCollectionViewOrthogonalScrollingBehavior) {
         case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuousGroupLeadingBoundary: {
@@ -621,8 +613,20 @@
     }
 }
 
-- (UICollectionViewScrollDirection)scrollDirection {
-    return self.configuration.scrollDirection;
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
+    if (!self.collectionView) {
+        return NO;
+    }
+    if (self.hasPinnedSupplementaryItems) {
+        return YES;
+    }
+
+    return !CGSizeEqualToSize(newBounds.size, self.collectionView.bounds.size);
+}
+
+- (CGSize)collectionViewContentSize {
+    UIEdgeInsets insets = UIEdgeInsetsZero;
+    return UIEdgeInsetsInsetRect(contentFrame, insets).size;
 }
 
 @end
