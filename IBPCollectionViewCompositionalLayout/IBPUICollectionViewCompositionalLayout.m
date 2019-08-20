@@ -286,20 +286,18 @@
             }
         }
 
-        NSArray<IBPNSCollectionLayoutDecorationItem *> *decorationItems = layoutSection.decorationItems;
-        for (IBPNSCollectionLayoutDecorationItem *decorationItem in decorationItems) {
+        for (IBPNSCollectionLayoutDecorationItem *decorationItem in layoutSection.decorationItems) {
             UICollectionViewLayoutAttributes *decorationViewAttributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:decorationItem.elementKind withIndexPath:[NSIndexPath indexPathForItem:0 inSection:sectionIndex]];
 
             CGRect decorationViewFrame = CGRectZero;
             decorationViewFrame.origin = sectionOrigin;
+            decorationViewFrame.size = collectionContainer.effectiveContentSize;
 
             if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
-                decorationViewFrame.size.width += CGRectGetWidth(contentFrame);
                 decorationViewFrame.size.height = CGRectGetMaxY(contentFrame) - sectionOrigin.y + layoutSection.contentInsets.bottom;
             }
             if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-                decorationViewFrame.size.width = CGRectGetMaxX(contentFrame) - sectionOrigin.x + layoutSection.contentInsets.trailing;
-                decorationViewFrame.size.height += CGRectGetHeight(contentFrame);
+                decorationViewFrame.size.width = CGRectGetMaxX(contentFrame) - sectionOrigin.x;
             }
 
             decorationViewFrame.origin.x += decorationItem.contentInsets.leading;
