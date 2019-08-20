@@ -227,78 +227,25 @@
         if (layoutSection.scrollsOrthogonally) {
             IBPCollectionViewOrthogonalScrollerSectionController *controller = orthogonalScrollerSectionControllers[@(sectionIndex)];
             if (!controller) {
+                UICollectionView *scrollView = [self setupOrthogonalScrollViewForSection:layoutSection];
+
                 CGRect scrollViewFrame = solver.layoutFrame;
                 scrollViewFrame.origin = sectionOrigin;
                 scrollViewFrame.size.width = collectionContainer.contentSize.width;
+                scrollView.frame = scrollViewFrame;
 
-                IBPUICollectionViewCompositionalLayoutConfiguration *configuration = [IBPUICollectionViewCompositionalLayoutConfiguration defaultConfiguration];
-                configuration.scrollDirection = self.scrollDirection == UICollectionViewScrollDirectionVertical ? UICollectionViewScrollDirectionHorizontal : UICollectionViewScrollDirectionVertical;
-
-                IBPNSCollectionLayoutSection *orthogonalSection = layoutSection.copy;
-                orthogonalSection.boundarySupplementaryItems = @[];
-                orthogonalSection.orthogonalScrollingBehavior = IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone;
-                IBPNSCollectionLayoutSize *orthogonalGroupSize = layoutSection.group.layoutSize;
-
-                IBPNSCollectionLayoutDimension *widthDimension = orthogonalGroupSize.widthDimension;
-                IBPNSCollectionLayoutDimension *heightDimension = orthogonalGroupSize.heightDimension;
-
-                if (widthDimension.isFractionalWidth) {
-                    widthDimension = self.scrollDirection == UICollectionViewScrollDirectionVertical ? widthDimension : [IBPNSCollectionLayoutDimension fractionalWidthDimension:MAX(1, widthDimension.dimension)];
-                }
-                if (widthDimension.isFractionalHeight) {
-                    widthDimension = self.scrollDirection == UICollectionViewScrollDirectionVertical ? widthDimension : [IBPNSCollectionLayoutDimension fractionalWidthDimension:MAX(1, widthDimension.dimension)];
-                }
-                if (widthDimension.isAbsolute) {
-                    widthDimension = [IBPNSCollectionLayoutDimension absoluteDimension:widthDimension.dimension];
+                if (layoutSection.orthogonalScrollingBehavior == IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPagingCentered) {
+                    CGSize groupSize = [layoutSection.group.layoutSize effectiveSizeForContainer:collectionContainer];
+                    if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
+                        CGFloat inset = (collectionContainer.contentSize.width - groupSize.width) / 2;
+                        scrollView.contentInset = UIEdgeInsetsMake(0, inset, 0, 0);
+                    }
+                    if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+                        CGFloat inset = (collectionContainer.contentSize.height - groupSize.height) / 2;
+                        scrollView.contentInset = UIEdgeInsetsMake(inset, 0, 0, 0);
+                    }
                 }
 
-                if (heightDimension.isFractionalWidth) {
-                    heightDimension = self.scrollDirection == UICollectionViewScrollDirectionVertical ? [IBPNSCollectionLayoutDimension fractionalHeightDimension:MAX(1, heightDimension.dimension)] : heightDimension;
-                }
-                if (heightDimension.isFractionalHeight) {
-                    heightDimension = self.scrollDirection == UICollectionViewScrollDirectionVertical ? [IBPNSCollectionLayoutDimension fractionalHeightDimension:MAX(1, heightDimension.dimension)] : heightDimension;
-                }
-                if (heightDimension.isAbsolute) {
-                    heightDimension = [IBPNSCollectionLayoutDimension absoluteDimension:heightDimension.dimension];
-                }
-
-                orthogonalSection.group.layoutSize = [IBPNSCollectionLayoutSize sizeWithWidthDimension:widthDimension heightDimension:heightDimension];
-                IBPUICollectionViewCompositionalLayout *orthogonalScrollViewCollectionViewLayout = [[IBPUICollectionViewCompositionalLayout alloc] initWithSection:orthogonalSection configuration:configuration];
-                orthogonalScrollViewCollectionViewLayout.parentCollectionViewOrthogonalScrollingBehavior = layoutSection.orthogonalScrollingBehavior;
-
-                IBPCollectionViewOrthogonalScrollerEmbeddedScrollView *scrollView = [[IBPCollectionViewOrthogonalScrollerEmbeddedScrollView alloc] initWithFrame:scrollViewFrame collectionViewLayout:orthogonalScrollViewCollectionViewLayout];
-                scrollView.backgroundColor = [UIColor clearColor];
-                scrollView.directionalLockEnabled = YES;
-                scrollView.showsHorizontalScrollIndicator = NO;
-                scrollView.showsVerticalScrollIndicator = NO;
-
-                switch (layoutSection.orthogonalScrollingBehavior) {
-                    case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone:
-                    case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuous:
-                    case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuousGroupLeadingBoundary:
-                        scrollView.pagingEnabled = NO;
-                        break;
-                    case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorPaging:
-                        scrollView.pagingEnabled = YES;
-                        break;
-                    case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPaging:
-                        scrollView.pagingEnabled = NO;
-                        scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
-                        break;
-                    case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPagingCentered:
-                        scrollView.pagingEnabled = NO;
-                        scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
-                        CGSize groupSize = [orthogonalGroupSize effectiveSizeForContainer:collectionContainer];
-                        if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
-                            CGFloat inset = (collectionContainer.contentSize.width - groupSize.width) / 2;
-                            scrollView.contentInset = UIEdgeInsetsMake(0, inset, 0, 0);
-                        }
-                        if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-                            CGFloat inset = (collectionContainer.contentSize.height - groupSize.height) / 2;
-                            scrollView.contentInset = UIEdgeInsetsMake(inset, 0, 0, 0);
-                        }
-                        break;
-                }
                 controller = [[IBPCollectionViewOrthogonalScrollerSectionController alloc] initWithSectionIndex:sectionIndex collectionView:self.collectionView scrollView:scrollView];
                 orthogonalScrollerSectionControllers[@(sectionIndex)] = controller;
 
@@ -430,6 +377,72 @@
             }
         }
     }
+}
+
+- (UICollectionView *)setupOrthogonalScrollViewForSection:(IBPNSCollectionLayoutSection *)section {
+    IBPUICollectionViewCompositionalLayoutConfiguration *configuration = [IBPUICollectionViewCompositionalLayoutConfiguration defaultConfiguration];
+    configuration.scrollDirection = self.scrollDirection == UICollectionViewScrollDirectionVertical ? UICollectionViewScrollDirectionHorizontal : UICollectionViewScrollDirectionVertical;
+
+    IBPNSCollectionLayoutSection *orthogonalSection = section.copy;
+    orthogonalSection.boundarySupplementaryItems = @[];
+    orthogonalSection.orthogonalScrollingBehavior = IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone;
+    IBPNSCollectionLayoutSize *orthogonalGroupSize = section.group.layoutSize;
+
+    IBPNSCollectionLayoutDimension *widthDimension = orthogonalGroupSize.widthDimension;
+    IBPNSCollectionLayoutDimension *heightDimension = orthogonalGroupSize.heightDimension;
+
+    if (widthDimension.isFractionalWidth) {
+        widthDimension = self.scrollDirection == UICollectionViewScrollDirectionVertical ? widthDimension : [IBPNSCollectionLayoutDimension fractionalWidthDimension:MAX(1, widthDimension.dimension)];
+    }
+    if (widthDimension.isFractionalHeight) {
+        widthDimension = self.scrollDirection == UICollectionViewScrollDirectionVertical ? widthDimension : [IBPNSCollectionLayoutDimension fractionalWidthDimension:MAX(1, widthDimension.dimension)];
+    }
+    if (widthDimension.isAbsolute) {
+        widthDimension = [IBPNSCollectionLayoutDimension absoluteDimension:widthDimension.dimension];
+    }
+
+    if (heightDimension.isFractionalWidth) {
+        heightDimension = self.scrollDirection == UICollectionViewScrollDirectionVertical ? [IBPNSCollectionLayoutDimension fractionalHeightDimension:MAX(1, heightDimension.dimension)] : heightDimension;
+    }
+    if (heightDimension.isFractionalHeight) {
+        heightDimension = self.scrollDirection == UICollectionViewScrollDirectionVertical ? [IBPNSCollectionLayoutDimension fractionalHeightDimension:MAX(1, heightDimension.dimension)] : heightDimension;
+    }
+    if (heightDimension.isAbsolute) {
+        heightDimension = [IBPNSCollectionLayoutDimension absoluteDimension:heightDimension.dimension];
+    }
+
+    orthogonalSection.group.layoutSize = [IBPNSCollectionLayoutSize sizeWithWidthDimension:widthDimension heightDimension:heightDimension];
+    IBPUICollectionViewCompositionalLayout *orthogonalScrollViewCollectionViewLayout = [[IBPUICollectionViewCompositionalLayout alloc] initWithSection:orthogonalSection
+                                                                                                                                         configuration:configuration];
+    orthogonalScrollViewCollectionViewLayout.parentCollectionViewOrthogonalScrollingBehavior = section.orthogonalScrollingBehavior;
+
+    IBPCollectionViewOrthogonalScrollerEmbeddedScrollView *scrollView = [[IBPCollectionViewOrthogonalScrollerEmbeddedScrollView alloc] initWithFrame:CGRectZero
+                                                                                                                                collectionViewLayout:orthogonalScrollViewCollectionViewLayout];
+    scrollView.backgroundColor = UIColor.clearColor;
+    scrollView.directionalLockEnabled = YES;
+    scrollView.showsHorizontalScrollIndicator = NO;
+    scrollView.showsVerticalScrollIndicator = NO;
+
+    switch (section.orthogonalScrollingBehavior) {
+        case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone:
+        case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuous:
+        case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuousGroupLeadingBoundary:
+            scrollView.pagingEnabled = NO;
+            break;
+        case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorPaging:
+            scrollView.pagingEnabled = YES;
+            break;
+        case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPaging:
+            scrollView.pagingEnabled = NO;
+            scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
+            break;
+        case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPagingCentered:
+            scrollView.pagingEnabled = NO;
+            scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
+            break;
+    }
+
+    return scrollView;
 }
 
 - (UICollectionViewLayoutAttributes *)prepareLayoutForBoundaryItem:(IBPNSCollectionLayoutBoundarySupplementaryItem *)boundaryItem

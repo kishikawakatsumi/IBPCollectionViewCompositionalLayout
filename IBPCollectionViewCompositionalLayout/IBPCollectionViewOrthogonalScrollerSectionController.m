@@ -1,11 +1,10 @@
 #import "IBPCollectionViewOrthogonalScrollerSectionController.h"
-#import "IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.h"
 
 @implementation IBPCollectionViewOrthogonalScrollerSectionController
 
 - (instancetype)initWithSectionIndex:(NSInteger)sectionIndex
                       collectionView:(UICollectionView *)collectionView
-                          scrollView:(IBPCollectionViewOrthogonalScrollerEmbeddedScrollView *)scrollView {
+                          scrollView:(UICollectionView *)scrollView {
     self = [super init];
     if (self) {
         self.sectionIndex = sectionIndex;
