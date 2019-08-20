@@ -7,7 +7,6 @@
 #import "IBPNSCollectionLayoutSection_Private.h"
 #import "IBPNSCollectionLayoutSize_Private.h"
 #import "IBPNSCollectionLayoutSpacing.h"
-#import "IBPUICollectionViewCompositionalLayoutConfiguration_Private.h"
 
 @interface IBPCollectionCompositionalLayoutSolver()
 
