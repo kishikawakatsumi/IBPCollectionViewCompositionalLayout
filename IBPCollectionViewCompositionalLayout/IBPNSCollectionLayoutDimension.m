@@ -1,12 +1,16 @@
 #import "IBPNSCollectionLayoutDimension.h"
 
+typedef NS_ENUM(NSUInteger, IBPNSCollectionLayoutDimensionSemantic) {
+    IBPNSCollectionLayoutDimensionSemanticFractionalWidth,
+    IBPNSCollectionLayoutDimensionSemanticFractionalHeight,
+    IBPNSCollectionLayoutDimensionSemanticAbsolute,
+    IBPNSCollectionLayoutDimensionSemanticEstimated,
+};
+
 @interface IBPNSCollectionLayoutDimension()
 
-@property (nonatomic, readwrite) BOOL isFractionalWidth;
-@property (nonatomic, readwrite) BOOL isFractionalHeight;
-@property (nonatomic, readwrite) BOOL isAbsolute;
-@property (nonatomic, readwrite) BOOL isEstimated;
 @property (nonatomic, readwrite) CGFloat dimension;
+@property (nonatomic) IBPNSCollectionLayoutDimensionSemantic semantic;
 
 @end
 
@@ -16,7 +20,7 @@
     if (@available(iOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutDimension") fractionalWidthDimension:fractionalWidth];
     } else {
-        return [[self alloc] initWithFractionalWidth:fractionalWidth];
+        return [self dimensionWithDimension:fractionalWidth semantic:IBPNSCollectionLayoutDimensionSemanticFractionalWidth];
     }
 }
 
@@ -24,7 +28,7 @@
     if (@available(iOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutDimension") fractionalHeightDimension:fractionalHeight];
     } else {
-        return [[self alloc] initWithFractionalHeight:fractionalHeight];
+        return [self dimensionWithDimension:fractionalHeight semantic:IBPNSCollectionLayoutDimensionSemanticFractionalHeight];
     }
 }
 
@@ -32,7 +36,7 @@
     if (@available(iOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutDimension") absoluteDimension:absoluteDimension];
     } else {
-        return [[self alloc] initWithAbsoluteDimension:absoluteDimension];
+        return [self dimensionWithDimension:absoluteDimension semantic:IBPNSCollectionLayoutDimensionSemanticAbsolute];
     }
 }
 
@@ -40,60 +44,41 @@
     if (@available(iOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutDimension") estimatedDimension:estimatedDimension];
     } else {
-        return [[self alloc] initWithEstimatedDimension:estimatedDimension];
+        return [self dimensionWithDimension:estimatedDimension semantic:IBPNSCollectionLayoutDimensionSemanticEstimated];
     }
 }
 
-- (instancetype)initWithFractionalWidth:(CGFloat)fractionalWidth {
++ (instancetype)dimensionWithDimension:(CGFloat)dimension semantic:(IBPNSCollectionLayoutDimensionSemantic)semantic {
+    return [[self alloc] initWithDimension:dimension semantic:semantic];
+}
+
+- (instancetype)initWithDimension:(CGFloat)dimension semantic:(IBPNSCollectionLayoutDimensionSemantic)semantic {
     self = [super init];
     if (self) {
-        self.dimension = fractionalWidth;
-        self.isFractionalWidth = YES;
+        self.dimension = dimension;
+        self.semantic = semantic;
     }
     return self;
 }
 
-- (instancetype)initWithFractionalHeight:(CGFloat)fractionalHeight {
-    self = [super init];
-    if (self) {
-        self.dimension = fractionalHeight;
-        self.isFractionalHeight = YES;
-    }
-    return self;
+- (BOOL)isFractionalWidth {
+    return self.semantic == IBPNSCollectionLayoutDimensionSemanticFractionalWidth;
 }
 
-- (instancetype)initWithAbsoluteDimension:(CGFloat)absoluteDimension {
-    self = [super init];
-    if (self) {
-        self.dimension = absoluteDimension;
-        self.isAbsolute = YES;
-    }
-    return self;
+- (BOOL)isFractionalHeight {
+    return self.semantic == IBPNSCollectionLayoutDimensionSemanticFractionalHeight;
 }
 
-- (instancetype)initWithEstimatedDimension:(CGFloat)estimatedDimension {
-    self = [super init];
-    if (self) {
-        self.dimension = estimatedDimension;
-        self.isEstimated = YES;
-    }
-    return self;
+- (BOOL)isAbsolute {
+    return self.semantic == IBPNSCollectionLayoutDimensionSemanticAbsolute;
+}
+
+- (BOOL)isEstimated {
+    return self.semantic == IBPNSCollectionLayoutDimensionSemanticEstimated;
 }
 
 - (nonnull id)copyWithZone:(nullable NSZone *)zone {
-    if (self.isFractionalWidth) {
-        return [IBPNSCollectionLayoutDimension fractionalWidthDimension:self.dimension];
-    }
-    if (self.isFractionalHeight) {
-        return [IBPNSCollectionLayoutDimension fractionalHeightDimension:self.dimension];
-    }
-    if (self.isAbsolute) {
-        return [IBPNSCollectionLayoutDimension absoluteDimension:self.dimension];
-    }
-    if (self.isEstimated) {
-        return [IBPNSCollectionLayoutDimension estimatedDimension:self.dimension];
-    }
-    return nil;
+    return [IBPNSCollectionLayoutDimension dimensionWithDimension:self.dimension semantic:self.semantic];
 }
 
 @end
