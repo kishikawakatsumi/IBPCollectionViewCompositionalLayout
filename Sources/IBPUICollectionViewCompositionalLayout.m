@@ -34,6 +34,7 @@
 
 @property (nonatomic) IBPUICollectionLayoutSectionOrthogonalScrollingBehavior parentCollectionViewOrthogonalScrollingBehavior;
 
+@property (nonatomic, readonly) UICollectionViewScrollDirection scrollDirection;
 @property (nonatomic) BOOL hasPinnedSupplementaryItems;
 
 @property (nonatomic, weak) id<UICollectionViewDelegate> collectionViewDelegate;
@@ -227,7 +228,14 @@
 
                 contentFrame = CGRectUnion(contentFrame, frame);
             } else {
-                contentFrame = CGRectUnion(contentFrame, CGRectInset(cellFrame, 0, -layoutItem.contentInsets.bottom));
+                CGRect frame = cellFrame;
+                if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
+                    frame.size.height += layoutItem.contentInsets.bottom;
+                }
+                if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+                    frame.size.width += layoutItem.contentInsets.trailing;
+                }
+                contentFrame = CGRectUnion(contentFrame, frame);
             }
         }
 
