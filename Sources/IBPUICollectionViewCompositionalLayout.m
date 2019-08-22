@@ -510,9 +510,17 @@
 
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
     NSMutableArray<UICollectionViewLayoutAttributes *> *layoutAttributes = [[NSMutableArray alloc] init];
+    NSArray *sortedAttributes = [cachedItemAttributes.allValues sortedArrayUsingComparator:^NSComparisonResult(UICollectionViewLayoutAttributes * _Nonnull attrs1, UICollectionViewLayoutAttributes * _Nonnull attrs2) {
+        switch (self.scrollDirection) {
+            case UICollectionViewScrollDirectionVertical:
+                return CGRectGetMinY(attrs1.frame) > CGRectGetMinY(attrs2.frame);
+            case UICollectionViewScrollDirectionHorizontal:
+                return CGRectGetMinX(attrs1.frame) > CGRectGetMinX(attrs2.frame);
+        }
+    }];
 
-    for (NSInteger i = 0; i < cachedItemAttributes.count; i++) {
-        UICollectionViewLayoutAttributes *attributes = cachedItemAttributes.allValues[i];
+    for (NSInteger i = 0; i < sortedAttributes.count; i++) {
+        UICollectionViewLayoutAttributes *attributes = sortedAttributes[i];
         if (!CGRectIntersectsRect(attributes.frame, rect)) {
             continue;
         }
@@ -534,9 +542,9 @@
                 CGFloat containerWidth = containerSize.width;
                 CGFloat containerHeight = containerSize.height;
 
-                CGRect frame = cell.frame;
-                frame.size = containerSize;
-                cell.frame = frame;
+                CGRect cellFrame = cell.frame;
+                cellFrame.size = containerSize;
+                cell.frame = cellFrame;
                 [cell setNeedsLayout];
                 [cell layoutIfNeeded];
 
@@ -548,25 +556,32 @@
                     fitSize.height = containerHeight;
                 }
 
-                CGRect f = attributes.frame;
-                if (CGRectGetWidth(f) != fitSize.width || CGRectGetHeight(f) != fitSize.height) {
-                    for (NSInteger j = i + 1; j < cachedItemAttributes.count; j++) {
-                        UICollectionViewLayoutAttributes *attributes = cachedItemAttributes.allValues[j];
-                        CGRect frame = attributes.frame;
+                CGRect frame = attributes.frame;
+                if (CGRectGetWidth(attributes.frame) != fitSize.width || CGRectGetHeight(attributes.frame) != fitSize.height) {
+                    for (NSInteger j = i + 1; j < sortedAttributes.count; j++) {
+                        UICollectionViewLayoutAttributes *nextAttributes = sortedAttributes[j];
+                        CGRect nextFrame = nextAttributes.frame;
 
-                        if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
-                            frame.origin.y += fitSize.height - CGRectGetHeight(f);
+                        switch (self.scrollDirection) {
+                            case UICollectionViewScrollDirectionVertical:
+                                if (CGRectGetMinY(nextFrame) > CGRectGetMinY(frame)) {
+                                    nextFrame.origin.y += fitSize.height - CGRectGetHeight(nextFrame);
+                                }
+                                break;
+                            case UICollectionViewScrollDirectionHorizontal:
+                                if (CGRectGetMinX(nextFrame) > CGRectGetMinX(attributes.frame)) {
+                                    nextFrame.origin.x += fitSize.width - CGRectGetWidth(nextFrame);
+                                }
+                                break;
                         }
-                        if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-                            frame.origin.x += fitSize.width - CGRectGetWidth(f);
-                        }
-                        attributes.frame = frame;
+                        nextAttributes.frame = nextFrame;
                     }
                 }
-                f.size = fitSize;
-                attributes.frame = f;
 
-                contentFrame = CGRectUnion(contentFrame, f);
+                frame.size = fitSize;
+                attributes.frame = frame;
+
+                contentFrame = CGRectUnion(contentFrame, frame);
 
                 [layoutAttributes addObject:attributes];
                 continue;
