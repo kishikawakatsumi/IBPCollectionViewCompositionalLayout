@@ -56,7 +56,7 @@ extension SectionDecorationViewController {
     func configureHierarchy() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .systemBackground
         collectionView.register(ListCell.self, forCellWithReuseIdentifier: ListCell.reuseIdentifier)
         view.addSubview(collectionView)
         collectionView.delegate = self
@@ -78,7 +78,7 @@ extension SectionDecorationViewController {
 
                 // Populate the cell with our item description.
                 cell.label.text = "\(indexPath.section),\(indexPath.item)"
-                cell.separatorView.isHidden = isLastCell
+                cell.seperatorView.isHidden = isLastCell
 
                 // Return the cell.
                 return cell

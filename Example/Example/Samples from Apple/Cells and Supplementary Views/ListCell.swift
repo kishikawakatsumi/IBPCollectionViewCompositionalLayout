@@ -11,7 +11,7 @@ class ListCell: UICollectionViewCell {
     static let reuseIdentifier = "list-cell-reuse-identifier"
     let label = UILabel()
     let accessoryImageView = UIImageView()
-    let separatorView = UIView()
+    let seperatorView = UIView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,9 +24,9 @@ class ListCell: UICollectionViewCell {
 
 extension ListCell {
     func configure() {
-        separatorView.translatesAutoresizingMaskIntoConstraints = false
-        separatorView.backgroundColor = .lightGray
-        contentView.addSubview(separatorView)
+        seperatorView.translatesAutoresizingMaskIntoConstraints = false
+        seperatorView.backgroundColor = .lightGray
+        contentView.addSubview(seperatorView)
 
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
@@ -41,7 +41,7 @@ extension ListCell {
 
         let rtl = effectiveUserInterfaceLayoutDirection == .rightToLeft
         let chevronImageName = rtl ? "chevron.left" : "chevron.right"
-        let chevronImage = UIImage(named: chevronImageName)
+        let chevronImage = UIImage(systemName: chevronImageName)
         accessoryImageView.image = chevronImage
         accessoryImageView.tintColor = UIColor.lightGray.withAlphaComponent(0.7)
 
@@ -57,10 +57,10 @@ extension ListCell {
             accessoryImageView.heightAnchor.constraint(equalToConstant: 20),
             accessoryImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
 
-            separatorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-            separatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            separatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
-            separatorView.heightAnchor.constraint(equalToConstant: 0.5)
+            seperatorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
+            seperatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            seperatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
+            seperatorView.heightAnchor.constraint(equalToConstant: 0.5)
             ])
     }
 }

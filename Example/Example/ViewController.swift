@@ -5,6 +5,12 @@ import IBPCollectionViewCompositionalLayout
 typealias NSDiffableDataSourceSnapshot = DiffableDataSourceSnapshot
 typealias UICollectionViewDiffableDataSource = CollectionViewDiffableDataSource
 
+extension UIColor {
+    static var systemBackground: UIColor {
+        return .white
+    }
+}
+
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     let viewControllers: [UIViewController.Type] = [
         ListViewController.self,

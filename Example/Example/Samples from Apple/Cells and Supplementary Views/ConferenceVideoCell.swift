@@ -36,7 +36,7 @@ extension ConferenceVideoCell {
         titleLabel.adjustsFontForContentSizeCategory = true
         categoryLabel.font = UIFont.preferredFont(forTextStyle: .caption2)
         categoryLabel.adjustsFontForContentSizeCategory = true
-        categoryLabel.textColor = .lightGray
+        categoryLabel.textColor = .placeholderText
 
         imageView.layer.borderColor = UIColor.black.cgColor
         imageView.layer.borderWidth = 1

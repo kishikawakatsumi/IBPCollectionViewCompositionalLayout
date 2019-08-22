@@ -46,7 +46,7 @@ extension ConferenceNewsFeedCell {
         dateLabel.font = UIFont.preferredFont(forTextStyle: .caption2)
         bodyLabel.font = UIFont.preferredFont(forTextStyle: .body)
 
-        separatorView.backgroundColor = .lightGray
+        separatorView.backgroundColor = .placeholderText
 
         contentView.addSubview(titleLabel)
         contentView.addSubview(dateLabel)

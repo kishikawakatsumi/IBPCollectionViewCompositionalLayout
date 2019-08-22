@@ -28,7 +28,7 @@ class AdaptiveSectionsViewController: UIViewController {
         }
     }
 
-    var dataSource: CollectionViewDiffableDataSource<SectionLayoutKind, Int>! = nil
+    var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, Int>! = nil
     var collectionView: UICollectionView! = nil
 
     override func viewDidLoad() {
@@ -70,7 +70,7 @@ extension AdaptiveSectionsViewController {
     func configureHierarchy() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .systemBackground
         collectionView.register(TextCell.self, forCellWithReuseIdentifier: TextCell.reuseIdentifier)
         collectionView.register(ListCell.self, forCellWithReuseIdentifier: ListCell.reuseIdentifier)
         view.addSubview(collectionView)
@@ -109,7 +109,7 @@ extension AdaptiveSectionsViewController {
 
         // initial data
         let itemsPerSection = 10
-        let snapshot = NSDiffableDataSourceSnapshot<SectionLayoutKind, Int>()
+        var snapshot = NSDiffableDataSourceSnapshot<SectionLayoutKind, Int>()
         SectionLayoutKind.allCases.forEach {
             snapshot.appendSections([$0])
             let itemOffset = $0.rawValue * itemsPerSection
