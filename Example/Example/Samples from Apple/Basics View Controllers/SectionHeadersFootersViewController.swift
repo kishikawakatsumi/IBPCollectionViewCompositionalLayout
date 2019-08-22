@@ -6,8 +6,6 @@ Section headers and footers example
 */
 
 import UIKit
-import DiffableDataSources
-import IBPCollectionViewCompositionalLayout
 
 class SectionHeadersFootersViewController: UIViewController {
 

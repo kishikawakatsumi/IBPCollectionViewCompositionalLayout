@@ -12,6 +12,9 @@ extension UIColor {
     static var placeholderText: UIColor {
         return .lightGray
     }
+    static var systemGray2: UIColor {
+        return .gray
+    }
 }
 
 extension UIImage {
@@ -37,6 +40,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         OrthogonalScrollBehaviorViewController.self,
         ConferenceVideoSessionsViewController.self,
         ConferenceNewsFeedViewController.self,
+        MountainsViewController.self,
+        InsertionSortViewController.self,
         WaterfallViewController.self,
         MosaicViewController.self,
         TileGridViewController.self,

@@ -6,8 +6,6 @@ Pinned sction headers example
 */
 
 import UIKit
-import DiffableDataSources
-import IBPCollectionViewCompositionalLayout
 
 class PinnedSectionHeaderFooterViewController: UIViewController {
 

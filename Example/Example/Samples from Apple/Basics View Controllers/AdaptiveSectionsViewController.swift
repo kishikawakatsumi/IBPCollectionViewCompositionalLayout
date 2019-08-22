@@ -6,8 +6,6 @@ A layout that adapts to a changing layout environment
 */
 
 import UIKit
-import DiffableDataSources
-import IBPCollectionViewCompositionalLayout
 
 class AdaptiveSectionsViewController: UIViewController {
 

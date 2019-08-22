@@ -6,8 +6,6 @@ Sample showing how we might build the videos sessions UI
 */
 
 import UIKit
-import DiffableDataSources
-import IBPCollectionViewCompositionalLayout
 
 class ConferenceVideoSessionsViewController: UIViewController {
 

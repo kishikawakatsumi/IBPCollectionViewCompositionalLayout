@@ -59,6 +59,12 @@
 		143A2E3A22F9E31F00F8904D /* ImageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143A2E3922F9E31F00F8904D /* ImageFactory.swift */; };
 		143A2E3C22F9E32400F8904D /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143A2E3B22F9E32400F8904D /* ImageModel.swift */; };
 		143A2E3E22F9E5A900F8904D /* OrthogonalScrollBehaviorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143A2E3D22F9E5A900F8904D /* OrthogonalScrollBehaviorViewController.swift */; };
+		149FA998230ECB740065AD4D /* MountainsRawData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FA992230ECB740065AD4D /* MountainsRawData.swift */; };
+		149FA999230ECB740065AD4D /* MountainsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FA993230ECB740065AD4D /* MountainsController.swift */; };
+		149FA99B230ECB740065AD4D /* MountainsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FA995230ECB740065AD4D /* MountainsViewController.swift */; };
+		149FA99C230ECB740065AD4D /* InsertionSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FA996230ECB740065AD4D /* InsertionSortViewController.swift */; };
+		149FA99D230ECE850065AD4D /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FA990230ECB5F0065AD4D /* LabelCell.swift */; };
+		149FA99F230ECEC90065AD4D /* InsertionSortArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FA99E230ECEC80065AD4D /* InsertionSortArray.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -129,6 +135,12 @@
 		143A2E3922F9E31F00F8904D /* ImageFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFactory.swift; sourceTree = "<group>"; };
 		143A2E3B22F9E32400F8904D /* ImageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		143A2E3D22F9E5A900F8904D /* OrthogonalScrollBehaviorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrthogonalScrollBehaviorViewController.swift; sourceTree = "<group>"; };
+		149FA990230ECB5F0065AD4D /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
+		149FA992230ECB740065AD4D /* MountainsRawData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MountainsRawData.swift; sourceTree = "<group>"; };
+		149FA993230ECB740065AD4D /* MountainsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MountainsController.swift; sourceTree = "<group>"; };
+		149FA995230ECB740065AD4D /* MountainsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MountainsViewController.swift; sourceTree = "<group>"; };
+		149FA996230ECB740065AD4D /* InsertionSortViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsertionSortViewController.swift; sourceTree = "<group>"; };
+		149FA99E230ECEC80065AD4D /* InsertionSortArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsertionSortArray.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,6 +250,8 @@
 				143A2DF522F9DE3900F8904D /* Advanced Layouts View Controllers */,
 				143A2E0B22F9E11000F8904D /* App Samples View Controllers */,
 				143A2DE422F9D80300F8904D /* Cells and Supplementary Views */,
+				149FA98E230ECB3B0065AD4D /* Diffable */,
+				149FA99E230ECEC80065AD4D /* InsertionSortArray.swift */,
 			);
 			path = "Samples from Apple";
 			sourceTree = "<group>";
@@ -312,6 +326,26 @@
 				143A2E3922F9E31F00F8904D /* ImageFactory.swift */,
 			);
 			path = Factories;
+			sourceTree = "<group>";
+		};
+		149FA98E230ECB3B0065AD4D /* Diffable */ = {
+			isa = PBXGroup;
+			children = (
+				149FA995230ECB740065AD4D /* MountainsViewController.swift */,
+				149FA993230ECB740065AD4D /* MountainsController.swift */,
+				149FA992230ECB740065AD4D /* MountainsRawData.swift */,
+				149FA996230ECB740065AD4D /* InsertionSortViewController.swift */,
+				149FA98F230ECB480065AD4D /* Cells And Supplementary Views */,
+			);
+			path = Diffable;
+			sourceTree = "<group>";
+		};
+		149FA98F230ECB480065AD4D /* Cells And Supplementary Views */ = {
+			isa = PBXGroup;
+			children = (
+				149FA990230ECB5F0065AD4D /* LabelCell.swift */,
+			);
+			path = "Cells And Supplementary Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -391,24 +425,30 @@
 				143A2E0F22F9E11B00F8904D /* ConferenceNewsFeedViewController.swift in Sources */,
 				143A2DEE22F9D82300F8904D /* ConferenceNewsFeedCell.swift in Sources */,
 				143A2E3322F9E2B100F8904D /* PortraitTileGridViewController.swift in Sources */,
+				149FA99C230ECB740065AD4D /* InsertionSortViewController.swift in Sources */,
 				143A2E3022F9E2B100F8904D /* GroupGridViewController.swift in Sources */,
 				143A2DDF22F9D73700F8904D /* GridViewController.swift in Sources */,
 				143A2E3622F9E2B100F8904D /* BannerTileGridViewController.swift in Sources */,
 				143A2E1822F9E1FB00F8904D /* ImageCell.swift in Sources */,
 				1428D81C22FEF8F0000BE7BB /* IBPCollectionViewCompositionalLayoutInteroperability.swift in Sources */,
 				143A2E3122F9E2B100F8904D /* MosaicViewController.swift in Sources */,
+				149FA999230ECB740065AD4D /* MountainsController.swift in Sources */,
 				143A2DF022F9D82300F8904D /* TextCell.swift in Sources */,
+				149FA998230ECB740065AD4D /* MountainsRawData.swift in Sources */,
 				143A2DFB22F9DE4900F8904D /* OrthogonalScrollingViewController.swift in Sources */,
 				143A2DEC22F9D82300F8904D /* BadgeSupplementrayView.swift in Sources */,
+				149FA99F230ECEC90065AD4D /* InsertionSortArray.swift in Sources */,
 				143A2DF222F9D82300F8904D /* ListCell.swift in Sources */,
 				143A2DDB22F9D73700F8904D /* AdaptiveSectionsViewController.swift in Sources */,
 				143A2E2F22F9E2B100F8904D /* TileGridViewController.swift in Sources */,
 				143A2DED22F9D82300F8904D /* TitleSupplementaryView.swift in Sources */,
+				149FA99B230ECB740065AD4D /* MountainsViewController.swift in Sources */,
 				143A2DDA22F9D73700F8904D /* TwoColumnViewController.swift in Sources */,
 				143A2DFA22F9DE4900F8904D /* NestedGroupsViewController.swift in Sources */,
 				143A2E0E22F9E11B00F8904D /* ConferenceVideoSessionsViewController.swift in Sources */,
 				143A2E3522F9E2B100F8904D /* ShowcaseGalleryViewController.swift in Sources */,
 				143A2E0822F9E01300F8904D /* PinnedSectionHeaderFooterViewController.swift in Sources */,
+				149FA99D230ECE850065AD4D /* LabelCell.swift in Sources */,
 				143A2DE222F9D73700F8904D /* InsetItemsGridViewController.swift in Sources */,
 				143A2DEF22F9D82300F8904D /* SectionBackgroundDecorationView.swift in Sources */,
 				143A2DDC22F9D73700F8904D /* DistinctSectionsViewController.swift in Sources */,

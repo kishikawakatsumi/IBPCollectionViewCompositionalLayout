@@ -6,8 +6,6 @@ Per-section specific layout example
 */
 
 import UIKit
-import DiffableDataSources
-import IBPCollectionViewCompositionalLayout
 
 class DistinctSectionsViewController: UIViewController {
 

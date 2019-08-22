@@ -6,8 +6,6 @@ Orthogonal scrolling section behaviors example
 */
 
 import UIKit
-import DiffableDataSources
-import IBPCollectionViewCompositionalLayout
 
 class OrthogonalScrollBehaviorViewController: UIViewController {
     static let headerElementKind = "header-element-kind"

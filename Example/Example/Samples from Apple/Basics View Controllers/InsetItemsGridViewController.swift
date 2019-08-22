@@ -6,8 +6,6 @@ A list with inset item content described by compositional layout
 */
 
 import UIKit
-import DiffableDataSources
-import IBPCollectionViewCompositionalLayout
 
 class InsetItemsGridViewController: UIViewController {
 

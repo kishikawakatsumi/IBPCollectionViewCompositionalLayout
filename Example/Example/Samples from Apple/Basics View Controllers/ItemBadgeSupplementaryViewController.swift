@@ -6,8 +6,6 @@ Shows how to use NSCollectionLayoutSupplementaryItems to badge items
 */
 
 import UIKit
-import DiffableDataSources
-import IBPCollectionViewCompositionalLayout
 
 class ItemBadgeSupplementaryViewController: UIViewController {
 
