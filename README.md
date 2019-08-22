@@ -105,12 +105,12 @@ This file silences the following compilation errors when building on Xcode 11 or
 - [x] Orthogonal Scrolling
 - [x] Orthogonal Scrolling Behavior
 - [x] Estimated Size (Autosizing)
+- [x] Custom Group Item (Absolute Positions)
 - [x] Drop-in replacement
 
 ## TODOs (Not yet supported)
 
 - [ ] RTL Support
-- [ ] Custom Group Item (Absolute Positions)
 - [ ] Visual Debug Description
 - [ ] Performance Optimization
 
