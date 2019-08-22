@@ -7,6 +7,7 @@
   <a href="https://github.com/kishikawakatsumi/IBPCollectionViewCompositionalLayout/releases/latest"><img alt="Release" src="https://img.shields.io/github/release/kishikawakatsumi/IBPCollectionViewCompositionalLayout.svg"/></a>
   <a href="https://cocoapods.org/pods/IBPCollectionViewCompositionalLayout"><img alt="CocoaPods" src="https://img.shields.io/cocoapods/v/IBPCollectionViewCompositionalLayout.svg"/></a>
   <a href="https://github.com/Carthage/Carthage"><img alt="Carthage" src="https://img.shields.io/badge/carthage-compatible-yellow.svg"/></a>
+  <a href="https://swift.org/package-manager/"><img src="https://img.shields.io/badge/SPM-ready-orange.svg"></a>
   <a href="https://github.com/kishikawakatsumi/IBPCollectionViewCompositionalLayout/blob/master/LICENSE"><img alt="MIT License" src="http://img.shields.io/badge/license-MIT-blue.svg"/></a>
 </p>
 
