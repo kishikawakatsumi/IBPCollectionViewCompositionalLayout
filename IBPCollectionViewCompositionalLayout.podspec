@@ -8,22 +8,22 @@ Pod::Spec.new do |s|
                             DESC
   s.homepage              = 'https://github.com/kishikawakatsumi/IBPCollectionViewCompositionalLayout'
   s.ios.deployment_target = '10.0'
-  s.source_files          = 'IBPCollectionViewCompositionalLayout/*.{h,m}'
-  s.private_header_files  = [ 'IBPCollectionViewCompositionalLayout/IBPCollectionCompositionalLayoutSolver.h',
-                              'IBPCollectionViewCompositionalLayout/IBPCollectionCompositionalLayoutSolverResult.h',
-                              'IBPCollectionViewCompositionalLayout/IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.h',
-                              'IBPCollectionViewCompositionalLayout/IBPCollectionViewOrthogonalScrollerSectionController.h',
-                              'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutAnchor_Private.h',
-                              'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutContainer.h',
-                              'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutEdgeSpacing_Private.h',
-                              'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutGroup_Private.h',
-                              'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutEnvironment.h',
-                              'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutItem_Private.h',
-                              'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutSection_Private.h',
-                              'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutSize_Private.h',
-                              'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutSpacing_Private.h',
-                              'IBPCollectionViewCompositionalLayout/IBPNSCollectionLayoutSupplementaryItem_Private.h',
-                              'IBPCollectionViewCompositionalLayout/IBPUICollectionViewCompositionalLayoutConfiguration_Private.h',
+  s.source_files          = 'Sources/*.{h,m}'
+  s.private_header_files  = [ 'Sources/IBPCollectionCompositionalLayoutSolver.h',
+                              'Sources/IBPCollectionCompositionalLayoutSolverResult.h',
+                              'Sources/IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.h',
+                              'Sources/IBPCollectionViewOrthogonalScrollerSectionController.h',
+                              'Sources/IBPNSCollectionLayoutAnchor_Private.h',
+                              'Sources/IBPNSCollectionLayoutContainer.h',
+                              'Sources/IBPNSCollectionLayoutEdgeSpacing_Private.h',
+                              'Sources/IBPNSCollectionLayoutGroup_Private.h',
+                              'Sources/IBPNSCollectionLayoutEnvironment.h',
+                              'Sources/IBPNSCollectionLayoutItem_Private.h',
+                              'Sources/IBPNSCollectionLayoutSection_Private.h',
+                              'Sources/IBPNSCollectionLayoutSize_Private.h',
+                              'Sources/IBPNSCollectionLayoutSpacing_Private.h',
+                              'Sources/IBPNSCollectionLayoutSupplementaryItem_Private.h',
+                              'Sources/IBPUICollectionViewCompositionalLayoutConfiguration_Private.h',
                             ]
   s.frameworks            = 'UIKit'
   s.source                = { :git => 'https://github.com/kishikawakatsumi/IBPCollectionViewCompositionalLayout.git', :tag => "v#{s.version}" }
