@@ -243,10 +243,10 @@
         scrollDirection = scrollDirection == UICollectionViewScrollDirectionVertical ? UICollectionViewScrollDirectionHorizontal : UICollectionViewScrollDirectionVertical;
     }
     if (scrollDirection == UICollectionViewScrollDirectionVertical) {
-        offset.y += CGRectGetHeight(self.layoutFrame) * (indexPath.item / count) + interGroupSpacing * (indexPath.section / count);
+        offset.y += CGRectGetHeight(self.layoutFrame) * (indexPath.item / count) + interGroupSpacing * (indexPath.item / count);
     }
     if (scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-        offset.x += CGRectGetWidth(self.layoutFrame) * (indexPath.item / count) + interGroupSpacing * (indexPath.section / count);
+        offset.x += CGRectGetWidth(self.layoutFrame) * (indexPath.item / count) + interGroupSpacing * (indexPath.item / count);
     }
 
     UICollectionViewLayoutAttributes *layoutAttributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
