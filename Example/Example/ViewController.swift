@@ -123,7 +123,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let navigationController = UINavigationController(rootViewController: viewController)
 
         let barButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(dismissViewController))
-        viewController.navigationItem.rightBarButtonItem = barButtonItem
+        viewController.navigationItem.leftBarButtonItem = barButtonItem
 
         present(navigationController, animated: true)
     }
