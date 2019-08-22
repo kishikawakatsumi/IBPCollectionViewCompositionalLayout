@@ -227,7 +227,7 @@
 
                 contentFrame = CGRectUnion(contentFrame, frame);
             } else {
-                contentFrame = CGRectUnion(contentFrame, CGRectInset(cellFrame, -layoutItem.contentInsets.trailing, -layoutItem.contentInsets.bottom));
+                contentFrame = CGRectUnion(contentFrame, CGRectInset(cellFrame, 0, -layoutItem.contentInsets.bottom));
             }
         }
 
@@ -347,30 +347,30 @@
                 if (boundaryItem.alignment == IBPNSRectAlignmentLeading ||
                     boundaryItem.alignment == IBPNSRectAlignmentTopLeading ||
                     boundaryItem.alignment == IBPNSRectAlignmentBottomLeading) {
-                    CGRect itemFrame = layoutAttributes.frame;
-                    itemFrame.origin.x += sectionOrigin.x;
-                    layoutAttributes.frame = itemFrame;
+                    CGRect frame = layoutAttributes.frame;
+                    frame.origin.x += sectionOrigin.x;
+                    layoutAttributes.frame = frame;
                 }
             }
             if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
                 if (boundaryItem.alignment == IBPNSRectAlignmentBottom ||
                     boundaryItem.alignment == IBPNSRectAlignmentBottomLeading ||
                     boundaryItem.alignment == IBPNSRectAlignmentBottomTrailing) {
-                    CGRect itemFrame = layoutAttributes.frame;
+                    CGRect frame = layoutAttributes.frame;
                     if (!boundaryItem.extendsBoundary) {
-                        itemFrame.origin.y -= CGRectGetHeight(itemFrame);
+                        frame.origin.y -= CGRectGetHeight(frame);
                     }
-                    itemFrame.origin.y += layoutSection.contentInsets.bottom;
-                    layoutAttributes.frame = itemFrame;
+                    frame.origin.y += layoutSection.contentInsets.bottom;
+                    layoutAttributes.frame = frame;
                 }
             }
             if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
                 if (boundaryItem.alignment == IBPNSRectAlignmentTrailing ||
                     boundaryItem.alignment == IBPNSRectAlignmentTopTrailing ||
                     boundaryItem.alignment == IBPNSRectAlignmentBottomTrailing) {
-                    CGRect itemFrame = layoutAttributes.frame;
-                    itemFrame.origin.x += layoutSection.contentInsets.trailing;
-                    layoutAttributes.frame = itemFrame;
+                    CGRect frame = layoutAttributes.frame;
+                    frame.origin.x += layoutSection.contentInsets.trailing;
+                    layoutAttributes.frame = frame;
                 }
             }
 

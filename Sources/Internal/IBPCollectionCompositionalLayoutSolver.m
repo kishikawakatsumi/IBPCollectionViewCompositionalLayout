@@ -125,7 +125,7 @@
             contentFrame.size = itemSize;
 
             for (NSInteger i = 0; i < group.count; i++) {
-                CGRect cellFrame = UIEdgeInsetsInsetRect(contentFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.trailing, contentInsets.bottom));
+                CGRect cellFrame = UIEdgeInsetsInsetRect(contentFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.bottom, contentInsets.trailing));
                 [self.results addObject:[IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:item frame:cellFrame]];
                 contentFrame.origin.x += interItemSpacing + CGRectGetWidth(contentFrame);
             }
@@ -139,7 +139,7 @@
             contentFrame.size = itemSize;
 
             for (NSInteger i = 0; i < group.count; i++) {
-                CGRect cellFrame = UIEdgeInsetsInsetRect(contentFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.trailing, contentInsets.bottom));
+                CGRect cellFrame = UIEdgeInsetsInsetRect(contentFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.bottom, contentInsets.trailing));
                 [self.results addObject:[IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:item frame:cellFrame]];
                 contentFrame.origin.y += interItemSpacing + CGRectGetHeight(contentFrame);
             }
@@ -212,7 +212,7 @@
                     return;
                 }
 
-                CGRect cellFrame = UIEdgeInsetsInsetRect(contentFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.trailing, contentInsets.bottom));
+                CGRect cellFrame = UIEdgeInsetsInsetRect(contentFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.bottom, contentInsets.trailing));
                 [self.results addObject:[IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:item frame:cellFrame]];
                 contentFrame.origin.x += CGRectGetWidth(contentFrame);
             }
@@ -222,7 +222,7 @@
                     return;
                 }
 
-                CGRect cellFrame = UIEdgeInsetsInsetRect(contentFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.trailing, contentInsets.bottom));
+                CGRect cellFrame = UIEdgeInsetsInsetRect(contentFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.bottom, contentInsets.trailing));
                 [self.results addObject:[IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:item frame:cellFrame]];
                 contentFrame.origin.y += CGRectGetHeight(contentFrame);
             }
