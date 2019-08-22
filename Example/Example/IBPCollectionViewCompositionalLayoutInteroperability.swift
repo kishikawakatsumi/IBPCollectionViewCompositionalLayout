@@ -1,1 +1,1 @@
-../../IBPCollectionViewCompositionalLayout/IBPCollectionViewCompositionalLayoutInteroperability.swift
+../../Sources/IBPCollectionViewCompositionalLayoutInteroperability.swift
