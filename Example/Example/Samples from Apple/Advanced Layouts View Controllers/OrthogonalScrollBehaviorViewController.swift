@@ -109,7 +109,7 @@ extension OrthogonalScrollBehaviorViewController {
     func configureHierarchy() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .systemBackground
         collectionView.register(TextCell.self, forCellWithReuseIdentifier: TextCell.reuseIdentifier)
         collectionView.register(ListCell.self, forCellWithReuseIdentifier: ListCell.reuseIdentifier)
         collectionView.register(
@@ -162,7 +162,7 @@ extension OrthogonalScrollBehaviorViewController {
         }
 
         // initial data
-        let snapshot = NSDiffableDataSourceSnapshot<Int, Int>()
+        var snapshot = NSDiffableDataSourceSnapshot<Int, Int>()
         var identifierOffset = 0
         let itemsPerSection = 18
         SectionKind.allCases.forEach {

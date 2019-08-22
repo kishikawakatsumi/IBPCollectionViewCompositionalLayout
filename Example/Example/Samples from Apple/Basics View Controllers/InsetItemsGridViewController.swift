@@ -48,7 +48,7 @@ extension InsetItemsGridViewController {
     func configureHierarchy() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .systemBackground
         collectionView.register(TextCell.self, forCellWithReuseIdentifier: TextCell.reuseIdentifier)
         view.addSubview(collectionView)
     }
@@ -75,7 +75,7 @@ extension InsetItemsGridViewController {
         }
 
         // initial data
-        let snapshot = NSDiffableDataSourceSnapshot<Section, Int>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Int>()
         snapshot.appendSections([.main])
         snapshot.appendItems(Array(0..<94))
         dataSource.apply(snapshot, animatingDifferences: false)

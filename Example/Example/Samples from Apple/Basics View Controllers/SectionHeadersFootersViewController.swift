@@ -58,7 +58,7 @@ extension SectionHeadersFootersViewController {
     func configureHierarchy() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .systemBackground
         collectionView.register(ListCell.self, forCellWithReuseIdentifier: ListCell.reuseIdentifier)
         collectionView.register(
             TitleSupplementaryView.self,
@@ -111,7 +111,7 @@ extension SectionHeadersFootersViewController {
         // initial data
         let itemsPerSection = 5
         let sections = Array(0..<5)
-        let snapshot = NSDiffableDataSourceSnapshot<Int, Int>()
+        var snapshot = NSDiffableDataSourceSnapshot<Int, Int>()
         var itemOffset = 0
         sections.forEach {
             snapshot.appendSections([$0])

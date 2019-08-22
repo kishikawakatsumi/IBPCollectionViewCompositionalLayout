@@ -30,7 +30,7 @@ extension ConferenceNewsFeedViewController {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .systemBackground
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -67,7 +67,7 @@ extension ConferenceNewsFeedViewController {
 
         // load our data
         let newsItems = newsController.items
-        let snapshot = NSDiffableDataSourceSnapshot<Section, ConferenceNewsController.NewsFeedItem>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, ConferenceNewsController.NewsFeedItem>()
         snapshot.appendSections([.main])
         snapshot.appendItems(newsItems)
         dataSource.apply(snapshot, animatingDifferences: false)

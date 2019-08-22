@@ -48,7 +48,7 @@ extension ListViewController {
     private func configureHierarchy() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .systemBackground
         collectionView.register(ListCell.self, forCellWithReuseIdentifier: ListCell.reuseIdentifier)
         view.addSubview(collectionView)
         collectionView.delegate = self
@@ -70,7 +70,7 @@ extension ListViewController {
         }
 
         // initial data
-        let snapshot = NSDiffableDataSourceSnapshot<Section, Int>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Int>()
         snapshot.appendSections([.main])
         snapshot.appendItems(Array(0..<94))
         dataSource.apply(snapshot, animatingDifferences: false)

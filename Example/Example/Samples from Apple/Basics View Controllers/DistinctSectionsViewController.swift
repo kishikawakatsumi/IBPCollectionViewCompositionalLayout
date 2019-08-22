@@ -72,7 +72,7 @@ extension DistinctSectionsViewController {
     func configureHierarchy() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .systemBackground
         collectionView.register(TextCell.self, forCellWithReuseIdentifier: TextCell.reuseIdentifier)
         collectionView.register(ListCell.self, forCellWithReuseIdentifier: ListCell.reuseIdentifier)
         view.addSubview(collectionView)
@@ -120,7 +120,7 @@ extension DistinctSectionsViewController {
 
         // initial data
         let itemsPerSection = 10
-        let snapshot = NSDiffableDataSourceSnapshot<SectionLayoutKind, Int>()
+        var snapshot = NSDiffableDataSourceSnapshot<SectionLayoutKind, Int>()
         SectionLayoutKind.allCases.forEach {
             snapshot.appendSections([$0])
             let itemOffset = $0.rawValue * itemsPerSection
