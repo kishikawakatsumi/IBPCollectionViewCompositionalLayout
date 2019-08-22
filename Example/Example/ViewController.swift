@@ -51,8 +51,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         GroupGridViewController.self,
         MosaicReduxViewController.self,
         MosaicReduxViewController.self,
-        ShowcaseGalleryViewController.self,
         TileGalleryViewController.self,
+        TileGalleryViewController.self,
+        ShowcaseGalleryViewController.self,
     ]
 
     lazy var collectionView: UICollectionView = {
@@ -117,6 +118,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 viewController.layoutFractionalConfig = .small
             } else {
                 viewController.layoutFractionalConfig = .big
+            }
+        }
+
+        if let viewController = viewController as? TileGalleryViewController {
+            if indexPath.row % 2 == 0 {
+                viewController.layoutBehavior = .verticallyContinuous
+            } else {
+                viewController.layoutBehavior = .orthogonalMagnet
             }
         }
         
