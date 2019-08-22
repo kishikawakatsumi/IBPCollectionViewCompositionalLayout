@@ -166,11 +166,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1438F764230E6FBA007E3ABF /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				14751C1E230C70ED00B3DC87 /* IBPCollectionCompositionalLayoutSolver.h */,
+				14751C1F230C70ED00B3DC87 /* IBPCollectionCompositionalLayoutSolver.m */,
+				143A2D2422F9CBB100F8904D /* IBPCollectionCompositionalLayoutSolverResult.h */,
+				143A2D4322F9CBB200F8904D /* IBPCollectionCompositionalLayoutSolverResult.m */,
+				143A2D3022F9CBB100F8904D /* IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.h */,
+				143A2D2222F9CBB100F8904D /* IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.m */,
+				143A2D2C22F9CBB100F8904D /* IBPCollectionViewOrthogonalScrollerSectionController.h */,
+				143A2D1C22F9CBB000F8904D /* IBPCollectionViewOrthogonalScrollerSectionController.m */,
+			);
+			path = Internal;
+			sourceTree = "<group>";
+		};
 		143A2CF322F9C81D00F8904D = {
 			isa = PBXGroup;
 			children = (
-				143A2CFF22F9C81D00F8904D /* IBPCollectionViewCompositionalLayout */,
-				143A2D0A22F9C81D00F8904D /* IBPCollectionViewCompositionalLayoutTests */,
+				143A2CFF22F9C81D00F8904D /* Sources */,
+				143A2D0A22F9C81D00F8904D /* Tests */,
 				143A2CFE22F9C81D00F8904D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -184,7 +199,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		143A2CFF22F9C81D00F8904D /* IBPCollectionViewCompositionalLayout */ = {
+		143A2CFF22F9C81D00F8904D /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				143A2D0022F9C81D00F8904D /* IBPCollectionViewCompositionalLayout.h */,
@@ -238,26 +253,19 @@
 				143A2D3E22F9CBB200F8904D /* IBPUICollectionViewCompositionalLayoutConfiguration.h */,
 				145DA018230479C700A044D2 /* IBPUICollectionViewCompositionalLayoutConfiguration_Private.h */,
 				143A2D3F22F9CBB200F8904D /* IBPUICollectionViewCompositionalLayoutConfiguration.m */,
-				14751C1E230C70ED00B3DC87 /* IBPCollectionCompositionalLayoutSolver.h */,
-				14751C1F230C70ED00B3DC87 /* IBPCollectionCompositionalLayoutSolver.m */,
-				143A2D2422F9CBB100F8904D /* IBPCollectionCompositionalLayoutSolverResult.h */,
-				143A2D4322F9CBB200F8904D /* IBPCollectionCompositionalLayoutSolverResult.m */,
-				143A2D3022F9CBB100F8904D /* IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.h */,
-				143A2D2222F9CBB100F8904D /* IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.m */,
-				143A2D2C22F9CBB100F8904D /* IBPCollectionViewOrthogonalScrollerSectionController.h */,
-				143A2D1C22F9CBB000F8904D /* IBPCollectionViewOrthogonalScrollerSectionController.m */,
+				1438F764230E6FBA007E3ABF /* Internal */,
 				143A2D0122F9C81D00F8904D /* Info.plist */,
 			);
-			path = IBPCollectionViewCompositionalLayout;
+			path = Sources;
 			sourceTree = "<group>";
 		};
-		143A2D0A22F9C81D00F8904D /* IBPCollectionViewCompositionalLayoutTests */ = {
+		143A2D0A22F9C81D00F8904D /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				143A2D0B22F9C81D00F8904D /* IBPCollectionViewCompositionalLayoutTests.m */,
 				143A2D0D22F9C81D00F8904D /* Info.plist */,
 			);
-			path = IBPCollectionViewCompositionalLayoutTests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -575,7 +583,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = IBPCollectionViewCompositionalLayout/Info.plist;
+				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -599,7 +607,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = IBPCollectionViewCompositionalLayout/Info.plist;
+				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -618,7 +626,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 27AEDK3C9F;
-				INFOPLIST_FILE = IBPCollectionViewCompositionalLayoutTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -635,7 +643,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 27AEDK3C9F;
-				INFOPLIST_FILE = IBPCollectionViewCompositionalLayoutTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
