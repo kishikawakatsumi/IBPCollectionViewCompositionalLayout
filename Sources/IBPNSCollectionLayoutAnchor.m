@@ -1,7 +1,7 @@
 #import "IBPNSCollectionLayoutAnchor_Private.h"
 
-CGPoint AnchorPointFromEdges(IBPNSDirectionalRectEdge edges);
-IBPNSDirectionalRectEdge EdgesFromAnchorPoint(CGPoint anchorPoint);
+static CGPoint AnchorPointFromEdges(IBPNSDirectionalRectEdge edges);
+static IBPNSDirectionalRectEdge EdgesFromAnchorPoint(CGPoint anchorPoint);
 
 @interface IBPNSCollectionLayoutAnchor()
 
