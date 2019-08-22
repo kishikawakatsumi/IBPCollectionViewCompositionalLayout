@@ -16,7 +16,7 @@
 #import "IBPNSCollectionLayoutSupplementaryItem_Private.h"
 #import "IBPUICollectionViewCompositionalLayoutConfiguration_Private.h"
 
-@interface IBPUICollectionViewCompositionalLayout() {
+@interface IBPUICollectionViewCompositionalLayout()<UICollectionViewDelegate> {
     NSMutableDictionary<NSIndexPath *, UICollectionViewLayoutAttributes *> *cachedItemAttributes;
     NSMutableDictionary<NSString *, UICollectionViewLayoutAttributes *> *cachedSupplementaryAttributes;
     NSMutableDictionary<NSString *, UICollectionViewLayoutAttributes *> *cachedDecorationAttributes;
@@ -35,6 +35,8 @@
 @property (nonatomic) IBPUICollectionLayoutSectionOrthogonalScrollingBehavior parentCollectionViewOrthogonalScrollingBehavior;
 
 @property (nonatomic) BOOL hasPinnedSupplementaryItems;
+
+@property (nonatomic, weak) id<UICollectionViewDelegate> collectionViewDelegate;
 
 @end
 
@@ -129,6 +131,11 @@
     CGRect collectionViewBounds = collectionView.bounds;
     if (CGRectIsEmpty(collectionViewBounds)) {
         return;
+    }
+
+    if (!self.collectionViewDelegate && collectionView.delegate != self) {
+        self.collectionViewDelegate = collectionView.delegate;
+        collectionView.delegate = self;
     }
 
     [self resetState];
@@ -717,8 +724,26 @@
 }
 
 - (CGSize)collectionViewContentSize {
-    UIEdgeInsets insets = UIEdgeInsetsZero;
-    return UIEdgeInsetsInsetRect(contentFrame, insets).size;
+    return contentFrame.size;
+}
+
+- (void)scrollViewDidChangeAdjustedContentInset:(UIScrollView *)scrollView API_AVAILABLE(ios(11.0), tvos(11.0)); {
+    if (scrollView == self.collectionView) {
+        if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
+            CGPoint contentOffset = CGPointZero;
+            contentOffset.y += -scrollView.adjustedContentInset.top;
+            scrollView.contentOffset = contentOffset;
+        }
+        scrollView.delegate = self.collectionViewDelegate;
+    }
+}
+
+- (BOOL)respondsToSelector:(SEL)aSelector {
+    return [self.collectionViewDelegate respondsToSelector:aSelector] || [super respondsToSelector:aSelector];
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation {
+    [anInvocation invokeWithTarget:self.collectionViewDelegate];
 }
 
 @end
