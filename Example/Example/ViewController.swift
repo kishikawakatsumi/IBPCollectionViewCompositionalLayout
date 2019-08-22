@@ -9,6 +9,15 @@ extension UIColor {
     static var systemBackground: UIColor {
         return .white
     }
+    static var placeholderText: UIColor {
+        return .lightGray
+    }
+}
+
+extension UIImage {
+    convenience init?(systemName: String) {
+        self.init(named: systemName)
+    }
 }
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
