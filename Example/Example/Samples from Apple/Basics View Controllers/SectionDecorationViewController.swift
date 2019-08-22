@@ -6,8 +6,6 @@ Section background decoration view example
 */
 
 import UIKit
-import DiffableDataSources
-import IBPCollectionViewCompositionalLayout
 
 class SectionDecorationViewController: UIViewController {
 

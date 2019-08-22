@@ -6,8 +6,6 @@ Sample showing how we might build the news feed UI
 */
 
 import UIKit
-import DiffableDataSources
-import IBPCollectionViewCompositionalLayout
 
 class ConferenceNewsFeedViewController: UIViewController {
 

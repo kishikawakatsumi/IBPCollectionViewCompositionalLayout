@@ -6,8 +6,6 @@ Orthogonal scrolling section example
 */
 
 import UIKit
-import DiffableDataSources
-import IBPCollectionViewCompositionalLayout
 
 class OrthogonalScrollingViewController: UIViewController {
 

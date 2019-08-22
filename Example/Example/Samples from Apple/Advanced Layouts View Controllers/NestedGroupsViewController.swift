@@ -6,8 +6,6 @@ Nested NSCollectionLayoutGroup example
 */
 
 import UIKit
-import DiffableDataSources
-import IBPCollectionViewCompositionalLayout
 
 class NestedGroupsViewController: UIViewController {
 

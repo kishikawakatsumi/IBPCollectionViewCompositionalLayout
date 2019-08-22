@@ -6,8 +6,6 @@ A basic grid described by compositional layout
 */
 
 import UIKit
-import DiffableDataSources
-import IBPCollectionViewCompositionalLayout
 
 class GridViewController: UIViewController {
 

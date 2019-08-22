@@ -6,8 +6,6 @@ A two column grid described by compositional layout
 */
 
 import UIKit
-import DiffableDataSources
-import IBPCollectionViewCompositionalLayout
 
 class TwoColumnViewController: UIViewController {
 

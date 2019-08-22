@@ -6,8 +6,6 @@ A basic list described by compositional layout
 */
 
 import UIKit
-import DiffableDataSources
-import IBPCollectionViewCompositionalLayout
 
 class ListViewController: UIViewController {
 
