@@ -154,7 +154,7 @@
         collectionContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:collectionViewBounds.size contentInsets:insets];
     }
     if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-        IBPNSDirectionalEdgeInsets insets = IBPNSDirectionalEdgeInsetsMake(collectionContentInset.top, collectionContentInset.left, collectionContentInset.bottom, collectionContentInset.right);
+        IBPNSDirectionalEdgeInsets insets = IBPNSDirectionalEdgeInsetsMake(collectionContentInset.top, 0, collectionContentInset.bottom, 0);
         collectionContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:collectionViewBounds.size contentInsets:insets];
     }
 
@@ -755,6 +755,11 @@
         if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
             CGPoint contentOffset = CGPointZero;
             contentOffset.y += -scrollView.adjustedContentInset.top;
+            scrollView.contentOffset = contentOffset;
+        }
+        if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+            CGPoint contentOffset = CGPointZero;
+            contentOffset.x += -scrollView.adjustedContentInset.left;
             scrollView.contentOffset = contentOffset;
         }
         scrollView.delegate = self.collectionViewDelegate;
