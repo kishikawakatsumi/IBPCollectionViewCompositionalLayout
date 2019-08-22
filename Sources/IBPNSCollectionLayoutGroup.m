@@ -16,7 +16,17 @@
     if (@available(iOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutGroup") horizontalGroupWithLayoutSize:layoutSize subitems:subitems];
     } else {
-        return [[self alloc] initWithLayoutSize:layoutSize subitems:subitems layoutDirection:IBPLayoutDirectionHorizontal];
+        return [[self alloc] initWithSize:layoutSize
+                                 subitems:subitems
+                                    count:0
+                         interItemSpacing:[IBPNSCollectionLayoutSpacing defaultSpacing]
+                            contentInsets:IBPNSDirectionalEdgeInsetsZero
+                              edgeSpacing:[IBPNSCollectionLayoutEdgeSpacing defaultSpacing]
+                          layoutDirection:IBPGroupLayoutDirectionHorizontal
+                       supplementaryItems:@[]
+                  customGroupItemProvider:nil
+                                     name:nil
+                               identifier:[NSUUID UUID]];
     }
 }
 
@@ -26,7 +36,17 @@
     if (@available(iOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutGroup") horizontalGroupWithLayoutSize:layoutSize subitem:subitem count:count];
     } else {
-        return [[self alloc] initWWithLayoutSize:layoutSize subitem:subitem count:count layoutDirection:IBPLayoutDirectionHorizontal];
+        return [[self alloc] initWithSize:layoutSize
+                                 subitems:@[subitem]
+                                    count:count
+                         interItemSpacing:[IBPNSCollectionLayoutSpacing defaultSpacing]
+                            contentInsets:IBPNSDirectionalEdgeInsetsZero
+                              edgeSpacing:[IBPNSCollectionLayoutEdgeSpacing defaultSpacing]
+                          layoutDirection:IBPGroupLayoutDirectionHorizontal
+                       supplementaryItems:@[]
+                  customGroupItemProvider:nil
+                                     name:nil
+                               identifier:[NSUUID UUID]];
     }
 }
 
@@ -35,7 +55,16 @@
     if (@available(iOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutGroup") verticalGroupWithLayoutSize:layoutSize subitems:subitems];
     } else {
-        return [[self alloc] initWithLayoutSize:layoutSize subitems:subitems layoutDirection:IBPLayoutDirectionVertical];
+        return [[self alloc] initWithSize:layoutSize subitems:subitems
+                                    count:0
+                         interItemSpacing:[IBPNSCollectionLayoutSpacing defaultSpacing]
+                            contentInsets:IBPNSDirectionalEdgeInsetsZero
+                              edgeSpacing:[IBPNSCollectionLayoutEdgeSpacing defaultSpacing]
+                          layoutDirection:IBPGroupLayoutDirectionVertical
+                       supplementaryItems:@[]
+                  customGroupItemProvider:nil
+                                     name:nil
+                               identifier:[NSUUID UUID]];
     }
 }
 
@@ -45,7 +74,16 @@
     if (@available(iOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutGroup") verticalGroupWithLayoutSize:layoutSize subitem:subitem count:count];
     } else {
-        return [[self alloc] initWWithLayoutSize:layoutSize subitem:subitem count:count layoutDirection:IBPLayoutDirectionVertical];
+        return [[self alloc] initWithSize:layoutSize subitems:@[subitem]
+                                    count:count
+                         interItemSpacing:[IBPNSCollectionLayoutSpacing defaultSpacing]
+                            contentInsets:IBPNSDirectionalEdgeInsetsZero
+                              edgeSpacing:[IBPNSCollectionLayoutEdgeSpacing defaultSpacing]
+                          layoutDirection:IBPGroupLayoutDirectionVertical
+                       supplementaryItems:@[]
+                  customGroupItemProvider:nil
+                                     name:nil
+                               identifier:[NSUUID UUID]];
     }
 }
 
@@ -53,40 +91,17 @@
     if (@available(iOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutGroup") customGroupWithLayoutSize:layoutSize itemProvider:itemProvider];
     } else {
-        return nil; // Not implemented yet
+        return [[self alloc] initWithSize:layoutSize subitems:@[]
+                                    count:0
+                         interItemSpacing:[IBPNSCollectionLayoutSpacing defaultSpacing]
+                            contentInsets:IBPNSDirectionalEdgeInsetsZero
+                              edgeSpacing:[IBPNSCollectionLayoutEdgeSpacing defaultSpacing]
+                          layoutDirection:IBPGroupLayoutDirectionCustom
+                       supplementaryItems:@[]
+                  customGroupItemProvider:itemProvider
+                                     name:nil
+                               identifier:[NSUUID UUID]];
     }
-}
-
-- (instancetype)initWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
-                          subitems:(NSArray<IBPNSCollectionLayoutItem *> *)subitems
-                   layoutDirection:(IBPLayoutDirection)layoutDirection {
-    return [self initWithSize:layoutSize
-                     subitems:subitems
-                        count:0
-             interItemSpacing:[IBPNSCollectionLayoutSpacing defaultSpacing]
-                contentInsets:IBPNSDirectionalEdgeInsetsZero
-                  edgeSpacing:[IBPNSCollectionLayoutEdgeSpacing defaultSpacing]
-              layoutDirection:layoutDirection
-           supplementaryItems:@[]
-      customGroupItemProvider:nil
-                         name:nil
-                   identifier:[NSUUID UUID]];
-}
-
-- (instancetype)initWWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
-                            subitem:(IBPNSCollectionLayoutItem *)subitem
-                              count:(NSInteger)count
-                    layoutDirection:(IBPLayoutDirection)layoutDirection {
-    return [self initWithSize:layoutSize subitems:@[subitem]
-                        count:count
-             interItemSpacing:[IBPNSCollectionLayoutSpacing defaultSpacing]
-                contentInsets:IBPNSDirectionalEdgeInsetsZero
-                  edgeSpacing:[IBPNSCollectionLayoutEdgeSpacing defaultSpacing]
-              layoutDirection:layoutDirection
-           supplementaryItems:@[]
-      customGroupItemProvider:nil
-                         name:nil
-                   identifier:[NSUUID UUID]];
 }
 
 - (instancetype)initWithSize:(IBPNSCollectionLayoutSize *)size
@@ -95,7 +110,7 @@
             interItemSpacing:(IBPNSCollectionLayoutSpacing *)interItemSpacing
                contentInsets:(IBPNSDirectionalEdgeInsets)contentInsets
                  edgeSpacing:(IBPNSCollectionLayoutEdgeSpacing *)edgeSpacing
-             layoutDirection:(IBPLayoutDirection)layoutDirection
+             layoutDirection:(IBPGroupLayoutDirection)layoutDirection
           supplementaryItems:(NSArray<IBPNSCollectionLayoutSupplementaryItem *> *)supplementaryItems
      customGroupItemProvider:(IBPNSCollectionLayoutGroupCustomItemProvider)customGroupItemProvider
                         name:(NSString *)name
@@ -133,15 +148,19 @@
 }
 
 - (NSString *)visualDescription {
-    return @""; // Not implemented yet
+    return @""; // Not implemented
 }
 
 - (BOOL)isHorizontalGroup {
-    return self.layoutDirection == IBPLayoutDirectionHorizontal;
+    return self.layoutDirection == IBPGroupLayoutDirectionHorizontal;
 }
 
 - (BOOL)isVerticalGroup {
-    return self.layoutDirection == IBPLayoutDirectionVertical;
+    return self.layoutDirection == IBPGroupLayoutDirectionVertical;
+}
+
+- (BOOL)isCustomGroup {
+    return self.layoutDirection == IBPGroupLayoutDirectionCustom;
 }
 
 - (BOOL)isGroup {
@@ -172,8 +191,8 @@
 }
 
 - (IBPNSCollectionLayoutSize *)effectiveSizeForSize:(IBPNSCollectionLayoutSize *)size
-                                           count:(NSInteger)count
-                                 layoutDirection:(IBPLayoutDirection)layoutDirection {
+                                              count:(NSInteger)count
+                                    layoutDirection:(IBPGroupLayoutDirection)layoutDirection {
     NSArray<IBPNSCollectionLayoutItem *> *subitems = self.subitems;
     for (IBPNSCollectionLayoutItem *item in subitems) {
         if (item.isGroup) {
@@ -204,3 +223,4 @@
 }
 
 @end
+

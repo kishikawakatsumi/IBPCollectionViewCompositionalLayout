@@ -2,6 +2,7 @@
 #import "IBPCollectionCompositionalLayoutSolverResult.h"
 #import "IBPNSCollectionLayoutContainer.h"
 #import "IBPNSCollectionLayoutDimension.h"
+#import "IBPNSCollectionLayoutEnvironment.h"
 #import "IBPNSCollectionLayoutGroup_Private.h"
 #import "IBPNSCollectionLayoutItem_Private.h"
 #import "IBPNSCollectionLayoutSection_Private.h"
@@ -44,13 +45,15 @@
     CGSize collectionContentSize = container.effectiveContentSize;
 
     IBPNSDirectionalEdgeInsets sectionContentInsets = self.layoutSection.contentInsets;
-    IBPNSCollectionLayoutContainer *sectionContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:collectionContentSize contentInsets:sectionContentInsets];
+    IBPNSCollectionLayoutContainer *sectionContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:collectionContentSize
+                                                                                                     contentInsets:sectionContentInsets];
 
     IBPNSCollectionLayoutSection *section = self.layoutSection;
     IBPNSCollectionLayoutGroup *group = section.group;
 
     CGSize groupContentSize = [group.layoutSize effectiveSizeForContainer:sectionContainer];
-    IBPNSCollectionLayoutContainer *groupContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:groupContentSize contentInsets:group.contentInsets];
+    IBPNSCollectionLayoutContainer *groupContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:groupContentSize
+                                                                                                   contentInsets:group.contentInsets];
 
     CGRect layoutFrame = self.layoutFrame;
     layoutFrame.origin.x += sectionContentInsets.leading;
@@ -62,10 +65,11 @@
     contentFrame.origin = layoutFrame.origin;
     self.contentFrame = contentFrame;
 
-    [self solveGroup:group forContainer:groupContainer containerFrame:layoutFrame];
+    [self solveGroup:group forContainer:groupContainer containerFrame:layoutFrame traitCollection:traitCollection];
 }
 
-- (void)solveGroup:(IBPNSCollectionLayoutGroup *)group forContainer:(IBPNSCollectionLayoutContainer *)container containerFrame:(CGRect)containerFrame {
+- (void)solveGroup:(IBPNSCollectionLayoutGroup *)group forContainer:(IBPNSCollectionLayoutContainer *)container
+    containerFrame:(CGRect)containerFrame traitCollection:(UITraitCollection *)traitCollection {
     __block CGRect contentFrame = self.contentFrame;
 
     CGFloat interItemFixedSpacing = 0;
@@ -77,6 +81,21 @@
         interItemFlexibleSpacing = group.interItemSpacing.spacing;
     }
 
+    if (group.isCustomGroup) {
+        IBPNSCollectionLayoutEnvironment *environment = [[IBPNSCollectionLayoutEnvironment alloc] init];
+        environment.container = container;
+        environment.traitCollection = traitCollection;
+
+        NSArray<IBPNSCollectionLayoutGroupCustomItem *> *items = group.customGroupItemProvider(environment);
+        for (IBPNSCollectionLayoutGroupCustomItem *item in items) {
+            CGRect customFrame = item.frame;
+            customFrame.origin.x += contentFrame.origin.x;
+            customFrame.origin.y += contentFrame.origin.y;
+
+            [self.results addObject:[IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:nil frame:customFrame]];
+        }
+        return;
+    }
     if (group.count > 0) {
         IBPNSCollectionLayoutItem *item = group.subitems[0];
         IBPNSDirectionalEdgeInsets contentInsets = item.contentInsets;
@@ -106,7 +125,7 @@
 
             for (NSInteger i = 0; i < group.count; i++) {
                 self.contentFrame = contentFrame;
-                [self solveGroup:nestedGroup forContainer:itemContainer containerFrame:nestedContainerFrame];
+                [self solveGroup:nestedGroup forContainer:itemContainer containerFrame:nestedContainerFrame traitCollection:traitCollection];
 
                 if (group.isHorizontalGroup) {
                     contentFrame.origin.x += interItemFixedSpacing + itemSize.width;
@@ -176,7 +195,7 @@
                 }
 
                 self.contentFrame = contentFrame;
-                [self solveGroup:nestedGroup forContainer:itemContainer containerFrame:nestedContainerFrame];
+                [self solveGroup:nestedGroup forContainer:itemContainer containerFrame:nestedContainerFrame traitCollection:traitCollection];
 
                 if (group.isHorizontalGroup) {
                     if (floor(CGRectGetMaxX(contentFrame)) > floor(CGRectGetMaxX(containerFrame))) {

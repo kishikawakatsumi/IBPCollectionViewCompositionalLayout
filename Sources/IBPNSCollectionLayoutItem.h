@@ -5,8 +5,6 @@
 @class IBPNSCollectionLayoutSize;
 @class IBPNSCollectionLayoutSupplementaryItem;
 
-@protocol IBPNSCollectionLayoutEnvironment;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IBPNSCollectionLayoutItem : NSObject<NSCopying>

@@ -6,10 +6,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IBPCollectionCompositionalLayoutSolverResult : NSObject
 
-@property (nonatomic) IBPNSCollectionLayoutItem *layoutItem;
+@property (nonatomic, nullable) IBPNSCollectionLayoutItem *layoutItem;
 @property (nonatomic) CGRect frame;
 
-+ (instancetype)resultWithLayoutItem:(IBPNSCollectionLayoutItem *)layoutItem frame:(CGRect)frame;
++ (instancetype)resultWithLayoutItem:(nullable IBPNSCollectionLayoutItem *)layoutItem frame:(CGRect)frame;
 
 @end
 
