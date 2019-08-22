@@ -7,6 +7,7 @@ typealias NSCollectionLayoutDimension = IBPNSCollectionLayoutDimension
 typealias NSCollectionLayoutEdgeSpacing = IBPNSCollectionLayoutEdgeSpacing
 typealias NSCollectionLayoutEnvironment = IBPNSCollectionLayoutEnvironment
 typealias NSCollectionLayoutGroup = IBPNSCollectionLayoutGroup
+typealias NSCollectionLayoutGroupCustomItem = IBPNSCollectionLayoutGroupCustomItem
 typealias NSCollectionLayoutItem = IBPNSCollectionLayoutItem
 typealias NSCollectionLayoutSection = IBPNSCollectionLayoutSection
 typealias NSCollectionLayoutSize = IBPNSCollectionLayoutSize
