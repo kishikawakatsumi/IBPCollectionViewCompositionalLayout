@@ -62,11 +62,10 @@
     contentFrame.origin = layoutFrame.origin;
     self.contentFrame = contentFrame;
 
-    [self solveGroup:group forContainer:groupContainer];
+    [self solveGroup:group forContainer:groupContainer containerFrame:layoutFrame];
 }
 
-- (void)solveGroup:(IBPNSCollectionLayoutGroup *)group forContainer:(IBPNSCollectionLayoutContainer *)groupContainer {
-    CGRect layoutFrame = self.layoutFrame;
+- (void)solveGroup:(IBPNSCollectionLayoutGroup *)group forContainer:(IBPNSCollectionLayoutContainer *)container containerFrame:(CGRect)containerFrame {
     __block CGRect contentFrame = self.contentFrame;
 
     CGFloat interItemFixedSpacing = 0;
@@ -82,32 +81,32 @@
         IBPNSCollectionLayoutItem *item = group.subitems[0];
         IBPNSDirectionalEdgeInsets contentInsets = item.contentInsets;
 
-        CGSize itemSize = [item.layoutSize effectiveSizeForContainer:groupContainer];
+        CGSize itemSize = [item.layoutSize effectiveSizeForContainer:container];
         IBPNSCollectionLayoutContainer *itemContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:itemSize contentInsets:contentInsets];
 
         if (item.isGroup) {
             IBPNSCollectionLayoutGroup *nestedGroup = (IBPNSCollectionLayoutGroup *)item;
 
             if (group.isHorizontalGroup) {
-                if (floor(CGRectGetMaxX(contentFrame)) > floor(CGRectGetMaxX(layoutFrame))) {
+                if (floor(CGRectGetMaxX(contentFrame)) > floor(CGRectGetMaxX(containerFrame))) {
                     return;
                 }
-                itemSize.width = (CGRectGetWidth(layoutFrame) - interItemFixedSpacing * (group.count - 1)) / group.count;
+                itemSize.width = (CGRectGetWidth(containerFrame) - interItemFixedSpacing * (group.count - 1)) / group.count;
             }
             if (group.isVerticalGroup) {
-                if (floor(CGRectGetMaxX(contentFrame)) > floor(CGRectGetMaxX(layoutFrame))) {
+                if (floor(CGRectGetMaxX(contentFrame)) > floor(CGRectGetMaxX(containerFrame))) {
                     return;
                 }
-                itemSize.height = (CGRectGetHeight(layoutFrame) - interItemFixedSpacing * (group.count - 1)) / group.count;
+                itemSize.height = (CGRectGetHeight(containerFrame) - interItemFixedSpacing * (group.count - 1)) / group.count;
             }
 
-            CGRect nestedContainerFrame = layoutFrame;
+            CGRect nestedContainerFrame = containerFrame;
             nestedContainerFrame.origin = contentFrame.origin;
             nestedContainerFrame.size = itemSize;
 
             for (NSInteger i = 0; i < group.count; i++) {
                 self.contentFrame = contentFrame;
-                [self solveGroup:nestedGroup forContainer:itemContainer];
+                [self solveGroup:nestedGroup forContainer:itemContainer containerFrame:nestedContainerFrame];
 
                 if (group.isHorizontalGroup) {
                     contentFrame.origin.x += interItemFixedSpacing + itemSize.width;
@@ -121,11 +120,11 @@
         }
 
         if (group.isHorizontalGroup) {
-            if (floor(CGRectGetMaxX(contentFrame)) > floor(CGRectGetMaxX(layoutFrame))) {
+            if (floor(CGRectGetMaxX(contentFrame)) > floor(CGRectGetMaxX(containerFrame))) {
                 return;
             }
 
-            itemSize.width = (CGRectGetWidth(layoutFrame) - interItemFixedSpacing * (group.count - 1)) / group.count;
+            itemSize.width = (CGRectGetWidth(containerFrame) - interItemFixedSpacing * (group.count - 1)) / group.count;
             contentFrame.size = itemSize;
 
             for (NSInteger i = 0; i < group.count; i++) {
@@ -135,11 +134,11 @@
             }
         }
         if (group.isVerticalGroup) {
-            if (floor(CGRectGetMaxY(contentFrame)) > floor(CGRectGetMaxY(layoutFrame))) {
+            if (floor(CGRectGetMaxY(contentFrame)) > floor(CGRectGetMaxY(containerFrame))) {
                 return;
             }
 
-            itemSize.height = (CGRectGetHeight(layoutFrame) - interItemFixedSpacing * (group.count - 1)) / group.count;
+            itemSize.height = (CGRectGetHeight(containerFrame) - interItemFixedSpacing * (group.count - 1)) / group.count;
             contentFrame.size = itemSize;
 
             for (NSInteger i = 0; i < group.count; i++) {
@@ -153,41 +152,41 @@
         [group enumerateItemsWithHandler:^(IBPNSCollectionLayoutItem * _Nonnull item, BOOL * _Nonnull stop) {
             IBPNSDirectionalEdgeInsets contentInsets = item.contentInsets;
 
-            CGSize itemSize = [item.layoutSize effectiveSizeForContainer:groupContainer];
+            CGSize itemSize = [item.layoutSize effectiveSizeForContainer:container];
             IBPNSCollectionLayoutContainer *itemContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:itemSize contentInsets:item.contentInsets];
 
             if (item.isGroup) {
                 IBPNSCollectionLayoutGroup *nestedGroup = (IBPNSCollectionLayoutGroup *)item;
 
-                CGRect nestedContainerFrame = layoutFrame;
+                CGRect nestedContainerFrame = containerFrame;
                 nestedContainerFrame.origin = contentFrame.origin;
-                nestedContainerFrame.size = [nestedGroup.layoutSize effectiveSizeForContainer:groupContainer];
+                nestedContainerFrame.size = [nestedGroup.layoutSize effectiveSizeForContainer:container];
 
                 if (group.isHorizontalGroup) {
-                    if (floor(CGRectGetMaxX(nestedContainerFrame)) > floor(CGRectGetMaxX(layoutFrame))) {
+                    if (floor(CGRectGetMaxX(nestedContainerFrame)) > floor(CGRectGetMaxX(containerFrame))) {
                         *stop = YES;
                         return;
                     }
                 }
                 if (group.isVerticalGroup) {
-                    if (floor(CGRectGetMaxY(nestedContainerFrame)) > floor(CGRectGetMaxY(layoutFrame))) {
+                    if (floor(CGRectGetMaxY(nestedContainerFrame)) > floor(CGRectGetMaxY(containerFrame))) {
                         *stop = YES;
                         return;
                     }
                 }
-                self.contentFrame = contentFrame;
 
-                [self solveGroup:nestedGroup forContainer:itemContainer];
+                self.contentFrame = contentFrame;
+                [self solveGroup:nestedGroup forContainer:itemContainer containerFrame:nestedContainerFrame];
 
                 if (group.isHorizontalGroup) {
-                    if (floor(CGRectGetMaxX(contentFrame)) > floor(CGRectGetMaxX(layoutFrame))) {
+                    if (floor(CGRectGetMaxX(contentFrame)) > floor(CGRectGetMaxX(containerFrame))) {
                         *stop = YES;
                         return;
                     }
                     contentFrame.origin.x += itemSize.width;
                 }
                 if (group.isVerticalGroup) {
-                    if (floor(CGRectGetMaxY(contentFrame)) > floor(CGRectGetMaxY(layoutFrame))) {
+                    if (floor(CGRectGetMaxY(contentFrame)) > floor(CGRectGetMaxY(containerFrame))) {
                         *stop = YES;
                         return;
                     }
@@ -212,7 +211,7 @@
 
             contentFrame.size = itemSize;
             if (group.isHorizontalGroup) {
-                if (floor(CGRectGetMaxX(contentFrame)) > floor(CGRectGetMaxX(layoutFrame))) {
+                if (floor(CGRectGetMaxX(contentFrame)) > floor(CGRectGetMaxX(containerFrame))) {
                     *stop = YES;
                     return;
                 }
@@ -224,7 +223,7 @@
                 contentFrame.origin.x += CGRectGetWidth(contentFrame) + interItemFixedSpacing + interItemFlexibleSpacing;
             }
             if (group.isVerticalGroup) {
-                if (floor(CGRectGetMaxY(contentFrame)) > floor(CGRectGetMaxY(layoutFrame))) {
+                if (floor(CGRectGetMaxY(contentFrame)) > floor(CGRectGetMaxY(containerFrame))) {
                     *stop = YES;
                     return;
                 }
@@ -243,7 +242,7 @@
                 totalSize.height += CGRectGetHeight(result.frame);
             }
             if (group.isHorizontalGroup) {
-                CGFloat actualSpacing = (CGRectGetWidth(layoutFrame) - totalSize.width) / (groupedItemResults.count - 1);
+                CGFloat actualSpacing = (CGRectGetWidth(containerFrame) - totalSize.width) / (groupedItemResults.count - 1);
                 CGFloat delta = floor(actualSpacing - interItemFlexibleSpacing);
                 for (NSInteger i = 1; i < groupedItemResults.count; i++) {
                     IBPCollectionCompositionalLayoutSolverResult *result = groupedItemResults[i];
@@ -253,7 +252,7 @@
                 }
             }
             if (group.isVerticalGroup) {
-                CGFloat actualSpacing = (CGRectGetHeight(layoutFrame) - totalSize.height) / (groupedItemResults.count - 1);
+                CGFloat actualSpacing = (CGRectGetHeight(containerFrame) - totalSize.height) / (groupedItemResults.count - 1);
                 CGFloat delta = floor(actualSpacing - interItemFlexibleSpacing);
                 for (NSInteger i = 1; i < groupedItemResults.count; i++) {
                     IBPCollectionCompositionalLayoutSolverResult *result = groupedItemResults[i];
