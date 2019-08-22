@@ -9,10 +9,7 @@ Pod::Spec.new do |s|
   s.homepage              = 'https://github.com/kishikawakatsumi/IBPCollectionViewCompositionalLayout'
   s.ios.deployment_target = '10.0'
   s.source_files          = 'Sources/*.{h,m}'
-  s.private_header_files  = [ 'Sources/IBPCollectionCompositionalLayoutSolver.h',
-                              'Sources/IBPCollectionCompositionalLayoutSolverResult.h',
-                              'Sources/IBPCollectionViewOrthogonalScrollerEmbeddedScrollView.h',
-                              'Sources/IBPCollectionViewOrthogonalScrollerSectionController.h',
+  s.private_header_files  = [ 'Sources/Internal/*.h'
                               'Sources/IBPNSCollectionLayoutAnchor_Private.h',
                               'Sources/IBPNSCollectionLayoutContainer.h',
                               'Sources/IBPNSCollectionLayoutEdgeSpacing_Private.h',
