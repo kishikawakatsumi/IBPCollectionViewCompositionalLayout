@@ -48,10 +48,10 @@
     IBPNSCollectionLayoutDimension *heightDimension = self.heightDimension;
 
     if (widthDimension.isFractionalWidth) {
-        effectiveSize.width = contentSize.width * widthDimension.dimension;
+        effectiveSize.width = container.contentSize.width * widthDimension.dimension;
     }
     if (widthDimension.isFractionalHeight) {
-        effectiveSize.width = contentSize.height * widthDimension.dimension;
+        effectiveSize.width = container.contentSize.height * widthDimension.dimension;
     }
     if (widthDimension.isAbsolute) {
         effectiveSize.width = widthDimension.dimension;
@@ -64,10 +64,10 @@
     }
 
     if (heightDimension.isFractionalWidth) {
-        effectiveSize.height = contentSize.width * heightDimension.dimension;
+        effectiveSize.height = container.contentSize.width * heightDimension.dimension;
     }
     if (heightDimension.isFractionalHeight) {
-        effectiveSize.height = contentSize.height * heightDimension.dimension;
+        effectiveSize.height = container.contentSize.height * heightDimension.dimension;
     }
     if (heightDimension.isAbsolute) {
         effectiveSize.height = heightDimension.dimension;
