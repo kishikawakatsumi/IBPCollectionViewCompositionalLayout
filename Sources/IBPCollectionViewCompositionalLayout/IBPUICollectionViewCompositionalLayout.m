@@ -304,16 +304,38 @@
 
         CGSize extendedBoundary = CGSizeZero;
         for (IBPNSCollectionLayoutBoundarySupplementaryItem *boundaryItem in layoutSection.boundarySupplementaryItems) {
-            CGRect containerFrame = solver.layoutFrame;
+            CGRect containerFrame = CGRectZero;
+            containerFrame.size = collectionContainer.contentSize;
+
+            IBPNSDirectionalEdgeInsets boundaryInsets = boundaryItem.contentInsets;
+            if (layoutSection.supplementariesFollowContentInsets) {
+                boundaryInsets.top += layoutSection.contentInsets.top;
+                boundaryInsets.bottom += layoutSection.contentInsets.bottom;
+                boundaryInsets.leading += layoutSection.contentInsets.leading;
+                boundaryInsets.trailing += layoutSection.contentInsets.trailing;
+            }
+
             if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
                 containerFrame.origin.y = contentFrame.origin.y;
                 containerFrame.size.height = contentFrame.size.height;
+
+                boundaryInsets.top = 0;
+                boundaryInsets.bottom = 0;
             }
             if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
                 containerFrame.origin.x = contentFrame.origin.x;
                 containerFrame.origin.y = contentFrame.origin.y;
                 containerFrame.size.width = contentFrame.size.width;
+
+                boundaryInsets.leading = 0;
+                boundaryInsets.trailing = 0;
             }
+
+            containerFrame = UIEdgeInsetsInsetRect(containerFrame,
+                                                   UIEdgeInsetsMake(boundaryInsets.top,
+                                                                    boundaryInsets.leading,
+                                                                    boundaryInsets.bottom,
+                                                                    boundaryInsets.trailing));
 
             UICollectionViewLayoutAttributes *layoutAttributes = [self prepareLayoutForBoundaryItem:boundaryItem
                                                                                      containerFrame:containerFrame
