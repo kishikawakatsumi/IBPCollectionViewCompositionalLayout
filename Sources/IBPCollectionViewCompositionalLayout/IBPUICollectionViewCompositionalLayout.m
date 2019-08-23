@@ -230,10 +230,10 @@
             } else {
                 CGRect frame = cellFrame;
                 if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
-                    frame.size.height += layoutItem.contentInsets.bottom;
+                    frame.size.height += layoutItem.contentInsets.bottom + layoutSection.contentInsets.bottom;
                 }
                 if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-                    frame.size.width += layoutItem.contentInsets.trailing;
+                    frame.size.width += layoutItem.contentInsets.trailing + layoutSection.contentInsets.trailing;
                 }
                 contentFrame = CGRectUnion(contentFrame, frame);
             }
