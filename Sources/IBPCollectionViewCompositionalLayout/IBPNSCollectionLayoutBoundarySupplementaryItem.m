@@ -84,7 +84,8 @@
           pinToVisibleBounds:(BOOL)pinToVisibleBounds {
     self = [super initWithSize:size
                  contentInsets:contentInsets
-                   elementKind:elementKind containerAnchor:containerAnchor
+                   elementKind:elementKind
+               containerAnchor:containerAnchor
                     itemAnchor:itemAnchor
                         zIndex:zIndex];
     if (self) {
