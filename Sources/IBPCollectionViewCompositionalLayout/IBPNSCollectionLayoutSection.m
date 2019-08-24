@@ -17,6 +17,7 @@
     if (self) {
         self.group = group;
         self.orthogonalScrollingBehavior = IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone;
+        self.supplementariesFollowContentInsets = YES;
     }
     return self;
 }
