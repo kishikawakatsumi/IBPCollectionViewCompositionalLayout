@@ -412,6 +412,13 @@
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:sectionIndex];
             cachedDecorationAttributes[indexPath] = layoutAttributes;
         }
+
+        if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
+            contentFrame.size.height += self.configuration.interSectionSpacing;
+        }
+        if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+            contentFrame.size.width += self.configuration.interSectionSpacing;
+        }
     }
 }
 
