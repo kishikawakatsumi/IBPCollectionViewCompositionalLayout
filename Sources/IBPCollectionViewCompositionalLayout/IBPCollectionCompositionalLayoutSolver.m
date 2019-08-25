@@ -47,7 +47,6 @@
     IBPNSDirectionalEdgeInsets sectionContentInsets = self.layoutSection.contentInsets;
     IBPNSCollectionLayoutContainer *sectionContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:collectionContentSize
                                                                                                      contentInsets:sectionContentInsets];
-
     IBPNSCollectionLayoutSection *section = self.layoutSection;
     IBPNSCollectionLayoutGroup *group = section.group;
 
