@@ -53,7 +53,6 @@
     CGSize groupContentSize = [group.layoutSize effectiveSizeForContainer:sectionContainer];
     IBPNSCollectionLayoutContainer *groupContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:groupContentSize
                                                                                                    contentInsets:group.contentInsets];
-
     CGRect layoutFrame = self.layoutFrame;
     layoutFrame.origin.x += sectionContentInsets.leading;
     layoutFrame.origin.y += sectionContentInsets.top;
