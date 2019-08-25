@@ -1,0 +1,15 @@
+name: CI
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+jobs:
+  build:
+    runs-on: macOS-10.14
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build
+      run: |
+        set -ex
+        carthage build --no-skip-current --platform ios
