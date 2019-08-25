@@ -304,11 +304,7 @@
                 boundaryInsets.trailing = 0;
             }
 
-            containerFrame = UIEdgeInsetsInsetRect(containerFrame,
-                                                   UIEdgeInsetsMake(boundaryInsets.top,
-                                                                    boundaryInsets.leading,
-                                                                    boundaryInsets.bottom,
-                                                                    boundaryInsets.trailing));
+            containerFrame = UIEdgeInsetsInsetRect(containerFrame, UIEdgeInsetsMake(boundaryInsets.top, boundaryInsets.leading, boundaryInsets.bottom, boundaryInsets.trailing));
 
             UICollectionViewLayoutAttributes *layoutAttributes = [self prepareLayoutForBoundaryItem:boundaryItem
                                                                                      containerFrame:containerFrame
@@ -378,7 +374,7 @@
             }
 
             contentFrame = CGRectUnion(contentFrame, layoutAttributes.frame);
-            cachedSupplementaryAttributes[[NSString stringWithFormat:@"%@-%ld-%d", boundaryItem.elementKind, (long)sectionIndex, 0]] = layoutAttributes;
+            cachedSupplementaryAttributes[[NSString stringWithFormat:@"%@-%zd-%d", boundaryItem.elementKind, sectionIndex, 0]] = layoutAttributes;
             [globalSupplementaryItems addObject:boundaryItem];
 
             if (boundaryItem.pinToVisibleBounds) {
@@ -684,11 +680,11 @@
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
-    return cachedSupplementaryAttributes[[NSString stringWithFormat:@"%@-%ld-%ld", elementKind, (long)indexPath.section, (long)indexPath.item]];
+    return cachedSupplementaryAttributes[[NSString stringWithFormat:@"%@-%zd-%zd", elementKind, indexPath.section, indexPath.item]];
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForDecorationViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
-    return cachedDecorationAttributes[[NSString stringWithFormat:@"%@-%ld-%ld", elementKind, (long)indexPath.section, (long)indexPath.item]];
+    return cachedDecorationAttributes[[NSString stringWithFormat:@"%@-%zd-%zd", elementKind, indexPath.section, indexPath.item]];
 }
 
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity {
