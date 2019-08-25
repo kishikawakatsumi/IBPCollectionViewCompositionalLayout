@@ -195,20 +195,6 @@
             }
 
             IBPNSCollectionLayoutItem *layoutItem = [solver layoutItemAtIndexPath:indexPath];
-            NSMutableDictionary<NSString *, UICollectionViewLayoutAttributes *> *supplementaryAttributes = cachedSupplementaryAttributes;
-            [layoutItem enumerateSupplementaryItemsWithHandler:^(IBPNSCollectionLayoutSupplementaryItem * _Nonnull supplementaryItem, BOOL * _Nonnull stop) {
-                UICollectionViewLayoutAttributes *layoutAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:supplementaryItem.elementKind withIndexPath:indexPath];
-
-                IBPNSCollectionLayoutContainer *itemContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:cellFrame.size
-                                                                                                              contentInsets:IBPNSDirectionalEdgeInsetsZero];
-                CGSize itemSize = [supplementaryItem.layoutSize effectiveSizeForContainer:itemContainer];
-                CGRect itemFrame = [supplementaryItem.containerAnchor itemFrameForContainerRect:cellFrame itemSize:itemSize itemLayoutAnchor:supplementaryItem.itemAnchor];
-                layoutAttributes.frame = itemFrame;
-                layoutAttributes.zIndex = supplementaryItem.zIndex;
-
-                supplementaryAttributes[[NSString stringWithFormat:@"%@-%ld-%ld", supplementaryItem.elementKind, (long)indexPath.section, (long)indexPath.item]] = layoutAttributes;
-            }];
-
             if (layoutSection.scrollsOrthogonally) {
                 CGRect frame = CGRectZero;
                 switch (self.scrollDirection) {
@@ -227,6 +213,7 @@
                 }
 
                 contentFrame = CGRectUnion(contentFrame, frame);
+                break;
             } else {
                 CGRect frame = cellFrame;
                 if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
@@ -237,35 +224,47 @@
                 }
                 contentFrame = CGRectUnion(contentFrame, frame);
             }
+
+            NSMutableDictionary<NSString *, UICollectionViewLayoutAttributes *> *supplementaryAttributes = cachedSupplementaryAttributes;
+            [layoutItem enumerateSupplementaryItemsWithHandler:^(IBPNSCollectionLayoutSupplementaryItem * _Nonnull supplementaryItem, BOOL * _Nonnull stop) {
+                UICollectionViewLayoutAttributes *layoutAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:supplementaryItem.elementKind withIndexPath:indexPath];
+
+                IBPNSCollectionLayoutContainer *itemContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:cellFrame.size
+                                                                                                              contentInsets:IBPNSDirectionalEdgeInsetsZero];
+                CGSize itemSize = [supplementaryItem.layoutSize effectiveSizeForContainer:itemContainer];
+                CGRect itemFrame = [supplementaryItem.containerAnchor itemFrameForContainerRect:cellFrame itemSize:itemSize itemLayoutAnchor:supplementaryItem.itemAnchor];
+                layoutAttributes.frame = itemFrame;
+                layoutAttributes.zIndex = supplementaryItem.zIndex;
+
+                supplementaryAttributes[[NSString stringWithFormat:@"%@-%zd-%zd", supplementaryItem.elementKind, indexPath.section, indexPath.item]] = layoutAttributes;
+            }];
         }
 
         if (layoutSection.scrollsOrthogonally) {
             IBPCollectionViewOrthogonalScrollerSectionController *controller = orthogonalScrollerSectionControllers[@(sectionIndex)];
-            if (!controller) {
-                UICollectionView *scrollView = [self setupOrthogonalScrollViewForSection:layoutSection];
+            UICollectionView *scrollView = [self setupOrthogonalScrollViewForSection:layoutSection];
 
-                CGRect scrollViewFrame = solver.layoutFrame;
-                scrollViewFrame.origin = sectionOrigin;
-                scrollViewFrame.size.width = collectionContainer.contentSize.width;
-                scrollView.frame = scrollViewFrame;
+            CGRect scrollViewFrame = solver.layoutFrame;
+            scrollViewFrame.origin = sectionOrigin;
+            scrollViewFrame.size.width = collectionContainer.contentSize.width;
+            scrollView.frame = scrollViewFrame;
 
-                if (layoutSection.orthogonalScrollingBehavior == IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPagingCentered) {
-                    CGSize groupSize = [layoutSection.group.layoutSize effectiveSizeForContainer:collectionContainer];
-                    if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
-                        CGFloat inset = (collectionContainer.contentSize.width - groupSize.width) / 2;
-                        scrollView.contentInset = UIEdgeInsetsMake(0, inset, 0, 0);
-                    }
-                    if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-                        CGFloat inset = (collectionContainer.contentSize.height - groupSize.height) / 2;
-                        scrollView.contentInset = UIEdgeInsetsMake(inset, 0, 0, 0);
-                    }
+            if (layoutSection.orthogonalScrollingBehavior == IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPagingCentered) {
+                CGSize groupSize = [layoutSection.group.layoutSize effectiveSizeForContainer:collectionContainer];
+                if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
+                    CGFloat inset = (collectionContainer.contentSize.width - groupSize.width) / 2;
+                    scrollView.contentInset = UIEdgeInsetsMake(0, inset, 0, 0);
                 }
-
-                controller = [[IBPCollectionViewOrthogonalScrollerSectionController alloc] initWithSectionIndex:sectionIndex collectionView:self.collectionView scrollView:scrollView];
-                orthogonalScrollerSectionControllers[@(sectionIndex)] = controller;
-
-                [collectionView addSubview:scrollView];
+                if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+                    CGFloat inset = (collectionContainer.contentSize.height - groupSize.height) / 2;
+                    scrollView.contentInset = UIEdgeInsetsMake(inset, 0, 0, 0);
+                }
             }
+
+            controller = [[IBPCollectionViewOrthogonalScrollerSectionController alloc] initWithSectionIndex:sectionIndex collectionView:self.collectionView scrollView:scrollView];
+            orthogonalScrollerSectionControllers[@(sectionIndex)] = controller;
+
+            [collectionView addSubview:scrollView];
         }
 
         CGRect insetsContentFrame = contentFrame;
