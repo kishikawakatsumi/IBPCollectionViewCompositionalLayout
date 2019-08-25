@@ -1,0 +1,40 @@
+trigger:
+- master
+pr:
+- master
+
+variables:
+  vmImage: 'macOS-10.14'
+  scheme: 'IBPCollectionViewCompositionalLayout'
+  sdk: 'iphoneos'
+  configuration: 'Release'
+jobs:
+- job: Build
+  pool:
+    vmImage: '$(vmImage)'
+  strategy:
+    matrix:
+      xcode11:
+        DEVELOPER_DIR: /Applications/Xcode_11.app
+      xcode10:
+        DEVELOPER_DIR: /Applications/Xcode_10.3.app
+  steps:
+  - task: Xcode@5
+    inputs:
+      actions: 'build'
+      scheme: '$(scheme)'
+      sdk: '$(sdk)'
+      configuration: '$(configuration)'
+      xcWorkspacePath: '$(scheme).xcworkspace'
+    displayName: 'Xcode'
+  - bash: |
+      set -ex
+      xcodebuild -version
+      pushd $(mktemp -d)
+      echo "github \"${SourceRepositoryURI}\" \"${SourceBranch}\"" > Cartfile
+      carthage update --verbose --no-use-binaries
+      popd
+    displayName: 'Carthage'
+    env:
+      SourceRepositoryURI: $(System.PullRequest.SourceRepositoryURI)
+      SourceBranch: $(System.PullRequest.SourceBranch)
