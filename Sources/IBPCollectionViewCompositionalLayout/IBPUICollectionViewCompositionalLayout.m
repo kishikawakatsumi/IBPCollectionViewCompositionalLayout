@@ -293,18 +293,6 @@
             orthogonalScrollerSectionControllers[@(sectionIndex)] = controller;
         }
 
-        CGRect insetsContentFrame = contentFrame;
-        if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
-            insetsContentFrame.origin.y += self.containerSection.contentInsets.bottom + layoutSection.contentInsets.bottom;
-        }
-        if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-            insetsContentFrame.origin.x += self.containerSection.contentInsets.trailing + layoutSection.contentInsets.trailing;
-        }
-
-        if (!CGRectIsEmpty(contentFrame)) {
-            contentFrame = CGRectUnion(contentFrame, insetsContentFrame);
-        }
-
         CGSize extendedBoundary = CGSizeZero;
         for (IBPNSCollectionLayoutBoundarySupplementaryItem *boundaryItem in layoutSection.boundarySupplementaryItems) {
             CGRect containerFrame = CGRectZero;
@@ -437,6 +425,17 @@
             layoutAttributes.frame = frame;
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:sectionIndex];
             cachedDecorationAttributes[indexPath] = layoutAttributes;
+        }
+
+        CGRect insetsContentFrame = contentFrame;
+        if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
+            insetsContentFrame.origin.y += self.containerSection.contentInsets.bottom + layoutSection.contentInsets.bottom;
+        }
+        if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+            insetsContentFrame.origin.x += self.containerSection.contentInsets.trailing + layoutSection.contentInsets.trailing;
+        }
+        if (!CGRectIsEmpty(contentFrame)) {
+            contentFrame = CGRectUnion(contentFrame, insetsContentFrame);
         }
 
         if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
