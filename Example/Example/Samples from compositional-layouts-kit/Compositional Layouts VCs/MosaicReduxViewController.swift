@@ -109,7 +109,7 @@ extension MosaicReduxViewController {
         }
         
         // Initial data
-        let snapshot = NSDiffableDataSourceSnapshot<Section, ImageModel>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, ImageModel>()
         snapshot.appendSections([.main])
         
         func produceImage() -> UIImage {
