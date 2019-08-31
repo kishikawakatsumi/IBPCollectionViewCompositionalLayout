@@ -239,16 +239,16 @@
 
             NSMutableDictionary<NSString *, UICollectionViewLayoutAttributes *> *supplementaryAttributes = cachedSupplementaryAttributes;
             [layoutItem enumerateSupplementaryItemsWithHandler:^(IBPNSCollectionLayoutSupplementaryItem * _Nonnull supplementaryItem, BOOL * _Nonnull stop) {
-                UICollectionViewLayoutAttributes *layoutAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:supplementaryItem.elementKind withIndexPath:indexPath];
+                UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:supplementaryItem.elementKind withIndexPath:indexPath];
 
-                IBPNSCollectionLayoutContainer *itemContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:cellFrame.size
-                                                                                                              contentInsets:IBPNSDirectionalEdgeInsetsZero];
-                CGSize itemSize = [supplementaryItem.layoutSize effectiveSizeForContainer:itemContainer];
-                CGRect itemFrame = [supplementaryItem.containerAnchor itemFrameForContainerRect:cellFrame itemSize:itemSize itemLayoutAnchor:supplementaryItem.itemAnchor];
-                layoutAttributes.frame = itemFrame;
-                layoutAttributes.zIndex = supplementaryItem.zIndex;
+                IBPNSCollectionLayoutContainer *container = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:cellFrame.size
+                                                                                                          contentInsets:IBPNSDirectionalEdgeInsetsZero];
+                CGSize size = [supplementaryItem.layoutSize effectiveSizeForContainer:container];
+                CGRect frame = [supplementaryItem.containerAnchor itemFrameForContainerRect:cellFrame itemSize:size itemLayoutAnchor:supplementaryItem.itemAnchor];
+                attributes.frame = frame;
+                attributes.zIndex = supplementaryItem.zIndex;
 
-                supplementaryAttributes[[NSString stringWithFormat:@"%@-%zd-%zd", supplementaryItem.elementKind, indexPath.section, indexPath.item]] = layoutAttributes;
+                supplementaryAttributes[[NSString stringWithFormat:@"%@-%zd-%zd", supplementaryItem.elementKind, indexPath.section, indexPath.item]] = attributes;
             }];
         }
 
@@ -575,7 +575,7 @@
 
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
     NSMutableArray<UICollectionViewLayoutAttributes *> *layoutAttributes = [[NSMutableArray alloc] init];
-    NSArray *sortedAttributes = [cachedItemAttributes.allValues sortedArrayUsingComparator:^NSComparisonResult(UICollectionViewLayoutAttributes * _Nonnull attrs1, UICollectionViewLayoutAttributes * _Nonnull attrs2) {
+    NSArray *itemAttributes = [cachedItemAttributes.allValues sortedArrayUsingComparator:^NSComparisonResult(UICollectionViewLayoutAttributes * _Nonnull attrs1, UICollectionViewLayoutAttributes * _Nonnull attrs2) {
         switch (self.scrollDirection) {
             case UICollectionViewScrollDirectionVertical:
                 return CGRectGetMinY(attrs1.frame) > CGRectGetMinY(attrs2.frame);
@@ -584,8 +584,8 @@
         }
     }];
 
-    for (NSInteger i = 0; i < sortedAttributes.count; i++) {
-        UICollectionViewLayoutAttributes *attributes = sortedAttributes[i];
+    for (NSInteger i = 0; i < itemAttributes.count; i++) {
+        UICollectionViewLayoutAttributes *attributes = itemAttributes[i];
         if (!CGRectIntersectsRect(attributes.frame, rect)) {
             continue;
         }
@@ -623,8 +623,8 @@
 
                 CGRect frame = attributes.frame;
                 if (CGRectGetWidth(attributes.frame) != fitSize.width || CGRectGetHeight(attributes.frame) != fitSize.height) {
-                    for (NSInteger j = i + 1; j < sortedAttributes.count; j++) {
-                        UICollectionViewLayoutAttributes *nextAttributes = sortedAttributes[j];
+                    for (NSInteger j = i + 1; j < itemAttributes.count; j++) {
+                        UICollectionViewLayoutAttributes *nextAttributes = itemAttributes[j];
                         CGRect nextFrame = nextAttributes.frame;
 
                         switch (self.scrollDirection) {
@@ -645,10 +645,26 @@
 
                 frame.size = fitSize;
                 attributes.frame = frame;
+                [layoutAttributes addObject:attributes];
 
                 contentFrame = CGRectUnion(contentFrame, frame);
 
-                [layoutAttributes addObject:attributes];
+                NSMutableDictionary<NSString *, UICollectionViewLayoutAttributes *> *supplementaryAttributes = cachedSupplementaryAttributes;
+                [layoutItem enumerateSupplementaryItemsWithHandler:^(IBPNSCollectionLayoutSupplementaryItem * _Nonnull supplementaryItem, BOOL * _Nonnull stop) {
+                    UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:supplementaryItem.elementKind withIndexPath:indexPath];
+
+                    IBPNSCollectionLayoutContainer *container = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:frame.size
+                                                                                                              contentInsets:IBPNSDirectionalEdgeInsetsZero];
+                    CGSize size = [supplementaryItem.layoutSize effectiveSizeForContainer:container];
+                    CGRect supplementaryFrame = [supplementaryItem.containerAnchor itemFrameForContainerRect:frame itemSize:size itemLayoutAnchor:supplementaryItem.itemAnchor];
+                    attributes.frame = supplementaryFrame;
+                    attributes.zIndex = supplementaryItem.zIndex;
+
+                    supplementaryAttributes[[NSString stringWithFormat:@"%@-%zd-%zd", supplementaryItem.elementKind, indexPath.section, indexPath.item]] = attributes;
+
+                    [layoutAttributes addObject:attributes];
+                }];
+
                 continue;
             }
         }
