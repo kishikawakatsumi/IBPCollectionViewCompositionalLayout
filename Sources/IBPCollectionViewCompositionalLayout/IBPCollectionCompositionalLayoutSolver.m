@@ -70,6 +70,8 @@
 - (void)solveGroup:(IBPNSCollectionLayoutGroup *)group forContainer:(IBPNSCollectionLayoutContainer *)container
     containerFrame:(CGRect)containerFrame traitCollection:(UITraitCollection *)traitCollection {
     __block CGRect contentFrame = self.contentFrame;
+    contentFrame.origin.x += container.contentInsets.leading;
+    contentFrame.origin.y += container.contentInsets.top;
 
     CGFloat interItemFixedSpacing = 0;
     if (group.interItemSpacing.isFixedSpacing) {
