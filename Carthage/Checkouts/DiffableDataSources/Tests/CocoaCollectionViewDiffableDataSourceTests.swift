@@ -20,7 +20,7 @@ final class CocoaCollectionViewDiffableDataSourceTests: XCTestCase {
             NSCollectionViewItem()
         }
 
-        let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+        var snapshot = DiffableDataSourceSnapshot<Int, Int>()
 
         dataSource.apply(snapshot)
         XCTAssertEqual(collectionView.isPerformBatchUpdatesCalledCount, 0)
@@ -50,33 +50,36 @@ final class CocoaCollectionViewDiffableDataSourceTests: XCTestCase {
         XCTAssertEqual(snapshot1.sectionIdentifiers, [])
         XCTAssertEqual(snapshot1.itemIdentifiers, [])
 
-        dataSource.snapshot().appendSections([0, 1, 2])
-        let snapshot2 = dataSource.snapshot()
-        XCTAssertEqual(snapshot2.sectionIdentifiers, [])
-        XCTAssertEqual(snapshot2.itemIdentifiers, [])
+        var snapshot2 = dataSource.snapshot()
+        snapshot2.appendSections([0, 1, 2])
 
-        let snapshotToApply = DiffableDataSourceSnapshot<Int, Int>()
+        let snapshot3 = dataSource.snapshot()
+        XCTAssertEqual(snapshot3.sectionIdentifiers, [])
+        XCTAssertEqual(snapshot3.itemIdentifiers, [])
+
+        var snapshotToApply = DiffableDataSourceSnapshot<Int, Int>()
         snapshotToApply.appendSections([0, 1, 2])
         snapshotToApply.appendItems([0, 1, 2])
         dataSource.apply(snapshotToApply)
-
-        let snapshot3 = dataSource.snapshot()
-        XCTAssertEqual(snapshot3.sectionIdentifiers, [0, 1, 2])
-        XCTAssertEqual(snapshot3.itemIdentifiers, [0, 1, 2])
-
-        dataSource.snapshot().appendSections([3, 4, 5])
 
         let snapshot4 = dataSource.snapshot()
         XCTAssertEqual(snapshot4.sectionIdentifiers, [0, 1, 2])
         XCTAssertEqual(snapshot4.itemIdentifiers, [0, 1, 2])
 
-        snapshot4.appendSections([3, 4, 5])
-        snapshot4.appendItems([3, 4, 5])
-        dataSource.apply(snapshot4)
+        var snapshot5 = dataSource.snapshot()
+        snapshot5.appendSections([3, 4, 5])
 
-        let snapshot5 = dataSource.snapshot()
-        XCTAssertEqual(snapshot5.sectionIdentifiers, [0, 1, 2, 3, 4, 5])
-        XCTAssertEqual(snapshot5.itemIdentifiers, [0, 1, 2, 3, 4, 5])
+        var snapshot6 = dataSource.snapshot()
+        XCTAssertEqual(snapshot6.sectionIdentifiers, [0, 1, 2])
+        XCTAssertEqual(snapshot6.itemIdentifiers, [0, 1, 2])
+
+        snapshot6.appendSections([3, 4, 5])
+        snapshot6.appendItems([3, 4, 5])
+        dataSource.apply(snapshot6)
+
+        let snapshot7 = dataSource.snapshot()
+        XCTAssertEqual(snapshot7.sectionIdentifiers, [0, 1, 2, 3, 4, 5])
+        XCTAssertEqual(snapshot7.itemIdentifiers, [0, 1, 2, 3, 4, 5])
     }
 
     func testItemIdentifier() {
@@ -85,7 +88,7 @@ final class CocoaCollectionViewDiffableDataSourceTests: XCTestCase {
             NSCollectionViewItem()
         }
 
-        let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+        var snapshot = DiffableDataSourceSnapshot<Int, Int>()
         snapshot.appendSections([0, 1, 2])
         snapshot.appendItems([0, 1, 2], toSection: 0)
         dataSource.apply(snapshot)
@@ -100,7 +103,7 @@ final class CocoaCollectionViewDiffableDataSourceTests: XCTestCase {
             NSCollectionViewItem()
         }
 
-        let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+        var snapshot = DiffableDataSourceSnapshot<Int, Int>()
         snapshot.appendSections([0, 1, 2])
         snapshot.appendItems([0, 1, 2], toSection: 0)
         dataSource.apply(snapshot)
@@ -117,7 +120,7 @@ final class CocoaCollectionViewDiffableDataSourceTests: XCTestCase {
 
         XCTAssertEqual(dataSource.numberOfSections(in: collectionView), 0)
 
-        let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+        var snapshot = DiffableDataSourceSnapshot<Int, Int>()
         snapshot.appendSections([0, 1, 2])
         snapshot.appendItems([0, 1, 2], toSection: 0)
         dataSource.apply(snapshot)
@@ -131,7 +134,7 @@ final class CocoaCollectionViewDiffableDataSourceTests: XCTestCase {
             NSCollectionViewItem()
         }
 
-        let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+        var snapshot = DiffableDataSourceSnapshot<Int, Int>()
         snapshot.appendSections([0, 1, 2])
         snapshot.appendItems([0, 1, 2], toSection: 0)
         dataSource.apply(snapshot)
@@ -146,7 +149,7 @@ final class CocoaCollectionViewDiffableDataSourceTests: XCTestCase {
             item
         }
 
-        let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+        var snapshot = DiffableDataSourceSnapshot<Int, Int>()
         snapshot.appendSections([0, 1, 2])
         snapshot.appendItems([0, 1, 2], toSection: 0)
         dataSource.apply(snapshot)

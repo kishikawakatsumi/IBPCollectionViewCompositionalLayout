@@ -20,7 +20,7 @@ jobs:
        set -o pipefail &&
        xcodebuild build-for-testing test-without-building -workspace DiffableDataSources.xcworkspace -scheme DiffableDataSources -configuration Release ENABLE_TESTABILITY=YES |
        xcpretty -c -r junit -o build/reports/xcodebuild-macOS.xml
-      displayName: xcodebuild test maxOS
+      displayName: xcodebuild test macOS
       condition: succeededOrFailed()
     - script: |
         set -o pipefail &&

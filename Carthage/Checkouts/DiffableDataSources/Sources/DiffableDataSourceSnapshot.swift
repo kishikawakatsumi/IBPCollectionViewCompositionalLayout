@@ -1,7 +1,7 @@
 /// A class for backporting `NSDiffableDataSourceSnapshot` introduced in iOS 13.0+, macOS 10.15+, tvOS 13.0+.
 /// Represents the mutable state of diffable data source of UI.
-public class DiffableDataSourceSnapshot<SectionIdentifierType: Hashable, ItemIdentifierType: Hashable> {
-    internal let structure = SnapshotStructure<SectionIdentifierType, ItemIdentifierType>()
+public struct DiffableDataSourceSnapshot<SectionIdentifierType: Hashable, ItemIdentifierType: Hashable> {
+    internal var structure = SnapshotStructure<SectionIdentifierType, ItemIdentifierType>()
 
     /// Creates a new empty snapshot object.
     public init() {}
@@ -81,7 +81,7 @@ public class DiffableDataSourceSnapshot<SectionIdentifierType: Hashable, ItemIde
     /// - Parameters:
     ///   - identifiers: The item identifiers to be appended.
     ///   - sectionIdentifier: An identifier of section to append the given identiciers.
-    public func appendItems(_ identifiers: [ItemIdentifierType], toSection sectionIdentifier: SectionIdentifierType? = nil) {
+    public mutating func appendItems(_ identifiers: [ItemIdentifierType], toSection sectionIdentifier: SectionIdentifierType? = nil) {
         structure.append(itemIDs: identifiers, to: sectionIdentifier)
     }
 
@@ -90,7 +90,7 @@ public class DiffableDataSourceSnapshot<SectionIdentifierType: Hashable, ItemIde
     /// - Parameters:
     ///   - identifiers: The item identifiers to be inserted.
     ///   - beforeIdentifier: An identifier of item.
-    public func insertItems(_ identifiers: [ItemIdentifierType], beforeItem beforeIdentifier: ItemIdentifierType) {
+    public mutating func insertItems(_ identifiers: [ItemIdentifierType], beforeItem beforeIdentifier: ItemIdentifierType) {
         structure.insert(itemIDs: identifiers, before: beforeIdentifier)
     }
 
@@ -99,7 +99,7 @@ public class DiffableDataSourceSnapshot<SectionIdentifierType: Hashable, ItemIde
     /// - Parameters:
     ///   - identifiers: The item identifiers to be inserted.
     ///   - afterIdentifier: An identifier of item.
-    public func insertItems(_ identifiers: [ItemIdentifierType], afterItem afterIdentifier: ItemIdentifierType) {
+    public mutating func insertItems(_ identifiers: [ItemIdentifierType], afterItem afterIdentifier: ItemIdentifierType) {
         structure.insert(itemIDs: identifiers, after: afterIdentifier)
     }
 
@@ -107,12 +107,12 @@ public class DiffableDataSourceSnapshot<SectionIdentifierType: Hashable, ItemIde
     ///
     /// - Parameters:
     ///   - identifiers: The item identifiers to be deleted.
-    public func deleteItems(_ identifiers: [ItemIdentifierType]) {
+    public mutating func deleteItems(_ identifiers: [ItemIdentifierType]) {
         structure.remove(itemIDs: identifiers)
     }
 
     /// Deletes the all items in the snapshot.
-    public func deleteAllItems() {
+    public mutating func deleteAllItems() {
         structure.removeAllItems()
     }
 
@@ -121,7 +121,7 @@ public class DiffableDataSourceSnapshot<SectionIdentifierType: Hashable, ItemIde
     /// - Parameters:
     ///   - identifier: An item identifier to be moved.
     ///   - toIdentifier: An identifier of item.
-    public func moveItem(_ identifier: ItemIdentifierType, beforeItem toIdentifier: ItemIdentifierType) {
+    public mutating func moveItem(_ identifier: ItemIdentifierType, beforeItem toIdentifier: ItemIdentifierType) {
         structure.move(itemID: identifier, before: toIdentifier)
     }
 
@@ -130,7 +130,7 @@ public class DiffableDataSourceSnapshot<SectionIdentifierType: Hashable, ItemIde
     /// - Parameters:
     ///   - identifier: An item identifier to be moved.
     ///   - toIdentifier: An identifier of item.
-    public func moveItem(_ identifier: ItemIdentifierType, afterItem toIdentifier: ItemIdentifierType) {
+    public mutating func moveItem(_ identifier: ItemIdentifierType, afterItem toIdentifier: ItemIdentifierType) {
         structure.move(itemID: identifier, after: toIdentifier)
     }
 
@@ -138,7 +138,7 @@ public class DiffableDataSourceSnapshot<SectionIdentifierType: Hashable, ItemIde
     ///
     /// - Parameters:
     ///   - identifiers: The item identifiers to be reloaded.
-    public func reloadItems(_ identifiers: [ItemIdentifierType]) {
+    public mutating func reloadItems(_ identifiers: [ItemIdentifierType]) {
         structure.update(itemIDs: identifiers)
     }
 
@@ -146,7 +146,7 @@ public class DiffableDataSourceSnapshot<SectionIdentifierType: Hashable, ItemIde
     ///
     /// - Parameters:
     ///   - identifiers: The section identifiers to be appended.
-    public func appendSections(_ identifiers: [SectionIdentifierType]) {
+    public mutating func appendSections(_ identifiers: [SectionIdentifierType]) {
         structure.append(sectionIDs: identifiers)
     }
 
@@ -155,7 +155,7 @@ public class DiffableDataSourceSnapshot<SectionIdentifierType: Hashable, ItemIde
     /// - Parameters:
     ///   - identifiers: The section identifiers to be inserted.
     ///   - toIdentifier: An identifier of setion.
-    public func insertSections(_ identifiers: [SectionIdentifierType], beforeSection toIdentifier: SectionIdentifierType) {
+    public mutating func insertSections(_ identifiers: [SectionIdentifierType], beforeSection toIdentifier: SectionIdentifierType) {
         structure.insert(sectionIDs: identifiers, before: toIdentifier)
     }
 
@@ -164,7 +164,7 @@ public class DiffableDataSourceSnapshot<SectionIdentifierType: Hashable, ItemIde
     /// - Parameters:
     ///   - identifiers: The section identifiers to be inserted.
     ///   - toIdentifier: An identifier of setion.
-    public func insertSections(_ identifiers: [SectionIdentifierType], afterSection toIdentifier: SectionIdentifierType) {
+    public mutating func insertSections(_ identifiers: [SectionIdentifierType], afterSection toIdentifier: SectionIdentifierType) {
         structure.insert(sectionIDs: identifiers, after: toIdentifier)
     }
 
@@ -172,7 +172,7 @@ public class DiffableDataSourceSnapshot<SectionIdentifierType: Hashable, ItemIde
     ///
     /// - Parameters:
     ///   - identifiers: The section identifiers to be deleted.
-    public func deleteSections(_ identifiers: [SectionIdentifierType]) {
+    public mutating func deleteSections(_ identifiers: [SectionIdentifierType]) {
         structure.remove(sectionIDs: identifiers)
     }
 
@@ -181,7 +181,7 @@ public class DiffableDataSourceSnapshot<SectionIdentifierType: Hashable, ItemIde
     /// - Parameters:
     ///   - identifier: A section identifier to be moved.
     ///   - toIdentifier: An identifier of section.
-    public func moveSection(_ identifier: SectionIdentifierType, beforeSection toIdentifier: SectionIdentifierType) {
+    public mutating func moveSection(_ identifier: SectionIdentifierType, beforeSection toIdentifier: SectionIdentifierType) {
         structure.move(sectionID: identifier, before: toIdentifier)
     }
 
@@ -190,7 +190,7 @@ public class DiffableDataSourceSnapshot<SectionIdentifierType: Hashable, ItemIde
     /// - Parameters:
     ///   - identifier: A section identifier to be moved.
     ///   - toIdentifier: An identifier of section.
-    public func moveSection(_ identifier: SectionIdentifierType, afterSection toIdentifier: SectionIdentifierType) {
+    public mutating func moveSection(_ identifier: SectionIdentifierType, afterSection toIdentifier: SectionIdentifierType) {
         structure.move(sectionID: identifier, after: toIdentifier)
     }
 
@@ -198,7 +198,7 @@ public class DiffableDataSourceSnapshot<SectionIdentifierType: Hashable, ItemIde
     ///
     /// - Parameters:
     ///   - identifiers: The section identifiers to be reloaded.
-    public func reloadSections(_ identifiers: [SectionIdentifierType]) {
+    public mutating func reloadSections(_ identifiers: [SectionIdentifierType]) {
         structure.update(sectionIDs: identifiers)
     }
 }

@@ -17,12 +17,6 @@
 		143A2D9722F9D00200F8904D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 143A2D9522F9D00200F8904D /* Main.storyboard */; };
 		143A2D9922F9D00300F8904D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 143A2D9822F9D00300F8904D /* Assets.xcassets */; };
 		143A2D9C22F9D00300F8904D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 143A2D9A22F9D00300F8904D /* LaunchScreen.storyboard */; };
-		143A2DB222F9D27B00F8904D /* IBPCollectionViewCompositionalLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 143A2DB122F9D27B00F8904D /* IBPCollectionViewCompositionalLayout.framework */; };
-		143A2DB322F9D27B00F8904D /* IBPCollectionViewCompositionalLayout.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 143A2DB122F9D27B00F8904D /* IBPCollectionViewCompositionalLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		143A2DB622F9D35200F8904D /* DiffableDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 143A2DB422F9D35200F8904D /* DiffableDataSources.framework */; };
-		143A2DB722F9D35200F8904D /* DiffableDataSources.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 143A2DB422F9D35200F8904D /* DiffableDataSources.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		143A2DB822F9D35200F8904D /* DifferenceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 143A2DB522F9D35200F8904D /* DifferenceKit.framework */; };
-		143A2DB922F9D35200F8904D /* DifferenceKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 143A2DB522F9D35200F8904D /* DifferenceKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		143A2DDA22F9D73700F8904D /* TwoColumnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143A2DD022F9D73600F8904D /* TwoColumnViewController.swift */; };
 		143A2DDB22F9D73700F8904D /* AdaptiveSectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143A2DD122F9D73600F8904D /* AdaptiveSectionsViewController.swift */; };
 		143A2DDC22F9D73700F8904D /* DistinctSectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143A2DD222F9D73600F8904D /* DistinctSectionsViewController.swift */; };
@@ -69,7 +63,44 @@
 		149FA99C230ECB740065AD4D /* InsertionSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FA996230ECB740065AD4D /* InsertionSortViewController.swift */; };
 		149FA99D230ECE850065AD4D /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FA990230ECB5F0065AD4D /* LabelCell.swift */; };
 		149FA99F230ECEC90065AD4D /* InsertionSortArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FA99E230ECEC80065AD4D /* InsertionSortArray.swift */; };
+		14EFF2BA232F3CC300368681 /* IBPCollectionViewCompositionalLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EFF2B9232F3CC300368681 /* IBPCollectionViewCompositionalLayout.framework */; };
+		14EFF2BB232F3CC300368681 /* IBPCollectionViewCompositionalLayout.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 14EFF2B9232F3CC300368681 /* IBPCollectionViewCompositionalLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		14EFF2C7232F3CFA00368681 /* DiffableDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EFF2C4232F3CF100368681 /* DiffableDataSources.framework */; };
+		14EFF2C8232F3CFA00368681 /* DiffableDataSources.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 14EFF2C4232F3CF100368681 /* DiffableDataSources.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		14EFF2D2232F3D2200368681 /* DifferenceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EFF2CF232F3D1C00368681 /* DifferenceKit.framework */; };
+		14EFF2D3232F3D2200368681 /* DifferenceKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 14EFF2CF232F3D1C00368681 /* DifferenceKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		14EFF2C3232F3CF100368681 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 14EFF2BE232F3CF100368681 /* DiffableDataSources.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6BB762CC22B455170050DC03;
+			remoteInfo = DiffableDataSources;
+		};
+		14EFF2C5232F3CF100368681 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 14EFF2BE232F3CF100368681 /* DiffableDataSources.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6BB762D522B455170050DC03;
+			remoteInfo = Tests;
+		};
+		14EFF2CE232F3D1C00368681 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 14EFF2C9232F3D1C00368681 /* DifferenceKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6B2DF86E210E2C12004D2D40;
+			remoteInfo = DifferenceKit;
+		};
+		14EFF2D0232F3D1C00368681 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 14EFF2C9232F3D1C00368681 /* DifferenceKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6B2DF877210E2C12004D2D40;
+			remoteInfo = Tests;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		143A2DA622F9D06D00F8904D /* Embed Frameworks */ = {
@@ -78,9 +109,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				143A2DB722F9D35200F8904D /* DiffableDataSources.framework in Embed Frameworks */,
-				143A2DB322F9D27B00F8904D /* IBPCollectionViewCompositionalLayout.framework in Embed Frameworks */,
-				143A2DB922F9D35200F8904D /* DifferenceKit.framework in Embed Frameworks */,
+				14EFF2C8232F3CFA00368681 /* DiffableDataSources.framework in Embed Frameworks */,
+				14EFF2BB232F3CC300368681 /* IBPCollectionViewCompositionalLayout.framework in Embed Frameworks */,
+				14EFF2D3232F3D2200368681 /* DifferenceKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -100,9 +131,6 @@
 		143A2D9822F9D00300F8904D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		143A2D9B22F9D00300F8904D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		143A2D9D22F9D00300F8904D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		143A2DB122F9D27B00F8904D /* IBPCollectionViewCompositionalLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IBPCollectionViewCompositionalLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		143A2DB422F9D35200F8904D /* DiffableDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiffableDataSources.framework; path = ../Carthage/Build/iOS/DiffableDataSources.framework; sourceTree = "<group>"; };
-		143A2DB522F9D35200F8904D /* DifferenceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DifferenceKit.framework; path = ../Carthage/Build/iOS/DifferenceKit.framework; sourceTree = "<group>"; };
 		143A2DD022F9D73600F8904D /* TwoColumnViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoColumnViewController.swift; sourceTree = "<group>"; };
 		143A2DD122F9D73600F8904D /* AdaptiveSectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptiveSectionsViewController.swift; sourceTree = "<group>"; };
 		143A2DD222F9D73600F8904D /* DistinctSectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistinctSectionsViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +177,9 @@
 		149FA995230ECB740065AD4D /* MountainsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MountainsViewController.swift; sourceTree = "<group>"; };
 		149FA996230ECB740065AD4D /* InsertionSortViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsertionSortViewController.swift; sourceTree = "<group>"; };
 		149FA99E230ECEC80065AD4D /* InsertionSortArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsertionSortArray.swift; sourceTree = "<group>"; };
+		14EFF2B9232F3CC300368681 /* IBPCollectionViewCompositionalLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = IBPCollectionViewCompositionalLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		14EFF2BE232F3CF100368681 /* DiffableDataSources.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DiffableDataSources.xcodeproj; path = ../Carthage/Checkouts/DiffableDataSources/DiffableDataSources.xcodeproj; sourceTree = "<group>"; };
+		14EFF2C9232F3D1C00368681 /* DifferenceKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DifferenceKit.xcodeproj; path = ../Carthage/Checkouts/DifferenceKit/DifferenceKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,9 +187,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				143A2DB622F9D35200F8904D /* DiffableDataSources.framework in Frameworks */,
-				143A2DB222F9D27B00F8904D /* IBPCollectionViewCompositionalLayout.framework in Frameworks */,
-				143A2DB822F9D35200F8904D /* DifferenceKit.framework in Frameworks */,
+				14EFF2C7232F3CFA00368681 /* DiffableDataSources.framework in Frameworks */,
+				14EFF2BA232F3CC300368681 /* IBPCollectionViewCompositionalLayout.framework in Frameworks */,
+				14EFF2D2232F3D2200368681 /* DifferenceKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,11 +210,11 @@
 		143A2D8522F9D00200F8904D = {
 			isa = PBXGroup;
 			children = (
+				14EFF2BE232F3CF100368681 /* DiffableDataSources.xcodeproj */,
+				14EFF2C9232F3D1C00368681 /* DifferenceKit.xcodeproj */,
 				143A2D9022F9D00200F8904D /* Example */,
 				143A2D8F22F9D00200F8904D /* Products */,
-				143A2DB122F9D27B00F8904D /* IBPCollectionViewCompositionalLayout.framework */,
-				143A2DB422F9D35200F8904D /* DiffableDataSources.framework */,
-				143A2DB522F9D35200F8904D /* DifferenceKit.framework */,
+				14EFF2B8232F3CC300368681 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -368,6 +399,32 @@
 			path = "Cells And Supplementary Views";
 			sourceTree = "<group>";
 		};
+		14EFF2B8232F3CC300368681 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				14EFF2B9232F3CC300368681 /* IBPCollectionViewCompositionalLayout.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		14EFF2BF232F3CF100368681 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				14EFF2C4232F3CF100368681 /* DiffableDataSources.framework */,
+				14EFF2C6232F3CF100368681 /* Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		14EFF2CA232F3D1C00368681 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				14EFF2CF232F3D1C00368681 /* DifferenceKit.framework */,
+				14EFF2D1232F3D1C00368681 /* Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -415,12 +472,53 @@
 			mainGroup = 143A2D8522F9D00200F8904D;
 			productRefGroup = 143A2D8F22F9D00200F8904D /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 14EFF2BF232F3CF100368681 /* Products */;
+					ProjectRef = 14EFF2BE232F3CF100368681 /* DiffableDataSources.xcodeproj */;
+				},
+				{
+					ProductGroup = 14EFF2CA232F3D1C00368681 /* Products */;
+					ProjectRef = 14EFF2C9232F3D1C00368681 /* DifferenceKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				143A2D8D22F9D00200F8904D /* Example */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		14EFF2C4232F3CF100368681 /* DiffableDataSources.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DiffableDataSources.framework;
+			remoteRef = 14EFF2C3232F3CF100368681 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		14EFF2C6232F3CF100368681 /* Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Tests.xctest;
+			remoteRef = 14EFF2C5232F3CF100368681 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		14EFF2CF232F3D1C00368681 /* DifferenceKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DifferenceKit.framework;
+			remoteRef = 14EFF2CE232F3D1C00368681 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		14EFF2D1232F3D1C00368681 /* Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Tests.xctest;
+			remoteRef = 14EFF2D0232F3D1C00368681 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		143A2D8C22F9D00200F8904D /* Resources */ = {
@@ -536,6 +634,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1423553A231475BF000884C0 /* Example.xcconfig */;
 			buildSettings = {
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 			};
 			name = Debug;
 		};
@@ -543,6 +645,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1423553A231475BF000884C0 /* Example.xcconfig */;
 			buildSettings = {
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 			};
 			name = Release;
 		};
