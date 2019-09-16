@@ -7,6 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) IBPNSCollectionLayoutGroup *group;
 @property (nonatomic, readonly) BOOL scrollsOrthogonally;
+@property (nonatomic, readonly) BOOL hasBackgroundDecorationItem;
 
 @end
 

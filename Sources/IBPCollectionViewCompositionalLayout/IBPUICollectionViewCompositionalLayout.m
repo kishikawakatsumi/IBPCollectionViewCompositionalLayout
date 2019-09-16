@@ -200,6 +200,7 @@
             }
 
             cellAttributes.frame = cellFrame;
+            cellAttributes.zIndex = layoutSection.hasBackgroundDecorationItem ? 1 : 0;
 
             if (!layoutSection.scrollsOrthogonally) {
                 cachedItemAttributes[indexPath] = cellAttributes;
