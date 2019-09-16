@@ -38,4 +38,8 @@
     return self.orthogonalScrollingBehavior != IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone;
 }
 
+- (BOOL)hasBackgroundDecorationItem {
+    return self.decorationItems.count > 0;
+}
+
 @end

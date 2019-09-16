@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 
-@property (nonatomic) NSInteger zIndex;
+@property (nonatomic) NSInteger zIndex; // default is 0; all other section items will be automatically be promoted to zIndex=1
 @property (nonatomic, readonly) NSString *elementKind;
 @property (nonatomic) IBPNSDirectionalEdgeInsets contentInsets;
 
