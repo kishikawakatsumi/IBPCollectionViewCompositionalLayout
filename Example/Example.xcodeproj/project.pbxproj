@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1423553E231475BF000884C0 /* Project-Shared.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 14235538231475BE000884C0 /* Project-Shared.xcconfig */; };
-		14235540231475BF000884C0 /* Example.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1423553A231475BF000884C0 /* Example.xcconfig */; };
-		14235542231475BF000884C0 /* Project-Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1423553C231475BF000884C0 /* Project-Debug.xcconfig */; };
-		14235543231475BF000884C0 /* Project-Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1423553D231475BF000884C0 /* Project-Release.xcconfig */; };
 		1428D81C22FEF8F0000BE7BB /* IBPCollectionViewCompositionalLayoutInteroperability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1428D81B22FEF8EF000BE7BB /* IBPCollectionViewCompositionalLayoutInteroperability.swift */; };
 		143A2D9222F9D00200F8904D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D9122F9D00200F8904D /* AppDelegate.swift */; };
 		143A2D9422F9D00200F8904D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143A2D9322F9D00200F8904D /* ViewController.swift */; };
@@ -427,11 +423,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14235542231475BF000884C0 /* Project-Debug.xcconfig in Resources */,
-				14235540231475BF000884C0 /* Example.xcconfig in Resources */,
-				14235543231475BF000884C0 /* Project-Release.xcconfig in Resources */,
 				143A2D9C22F9D00300F8904D /* LaunchScreen.storyboard in Resources */,
-				1423553E231475BF000884C0 /* Project-Shared.xcconfig in Resources */,
 				143A2D9922F9D00300F8904D /* Assets.xcassets in Resources */,
 				143A2D9722F9D00200F8904D /* Main.storyboard in Resources */,
 			);
