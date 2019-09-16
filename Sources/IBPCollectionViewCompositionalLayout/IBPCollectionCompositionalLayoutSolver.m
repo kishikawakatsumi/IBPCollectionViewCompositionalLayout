@@ -100,6 +100,9 @@
         IBPNSCollectionLayoutItem *item = group.subitems[0];
         IBPNSDirectionalEdgeInsets contentInsets = item.contentInsets;
 
+        contentFrame.origin.x += item.edgeSpacing.leading.spacing;
+        contentFrame.origin.y += item.edgeSpacing.top.spacing;
+
         CGSize itemSize = [item.layoutSize effectiveSizeForContainer:container];
         IBPNSCollectionLayoutContainer *itemContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:itemSize contentInsets:contentInsets];
 
@@ -148,6 +151,10 @@
 
             for (NSInteger i = 0; i < group.count; i++) {
                 CGRect cellFrame = UIEdgeInsetsInsetRect(contentFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.bottom, contentInsets.trailing));
+                if (i > 0) {
+                    cellFrame.origin.x += item.edgeSpacing.trailing.spacing;
+                    cellFrame.size.width -= item.edgeSpacing.trailing.spacing;
+                }
                 [self.results addObject:[IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:item frame:cellFrame]];
                 contentFrame.origin.x += interItemFixedSpacing + CGRectGetWidth(contentFrame);
             }
@@ -162,6 +169,10 @@
 
             for (NSInteger i = 0; i < group.count; i++) {
                 CGRect cellFrame = UIEdgeInsetsInsetRect(contentFrame, UIEdgeInsetsMake(contentInsets.top, contentInsets.leading, contentInsets.bottom, contentInsets.trailing));
+                if (i > 0) {
+                    cellFrame.origin.y += item.edgeSpacing.bottom.spacing;
+                    cellFrame.size.width -= item.edgeSpacing.bottom.spacing;
+                }
                 [self.results addObject:[IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:item frame:cellFrame]];
                 contentFrame.origin.y += interItemFixedSpacing + CGRectGetHeight(contentFrame);
             }
