@@ -7,13 +7,28 @@ typealias UICollectionViewDiffableDataSource = CollectionViewDiffableDataSource
 
 extension UIColor {
     static var systemBackground: UIColor {
-        return .white
+        let lightColor = UIColor.white
+        let darkColor = UIColor.black
+        if #available(iOS 13.0, *) {
+            return UIColor { $0.userInterfaceStyle == .light ? lightColor : darkColor }
+        }
+        return lightColor
     }
     static var placeholderText: UIColor {
-        return .lightGray
+        let lightColor = UIColor(red: 235, green: 235, blue: 245, alpha: 0.3)
+        let darkColor = UIColor(red: 60, green: 60, blue: 67, alpha: 0.3)
+        if #available(iOS 13.0, *) {
+            return UIColor { $0.userInterfaceStyle == .light ? lightColor : darkColor }
+        }
+        return lightColor
     }
     static var systemGray2: UIColor {
-        return .gray
+        let lightColor = UIColor(red: 174, green: 174, blue: 178, alpha: 1)
+        let darkColor = UIColor(red: 99, green: 99, blue: 102, alpha: 1)
+        if #available(iOS 13.0, *) {
+            return UIColor { $0.userInterfaceStyle == .light ? lightColor : darkColor }
+        }
+        return lightColor
     }
 }
 
@@ -25,6 +40,7 @@ extension UIImage {
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     let viewControllers: [UIViewController.Type] = [
+        // Samples from Apple
         ListViewController.self,
         GridViewController.self,
         InsetItemsGridViewController.self,
@@ -42,6 +58,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         ConferenceNewsFeedViewController.self,
         MountainsViewController.self,
         InsertionSortViewController.self,
+        // Samples from jVirus/compositional-layouts-kit
         WaterfallViewController.self,
         MosaicViewController.self,
         TileGridViewController.self,
@@ -54,11 +71,21 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         TileGalleryViewController.self,
         TileGalleryViewController.self,
         ShowcaseGalleryViewController.self,
+        // Samples from jVirus/compositional-layouts-kit
+        ListViewController2.self,
+        EdgedListViewController.self,
+        EstimatedListViewController.self,
+        EstimatedGridViewController.self,
+        ComplexGroupViewController.self,
+        OrthoViewController.self,
+        CheckmarkGridViewController.self,
+        HeaderFooterViewController.self,
+        BackgroundViewController.self,
     ]
 
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .systemBackground
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(ListCell.self, forCellWithReuseIdentifier: ListCell.reuseIdentifier)
