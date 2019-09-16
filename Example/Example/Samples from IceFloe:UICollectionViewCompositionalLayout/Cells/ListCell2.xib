@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ListCell2" customModule="Example" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="583" height="101"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="583" height="101"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="cat" translatesAutoresizingMaskIntoConstraints="NO" id="6bd-1i-m6Y">
+                        <rect key="frame" x="346" y="8" width="225" height="85"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label Label Label Label Label Label Label Label Label Label Label Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKp-dS-2U3">
+                        <rect key="frame" x="16" y="8" width="313.5" height="85"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="HKp-dS-2U3" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="AH7-cD-WAe"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6bd-1i-m6Y" secondAttribute="bottom" constant="8" id="C6n-Pm-vLL"/>
+                <constraint firstItem="6bd-1i-m6Y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HKp-dS-2U3" secondAttribute="trailing" constant="8" id="Fdg-80-MXJ"/>
+                <constraint firstItem="HKp-dS-2U3" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="I1f-Ma-6XL"/>
+                <constraint firstItem="6bd-1i-m6Y" firstAttribute="top" relation="greaterThanOrEqual" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="ZbU-dn-hcx"/>
+                <constraint firstAttribute="trailing" secondItem="6bd-1i-m6Y" secondAttribute="trailing" constant="12" id="Zjt-Zr-Uxc"/>
+                <constraint firstAttribute="bottom" secondItem="HKp-dS-2U3" secondAttribute="bottom" constant="8" id="tuX-TT-N3b"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="583" height="101"/>
+            <connections>
+                <outlet property="imageView" destination="6bd-1i-m6Y" id="QdP-IU-fKv"/>
+                <outlet property="label" destination="HKp-dS-2U3" id="DM0-hY-cIk"/>
+            </connections>
+            <point key="canvasLocation" x="141.30434782608697" y="78.013392857142847"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="cat" width="112.5" height="112.5"/>
+    </resources>
+</document>
