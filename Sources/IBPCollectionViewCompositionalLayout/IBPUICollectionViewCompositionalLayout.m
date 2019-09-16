@@ -629,12 +629,12 @@
 
                         switch (self.scrollDirection) {
                             case UICollectionViewScrollDirectionVertical:
-                                if (CGRectGetMinY(nextFrame) > CGRectGetMinY(frame)) {
+                                if (CGRectGetMinY(nextFrame) > CGRectGetMinY(frame) && CGRectGetMaxX(nextFrame) > CGRectGetMinX(frame) && CGRectGetMinX(nextFrame) < CGRectGetMaxX(frame)) {
                                     nextFrame.origin.y += fitSize.height - CGRectGetHeight(nextFrame) + layoutItem.edgeSpacing.bottom.spacing;
                                 }
                                 break;
                             case UICollectionViewScrollDirectionHorizontal:
-                                if (CGRectGetMinX(nextFrame) > CGRectGetMinX(attributes.frame)) {
+                                if (CGRectGetMinX(nextFrame) > CGRectGetMinX(frame) && CGRectGetMaxY(nextFrame) > CGRectGetMinY(frame) && CGRectGetMinY(nextFrame) < CGRectGetMaxY(frame)) {
                                     nextFrame.origin.x += fitSize.width - CGRectGetWidth(nextFrame) + layoutItem.edgeSpacing.trailing.spacing;
                                 }
                                 break;
