@@ -75,6 +75,7 @@
     IBPNSCollectionLayoutSpacing *laoutSpacing = [self _spacingForEdge:edge];
     return laoutSpacing.spacing;
 }
+
 - (IBPNSCollectionLayoutSpacing *)_spacingForEdge:(IBPNSDirectionalRectEdge)edge {
     if (edge == IBPNSDirectionalRectEdgeLeading) {
         return self.leading;
