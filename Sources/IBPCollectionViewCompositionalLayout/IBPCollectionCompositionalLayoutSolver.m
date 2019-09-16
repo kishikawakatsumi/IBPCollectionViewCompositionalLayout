@@ -76,7 +76,8 @@
         interItemFixedSpacing = group.interItemSpacing.spacing;
     }
     CGFloat interItemFlexibleSpacing = 0;
-    if (group.interItemSpacing.isFlexibleSpacing) {
+    BOOL hasInterItemFlexibleSpacing = group.interItemSpacing.isFlexibleSpacing;
+    if (hasInterItemFlexibleSpacing) {
         interItemFlexibleSpacing = group.interItemSpacing.spacing;
     }
 
@@ -166,6 +167,22 @@
             }
         }
     } else {
+        if (hasInterItemFlexibleSpacing) {
+            CGSize totalSize = CGSizeZero;
+            for (IBPNSCollectionLayoutItem *item in group.subitems) {
+                CGSize effectiveSize = [item.layoutSize effectiveSizeForContainer:container ignoringInsets:YES];
+                totalSize.width += effectiveSize.width;
+                totalSize.height += effectiveSize.height;
+            }
+            if (group.isHorizontalGroup) {
+                CGFloat actualSpacing = (CGRectGetWidth(containerFrame) - totalSize.width) / (group.subitems.count - 1);
+                interItemFlexibleSpacing = actualSpacing;
+            }
+            if (group.isVerticalGroup) {
+                CGFloat actualSpacing = (CGRectGetHeight(containerFrame) - totalSize.height) / (group.subitems.count - 1);
+                interItemFlexibleSpacing = actualSpacing;
+            }
+        }
         NSMutableArray *groupedItemResults = [[NSMutableArray alloc] init];
         [group enumerateItemsWithHandler:^(IBPNSCollectionLayoutItem * _Nonnull item, BOOL * _Nonnull stop) {
             IBPNSDirectionalEdgeInsets contentInsets = item.contentInsets;
@@ -204,14 +221,14 @@
                         *stop = YES;
                         return;
                     }
-                    contentFrame.origin.x += itemSize.width + item.edgeSpacing.trailing.spacing;
+                    contentFrame.origin.x += itemSize.width + item.edgeSpacing.trailing.spacing + interItemFlexibleSpacing;
                 }
                 if (group.isVerticalGroup) {
                     if (floor(CGRectGetMaxY(contentFrame)) > floor(CGRectGetMaxY(containerFrame))) {
                         *stop = YES;
                         return;
                     }
-                    contentFrame.origin.y += itemSize.height + item.edgeSpacing.bottom.spacing;
+                    contentFrame.origin.y += itemSize.height + item.edgeSpacing.bottom.spacing + interItemFlexibleSpacing;
                 }
 
                 if (group == self.layoutSection.group) {
@@ -324,7 +341,7 @@
             }
         }
 
-        if (interItemFlexibleSpacing > 0 && groupedItemResults.count > 1) {
+        if (hasInterItemFlexibleSpacing && groupedItemResults.count > 1) {
             CGSize totalSize = CGSizeZero;
             for (IBPCollectionCompositionalLayoutSolverResult *result in groupedItemResults) {
                 totalSize.width += CGRectGetWidth(result.frame);
