@@ -206,11 +206,11 @@
 		143A2D8522F9D00200F8904D = {
 			isa = PBXGroup;
 			children = (
-				14EFF2BE232F3CF100368681 /* DiffableDataSources.xcodeproj */,
-				14EFF2C9232F3D1C00368681 /* DifferenceKit.xcodeproj */,
 				143A2D9022F9D00200F8904D /* Example */,
 				143A2D8F22F9D00200F8904D /* Products */,
 				14EFF2B8232F3CC300368681 /* Frameworks */,
+				14EFF2BE232F3CF100368681 /* DiffableDataSources.xcodeproj */,
+				14EFF2C9232F3D1C00368681 /* DifferenceKit.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
