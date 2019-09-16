@@ -48,7 +48,7 @@ final class DiffableDataSourceCore<SectionIdentifierType: Hashable, ItemIdentifi
     }
 
     func snapshot() -> DiffableDataSourceSnapshot<SectionIdentifierType, ItemIdentifierType> {
-        let snapshot = DiffableDataSourceSnapshot<SectionIdentifierType, ItemIdentifierType>()
+        var snapshot = DiffableDataSourceSnapshot<SectionIdentifierType, ItemIdentifierType>()
         snapshot.structure.sections = currentSnapshot.structure.sections
         return snapshot
     }

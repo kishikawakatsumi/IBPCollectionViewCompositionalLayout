@@ -16,7 +16,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections(test.initial)
             snapshot.appendSections(test.append)
             XCTAssertEqual(snapshot.sectionIdentifiers, test.expected)
@@ -33,7 +33,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections(test.initial)
             snapshot.appendSections(test.append)
             XCTAssertEqual(snapshot.sectionIdentifiers, test.expected)
@@ -51,7 +51,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections(test.initial)
             snapshot.insertSections(test.insert, beforeSection: test.before)
             XCTAssertEqual(snapshot.sectionIdentifiers, test.expected)
@@ -67,7 +67,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections(test.initial)
             snapshot.insertSections(test.insert, beforeSection: test.before)
             XCTAssertEqual(snapshot.sectionIdentifiers, test.expected)
@@ -86,7 +86,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections(test.initial)
             snapshot.insertSections(test.insert, afterSection: test.after)
             XCTAssertEqual(snapshot.sectionIdentifiers, test.expected)
@@ -102,7 +102,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections(test.initial)
             snapshot.insertSections(test.insert, afterSection: test.after)
             XCTAssertEqual(snapshot.sectionIdentifiers, test.expected)
@@ -122,7 +122,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections(test.initial)
             snapshot.deleteSections(test.delete)
             XCTAssertEqual(snapshot.sectionIdentifiers, test.expected)
@@ -140,7 +140,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections(test.initial)
             snapshot.moveSection(test.move, beforeSection: test.before)
             XCTAssertEqual(snapshot.sectionIdentifiers, test.expected)
@@ -158,7 +158,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections(test.initial)
             snapshot.moveSection(test.move, afterSection: test.after)
             XCTAssertEqual(snapshot.sectionIdentifiers, test.expected)
@@ -194,7 +194,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections(test.initial)
             snapshot.reloadSections(test.reload)
             XCTAssertEqual(snapshot.sectionIdentifiers, test.initial)
@@ -213,7 +213,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections([0, 1])
             snapshot.appendItems(test.initial)
             snapshot.appendItems(test.append)
@@ -231,7 +231,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections([0, 1])
             snapshot.appendItems(test.initial)
             snapshot.appendItems(test.append)
@@ -253,7 +253,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             for (section, items) in test.initial.enumerated() {
                 snapshot.appendSections([section])
                 snapshot.appendItems(items)
@@ -276,7 +276,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             for (section, items) in test.initial.enumerated() {
                 snapshot.appendSections([section])
                 snapshot.appendItems(items)
@@ -302,7 +302,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections([0, 1])
             snapshot.appendItems(test.initial)
             snapshot.insertItems(test.insert, beforeItem: test.before)
@@ -320,7 +320,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections([0, 1])
             snapshot.appendItems(test.initial)
             snapshot.insertItems(test.insert, beforeItem: test.before)
@@ -341,7 +341,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections([0, 1])
             snapshot.appendItems(test.initial)
             snapshot.insertItems(test.insert, afterItem: test.after)
@@ -359,7 +359,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections([0, 1])
             snapshot.appendItems(test.initial)
             snapshot.insertItems(test.insert, afterItem: test.after)
@@ -382,7 +382,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             for (section, items) in test.initial.enumerated() {
                 snapshot.appendSections([section])
                 snapshot.appendItems(items, toSection: section)
@@ -409,7 +409,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             for (section, items) in test.enumerated() {
                 snapshot.appendSections([section])
                 snapshot.appendItems(items, toSection: section)
@@ -435,7 +435,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             for (section, items) in test.initial.enumerated() {
                 snapshot.appendSections([section])
                 snapshot.appendItems(items, toSection: section)
@@ -463,7 +463,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             for (section, items) in test.initial.enumerated() {
                 snapshot.appendSections([section])
                 snapshot.appendItems(items, toSection: section)
@@ -539,7 +539,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             for (section, items) in test.initial.enumerated() {
                 snapshot.appendSections([section])
                 snapshot.appendItems(items, toSection: section)
@@ -564,7 +564,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             for (section, items) in test.initial.enumerated() {
                 snapshot.appendSections([section])
                 snapshot.appendItems(items, toSection: section)
@@ -583,7 +583,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             for (section, items) in test.initial.enumerated() {
                 snapshot.appendSections([section])
                 snapshot.appendItems(items, toSection: section)
@@ -602,7 +602,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections(test.initial)
 
             XCTAssertEqual(snapshot.numberOfSections, test.expected)
@@ -618,7 +618,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections(test.initial)
 
             XCTAssertEqual(snapshot.numberOfSections, test.expected)
@@ -636,7 +636,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             for (section, items) in test.initial.enumerated() {
                 snapshot.appendSections([section])
                 snapshot.appendItems(items, toSection: section)
@@ -655,7 +655,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             for (section, items) in test.initial.enumerated() {
                 snapshot.appendSections([section])
                 snapshot.appendItems(items, toSection: section)
@@ -674,7 +674,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections(test.initial)
 
             XCTAssertEqual(snapshot.sectionIdentifiers, test.expected)
@@ -690,7 +690,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections(test.initial)
 
             XCTAssertEqual(snapshot.sectionIdentifiers, test.expected)
@@ -708,7 +708,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             for (section, items) in test.initial.enumerated() {
                 snapshot.appendSections([section])
                 snapshot.appendItems(items, toSection: section)
@@ -727,7 +727,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             for (section, items) in test.initial.enumerated() {
                 snapshot.appendSections([section])
                 snapshot.appendItems(items, toSection: section)
@@ -748,7 +748,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             for (section, items) in test.initial.enumerated() {
                 snapshot.appendSections([section])
                 snapshot.appendItems(items, toSection: section)
@@ -767,7 +767,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             for (section, items) in test.initial.enumerated() {
                 snapshot.appendSections([section])
                 snapshot.appendItems(items, toSection: section)
@@ -789,7 +789,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             for (section, items) in test.initial.enumerated() {
                 snapshot.appendSections([section])
                 snapshot.appendItems(items, toSection: section)
@@ -808,7 +808,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             for (section, items) in test.initial.enumerated() {
                 snapshot.appendSections([section])
                 snapshot.appendItems(items, toSection: section)
@@ -830,7 +830,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             for (section, items) in test.initial.enumerated() {
                 snapshot.appendSections([section])
                 snapshot.appendItems(items, toSection: section)
@@ -849,7 +849,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             for (section, items) in test.initial.enumerated() {
                 snapshot.appendSections([section])
                 snapshot.appendItems(items, toSection: section)
@@ -870,7 +870,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections(test.initial)
 
             XCTAssertEqual(snapshot.indexOfSection(test.section), test.expectedIndex)
@@ -886,7 +886,7 @@ final class DiffableDataSourceSnapshotTests: XCTestCase {
         ]
 
         for test in tests {
-            let snapshot = DiffableDataSourceSnapshot<Int, Int>()
+            var snapshot = DiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections(test.initial)
 
             XCTAssertEqual(snapshot.indexOfSection(test.section), test.expectedIndex)
