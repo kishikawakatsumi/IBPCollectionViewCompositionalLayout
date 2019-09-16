@@ -280,7 +280,7 @@
                     verticalFlexibleSpacingCount++;
                 }
             }
-            if (group.isHorizontalGroup) {
+            if (group.isHorizontalGroup && horizontalFlexibleSpacingCount > 0) {
                 CGFloat actualSpacing = floor((CGRectGetWidth(containerFrame) - totalSize.width) / horizontalFlexibleSpacingCount);
                 CGFloat trailingDelta = 0;
                 for (IBPCollectionCompositionalLayoutSolverResult *result in groupedItemResults) {
@@ -301,7 +301,7 @@
                     result.frame = frame;
                 }
             }
-            if (group.isVerticalGroup) {
+            if (group.isVerticalGroup && verticalFlexibleSpacingCount > 0) {
                 CGFloat actualSpacing = floor((CGRectGetHeight(containerFrame) - totalSize.height) / verticalFlexibleSpacingCount);
                 CGFloat bottomDelta = 0;
                 for (IBPCollectionCompositionalLayoutSolverResult *result in groupedItemResults) {
