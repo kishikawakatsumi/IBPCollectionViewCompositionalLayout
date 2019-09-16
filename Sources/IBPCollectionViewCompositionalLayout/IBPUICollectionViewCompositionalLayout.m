@@ -7,6 +7,7 @@
 #import "IBPNSCollectionLayoutContainer.h"
 #import "IBPNSCollectionLayoutDecorationItem.h"
 #import "IBPNSCollectionLayoutDimension.h"
+#import "IBPNSCollectionLayoutEdgeSpacing_Private.h"
 #import "IBPNSCollectionLayoutEnvironment.h"
 #import "IBPNSCollectionLayoutGroup_Private.h"
 #import "IBPNSCollectionLayoutItem_Private.h"
@@ -628,12 +629,12 @@
                         switch (self.scrollDirection) {
                             case UICollectionViewScrollDirectionVertical:
                                 if (CGRectGetMinY(nextFrame) > CGRectGetMinY(frame)) {
-                                    nextFrame.origin.y += fitSize.height - CGRectGetHeight(nextFrame);
+                                    nextFrame.origin.y += fitSize.height - CGRectGetHeight(nextFrame) + layoutItem.edgeSpacing.bottom.spacing;
                                 }
                                 break;
                             case UICollectionViewScrollDirectionHorizontal:
                                 if (CGRectGetMinX(nextFrame) > CGRectGetMinX(attributes.frame)) {
-                                    nextFrame.origin.x += fitSize.width - CGRectGetWidth(nextFrame);
+                                    nextFrame.origin.x += fitSize.width - CGRectGetWidth(nextFrame) + layoutItem.edgeSpacing.trailing.spacing;
                                 }
                                 break;
                         }

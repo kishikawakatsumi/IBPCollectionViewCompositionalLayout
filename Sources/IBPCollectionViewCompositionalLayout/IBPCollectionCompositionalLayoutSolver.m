@@ -2,6 +2,7 @@
 #import "IBPCollectionCompositionalLayoutSolverResult.h"
 #import "IBPNSCollectionLayoutContainer.h"
 #import "IBPNSCollectionLayoutDimension.h"
+#import "IBPNSCollectionLayoutEdgeSpacing_Private.h"
 #import "IBPNSCollectionLayoutEnvironment.h"
 #import "IBPNSCollectionLayoutGroup_Private.h"
 #import "IBPNSCollectionLayoutItem_Private.h"
@@ -169,6 +170,9 @@
         [group enumerateItemsWithHandler:^(IBPNSCollectionLayoutItem * _Nonnull item, BOOL * _Nonnull stop) {
             IBPNSDirectionalEdgeInsets contentInsets = item.contentInsets;
 
+            contentFrame.origin.x += item.edgeSpacing.leading.spacing;
+            contentFrame.origin.y += item.edgeSpacing.top.spacing;
+
             CGSize itemSize = [item.layoutSize effectiveSizeForContainer:container];
             IBPNSCollectionLayoutContainer *itemContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:itemSize contentInsets:item.contentInsets];
 
@@ -200,14 +204,14 @@
                         *stop = YES;
                         return;
                     }
-                    contentFrame.origin.x += itemSize.width;
+                    contentFrame.origin.x += itemSize.width + item.edgeSpacing.trailing.spacing;
                 }
                 if (group.isVerticalGroup) {
                     if (floor(CGRectGetMaxY(contentFrame)) > floor(CGRectGetMaxY(containerFrame))) {
                         *stop = YES;
                         return;
                     }
-                    contentFrame.origin.y += itemSize.height;
+                    contentFrame.origin.y += itemSize.height + item.edgeSpacing.bottom.spacing;
                 }
 
                 if (group == self.layoutSection.group) {
@@ -228,7 +232,7 @@
 
             contentFrame.size = itemSize;
             if (group.isHorizontalGroup) {
-                if (floor(CGRectGetMaxX(contentFrame)) > floor(CGRectGetMaxX(containerFrame))) {
+                if (floor(CGRectGetMaxX(contentFrame)) + item.edgeSpacing.trailing.spacing > floor(CGRectGetMaxX(containerFrame))) {
                     *stop = YES;
                     return;
                 }
@@ -237,10 +241,10 @@
                 IBPCollectionCompositionalLayoutSolverResult *result = [IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:item frame:cellFrame];
                 [self.results addObject:result];
                 [groupedItemResults addObject:result];
-                contentFrame.origin.x += CGRectGetWidth(contentFrame) + interItemFixedSpacing + interItemFlexibleSpacing;
+                contentFrame.origin.x += CGRectGetWidth(contentFrame) + interItemFixedSpacing + interItemFlexibleSpacing + item.edgeSpacing.trailing.spacing;
             }
             if (group.isVerticalGroup) {
-                if (floor(CGRectGetMaxY(contentFrame)) > floor(CGRectGetMaxY(containerFrame))) {
+                if (floor(CGRectGetMaxY(contentFrame) + item.edgeSpacing.bottom.spacing) > floor(CGRectGetMaxY(containerFrame))) {
                     *stop = YES;
                     return;
                 }
@@ -249,10 +253,78 @@
                 IBPCollectionCompositionalLayoutSolverResult *result = [IBPCollectionCompositionalLayoutSolverResult resultWithLayoutItem:item frame:cellFrame];
                 [self.results addObject:result];
                 [groupedItemResults addObject:result];
-                contentFrame.origin.y += CGRectGetHeight(contentFrame) + interItemFixedSpacing + interItemFlexibleSpacing;
+                contentFrame.origin.y += CGRectGetHeight(contentFrame) + interItemFixedSpacing + interItemFlexibleSpacing + item.edgeSpacing.bottom.spacing;
             }
         }];
-        if (interItemFlexibleSpacing > 0 &&  groupedItemResults.count > 1) {
+
+        if (groupedItemResults.count > 0) {
+            CGSize totalSize = CGSizeZero;
+            NSInteger horizontalFlexibleSpacingCount = 0;
+            NSInteger verticalFlexibleSpacingCount = 0;
+            for (IBPCollectionCompositionalLayoutSolverResult *result in groupedItemResults) {
+                totalSize.width += CGRectGetWidth(result.frame);
+                totalSize.height += CGRectGetHeight(result.frame);
+
+                IBPNSCollectionLayoutItem *item = result.layoutItem;
+                IBPNSCollectionLayoutEdgeSpacing *edgeSpacing = item.edgeSpacing;
+                if ([edgeSpacing isSpacingFlexibleForEdge:IBPNSDirectionalRectEdgeLeading]) {
+                    horizontalFlexibleSpacingCount++;
+                }
+                if ([edgeSpacing isSpacingFlexibleForEdge:IBPNSDirectionalRectEdgeTrailing]) {
+                    horizontalFlexibleSpacingCount++;
+                }
+                if ([edgeSpacing isSpacingFlexibleForEdge:IBPNSDirectionalRectEdgeTop]) {
+                    verticalFlexibleSpacingCount++;
+                }
+                if ([edgeSpacing isSpacingFlexibleForEdge:IBPNSDirectionalRectEdgeBottom]) {
+                    verticalFlexibleSpacingCount++;
+                }
+            }
+            if (group.isHorizontalGroup) {
+                CGFloat actualSpacing = floor((CGRectGetWidth(containerFrame) - totalSize.width) / horizontalFlexibleSpacingCount);
+                CGFloat trailingDelta = 0;
+                for (IBPCollectionCompositionalLayoutSolverResult *result in groupedItemResults) {
+                    IBPNSCollectionLayoutItem *item = result.layoutItem;
+                    IBPNSCollectionLayoutEdgeSpacing *edgeSpacing = item.edgeSpacing;
+
+                    CGRect frame = result.frame;
+                    frame.origin.x += trailingDelta;
+
+                    if ([edgeSpacing isSpacingFlexibleForEdge:IBPNSDirectionalRectEdgeLeading]) {
+                        CGFloat delta = floor(actualSpacing - edgeSpacing.leading.spacing);
+                        frame.origin.x += delta;
+                        trailingDelta += delta;
+                    }
+                    if ([edgeSpacing isSpacingFlexibleForEdge:IBPNSDirectionalRectEdgeTrailing]) {
+                        trailingDelta += floor(actualSpacing - edgeSpacing.trailing.spacing);
+                    }
+                    result.frame = frame;
+                }
+            }
+            if (group.isVerticalGroup) {
+                CGFloat actualSpacing = floor((CGRectGetHeight(containerFrame) - totalSize.height) / verticalFlexibleSpacingCount);
+                CGFloat bottomDelta = 0;
+                for (IBPCollectionCompositionalLayoutSolverResult *result in groupedItemResults) {
+                    IBPNSCollectionLayoutItem *item = result.layoutItem;
+                    IBPNSCollectionLayoutEdgeSpacing *edgeSpacing = item.edgeSpacing;
+
+                    CGRect frame = result.frame;
+                    frame.origin.y += bottomDelta;
+
+                    if ([edgeSpacing isSpacingFlexibleForEdge:IBPNSDirectionalRectEdgeTop]) {
+                        CGFloat delta = floor(actualSpacing - edgeSpacing.top.spacing);
+                        frame.origin.y += delta;
+                        bottomDelta += delta;
+                    }
+                    if ([edgeSpacing isSpacingFlexibleForEdge:IBPNSDirectionalRectEdgeBottom]) {
+                        bottomDelta += floor(actualSpacing - edgeSpacing.bottom.spacing);
+                    }
+                    result.frame = frame;
+                }
+            }
+        }
+
+        if (interItemFlexibleSpacing > 0 && groupedItemResults.count > 1) {
             CGSize totalSize = CGSizeZero;
             for (IBPCollectionCompositionalLayoutSolverResult *result in groupedItemResults) {
                 totalSize.width += CGRectGetWidth(result.frame);
