@@ -487,6 +487,15 @@
                                                                                                                      configuration:configuration];
     collectionViewLayout.parent = self;
     collectionViewLayout.containerSection = section;
+    
+    NSDictionary *decorationClassDict = @{};
+    @try {
+        decorationClassDict = [[self valueForKey:@"_decorationViewClassDict"] copy];
+    } @catch (NSException *exception) {}
+    for (NSString *reuseIdentifier in decorationClassDict) {
+        Class cellClass = decorationClassDict[reuseIdentifier];
+        [collectionViewLayout registerClass:cellClass forDecorationViewOfKind:reuseIdentifier];
+    }
 
     IBPCollectionViewOrthogonalScrollerEmbeddedScrollView *scrollView = [[IBPCollectionViewOrthogonalScrollerEmbeddedScrollView alloc] initWithFrame:CGRectZero
                                                                                                                                 collectionViewLayout:collectionViewLayout];
