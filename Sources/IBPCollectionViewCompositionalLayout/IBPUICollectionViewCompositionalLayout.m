@@ -456,6 +456,7 @@
     IBPNSCollectionLayoutSection *orthogonalSection = section.copy;
     orthogonalSection.contentInsets = IBPNSDirectionalEdgeInsetsZero;
     orthogonalSection.boundarySupplementaryItems = @[];
+    orthogonalSection.decorationItems = @[];
     orthogonalSection.orthogonalScrollingBehavior = IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone;
 
     IBPNSCollectionLayoutSize *orthogonalGroupSize = section.group.layoutSize;
