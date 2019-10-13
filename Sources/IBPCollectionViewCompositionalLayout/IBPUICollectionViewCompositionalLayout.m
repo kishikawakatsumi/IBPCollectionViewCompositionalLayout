@@ -389,12 +389,45 @@
                 if (boundaryItem.alignment == IBPNSRectAlignmentBottom ||
                     boundaryItem.alignment == IBPNSRectAlignmentBottomLeading ||
                     boundaryItem.alignment == IBPNSRectAlignmentBottomTrailing) {
-                    CGRect frame = layoutAttributes.frame;
+                    CGRect itemFrame = layoutAttributes.frame;
                     if (!boundaryItem.extendsBoundary) {
-                        frame.origin.y -= CGRectGetHeight(frame);
+                        itemFrame.origin.y -= CGRectGetHeight(itemFrame);
                     }
-                    frame.origin.y += layoutSection.contentInsets.bottom;
-                    layoutAttributes.frame = frame;
+                    itemFrame.origin.y += layoutSection.contentInsets.bottom;
+                    layoutAttributes.frame = itemFrame;
+                    
+                    if (boundaryItem.extendsBoundary) {
+                        CGFloat extendHeight;
+                        
+                        extendHeight = CGRectGetHeight(itemFrame) + boundaryItem.offset.y;
+                        
+                        CGRect newFrame = itemFrame;
+                        newFrame.origin.y += boundaryItem.offset.y;
+                        layoutAttributes.frame = newFrame;
+                        
+                        for (UICollectionViewLayoutAttributes *attributes in cachedItemAttributes.allValues) {
+                            if (attributes.representedElementCategory == UICollectionElementCategoryCell ||
+                                attributes.representedElementCategory == UICollectionElementCategoryDecorationView) {
+                                CGRect frame = attributes.frame;
+                                if (CGRectGetMinY(frame) >= CGRectGetMinY(itemFrame)) {
+                                    frame.origin.y += extendHeight;
+                                    attributes.frame = frame;
+                                    contentFrame = CGRectUnion(contentFrame, frame);
+                                }
+                            }
+                        }
+                        for (IBPCollectionViewOrthogonalScrollerSectionController *controller in orthogonalScrollerSectionControllers.allValues) {
+                            CGRect frame = controller.scrollView.frame;
+                            if (CGRectGetMinY(frame) >= CGRectGetMinY(itemFrame)) {
+                                frame.origin.y += extendHeight;
+                                controller.scrollView.frame = frame;
+                                contentFrame = CGRectUnion(contentFrame, frame);
+                            }
+                        }
+                        extendedBoundary.height += extendHeight;
+                    }
+                    
+                    
                 }
             }
             if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
