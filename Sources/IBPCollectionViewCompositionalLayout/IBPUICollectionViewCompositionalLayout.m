@@ -338,7 +338,21 @@
                     layoutAttributes.frame = itemFrame;
 
                     if (boundaryItem.extendsBoundary && extendedBoundary.height < CGRectGetHeight(itemFrame)) {
-                        CGFloat extendHeight = CGRectGetHeight(itemFrame) - extendedBoundary.height;
+                        CGFloat extendHeight;
+                        
+                        extendHeight = CGRectGetHeight(itemFrame) - extendedBoundary.height - boundaryItem.offset.y;
+                        if(extendHeight < 0) {
+                            extendHeight = 0;
+                        }
+                        
+                        CGRect newFrame = itemFrame;
+                        newFrame.origin.y = sectionOrigin.y + boundaryItem.offset.y - CGRectGetHeight(itemFrame);
+                        if(newFrame.origin.y < sectionOrigin.y) {
+                            newFrame.origin.y = sectionOrigin.y;
+                        }
+                        layoutAttributes.frame = newFrame;
+                        
+                        
                         for (UICollectionViewLayoutAttributes *attributes in cachedItemAttributes.allValues) {
                             if (attributes.representedElementCategory == UICollectionElementCategoryCell ||
                                 attributes.representedElementCategory == UICollectionElementCategoryDecorationView) {
