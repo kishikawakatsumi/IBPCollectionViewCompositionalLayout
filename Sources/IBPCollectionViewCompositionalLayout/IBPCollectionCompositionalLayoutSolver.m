@@ -148,7 +148,7 @@
                 return;
             }
 
-            itemSize.width = (CGRectGetWidth(containerFrame) - interItemFixedSpacing * (group.count - 1)) / group.count;
+            itemSize.width = (itemSize.width - interItemFixedSpacing * (group.count - 1)) / group.count;
             contentFrame.size = itemSize;
 
             for (NSInteger i = 0; i < group.count; i++) {
@@ -166,7 +166,7 @@
                 return;
             }
 
-            itemSize.height = (CGRectGetHeight(containerFrame) - interItemFixedSpacing * (group.count - 1)) / group.count;
+            itemSize.height = (itemSize.height - interItemFixedSpacing * (group.count - 1)) / group.count;
             contentFrame.size = itemSize;
 
             for (NSInteger i = 0; i < group.count; i++) {
