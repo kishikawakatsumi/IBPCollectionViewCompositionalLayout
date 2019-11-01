@@ -1,3 +1,4 @@
+// swiftlint:disable all
 import IBPCollectionViewCompositionalLayout
 
 typealias NSCollectionLayoutAnchor = IBPNSCollectionLayoutAnchor
