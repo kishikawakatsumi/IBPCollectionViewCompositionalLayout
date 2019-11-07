@@ -22,7 +22,7 @@ static IBPNSDirectionalRectEdge EdgesFromAnchorPoint(CGPoint anchorPoint);
 }
 
 + (instancetype)layoutAnchorWithEdges:(IBPNSDirectionalRectEdge)edges absoluteOffset:(CGPoint)absoluteOffset {
-    if (@available(iOS 13, *)) {
+    if (@available(iOS 13, tvOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutAnchor") layoutAnchorWithEdges:edges absoluteOffset:absoluteOffset];
     } else {
         return [[self alloc] initWithEdges:edges offset:absoluteOffset anchorPoint:AnchorPointFromEdges(edges) offsetIsUnitOffset:NO];
@@ -30,7 +30,7 @@ static IBPNSDirectionalRectEdge EdgesFromAnchorPoint(CGPoint anchorPoint);
 }
 
 + (instancetype)layoutAnchorWithEdges:(IBPNSDirectionalRectEdge)edges fractionalOffset:(CGPoint)fractionalOffset {
-    if (@available(iOS 13, *)) {
+    if (@available(iOS 13, tvOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutAnchor") layoutAnchorWithEdges:edges fractionalOffset:fractionalOffset];
     } else {
         return [[self alloc] initWithEdges:edges offset:fractionalOffset anchorPoint:AnchorPointFromEdges(edges) offsetIsUnitOffset:YES];
@@ -42,7 +42,7 @@ static IBPNSDirectionalRectEdge EdgesFromAnchorPoint(CGPoint anchorPoint);
 }
 
 + (instancetype)layoutAnchorWithAnchorPoint:(CGPoint)anchorPoint offset:(CGPoint)offset {
-    if (@available(iOS 13, *)) {
+    if (@available(iOS 13, tvOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutAnchor") layoutAnchorWithAnchorPoint:anchorPoint offset:offset];
     } else {
         return [[self alloc] initWithEdges:EdgesFromAnchorPoint(anchorPoint) offset:offset anchorPoint:anchorPoint offsetIsUnitOffset:NO];
@@ -50,7 +50,7 @@ static IBPNSDirectionalRectEdge EdgesFromAnchorPoint(CGPoint anchorPoint);
 }
 
 + (instancetype)layoutAnchorWithAnchorPoint:(CGPoint)anchorPoint unitOffset:(CGPoint)unitOffset {
-    if (@available(iOS 13, *)) {
+    if (@available(iOS 13, tvOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutAnchor") layoutAnchorWithAnchorPoint:anchorPoint unitOffset:unitOffset];
     } else {
         return [[self alloc] initWithEdges:EdgesFromAnchorPoint(anchorPoint) offset:unitOffset anchorPoint:anchorPoint offsetIsUnitOffset:YES];

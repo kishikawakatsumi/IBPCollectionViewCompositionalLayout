@@ -18,7 +18,7 @@
                               top:(IBPNSCollectionLayoutSpacing *)top
                          trailing:(IBPNSCollectionLayoutSpacing *)trailing
                            bottom:(IBPNSCollectionLayoutSpacing *)bottom {
-    if (@available(iOS 13, *)) {
+    if (@available(iOS 13, tvOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutEdgeSpacing") spacingForLeading:leading
                                                                                   top:top
                                                                              trailing:trailing

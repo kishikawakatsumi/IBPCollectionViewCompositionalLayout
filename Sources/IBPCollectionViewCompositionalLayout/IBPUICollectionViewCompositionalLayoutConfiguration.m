@@ -17,7 +17,7 @@
 }
 
 - (instancetype)init {
-    if (@available(iOS 13, *)) {
+    if (@available(iOS 13, tvOS 13, *)) {
         return [[NSClassFromString(@"UICollectionViewCompositionalLayoutConfiguration") alloc] init];
     } else {
         self = [super init];
