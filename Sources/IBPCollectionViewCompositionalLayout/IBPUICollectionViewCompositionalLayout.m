@@ -501,17 +501,25 @@
         case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone:
         case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuous:
         case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuousGroupLeadingBoundary:
+            #if TARGET_OS_IOS
             scrollView.pagingEnabled = NO;
+            #endif
             break;
         case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorPaging:
+            #if TARGET_OS_IOS
             scrollView.pagingEnabled = YES;
+            #endif
             break;
         case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPaging:
+            #if TARGET_OS_IOS
             scrollView.pagingEnabled = NO;
+            #endif
             scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
             break;
         case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorGroupPagingCentered:
+            #if TARGET_OS_IOS
             scrollView.pagingEnabled = NO;
+            #endif
             scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
             break;
     }
