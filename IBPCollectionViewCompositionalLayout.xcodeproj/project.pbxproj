@@ -66,6 +66,7 @@
 		147537BB230A170100337C1B /* IBPNSCollectionLayoutEdgeSpacing_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 147537B9230A170100337C1B /* IBPNSCollectionLayoutEdgeSpacing_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		147537BF230A190F00337C1B /* IBPNSCollectionLayoutSpacing_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 147537BD230A190F00337C1B /* IBPNSCollectionLayoutSpacing_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		147537C7230A6A1300337C1B /* IBPNSCollectionLayoutAnchor_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 147537C5230A6A1300337C1B /* IBPNSCollectionLayoutAnchor_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		1477B43023B906DE00373474 /* DiffableDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1477B42F23B906DE00373474 /* DiffableDataSources.framework */; };
 		14B9585323B8DE3A00DF3B7F /* ListViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9585223B8DE3A00DF3B7F /* ListViewTests.swift */; };
 		14B9585523B8E07B00DF3B7F /* IBPCollectionViewCompositionalLayoutInteroperability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9585423B8E07B00DF3B7F /* IBPCollectionViewCompositionalLayoutInteroperability.swift */; };
 		14B9585E23B8E21000DF3B7F /* DiffableDataSourceInteroperability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9585623B8E12400DF3B7F /* DiffableDataSourceInteroperability.swift */; };
@@ -162,6 +163,9 @@
 		147537B9230A170100337C1B /* IBPNSCollectionLayoutEdgeSpacing_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IBPNSCollectionLayoutEdgeSpacing_Private.h; sourceTree = "<group>"; };
 		147537BD230A190F00337C1B /* IBPNSCollectionLayoutSpacing_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IBPNSCollectionLayoutSpacing_Private.h; sourceTree = "<group>"; };
 		147537C5230A6A1300337C1B /* IBPNSCollectionLayoutAnchor_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IBPNSCollectionLayoutAnchor_Private.h; sourceTree = "<group>"; };
+		1477B42D23B906B800373474 /* DiffableDataSources.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DiffableDataSources.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1477B42F23B906DE00373474 /* DiffableDataSources.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DiffableDataSources.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1477B43123B906DE00373474 /* DifferenceKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DifferenceKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		14B9585223B8DE3A00DF3B7F /* ListViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewTests.swift; sourceTree = "<group>"; };
 		14B9585423B8E07B00DF3B7F /* IBPCollectionViewCompositionalLayoutInteroperability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBPCollectionViewCompositionalLayoutInteroperability.swift; sourceTree = "<group>"; };
 		14B9585623B8E12400DF3B7F /* DiffableDataSourceInteroperability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffableDataSourceInteroperability.swift; sourceTree = "<group>"; };
@@ -190,6 +194,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1477B43023B906DE00373474 /* DiffableDataSources.framework in Frameworks */,
 				143A2D0722F9C81D00F8904D /* IBPCollectionViewCompositionalLayout.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -227,6 +232,7 @@
 				14B9586A23B8E60700DF3B7F /* HostApp */,
 				142355242313498C000884C0 /* Configurations */,
 				143A2CFE22F9C81D00F8904D /* Products */,
+				1477B42C23B906B800373474 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -256,6 +262,16 @@
 				143A2D0D22F9C81D00F8904D /* Info.plist */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		1477B42C23B906B800373474 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1477B42F23B906DE00373474 /* DiffableDataSources.framework */,
+				1477B43123B906DE00373474 /* DifferenceKit.framework */,
+				1477B42D23B906B800373474 /* DiffableDataSources.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		149FA9C1230F2ADD0065AD4D /* IBPCollectionViewCompositionalLayout */ = {
