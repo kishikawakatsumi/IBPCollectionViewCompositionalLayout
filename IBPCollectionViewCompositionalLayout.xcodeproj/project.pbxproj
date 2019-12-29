@@ -67,11 +67,10 @@
 		147537BF230A190F00337C1B /* IBPNSCollectionLayoutSpacing_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 147537BD230A190F00337C1B /* IBPNSCollectionLayoutSpacing_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		147537C7230A6A1300337C1B /* IBPNSCollectionLayoutAnchor_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 147537C5230A6A1300337C1B /* IBPNSCollectionLayoutAnchor_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		1477B43023B906DE00373474 /* DiffableDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1477B42F23B906DE00373474 /* DiffableDataSources.framework */; };
+		1477B43823B9182000373474 /* GridViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1477B43723B9182000373474 /* GridViewTests.swift */; };
 		14B9585323B8DE3A00DF3B7F /* ListViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9585223B8DE3A00DF3B7F /* ListViewTests.swift */; };
 		14B9585523B8E07B00DF3B7F /* IBPCollectionViewCompositionalLayoutInteroperability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9585423B8E07B00DF3B7F /* IBPCollectionViewCompositionalLayoutInteroperability.swift */; };
 		14B9585E23B8E21000DF3B7F /* DiffableDataSourceInteroperability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9585623B8E12400DF3B7F /* DiffableDataSourceInteroperability.swift */; };
-		14B9586023B8E27F00DF3B7F /* UIKitInteroperability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9585F23B8E27F00DF3B7F /* UIKitInteroperability.swift */; };
-		14B9586423B8E35C00DF3B7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14B9586323B8E35C00DF3B7F /* Assets.xcassets */; };
 		14B9586C23B8E60700DF3B7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9586B23B8E60700DF3B7F /* AppDelegate.swift */; };
 		14B9587523B8E60900DF3B7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14B9587423B8E60900DF3B7F /* Assets.xcassets */; };
 		14B9587823B8E60900DF3B7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14B9587623B8E60900DF3B7F /* LaunchScreen.storyboard */; };
@@ -166,11 +165,10 @@
 		1477B42D23B906B800373474 /* DiffableDataSources.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DiffableDataSources.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1477B42F23B906DE00373474 /* DiffableDataSources.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DiffableDataSources.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1477B43123B906DE00373474 /* DifferenceKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DifferenceKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1477B43723B9182000373474 /* GridViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewTests.swift; sourceTree = "<group>"; };
 		14B9585223B8DE3A00DF3B7F /* ListViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewTests.swift; sourceTree = "<group>"; };
 		14B9585423B8E07B00DF3B7F /* IBPCollectionViewCompositionalLayoutInteroperability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBPCollectionViewCompositionalLayoutInteroperability.swift; sourceTree = "<group>"; };
 		14B9585623B8E12400DF3B7F /* DiffableDataSourceInteroperability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffableDataSourceInteroperability.swift; sourceTree = "<group>"; };
-		14B9585F23B8E27F00DF3B7F /* UIKitInteroperability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitInteroperability.swift; sourceTree = "<group>"; };
-		14B9586323B8E35C00DF3B7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14B9586923B8E60700DF3B7F /* HostApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HostApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14B9586B23B8E60700DF3B7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14B9587423B8E60900DF3B7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -360,10 +358,9 @@
 			isa = PBXGroup;
 			children = (
 				14B9585223B8DE3A00DF3B7F /* ListViewTests.swift */,
+				1477B43723B9182000373474 /* GridViewTests.swift */,
 				14B9585423B8E07B00DF3B7F /* IBPCollectionViewCompositionalLayoutInteroperability.swift */,
 				14B9585623B8E12400DF3B7F /* DiffableDataSourceInteroperability.swift */,
-				14B9585F23B8E27F00DF3B7F /* UIKitInteroperability.swift */,
-				14B9586323B8E35C00DF3B7F /* Assets.xcassets */,
 			);
 			path = IBPCollectionViewCompositionalLayoutTests;
 			sourceTree = "<group>";
@@ -540,7 +537,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14B9586423B8E35C00DF3B7F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,9 +585,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				14B9585523B8E07B00DF3B7F /* IBPCollectionViewCompositionalLayoutInteroperability.swift in Sources */,
-				14B9586023B8E27F00DF3B7F /* UIKitInteroperability.swift in Sources */,
 				14B9585323B8DE3A00DF3B7F /* ListViewTests.swift in Sources */,
 				14B9585E23B8E21000DF3B7F /* DiffableDataSourceInteroperability.swift in Sources */,
+				1477B43823B9182000373474 /* GridViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

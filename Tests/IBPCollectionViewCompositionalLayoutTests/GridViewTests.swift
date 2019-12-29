@@ -1,9 +1,9 @@
 import XCTest
 import IBPCollectionViewCompositionalLayout
 
-class ListViewTests: XCTestCase {
+class GridViewTests: XCTestCase {
     func testViewController() {
-        let viewController = ListViewController()
+        let viewController = GridViewController()
 
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.rootViewController = viewController
@@ -12,7 +12,10 @@ class ListViewTests: XCTestCase {
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0))
 
         let collectionView = viewController.collectionView!
-        let height: CGFloat = 44
+        let fractionalWidth: CGFloat = 0.2
+        let numberOfColumns: CGFloat = floor(1 / fractionalWidth)
+        let width: CGFloat = window.bounds.width * fractionalWidth
+        let height = width
         let numberOfItems = collectionView.numberOfItems(inSection: 0)
 
         if #available(iOS 11.0, *) {
@@ -20,10 +23,10 @@ class ListViewTests: XCTestCase {
 
             XCTAssertEqual(collectionView.adjustedContentInset, safeAreaInsets)
             XCTAssertEqual(collectionView.contentOffset, CGPoint(x: -safeAreaInsets.left, y: -safeAreaInsets.top))
-            XCTAssertEqual(collectionView.contentSize, CGSize(width: window.bounds.width, height: height * CGFloat(numberOfItems)))
+            XCTAssertEqual(collectionView.contentSize, CGSize(width: window.bounds.width, height: ceil(CGFloat(numberOfItems) / numberOfColumns) * window.bounds.width * fractionalWidth))
 
             for case (let index, let cell as UICollectionViewCell) in collectionView.subviews.enumerated() {
-                XCTAssertEqual(cell.frame, CGRect(x: 0, y: CGFloat(index) * height, width: window.bounds.width, height: height))
+                XCTAssertEqual(cell.frame, CGRect(x: width * (CGFloat(index).truncatingRemainder(dividingBy: numberOfColumns)), y: height * floor(CGFloat(index) / numberOfColumns), width: width, height: height))
             }
         } else {
 
@@ -31,7 +34,7 @@ class ListViewTests: XCTestCase {
     }
 
     func testNavigationController() {
-        let viewController = ListViewController()
+        let viewController = GridViewController()
 
         let window = UIWindow(frame: UIScreen.main.bounds)
         let navigationController = UINavigationController(rootViewController: viewController)
@@ -41,7 +44,10 @@ class ListViewTests: XCTestCase {
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0))
 
         let collectionView = viewController.collectionView!
-        let height: CGFloat = 44
+        let fractionalWidth: CGFloat = 0.2
+        let numberOfColumns: CGFloat = floor(1 / fractionalWidth)
+        let width: CGFloat = window.bounds.width * fractionalWidth
+        let height = width
         let numberOfItems = collectionView.numberOfItems(inSection: 0)
 
         if #available(iOS 11.0, *) {
@@ -49,10 +55,10 @@ class ListViewTests: XCTestCase {
 
             XCTAssertEqual(collectionView.adjustedContentInset, safeAreaInsets)
             XCTAssertEqual(collectionView.contentOffset, CGPoint(x: -safeAreaInsets.left, y: -safeAreaInsets.top))
-            XCTAssertEqual(collectionView.contentSize, CGSize(width: window.bounds.width, height: height * CGFloat(numberOfItems)))
+            XCTAssertEqual(collectionView.contentSize, CGSize(width: window.bounds.width, height: ceil(CGFloat(numberOfItems) / numberOfColumns) * window.bounds.width * fractionalWidth))
 
             for case (let index, let cell as UICollectionViewCell) in collectionView.subviews.enumerated() {
-                XCTAssertEqual(cell.frame, CGRect(x: 0, y: CGFloat(index) * height, width: window.bounds.width, height: height))
+                XCTAssertEqual(cell.frame, CGRect(x: width * (CGFloat(index).truncatingRemainder(dividingBy: numberOfColumns)), y: height * floor(CGFloat(index) / numberOfColumns), width: width, height: height))
             }
         } else {
 
@@ -60,7 +66,7 @@ class ListViewTests: XCTestCase {
     }
 
     func testTabBarController() {
-        let viewController = ListViewController()
+        let viewController = GridViewController()
 
         let window = UIWindow(frame: UIScreen.main.bounds)
         let tabBarController = UITabBarController()
@@ -71,7 +77,10 @@ class ListViewTests: XCTestCase {
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0))
 
         let collectionView = viewController.collectionView!
-        let height: CGFloat = 44
+        let fractionalWidth: CGFloat = 0.2
+        let numberOfColumns: CGFloat = floor(1 / fractionalWidth)
+        let width: CGFloat = window.bounds.width * fractionalWidth
+        let height = width
         let numberOfItems = collectionView.numberOfItems(inSection: 0)
 
         if #available(iOS 11.0, *) {
@@ -79,10 +88,10 @@ class ListViewTests: XCTestCase {
 
             XCTAssertEqual(collectionView.adjustedContentInset, safeAreaInsets)
             XCTAssertEqual(collectionView.contentOffset, CGPoint(x: -safeAreaInsets.left, y: -safeAreaInsets.top))
-            XCTAssertEqual(collectionView.contentSize, CGSize(width: window.bounds.width, height: height * CGFloat(numberOfItems)))
+            XCTAssertEqual(collectionView.contentSize, CGSize(width: window.bounds.width, height: ceil(CGFloat(numberOfItems) / numberOfColumns) * window.bounds.width * fractionalWidth))
 
             for case (let index, let cell as UICollectionViewCell) in collectionView.subviews.enumerated() {
-                XCTAssertEqual(cell.frame, CGRect(x: 0, y: CGFloat(index) * height, width: window.bounds.width, height: height))
+                XCTAssertEqual(cell.frame, CGRect(x: width * (CGFloat(index).truncatingRemainder(dividingBy: numberOfColumns)), y: height * floor(CGFloat(index) / numberOfColumns), width: width, height: height))
             }
         } else {
 
@@ -90,7 +99,7 @@ class ListViewTests: XCTestCase {
     }
 
     func testNavigationControllerInTabBarController() {
-        let viewController = ListViewController()
+        let viewController = GridViewController()
 
         let window = UIWindow(frame: UIScreen.main.bounds)
         let navigationController = UINavigationController(rootViewController: viewController)
@@ -102,7 +111,10 @@ class ListViewTests: XCTestCase {
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0))
 
         let collectionView = viewController.collectionView!
-        let height: CGFloat = 44
+        let fractionalWidth: CGFloat = 0.2
+        let numberOfColumns: CGFloat = floor(1 / fractionalWidth)
+        let width: CGFloat = window.bounds.width * fractionalWidth
+        let height = width
         let numberOfItems = collectionView.numberOfItems(inSection: 0)
 
         if #available(iOS 11.0, *) {
@@ -110,10 +122,10 @@ class ListViewTests: XCTestCase {
 
             XCTAssertEqual(collectionView.adjustedContentInset, safeAreaInsets)
             XCTAssertEqual(collectionView.contentOffset, CGPoint(x: -safeAreaInsets.left, y: -safeAreaInsets.top))
-            XCTAssertEqual(collectionView.contentSize, CGSize(width: window.bounds.width, height: height * CGFloat(numberOfItems)))
+            XCTAssertEqual(collectionView.contentSize, CGSize(width: window.bounds.width, height: ceil(CGFloat(numberOfItems) / numberOfColumns) * window.bounds.width * fractionalWidth))
 
             for case (let index, let cell as UICollectionViewCell) in collectionView.subviews.enumerated() {
-                XCTAssertEqual(cell.frame, CGRect(x: 0, y: CGFloat(index) * height, width: window.bounds.width, height: height))
+                XCTAssertEqual(cell.frame, CGRect(x: width * (CGFloat(index).truncatingRemainder(dividingBy: numberOfColumns)), y: height * floor(CGFloat(index) / numberOfColumns), width: width, height: height))
             }
         } else {
 
@@ -121,7 +133,7 @@ class ListViewTests: XCTestCase {
     }
 }
 
-class ListViewController: UIViewController {
+class GridViewController: UIViewController {
     enum Section {
         case main
     }
@@ -131,18 +143,18 @@ class ListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "List"
+        navigationItem.title = "Grid"
         configureHierarchy()
         configureDataSource()
     }
 }
 
-extension ListViewController {
+extension GridViewController {
     private func createLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.2), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(44))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.2))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
@@ -152,14 +164,14 @@ extension ListViewController {
     }
 }
 
-extension ListViewController {
+extension GridViewController {
     private func configureHierarchy() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: String(describing: UICollectionViewCell.self))
         view.addSubview(collectionView)
     }
-
+    
     private func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Int>(collectionView: collectionView) { (collectionView, indexPath, identifier) in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: UICollectionViewCell.self), for: indexPath)
