@@ -1,0 +1,1 @@
+../../Example/Example/DiffableDataSourceInteroperability.swift

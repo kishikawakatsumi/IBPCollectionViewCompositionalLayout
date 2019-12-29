@@ -43,6 +43,8 @@
 		149FA99C230ECB740065AD4D /* InsertionSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FA996230ECB740065AD4D /* InsertionSortViewController.swift */; };
 		149FA99D230ECE850065AD4D /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FA990230ECB5F0065AD4D /* LabelCell.swift */; };
 		149FA99F230ECEC90065AD4D /* InsertionSortArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FA99E230ECEC80065AD4D /* InsertionSortArray.swift */; };
+		14B9585923B8E18900DF3B7F /* DiffableDataSourceInteroperability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9585823B8E18900DF3B7F /* DiffableDataSourceInteroperability.swift */; };
+		14B9586223B8E2BF00DF3B7F /* UIKitInteroperability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9586123B8E2BF00DF3B7F /* UIKitInteroperability.swift */; };
 		14B9A037232FD4450047F51E /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9A029232FD4450047F51E /* GalleryViewController.swift */; };
 		14B9A038232FD4450047F51E /* WaterfallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9A02A232FD4450047F51E /* WaterfallViewController.swift */; };
 		14B9A039232FD4450047F51E /* MosaicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9A02B232FD4450047F51E /* MosaicViewController.swift */; };
@@ -173,6 +175,8 @@
 		149FA995230ECB740065AD4D /* MountainsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MountainsViewController.swift; sourceTree = "<group>"; };
 		149FA996230ECB740065AD4D /* InsertionSortViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsertionSortViewController.swift; sourceTree = "<group>"; };
 		149FA99E230ECEC80065AD4D /* InsertionSortArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsertionSortArray.swift; sourceTree = "<group>"; };
+		14B9585823B8E18900DF3B7F /* DiffableDataSourceInteroperability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffableDataSourceInteroperability.swift; sourceTree = "<group>"; };
+		14B9586123B8E2BF00DF3B7F /* UIKitInteroperability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitInteroperability.swift; sourceTree = "<group>"; };
 		14B9A029232FD4450047F51E /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		14B9A02A232FD4450047F51E /* WaterfallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterfallViewController.swift; sourceTree = "<group>"; };
 		14B9A02B232FD4450047F51E /* MosaicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MosaicViewController.swift; sourceTree = "<group>"; };
@@ -260,6 +264,8 @@
 				143A2D9122F9D00200F8904D /* AppDelegate.swift */,
 				143A2D9322F9D00200F8904D /* ViewController.swift */,
 				1428D81B22FEF8EF000BE7BB /* IBPCollectionViewCompositionalLayoutInteroperability.swift */,
+				14B9585823B8E18900DF3B7F /* DiffableDataSourceInteroperability.swift */,
+				14B9586123B8E2BF00DF3B7F /* UIKitInteroperability.swift */,
 				143A2D9522F9D00200F8904D /* Main.storyboard */,
 				143A2D9A22F9D00300F8904D /* LaunchScreen.storyboard */,
 				143A2D9822F9D00300F8904D /* Assets.xcassets */,
@@ -642,6 +648,7 @@
 				143A2DF022F9D82300F8904D /* TextCell.swift in Sources */,
 				14B9A038232FD4450047F51E /* WaterfallViewController.swift in Sources */,
 				14B9A0B5232FD8730047F51E /* CheckmarkView.swift in Sources */,
+				14B9585923B8E18900DF3B7F /* DiffableDataSourceInteroperability.swift in Sources */,
 				14B9A09F232FD8550047F51E /* ListViewController2.swift in Sources */,
 				149FA998230ECB740065AD4D /* MountainsRawData.swift in Sources */,
 				143A2DFB22F9DE4900F8904D /* OrthogonalScrollingViewController.swift in Sources */,
@@ -658,6 +665,7 @@
 				143A2DDB22F9D73700F8904D /* AdaptiveSectionsViewController.swift in Sources */,
 				14B9A0A5232FD8550047F51E /* EstimatedListViewController.swift in Sources */,
 				143A2DED22F9D82300F8904D /* TitleSupplementaryView.swift in Sources */,
+				14B9586223B8E2BF00DF3B7F /* UIKitInteroperability.swift in Sources */,
 				149FA99B230ECB740065AD4D /* MountainsViewController.swift in Sources */,
 				14B9A045232FD4A00047F51E /* OutlineItemCell.swift in Sources */,
 				143A2DDA22F9D73700F8904D /* TwoColumnViewController.swift in Sources */,
