@@ -387,7 +387,10 @@
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     NSArray<IBPCollectionCompositionalLayoutSolverResult *> *results = self.results;
     NSInteger count = results.count;
-
+    if (count == 0) {
+        return nil;
+    }
+    
     CGFloat interGroupSpacing = self.layoutSection.interGroupSpacing;
     CGPoint offset = CGPointZero;
 
@@ -416,6 +419,10 @@
 
 - (IBPNSCollectionLayoutItem *)layoutItemAtIndexPath:(NSIndexPath *)indexPath {
     NSArray<IBPCollectionCompositionalLayoutSolverResult *> *results = self.results;
+    if (results.count == 0) {
+        return nil;
+    }
+    
     IBPCollectionCompositionalLayoutSolverResult *result = [results objectAtIndex:indexPath.item % results.count];
     return result.layoutItem;
 }
