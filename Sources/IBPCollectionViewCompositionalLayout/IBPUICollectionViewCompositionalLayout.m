@@ -497,15 +497,6 @@
     scrollView.showsVerticalScrollIndicator = NO;
 	scrollView.clipsToBounds = NO;
     scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    
-    switch (configuration.scrollDirection) {
-        case UICollectionViewScrollDirectionVertical:
-            scrollView.alwaysBounceHorizontal = NO;
-            break;
-        case UICollectionViewScrollDirectionHorizontal:
-            scrollView.alwaysBounceVertical = NO;
-            break;
-    }
 
     switch (section.orthogonalScrollingBehavior) {
         case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone:
