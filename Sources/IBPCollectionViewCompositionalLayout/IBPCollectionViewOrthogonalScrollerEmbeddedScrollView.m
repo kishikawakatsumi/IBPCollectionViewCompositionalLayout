@@ -6,8 +6,4 @@
 
 @implementation IBPCollectionViewOrthogonalScrollerEmbeddedScrollView
 
-- (void)setFrame:(CGRect)frame {
-    [super setFrame:frame];
-}
-
 @end
