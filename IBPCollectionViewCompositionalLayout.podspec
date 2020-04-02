@@ -8,6 +8,7 @@ Pod::Spec.new do |s|
                             DESC
   s.homepage              = "https://github.com/kishikawakatsumi/#{s.name}"
   s.ios.deployment_target = '10.0'
+  s.tvos.deployment_target = '11.0'
   s.source_files          = 'Sources/**/*.{h,m}'
   s.public_header_files   = "Sources/#{s.name}/include/*.h"
   s.frameworks            = 'UIKit'
