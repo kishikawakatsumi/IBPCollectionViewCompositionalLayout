@@ -266,11 +266,11 @@
             if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
                 scrollViewFrame.origin.y = sectionOrigin.y + layoutSection.contentInsets.top;
                 scrollViewFrame.size.width = collectionContainer.contentSize.width;
-                scrollViewFrame.size.height = MIN(solver.layoutFrame.size.height, collectionContainer.contentSize.height);
+                scrollViewFrame.size.height = solver.layoutFrame.size.height;
             }
             if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
                 scrollViewFrame.origin.x = sectionOrigin.x + layoutSection.contentInsets.leading;
-                scrollViewFrame.size.width = MIN(solver.layoutFrame.size.width, collectionContainer.contentSize.width);
+                scrollViewFrame.size.width = solver.layoutFrame.size.width;
                 scrollViewFrame.size.height = collectionContainer.contentSize.height;
             }
             scrollView.frame = scrollViewFrame;
@@ -496,6 +496,16 @@
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.showsVerticalScrollIndicator = NO;
 	scrollView.clipsToBounds = NO;
+    scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    
+    switch (configuration.scrollDirection) {
+        case UICollectionViewScrollDirectionVertical:
+            scrollView.alwaysBounceHorizontal = NO;
+            break;
+        case UICollectionViewScrollDirectionHorizontal:
+            scrollView.alwaysBounceVertical = NO;
+            break;
+    }
 
     switch (section.orthogonalScrollingBehavior) {
         case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone:
