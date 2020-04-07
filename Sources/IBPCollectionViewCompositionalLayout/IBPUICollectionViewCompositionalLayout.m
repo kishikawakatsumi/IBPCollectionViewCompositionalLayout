@@ -496,6 +496,7 @@
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.showsVerticalScrollIndicator = NO;
 	scrollView.clipsToBounds = NO;
+    scrollView.bounces = NO;
 
     switch (section.orthogonalScrollingBehavior) {
         case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone:
