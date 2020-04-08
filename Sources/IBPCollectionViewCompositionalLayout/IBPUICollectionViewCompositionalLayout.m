@@ -496,7 +496,8 @@
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.showsVerticalScrollIndicator = NO;
 	scrollView.clipsToBounds = NO;
-
+    
+#if !TARGET_OS_TV
     switch (section.orthogonalScrollingBehavior) {
         case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorNone:
         case IBPUICollectionLayoutSectionOrthogonalScrollingBehaviorContinuous:
@@ -515,6 +516,7 @@
             scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
             break;
     }
+#endif
 
     return scrollView;
 }
