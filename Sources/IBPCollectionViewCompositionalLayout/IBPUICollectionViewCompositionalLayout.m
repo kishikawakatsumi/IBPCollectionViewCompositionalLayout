@@ -668,6 +668,7 @@
 
                     [layoutAttributes addObject:attributes];
                 }];
+                [cell removeFromSuperview];
 
                 continue;
             }
