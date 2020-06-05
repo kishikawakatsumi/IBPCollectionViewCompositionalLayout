@@ -526,7 +526,51 @@
                                                                                                                         withIndexPath:indexPath];
     IBPNSCollectionLayoutContainer *itemContainer = [[IBPNSCollectionLayoutContainer alloc] initWithContentSize:containerFrame.size
                                                                                                   contentInsets:IBPNSDirectionalEdgeInsetsZero];
-    CGSize itemSize = [boundaryItem.layoutSize effectiveSizeForContainer:itemContainer];
+    IBPNSCollectionLayoutSize *layoutSize = boundaryItem.layoutSize;
+    CGSize itemSize;
+
+    if (layoutSize.heightDimension.isEstimated || layoutSize.widthDimension.isEstimated) {
+        UICollectionReusableView *view = [self.collectionView.dataSource collectionView:self.collectionView
+                                                      viewForSupplementaryElementOfKind:boundaryItem.elementKind
+                                                                            atIndexPath:indexPath];
+
+        if (view) {
+            CGSize containerSize = self.collectionViewContentSize;
+
+            if (!layoutSize.widthDimension.isEstimated) {
+                containerSize.width = CGRectGetWidth(containerFrame);
+            }
+            if (!layoutSize.heightDimension.isEstimated) {
+                containerSize.height = CGRectGetHeight(containerFrame);
+            }
+
+            CGFloat containerWidth = containerSize.width;
+            CGFloat containerHeight = containerSize.height;
+
+            CGRect viewFrame = view.frame;
+            viewFrame.size = containerSize;
+            view.frame = viewFrame;
+            [view setNeedsLayout];
+            [view layoutIfNeeded];
+
+            CGSize fitSize;
+            if (layoutSize.widthDimension.isEstimated) {
+                fitSize = [view systemLayoutSizeFittingSize:containerSize
+                              withHorizontalFittingPriority:UILayoutPriorityFittingSizeLevel
+                                    verticalFittingPriority:UILayoutPriorityRequired];
+                fitSize.height = containerHeight;
+            } else {
+                fitSize = [view systemLayoutSizeFittingSize:containerSize
+                              withHorizontalFittingPriority:UILayoutPriorityRequired
+                                    verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
+                fitSize.width = containerWidth;
+            }
+
+            itemSize = fitSize;
+        }
+    } else {
+        itemSize = [boundaryItem.layoutSize effectiveSizeForContainer:itemContainer];
+    }
 
     IBPNSCollectionLayoutAnchor *containerAnchor;
     switch (boundaryItem.alignment) {
