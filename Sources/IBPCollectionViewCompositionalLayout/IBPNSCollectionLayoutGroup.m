@@ -13,7 +13,7 @@
 
 + (instancetype)horizontalGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                      subitems:(NSArray<IBPNSCollectionLayoutItem *> *)subitems {
-    if (@available(iOS 13, *)) {
+    if (@available(iOS 13, tvOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutGroup") horizontalGroupWithLayoutSize:layoutSize subitems:subitems];
     } else {
         return [[self alloc] initWithSize:layoutSize
@@ -33,7 +33,7 @@
 + (instancetype)horizontalGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                       subitem:(IBPNSCollectionLayoutItem *)subitem
                                         count:(NSInteger)count {
-    if (@available(iOS 13, *)) {
+    if (@available(iOS 13, tvOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutGroup") horizontalGroupWithLayoutSize:layoutSize subitem:subitem count:count];
     } else {
         return [[self alloc] initWithSize:layoutSize
@@ -52,7 +52,7 @@
 
 + (instancetype)verticalGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                    subitems:(NSArray<IBPNSCollectionLayoutItem *> *)subitems {
-    if (@available(iOS 13, *)) {
+    if (@available(iOS 13, tvOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutGroup") verticalGroupWithLayoutSize:layoutSize subitems:subitems];
     } else {
         return [[self alloc] initWithSize:layoutSize subitems:subitems
@@ -71,7 +71,7 @@
 + (instancetype)verticalGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                     subitem:(IBPNSCollectionLayoutItem *)subitem
                                       count:(NSInteger)count {
-    if (@available(iOS 13, *)) {
+    if (@available(iOS 13, tvOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutGroup") verticalGroupWithLayoutSize:layoutSize subitem:subitem count:count];
     } else {
         return [[self alloc] initWithSize:layoutSize subitems:@[subitem]
@@ -88,7 +88,7 @@
 }
 
 + (instancetype)customGroupWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize itemProvider:(IBPNSCollectionLayoutGroupCustomItemProvider)itemProvider {
-    if (@available(iOS 13, *)) {
+    if (@available(iOS 13, tvOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutGroup") customGroupWithLayoutSize:layoutSize itemProvider:itemProvider];
     } else {
         return [[self alloc] initWithSize:layoutSize subitems:@[]

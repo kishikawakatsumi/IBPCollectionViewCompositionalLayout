@@ -6,7 +6,7 @@
 + (instancetype)supplementaryItemWithLayoutSize:(IBPNSCollectionLayoutSize *)layoutSize
                                     elementKind:(NSString *)elementKind
                                 containerAnchor:(IBPNSCollectionLayoutAnchor *)containerAnchor {
-    if (@available(iOS 13, *)) {
+    if (@available(iOS 13, tvOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutSupplementaryItem") supplementaryItemWithLayoutSize:layoutSize
                                                                                               elementKind:elementKind
                                                                                           containerAnchor:containerAnchor];
@@ -24,7 +24,7 @@
                                     elementKind:(NSString *)elementKind
                                 containerAnchor:(IBPNSCollectionLayoutAnchor *)containerAnchor
                                      itemAnchor:(IBPNSCollectionLayoutAnchor *)itemAnchor {
-    if (@available(iOS 13, *)) {
+    if (@available(iOS 13, tvOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutSupplementaryItem") supplementaryItemWithLayoutSize:layoutSize
                                                                                               elementKind:elementKind
                                                                                           containerAnchor:containerAnchor

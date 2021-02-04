@@ -10,7 +10,7 @@
 @implementation IBPNSCollectionLayoutGroupCustomItem
 
 + (instancetype)customItemWithFrame:(CGRect)frame {
-    if (@available(iOS 13, *)) {
+    if (@available(iOS 13, tvOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutGroupCustomItem") customItemWithFrame:frame];
     } else {
         return [self customItemWithFrame:frame zIndex:0];
@@ -18,7 +18,7 @@
 }
 
 + (instancetype)customItemWithFrame:(CGRect)frame zIndex:(NSInteger)zIndex {
-    if (@available(iOS 13, *)) {
+    if (@available(iOS 13, tvOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutGroupCustomItem") customItemWithFrame:frame zIndex:zIndex];
     } else {
         return [[self alloc] initWithFrame:frame zIndex:zIndex];

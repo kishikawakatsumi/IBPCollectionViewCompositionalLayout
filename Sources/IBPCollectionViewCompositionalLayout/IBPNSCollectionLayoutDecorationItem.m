@@ -9,7 +9,7 @@
 @implementation IBPNSCollectionLayoutDecorationItem
 
 + (instancetype)backgroundDecorationItemWithElementKind:(NSString *)elementKind {
-    if (@available(iOS 13, *)) {
+    if (@available(iOS 13, tvOS 13, *)) {
         return [NSClassFromString(@"NSCollectionLayoutDecorationItem") backgroundDecorationItemWithElementKind:elementKind];
     } else {
         return [[self alloc] initWithElementKind:elementKind];
