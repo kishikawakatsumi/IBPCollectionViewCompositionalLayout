@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                  = 'IBPCollectionViewCompositionalLayout'
-  s.version               = '0.6.7'
+  s.version               = '0.6.9'
   s.summary               = 'Backport of UICollectionViewCompositionalLayout to earlier iOS 12.'
   s.description           = <<-DESC
                               A new UICollectionViewCompositionalLayout class has been added to UIKit to make it incredibly easier to create custom complex collection view layout.

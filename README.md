@@ -9,6 +9,7 @@
   <a href="https://github.com/Carthage/Carthage"><img alt="Carthage" src="https://img.shields.io/badge/carthage-compatible-yellow.svg"/></a>
   <a href="https://swift.org/package-manager/"><img src="https://img.shields.io/badge/SPM-ready-orange.svg"></a>
   <a href="https://github.com/kishikawakatsumi/IBPCollectionViewCompositionalLayout/blob/master/LICENSE"><img alt="MIT License" src="http://img.shields.io/badge/license-MIT-blue.svg"/></a>
+  <a href="https://app.bitrise.io/app/c67d276c5028828b#/builds"><img alt="Bitrise" src="https://app.bitrise.io/app/c67d276c5028828b/status.svg?token=HeF4Pq3WkA8WUQ_rNhmE7Q&branch=master"/></a>
 </p>
 
 ----------------
